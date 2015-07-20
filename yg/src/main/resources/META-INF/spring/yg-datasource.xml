@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<context:property-placeholder location="classpath:/META-INF/properties/db.properties" />
+	
+	<!-- mybatis 설정
+		1. Connection Pool 만들기
+		2. SqlSessionFactory 만들어주는 SqlSessionFactoryBean 등록하기
+		3. xxxDao 인터페이스들 스캔해서 구현객체 만드는 MapperScannerConfigurer 등록하기
+	 -->
+	<bean id="connectionPool" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.className}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="connectionPool" />
+		<property name="configLocation" value="classpath:/META-INF/mybatis/mybatis-config.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.co.yg.dao" />
+	</bean>
+
+</beans>
