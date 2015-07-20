@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>여기저기 메인입니다.</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../css/ihover.min.css">
+<link rel="stylesheet" href="../css/index.css">
+<style type="text/css">
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.hand {cursor: pointer;}
+
+.container-fluid {
+	border: 1px solid black;
+}
+
+/* =============================== */
+h1, h2, h3, h4, h5, h6 {
+	margin:0;
+	padding:0;
+	font-family: 'Nanum Gothic', Dotum, sans-serif;
+	font-weight: normal;
+	font-weight: 700;
+}
+/* 
+.container-fluid {
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: auto;
+	z-index: 1001;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+}
+ */
+.container-fluid ul,
+.container-fluid dl {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.container-fluid dt,
+.container-fluid dd {
+	margin: 0;
+	padding: 0;
+}
+.container-fluid {
+	width: 100%;
+	float: left;
+	text-align: center;
+	background: #fff;
+}
+/* why .container-fluid .section_wrap { width: 1040px; margin: 0 auto; } */
+.container-fluid h2 {
+	width: 100%;
+	float: left;
+}
+.container-fluid h3 {
+	width: 100%;
+	float: left;
+	font-size: 11px;
+	color: #768082;
+	margin-top: 23px;
+	font-weight: normal;
+}
+
+/* ============================== main-tour ============================== */
+.main-tour {
+	padding: 120px 0 55px 0;
+	background: url(../images/bg_main_top2.jpg) center no-repeat;
+	background-size: cover;
+}
+
+.main-tour h1 {
+	margin-top: 15px;
+}
+
+
+.main-tour h1 span {
+	font-family:'NGBold', sans-serif;
+	font-size: 52px;
+	color: #fff;
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+	background: rgba(200,200,200,0.3);
+}
+.main-tour .sub_title {
+	display: inline-block;
+	width: 350px;
+	padding: 8px;
+	background:rgba(255,255,255,0.8);
+	color: #010101;
+}
+.main-tour .main_btn {
+	width: 100%;
+	float: left;
+	display: inline-block;
+	margin-top: 63px;
+}
+.main-tour .main_btn li {
+	margin: 0 7px;
+	display: inline-block;
+	-moz-border-radius: 	0.4em;
+	-webkit-border-radius: 	0.4em;
+	border-radius: 			0.4em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+.main-tour .main_btn li.pink {
+	background: #ff6a7d;
+}
+.main-tour .main_btn li.sky {
+	background: #22becb;
+}
+.main-tour .main_btn li span {
+	font-family:'NGBold', sans-serif;
+	font-weight:bolder;
+	display: inline-block;
+	font-size: 18px;
+	padding: 18px 52px 18px 35px;
+	background: url(../images/arrow_main_btn.png) 92% center no-repeat;
+	color: #fff;
+}
+
+/* ============================== 추천일정 ============================== */
+.main-plan {
+	padding: 40px 0 50px 0;
+}
+.main-plan h2 .small-title {
+	font-size: 14px !important;
+	color: #000;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+.main-plan .body {
+	padding: 50px 0 12px 0;
+	width: 100%;
+	margin: 0 auto;
+}
+.main-plan .body .daycontents_wrap {
+	width: 90%;
+	margin: 0 auto;
+}
+.main-plan .travelog_cols {
+	width: 100%;
+	float: left;
+	margin-top: 53px;
+}
+.main-plan .travelog_cols .travellog {
+	float: left;
+	width: 22%;
+	margin-right: 4%;
+	text-align: left;
+}
+.main-plan .section.travelog .desc {
+	color: #000;
+	font-size: 14px;
+	padding: 0;
+
+}
+.main-plan .section.travelog .travelog_cols .travellog {
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+.main-plan .travellog .inbox.boxShadowTiny,
+.main-plan .travellog .inbox.boxShadowTinyOver {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.main-plan .travelog_cols .travellog:last-child {
+	margin-right: 0;
+}
+.main-plan .mask				{  /* position:absolute; left:0px;  bottom:0px; width:226px; height:100%; min-height:186px; background-image: url(../_images/post_photo_mask.png); background-repeat: repeat-x; background-position: bottom;*/ }
+.main-plan .user 				{ position: absolute; bottom:22px; left:70px; color:#fff; padding:5px; }
+.main-plan .user .date 		{ width:130px; margin-bottom:3px; font-size:9px; color:#fff; font-family:'NGBold' !important; text-align:left; vertical-align:middle;}
+.main-plan .user .t-name		{ width:130px; font-size:12px; color:#fff; font-family:'NGBold' !important; text-align:left; vertical-align:middle; }
+.main-plan .title 			{ position:relative; padding:10% 5% 70% 5%; font-size:17px; color:#fff; font-family:'NGBold' !important; line-height:20px;letter-spacing:0px; text-shadow:0 1px 1px #333; }
+.main-plan .myTravelLog		{ position: relative; width: 100%; height: 150px; background: #f4f4f4 url(../_images/mytravelog_cover_default.png) center no-repeat; background-size: cover; margin-bottom: 10px; }
+.main-plan .body .date		{ padding:5px 0; color: #abb1b5; font-size: .8em; }
+.main-plan .body .desc		{ padding:10px 0; color: #393f48; line-height: 1.5em; font-size: 1.2em; word-break: break-all;}
+.main-plan .body  span		{ font-size: 0.9em; color:#abb1b5; word-break: break-all; }
+.main-plan .body .reviewPlace { margin-top: 10px; border-top: 1px dashed #f1f1f1; padding-top: 10px; }
+.main-plan .photolog-photo				{ position:relative; margin-left:-10px; margin-top:-13px; width:225px; height:225px; }
+.main-plan .photolog-body					{ position:relative; margin-left:-10px; width:225px;}
+.main-plan .photolog-body .photolog-title { position:relative; padding:20px 15px;  font-size:15px; color:#000; font-family:'Roboto-Bold' !important; letter-spacing:0px;  text-align:center; word-break:break-all; }
+.main-plan .photolog-body .photolog-city	{ position:relative; padding:0 15px 5px 15px; font-size:12px; color:#099; font-family:'codropsicons' !important; letter-spacing:0px;  text-align:center; word-break:break-all; }
+.main-plan .photolog-body .photolog-day	{ position:relative; padding:0 15px 15px 15px; font-size:11px; color:#999; font-family:'codropsicons' !important; letter-spacing:0px;  text-align:center; }
+.main-plan .travelog_cols .travellog .inbox .type_band {
+	width: 73px;
+	height: 18px;
+	top: 16px;
+	left: 14px;
+	line-height: 18px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: center;
+	background-color: #fd6482;
+	-moz-border-radius: 	0.2em;
+	-webkit-border-radius: 	0.2em;
+	border-radius: 			0.2em;
+	z-index: 5;
+}
+.main-plan .travelog_cols .travellog.type_1 .inbox .type_band {
+	background-color: #fd6482;
+}
+.main-plan .travelog_cols .travellog.type_2 .inbox .type_band {
+	background-color: #00ba9d;
+}
+.main-plan .travelog_cols .travellog.type_3 .inbox .type_band {
+	background-color: #22becb;
+}
+.main-plan .travelog_cols .travellog.type_4 .inbox .type_band {
+	background-color: #7078b6;
+}
+.main-plan .travelog_cols .travellog.type_5 .inbox .type_band {
+	background-color: #7078b6;
+}
+.main-plan .travelog_cols .travellog.type_6 .inbox .type_band {
+	background-color: #7078b6;
+}
+.main-plan .travelog_cols .inbox .image {
+	background: url(../_images/noimage.png) center no-repeat;
+	background-size: 80%;
+}
+.main-plan .travelog_cols .travellog .inbox .body {
+	width: 100%;
+}
+.main-plan .travelog_cols .travellog .inbox .desc {
+	color: #000;
+	font-size: 14px;
+	padding: 0;
+	font-family:'NanumBarunGothic', sans-serif;
+}
+.main-plan .travelog_cols .travellog .inbox .userName {
+	margin-top: 20px;
+	font-size: .9em;
+}
+.main-plan .travelog_cols .travellog .cnts {
+	display: block;
+	padding-top: 4px;
+	font-size: 10px;
+	color: #394048;
+	border-top: solid 1px #e7e7e7;
+}
+.main-plan .travelog_cols .travellog .inbox .photo_cnt {
+	padding: 0 5px;
+	width: auto;
+	height: 18px;
+	top: 16px;
+	left: 86px;
+	line-height: 18px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: center;
+	background-color: #000;
+	-moz-border-top-right-radius:		0.2em;
+	-moz-border-bottom-right-radius:	0.2em;
+	-webkit-border-top-right-radius:	0.2em;
+	-webkit-border-bottom-right-radius:	0.2em;
+	border-top-right-radius:			0.2em;
+	border-bottom-right-radius:			0.2em;
+	z-index: 5;
+}
+.main-plan .photolog-photo {
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	margin: 0 auto;
+}
+.main-plan .photolog-body {
+	margin-left: 0;
+	width: 100%;
+	margin-top: 0;
+}
+.main-plan .photolog-body .photolog-title {
+	text-align: left;
+}
+.main-plan .photolog-body .photolog-day {
+	text-align: left;
+}
+</style>
+<script type="text/javascript" src="../js/jquery/jquery-1.11.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">이미지</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">여기추천</a></li>
+					<li><a href="#about">저기가자</a></li>
+					<li><a href="#contact">같이보자</a></li>
+				</ul>
+				<div class="navbar-right">
+					<form class="navbar-form">
+						<a href="" class="btn btn-default">로그인</a>
+						<!-- <a href="" class="btn btn-default">로그아웃</a> -->
+						<a href="" class="btn btn-default">회원가입</a>
+						<div class="form-group">
+							<input type="text" placeholder="가고싶은 곳을 찾아보세요." class="form-control">
+						</div>
+						<button type="submit" class="btn btn-default">검색</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container-fluid">
+		<div class="jumbotron">
+			<h1>Theme example</h1>
+			<p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more
+				unique by building on or modifying it.</p>
+		</div>
+	</div>
+	
+	<div class="container-fluid main-tour">
+		<span class="sub_title">나만의 여행을 만들어 보세요!</span>
+		<h1><span>미리 떠나는 나만의 여행<br />시작해 볼까요?</span></h1>
+		<ul class="main_btn">
+			<li class="pink"><span class="hand">여기추천</span></li>
+			<li class="sky"><span class="hand">저기가자</span></li>
+		</ul>
+	</div>
+	
+	<!-- From top and bottom-->
+	<div class="row">
+		<div class="col-md-3">
+
+			<!-- normal -->
+			<div class="ih-item square effect6 from_top_and_bottom">
+				<a href="#">
+					<div class="img">
+						<img alt="" src="../images/test.jpg" />
+						<!-- 
+						<div style='background: url("http://img4.tourplanb.com/_html/loading.php?idx=890752&amp;amp;tb=1&amp;amp;ws=230&amp;amp;hs=230") no-repeat center/cover; left: 0px; top: 0px; height: 230px; right: 0px; z-index: 2;'>
+						</div>
+						 -->
+					</div>
+					<div class="info">
+						<h3>Heading here</h3>
+						<p>Description goes here</p>
+					</div>
+				</a>
+			</div>
+			<!-- end normal -->
+
+		</div>
+		<div class="col-md-3">
+
+			<!-- colored -->
+			<div class="ih-item square colored effect6 from_top_and_bottom">
+				<a href="#">
+					<div class="img">
+						<img alt="" src="../images/test.jpg" />
+					</div>
+					<div class="info">
+						<h3>Heading here</h3>
+						<p>
+						Description goes here
+						</p>
+					</div>
+				</a>
+			</div>
+			<!-- end colored -->
+
+		</div>
+	</div>
+	<!-- end From top and bottom-->
+	
+	<div class="container-fluid main-plan">
+		<div class="section_wrap">
+			<h2>
+				<span class="small-title">추천일정</span><br>
+				<img src="../images/title_travelog.png">
+			</h2>
+			<h3>여기저기 사용자들의 알찬 여행정보를 공유합니다.</h3>
+			
+			<div class="travelog_cols">
+				<div class="travellog type_1 posRelative" style="margin-bottom: 40px;" data-idx="755">
+					<div class="inbox backFFF boxShadowTiny" style="cursor: pointer;">
+						<div class="posAbsolute type_band">PLAN</div>
+						<div class="image posAbsolute"
+							style='background: url("http://img4.tourplanb.com/_html/loading.php?idx=890752&amp;amp;tb=1&amp;amp;ws=230&amp;amp;hs=230") no-repeat center/cover; left: 0px; top: 0px; height: 230px; right: 0px; z-index: 2;'>
+						</div>
+						<div class="overbox blackOpacity50 posAbsolute" style="left: 0px; top: 0px; height: 230px; right: 0px; z-index: 6; opacity: 0;">
+							<div class="posAbsolute" style="padding: 15px 15px 10px; bottom: 0px;">
+								<div class="colorFFF">Santa Barbara</div>
+								<div class="colorBlueTeal">5 days / 23 places</div>
+								<div class="colorFFF paddingTop7" style="-ms-word-break: break-all;"></div>
+							</div>
+						</div>
+						<div class="body" style="padding-top: 240px;">
+							<div class="desc">
+								산타바바라 자연과 하나되는 여행, 산~타 봐봐라! <br>
+								<span class="colorBlueTeal">Santa Barbara</span>
+							</div>
+							<div class="userName" data-uno="1352">
+								<span>Taekyoung Lee</span>
+							</div>
+							<div class="date">2014.08.05 20:42</div>
+						</div>
+					</div>
+					<div class="cnts">
+						<span class="hand like">좋아요 9</span>&nbsp;&nbsp;<span class="hand review">리뷰 0</span>
+					</div>
+				</div>
+				<div class="travellog type_2 posRelative" style="margin-bottom: 40px;" data-idx="23077">
+					<div class="inbox backFFF boxShadowTiny" style="cursor: pointer;">
+						<div class="posAbsolute type_band">PLACE</div>
+						<div class="image posAbsolute"
+							style='background: url("http://img3.tourplanb.com/_html/loading.php?idx=130864&amp;amp;tb=1&amp;amp;ws=230&amp;amp;hs=230") no-repeat center/cover; left: 0px; top: 0px; height: 230px; right: 0px; z-index: 2;'>
+						</div>
+						<div class="overbox blackOpacity50 posAbsolute" style="left: 0px; top: 0px; height: 230px; right: 0px; z-index: 6; opacity: 0;">
+							<div class="posAbsolute" style="padding: 15px 15px 10px; bottom: 0px;">
+								<div></div>
+								<div class="colorFFF paddingTop7" style="-ms-word-break: break-all;">연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때
+									가격</div>
+							</div>
+						</div>
+						<div class="body" style="padding-top: 240px;">
+							<div class="desc">
+								Ellie (엘리) <br>
+								<span class="colorBlueTeal">Seoul</span>
+							</div>
+							<div class="userName" data-uno="17">
+								<span>YuNi</span>
+							</div>
+							<div class="date">2014.03.19 11:40</div>
+						</div>
+					</div>
+					<div class="cnts">
+						<span class="hand like">좋아요 7</span>&nbsp;&nbsp;<span class="hand review">리뷰 6</span>
+					</div>
+				</div>
+				<div class="travellog type_2 posRelative" style="margin-bottom: 40px;" data-idx="10007">
+					<div class="inbox backFFF boxShadowTiny" style="cursor: pointer;">
+						<div class="posAbsolute type_band">PLACE</div>
+						<div class="image posAbsolute"
+							style='background: url("http://img4.tourplanb.com/_html/loading.php?idx=31710&amp;amp;tb=1&amp;amp;ws=230&amp;amp;hs=230") no-repeat center/cover; left: 0px; top: 0px; height: 230px; right: 0px; z-index: 2;'>
+						</div>
+						<div class="overbox blackOpacity50 posAbsolute" style="left: 0px; top: 0px; height: 230px; right: 0px; z-index: 6; opacity: 0;">
+							<div class="posAbsolute" style="padding: 15px 15px 10px; bottom: 0px;">
+								<div></div>
+								<div class="colorFFF paddingTop7" style="-ms-word-break: break-all;">1880년대부터 1996년까지 홍콩 해양경찰의 본부로 사용되었던 건물을 개조하여 명품 쇼핑몰 1881 헤리티지(1881
+									Her</div>
+							</div>
+						</div>
+						<div class="body" style="padding-top: 240px;">
+							<div class="desc">
+								1881 헤리티지(1881 Heritage) <br>
+								<span class="colorBlueTeal">Hong Kong</span>
+							</div>
+							<div class="userName" data-uno="9">
+								<span>Hana Tour</span>
+							</div>
+							<div class="date">2013.01.11 09:56</div>
+						</div>
+					</div>
+					<div class="cnts">
+						<span class="hand like">좋아요 7</span>&nbsp;&nbsp;<span class="hand review">리뷰 2</span>
+					</div>
+				</div>
+				<div class="travellog type_2 posRelative" style="margin-bottom: 40px;" data-idx="9245">
+					<div class="inbox backFFF boxShadowTiny" style="cursor: pointer;">
+						<div class="posAbsolute type_band">PLACE</div>
+						<div class="image posAbsolute"
+							style='background: url("http://img6.tourplanb.com/_html/loading.php?idx=24970&amp;amp;tb=1&amp;amp;ws=230&amp;amp;hs=230") no-repeat center/cover; left: 0px; top: 0px; height: 230px; right: 0px; z-index: 2;'>
+						</div>
+						<div class="overbox blackOpacity50 posAbsolute" style="left: 0px; top: 0px; height: 230px; right: 0px; z-index: 6; opacity: 0;">
+							<div class="posAbsolute" style="padding: 15px 15px 10px; bottom: 0px;">
+								<div></div>
+								<div class="colorFFF paddingTop7" style="-ms-word-break: break-all;">홍콩에서 가장 큰 규모를 자랑하는 쇼핑몰로 중저가 브랜드부터 최고급 명품 브랜드까지 모두 입점해있어 현지인뿐만 아니라
+									홍콩을</div>
+							</div>
+						</div>
+						<div class="body" style="padding-top: 240px;">
+							<div class="desc">
+								하버시티 쇼핑몰 (Harbour City Shopping Mall) <br>
+								<span class="colorBlueTeal">Hong Kong</span>
+							</div>
+							<div class="userName" data-uno="9">
+								<span>Hana Tour</span>
+							</div>
+							<div class="date">2010.04.29 18:06</div>
+						</div>
+					</div>
+					<div class="cnts">
+						<span class="hand like">좋아요 7</span>&nbsp;&nbsp;<span class="hand review">리뷰 2</span>
+					</div>
+				</div>
+			</div>
+			<div class="clearBoth"></div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<p>추천장소</p>
+	</div>
+	<div class="container-fluid">
+		<p>우리소개</p>
+	</div>
+	<footer class="footer">
+      <div class="container-fluid">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+</body>
+</html>

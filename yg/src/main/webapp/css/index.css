@@ -1,0 +1,274 @@
+@CHARSET "UTF-8";
+@font-face {
+	font-family:'NGBold';
+	font-style:normal;
+	font-weight:700;
+	src:url('/font/NanumGothicBold.eot');
+	/* src:local(※), url('/common/font/NanumGothicBold.eot') format('embedded-opentype'), url('/font/NanumGothicBold.woff') format('woff'); */
+	src:url('/font/NanumGothicBold.eot') format('embedded-opentype'), url('/font/NanumGothicBold.woff') format('woff');
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+.container {
+  /* width: auto; */
+  /* max-width: 800px; */
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.hand {cursor: pointer;}
+
+
+.posRelative {
+	position: relative;
+}
+
+.posAbsolute {
+	position: absolute;
+}
+
+/* =============================== */
+h1, h2, h3, h4, h5, h6 {
+	margin:0;
+	padding:0;
+	font-family: 'NGBold', Dotum, sans-serif;
+	font-weight: normal;
+	font-weight: 700;
+}
+
+.container-fluid ul,
+.container-fluid dl {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.container-fluid dt,
+.container-fluid dd {
+	margin: 0;
+	padding: 0;
+}
+.container-fluid {
+	width: 100%;
+	float: left;
+	text-align: center;
+	background: #fff;
+}
+.container-fluid h2 {
+	width: 100%;
+	float: left;
+}
+.container-fluid h3 {
+	width: 100%;
+	float: left;
+	font-size: 11px;
+	color: #768082;
+	margin-top: 23px;
+	font-weight: normal;
+}
+
+/* ============================== main-tour ============================== */
+.main-tour {
+	padding: 120px 0 55px 0;
+	background: url(../images/bg_main_top2.jpg) center no-repeat;
+	background-size: cover;
+}
+
+.main-tour h1 {
+	margin-top: 15px;
+}
+
+
+.main-tour h1 span {
+	font-family:'NGBold', sans-serif;
+	font-size: 52px;
+	color: #fff;
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+	background: rgba(200,200,200,0.3);
+}
+.main-tour .sub_title {
+	display: inline-block;
+	width: 350px;
+	padding: 8px;
+	background:rgba(255,255,255,0.8);
+	color: #010101;
+}
+.main-tour .main_btn {
+	width: 100%;
+	float: left;
+	display: inline-block;
+	margin-top: 63px;
+}
+.main-tour .main_btn li {
+	margin: 0 7px;
+	display: inline-block;
+	-moz-border-radius: 	0.4em;
+	-webkit-border-radius: 	0.4em;
+	border-radius: 			0.4em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+.main-tour .main_btn li.pink {
+	background: #ff6a7d;
+}
+.main-tour .main_btn li.sky {
+	background: #22becb;
+}
+.main-tour .main_btn li span {
+	font-family:'NGBold', sans-serif;
+	font-weight:bolder;
+	display: inline-block;
+	font-size: 18px;
+	padding: 18px 52px 18px 35px;
+	background: url(../images/arrow_main_btn.png) 92% center no-repeat;
+	color: #fff;
+}
+
+/* ============================== 추천일정 ============================== */
+
+.main-plan {
+	padding: 40px 0 50px 0;
+}
+.main-plan h2 .small-title {
+	font-size: 14px !important;
+	color: #000;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+
+.main-plan .type_band {
+	width: 73px;
+	height: 18px;
+	top: 16px;
+	left: 14px;
+	line-height: 18px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: center;
+	background-color: #fd6482;
+	-moz-border-radius: 	0.2em;
+	-webkit-border-radius: 	0.2em;
+	border-radius: 			0.2em;
+	z-index: 5;
+}
+.main-plan .type_band_color1 {
+	background-color: #fd6482;
+}
+.main-plan .type_band_color2 {
+	background-color: #00ba9d;
+}
+.main-plan .type_band_color3 {
+	background-color: #22becb;
+}
+.main-plan .type_band_color4 {
+	background-color: #7078b6;
+}
+.main-plan .type_band_color5 {
+	background-color: #7078b6;
+}
+.main-plan .type_band_color6 {
+	background-color: #7078b6;
+}
+
+.main-plan .detail {margin-top: 30px;}
+
+/* ============================== 추천장소 ============================== */
+.main-place {
+	overflow: hidden;
+}
+.main-place h2 .small-title {
+	font-size: 14px !important;
+	color: #000;
+	font-weight: bold;
+	line-height: 1.5em;
+}
+
+.main-place .section {
+	width: 100%;
+	float: left;
+	text-align: center;
+	background: #fff;
+}
+.main-place .section h2 {
+	width: 100%;
+	float: left;
+}
+.main-place .section h3 {
+	width: 100%;
+	float: left;
+	font-size: 11px;
+	color: #768082;
+	margin-top: 23px;
+	font-weight: normal;
+}
+/* ============================== 소개 ============================== */
+.main-footer {
+    background: #22becb none repeat scroll 0 0;
+    padding: 70px 0 50px;
+    overflow: hidden;
+}
+.main-footer h3 {
+    color: #fff;
+    font-size: 14px;
+}
+.main-footer ul {
+    float: left;
+    margin-top: 54px;
+    width: 100%;
+}
+.main-footer ul li {
+    float: left;
+    height: 64px;
+    margin-right: 1.7%;
+    width: 11%;
+}
+.main-footer ul li.icon0 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_00.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon1 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_01.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon2 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_02.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon3 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_03.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon4 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_04.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon5 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_05.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon6 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_06.png") no-repeat scroll center center;
+}
+.main-footer ul li.icon7 {
+    background: rgba(0, 0, 0, 0) url("../images/ico_main_make_07.png") no-repeat scroll center center;
+}
+.main-footer ul li.last {
+    margin-right: 0;
+}
+.main-footer p {
+    color: #26252a;
+    float: left;
+    font-size: 15px;
+    margin-top: 80px;
+    width: 100%;
+}
+.main-footer p .small {
+    color: #fff;
+    font-size: 14px;
+}
+
