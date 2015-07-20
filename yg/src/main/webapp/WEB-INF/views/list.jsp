@@ -10,7 +10,9 @@
 <body>
 <div>
 	<span>먼저 employees 테이블을 사용하자</span>
-	<p>aaa</p>
+	<c:forEach var="emp" items="${empList }">
+		<p>${emp.lastName }</p>
+	</c:forEach>
 </div>
 </body>
 </html>
