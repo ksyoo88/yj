@@ -8,7 +8,7 @@
 		type에는 결과값을 담을 객체의 클래스명
 		id에는 <select />의 resultMap에서 사용할 이름
 	 -->
-	<resultMap type="kr.co.yg.dao.EmployeeDao" id="EmployeeMap">
+	<resultMap type="kr.co.yg.vo.Employee" id="EmployeeMap">
 		<result column="employee_id" property="empId"/>
 		<result column="first_name" property="firstName"/>
 		<result column="last_name" property="lastName"/>

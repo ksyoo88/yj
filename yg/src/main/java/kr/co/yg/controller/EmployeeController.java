@@ -11,12 +11,12 @@ import kr.co.yg.dao.EmployeeDao;
 import kr.co.yg.vo.Employee;
 
 @Controller
-@RequestMapping("/test")
 public class EmployeeController {
 	
 	@Autowired
 	EmployeeDao empDao;
 	
+	@RequestMapping("/test.do")
 	public String getEmployees(Model model) {
 		
 		ArrayList<Employee> empList = empDao.getEmployees();
