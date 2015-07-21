@@ -12,6 +12,20 @@
 	
 	<context:component-scan base-package="kr.co.yg" />
 	
+	<!-- 스프링과 타일즈 연동하기 -->
+	<!-- 타일즈 레이아웃 설정정보를 읽어가는 빈을 등록한다. -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:/META-INF/spring/layouts.xml</value>
+			</list>
+		</property>
+	</bean>
 	
+	<!-- ModelAndView에 저장된 view이름에 해당하는 레이아웃 설정정보를 찾아서 jsp를 조립하는 viewResolver를 등록한다. -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<property name="order" value="1" />
+	</bean>
 
 </beans>
