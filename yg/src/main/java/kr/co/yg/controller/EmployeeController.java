@@ -26,4 +26,10 @@ public class EmployeeController {
 		return "/WEB-INF/views/list.jsp";
 	}
 	
+	@RequestMapping("/main.do")
+	public String index() {
+		
+		return "/main/main.tiles";
+	}
+	
 }
