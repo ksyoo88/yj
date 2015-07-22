@@ -12,9 +12,10 @@
 <link rel="stylesheet" href="resources/css/ihover.css">
 <link rel="stylesheet" href="resources/css/index.css">
 <link rel="stylesheet" type="text/scc" href="resources/css/snsstyle.css">
-
+<tiles:insertAttribute name="style" ignore="true" />
 <script type="text/javascript" src="resources/js/jquery/jquery-1.11.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<tiles:insertAttribute name="javascript" ignore="true" />
 </head>
 <body>
 <!-- 헤더 정보가 들어갈 영역 -->
