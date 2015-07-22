@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../css/ihover.css">
 <link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" type="text/scc" href="../css/snsstyle.css">
 <script type="text/javascript" src="../js/jquery/jquery-1.11.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
