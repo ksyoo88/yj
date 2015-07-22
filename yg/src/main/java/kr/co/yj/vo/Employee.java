@@ -1,4 +1,4 @@
-package kr.co.yg.vo;
+package kr.co.yj.vo;
 
 public class Employee {
 	private String empId;

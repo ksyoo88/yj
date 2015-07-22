@@ -1,4 +1,4 @@
-package kr.co.yg.controller;
+package kr.co.yj.controller;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.yg.dao.EmployeeDao;
-import kr.co.yg.vo.Employee;
+import kr.co.yj.dao.EmployeeDao;
+import kr.co.yj.vo.Employee;
 
 @Controller
 public class EmployeeController {

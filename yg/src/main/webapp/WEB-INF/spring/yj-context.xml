@@ -10,7 +10,7 @@
 	<!-- @RequestMapping, @ExceptionHandler, etc. that come with MVC. -->
 	<mvc:annotation-driven />
 	
-	<context:component-scan base-package="kr.co.yg" />
+	<context:component-scan base-package="kr.co.yj" />
 	
 	<!-- 스프링과 타일즈 연동하기 -->
 	<!-- 타일즈 레이아웃 설정정보를 읽어가는 빈을 등록한다. -->

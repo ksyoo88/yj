@@ -1,8 +1,8 @@
-package kr.co.yg.dao;
+package kr.co.yj.dao;
 
 import java.util.ArrayList;
 
-import kr.co.yg.vo.Employee;
+import kr.co.yj.vo.Employee;
 
 public interface EmployeeDao {
 

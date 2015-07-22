@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="kr.co.yg">
+	<logger name="kr.co.yj">
 		<level value="info" />
 	</logger>
 	

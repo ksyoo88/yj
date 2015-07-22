@@ -7,11 +7,11 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/spring/yj-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/yj-datasource.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/yj-sqlmap.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/yg-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/yg-datasource.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/yg-sqlmap.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
