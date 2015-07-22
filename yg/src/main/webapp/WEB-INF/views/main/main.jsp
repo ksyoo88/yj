@@ -256,7 +256,7 @@
 	<div class="container-fluid">
 		<div class="main-footer">
 			<h2>
-				<img src="/images/title_makeshare.png">
+				<img src="resources/images/title_makeshare.png">
 			</h2>
 			<h3>여행을 계획하고 공유해보세요. 최고의 여행파트너 여기저기가 함께합니다.</h3>
 			<ul>
