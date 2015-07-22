@@ -11,24 +11,17 @@ import kr.co.yj.dao.EmployeeDao;
 import kr.co.yj.vo.Employee;
 
 @Controller
-public class EmployeeController {
+public class MainController {
 	
 	@Autowired
 	EmployeeDao empDao;
 	
-	@RequestMapping("/test.do")
-	public String getEmployees(Model model) {
-		
+	@RequestMapping("/main.do")
+	public String main(Model model) {
 		ArrayList<Employee> empList = empDao.getEmployees();
 		
 		model.addAttribute("empList", empList);
-		
-		return "/WEB-INF/views/list.jsp";
-	}
-	
-	@RequestMapping("/main.do")
-	public String index() {
-		
+		model.addAttribute("title", "제목입니다.");
 		return "/main/main.tiles";
 	}
 	
