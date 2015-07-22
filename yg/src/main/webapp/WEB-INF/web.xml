@@ -16,8 +16,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:/META-INF/spring/yg-datasource.xml
-			classpath:/META-INF/spring/yg-sqlmap.xml
+			/WEB-INF/spring/yg-datasource.xml
+			/WEB-INF/spring/yg-sqlmap.xml
 			<!-- 보안관련은 아직 모르겠어 /WEB-INF/spring/config/yg-security.xml -->
 		</param-value>
 	</context-param>
@@ -47,7 +47,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:/META-INF/spring/yg-context.xml</param-value>
+			<param-value>/WEB-INF/spring/yg-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

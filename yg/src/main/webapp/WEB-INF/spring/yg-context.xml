@@ -17,7 +17,7 @@
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
-				<value>classpath:/META-INF/spring/layouts.xml</value>
+				<value>/WEB-INF/spring/layouts.xml</value>
 			</list>
 		</property>
 	</bean>

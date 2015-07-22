@@ -3,9 +3,9 @@
 	font-family:'NGBold';
 	font-style:normal;
 	font-weight:700;
-	src:url('/font/NanumGothicBold.eot');
-	/* src:local(※), url('/common/font/NanumGothicBold.eot') format('embedded-opentype'), url('/font/NanumGothicBold.woff') format('woff'); */
-	src:url('/font/NanumGothicBold.eot') format('embedded-opentype'), url('/font/NanumGothicBold.woff') format('woff');
+	src:url('../font/NanumGothicBold.eot');
+	/* src:local(※), url('../common/font/NanumGothicBold.eot') format('embedded-opentype'), url('../font/NanumGothicBold.woff') format('woff'); */
+	src:url('../font/NanumGothicBold.eot') format('embedded-opentype'), url('../font/NanumGothicBold.woff') format('woff');
 }
 
 

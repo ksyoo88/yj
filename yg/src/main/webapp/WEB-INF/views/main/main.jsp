@@ -51,7 +51,7 @@
 	<div class="container-fluid main-plan">
 		<h2>
 			<span class="small-title">추천일정</span><br>
-			<img src="../images/title_travelog.png">
+			<img src="resources/images/title_travelog.png">
 		</h2>
 		<h3>여기저기 사용자들의 알찬 여행정보를 공유합니다.</h3>
 		<div class="row">
@@ -62,7 +62,7 @@
 					<a href="#">
 							<div class="posAbsolute type_band type_band_color1">PLACE</div>
 						<div class="img">
-							<img alt="" src="../images/test.jpg"/>
+							<img alt="" src="resources/images/test.jpg"/>
 						</div>
 						<div class="info">
 							<h3>Santa Barbara</h3>
@@ -91,7 +91,7 @@
 					<a href="#">
 						<div class="posAbsolute type_band type_band_color2">PLAN</div>
 						<div class="img">
-							<img alt="" src="../images/test.jpg" />
+							<img alt="" src="resources/images/test.jpg" />
 						</div>
 						<div class="info">
 							<h3>1881 헤리티지(1881 Heritage)</h3>
@@ -122,7 +122,7 @@
 					<a href="#">
 						<div class="posAbsolute type_band type_band_color2">PLAN</div>
 						<div class="img">
-							<img alt="" src="../images/test.jpg" />
+							<img alt="" src="resources/images/test.jpg" />
 						</div>
 						<div class="info">
 							<h3>Santa Barbara</h3>
@@ -153,7 +153,7 @@
 					<a href="#">
 						<div class="posAbsolute type_band type_band_color2">PLAN</div>
 						<div class="img">
-							<img alt="" src="../images/test.jpg" />
+							<img alt="" src="resources/images/test.jpg" />
 						</div>
 						<div class="info">
 							<h3>Santa Barbara</h3>
@@ -185,14 +185,14 @@
 	<div class="container-fluid main-place">
 		<h2>
 			<span class="small-title">추천장소</span><br>
-			<img src="../images/title_cityaward.png">
+			<img src="resources/images/title_cityaward.png">
 		</h2>
 		<h3>엄선된 도시와 장소정보를 공유합니다.</h3>
 		<!-- colored -->
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="../images/test.jpg" />
+					<img alt="" src="resources/images/test.jpg" />
 				</div>
 				<div class="info">
 					<h3>1881 헤리티지(1881 Heritage)</h3>
@@ -204,7 +204,7 @@
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="../images/test.jpg" />
+					<img alt="" src="resources/images/test.jpg" />
 				</div>
 				<div class="info">
 					<h3>1881 헤리티지(1881 Heritage)</h3>
@@ -216,7 +216,7 @@
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="../images/test.jpg" />
+					<img alt="" src="resources/images/test.jpg" />
 				</div>
 				<div class="info">
 					<h3>1881 헤리티지(1881 Heritage)</h3>
@@ -228,7 +228,7 @@
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="../images/test.jpg" />
+					<img alt="" src="resources/images/test.jpg" />
 				</div>
 				<div class="info">
 					<h3>1881 헤리티지(1881 Heritage)</h3>
@@ -240,7 +240,7 @@
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="../images/test.jpg" />
+					<img alt="" src="resources/images/test.jpg" />
 				</div>
 				<div class="info">
 					<h3>1881 헤리티지(1881 Heritage)</h3>

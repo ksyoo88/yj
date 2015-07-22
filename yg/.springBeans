@@ -9,6 +9,9 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/yg-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/yg-datasource.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/yg-sqlmap.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
