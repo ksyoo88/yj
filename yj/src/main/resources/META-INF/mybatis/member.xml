@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yg.dao.MemberDao">
+<!-- 
+		resultMap 은 컬럼명과 클래스의 변수명을 매핑한다
+		type에는 결과값을 담을 객체의 클래스명
+		id에는 <select/>resultMap에서 사용할이름
+	 -->
+<!-- 	<resultMap type="Member" id="mem">
+		
+		<result column="MEM_EMAIL" property="email"/>
+		<result column="MEM_NAME" property="name"/>
+		<result column="MEM_PASSWORD" property="password"/>
+		<result column="MEM_BIRTH" property="birth"/>
+		<result column="MEM_GENDER" property="gender"/>
+	</resultMap> -->
+	
+
+	<insert id="addMember" parameterType="Member" >
+	INSERT INTO YJ_MEMBER(MEM_NO,MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER)
+	 VALUES (My_seq.nextval,#{email},#{name},#{password},#{birth},#{gender})
+	
+	</insert>
+	
+</mapper>

@@ -145,7 +145,7 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form">
+						<form role="form" method="post" action="addmember.do" >
 							<div class="form-group">
 								<label for="username"><span
 									class="glyphicon glyphicon-user"></span> 회원이름</label> <input
@@ -155,7 +155,7 @@ $(document).ready(function(){
 							<div class="form-group">
 								<label for="user"><span
 									class="glyphicon glyphicon-envelope"></span> 이메일</label> <input
-									type="text" class="form-control" name="emil" id="useremail"
+									type="text" class="form-control" name="email" id="useremail"
 									placeholder="이메일">
 							</div>
 							<div class="form-group">
