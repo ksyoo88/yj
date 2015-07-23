@@ -23,14 +23,12 @@
 	</repositories>
 	
 	<dependencies>
-	
 		<!-- poi(excel) 라이브러리 -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.12</version>
 		</dependency>
-		
 		<!-- json 라이브러리 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
