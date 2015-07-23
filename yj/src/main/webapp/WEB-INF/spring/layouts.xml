@@ -7,8 +7,6 @@
 	<!-- 디폴트레이아웃을 정의한다. -->
 	<definition name="default" template="/WEB-INF/views/tiles/template.jsp">
 		<put-attribute name="title" value="무제" />
-		<put-attribute name="style" value="" />
-		<put-attribute name="javascript" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"></put-attribute>
 		<put-attribute name="content" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"></put-attribute>
