@@ -8,12 +8,12 @@ import kr.co.yj.util.Md5Util;
 import kr.co.yj.vo.MemberVO;
 
 @Service
-public class MemberService {
+public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	MemberDao dao;
 	
-	
+	//서비스
 	
 	public void addMember(MemberVO mem) {
 		

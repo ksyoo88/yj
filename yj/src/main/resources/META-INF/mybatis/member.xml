@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.yg.dao.MemberDao">
+<mapper namespace="kr.co.yj.dao.MemberDao">
 <!-- 
 		resultMap 은 컬럼명과 클래스의 변수명을 매핑한다
 		type에는 결과값을 담을 객체의 클래스명

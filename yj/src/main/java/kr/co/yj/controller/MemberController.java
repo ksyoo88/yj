@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.yj.service.MemberService;
+import kr.co.yj.service.MemberServiceImpl;
 import kr.co.yj.vo.MemberVO;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
-	private MemberService memberservice;
+	private MemberServiceImpl memberservice;
 	
 	@RequestMapping("/addmember.do")
 	public ModelAndView addMember(MemberVO mem) {
