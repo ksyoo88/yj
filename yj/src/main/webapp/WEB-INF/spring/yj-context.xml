@@ -10,6 +10,7 @@
 	<!-- @RequestMapping, @ExceptionHandler, etc. that come with MVC. -->
 	<mvc:annotation-driven />
 	
+	<context:property-placeholder location="classpath:/META-INF/properties/masterEmail.properties"/>
 	<context:component-scan base-package="kr.co.yj" />
 	
 	<!-- 스프링과 타일즈 연동하기 -->
@@ -33,5 +34,18 @@
 	
 	<!-- view들 등록하기 -->
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
-
+	
+	<!-- EmailSender 객체 등록하기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${me.host}"/>
+		<property name="port" value="${me.port}"/>
+		<property name="username" value="${me.username}"/>
+		<property name="password" value="${me.password}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

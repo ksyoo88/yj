@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yj.service.MemberServiceImpl;
@@ -30,6 +31,32 @@ public class MemberController {
 	public String form() {
 		
 		return "/main/login.tiles";
+	}
+	
+	@RequestMapping("/email.do")
+	public String email(@RequestParam("to")String to){
+		
+		memberservice.sendemail(/*subject, text, from,*/ to);
+		
+		
+			return "/main/login.tiles";
+			
+		
+	}
+	
+	@RequestMapping("/checkEmail.do")
+	@ResponseBody
+	public String checkEmail(@RequestParam("email")String email) {
+		
+		boolean check=memberservice.checkEmail(email);
+		
+		if(check){
+			return "true";
+		}else{
+			return "false";
+			
+		}
+		
 	}
 	
 

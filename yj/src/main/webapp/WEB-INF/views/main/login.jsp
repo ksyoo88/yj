@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
+
  <style type="text/css">
   .modal-header, h4, .close {
       background-color: #5cb85c;
@@ -16,12 +17,41 @@
   
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	var $frm = $("form[name=checkmail]");
+	
     $("#myBtn").click(function(){
         $("#myModal").modal();
     });
     
+    $("#checkEmail").click(function(e) {
+		var email=$("#useremail").val();
+    	
+    	$.ajax({
+    		url : "checkEmail.do",
+    		type : "post",
+    		data : {email:email},
+    		dataType : "text",
+    		success : function (result) {
+    			
+    			if(result == "true") {
+    				$frm.submit();
+    			}else{
+    				var content="";
+    				content +="<h4>없는 이메일입니다.</h4>"
+    				content +="<h4>다시 확인해주세요.</h4>"
+    				
+    			}
+    			
+    			$("#checkEmaildiv").html(content);
+    		}
+    	});
+		
+	});
+    
     
 });
+
 </script>
 
 </head>
@@ -96,17 +126,20 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form">
+						<form role="form" action="email.do" method="post" name="checkmail">
 							<div class="form-group">
 								<label for="useremail"><span
 									class="glyphicon glyphicon-user"></span> email</label> <input
-									type="text" class="form-control" name="useremail" id="useremail"
+									type="text" class="form-control" name="to" id="useremail"
 									placeholder="Enter email">
 							</div>
 						
-							<div class="button">
-								<button type="button" class="btn btn-success btn-default "> 보내기</button>
+							<div class="button" >
+								<button type="button" id="checkEmail" class="btn btn-success btn-default "> 보내기</button>
 								
+							</div>
+							<div id="checkEmaildiv">
+							
 							</div>
 						<p>Email- 주소로 임시 비밀번호가 발송됩니다.</p>
 						<p>로그인후 비번을 바꿔주세요</p>
@@ -185,6 +218,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 		
-
+</div>
 </body>
 </html>
