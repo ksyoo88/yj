@@ -10,49 +10,132 @@
 <!-- 다음 지도 script 추가 -->
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
 <script type="text/javascript">
-	$(function(){		
+
+	$(function() {
 		//$("#map-box")[0];
 		var container = document.getElementById('map-box');
 		var options = {
-				center : new daum.maps.LatLng(33.450701, 126.570667),
-				level : 3
+			center : new daum.maps.LatLng(33.450701, 126.570667),
+			level : 3
 		};
-		
-		var map = new daum.maps.Map(container, options);
-		
-		// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
-		$("#mapcategory li").click(function(){
-			
-			if($(this).data("cat") == null){
-				marker.setMap(null);
-			}
-			
-			var cat = $(this).data("cat");
-			console.log(cat, "눌렸다.");
-					
-			var imageSrc = '../images/'+cat+'.png', // 마커이미지의 주소입니다    
-		    imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
-		    imageOption = {offset: new daum.maps.Point(10, 35)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-			
-			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
-			    markerPosition = new daum.maps.LatLng(33.450701, 126.570667); // 마커가 표시될 위치입니다		
-			
-			// 마커를 생성합니다
-			var marker = new daum.maps.Marker({
-			    position: markerPosition, 
-			    image: markerImage // 마커이미지 설정 
-			});
-		
-			// 마커가 지도 위에 표시되도록 설정합니다
-			marker.setMap(map);	
-			
-			
-		});	
-	});
-	
 
-	
+		var map = new daum.maps.Map(container, options);
+
+		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
+		var markers = [];
+		
+		
+		
+		$("#addplan").click(function() {
+			if( $("#startDate").val() != "" ) {
+				
+				
+				$("#left-tab-plan-contents").append(
+					"<div class='col-md-12'><p><strong id='startDateStr'>하하하</strong></p></div>");				
+			}else {
+				alert("출발일을 설정해 주세요 ");
+			}				
+		});
+		
+		$("#retryplan").click(function() {
+			$("#left-tab-plan-contents")
+			.html("<div class='col-md-12'><p><strong id='startDateStr'>출발일을 입력해주세요</strong></p></div>")
+			 $("#startDate").val("");
+			
+			
+		});
+		
+		// 캘린더 변경시 날짜 설정 
+		$("#startDate").change(function() {
+			
+			var temp = $("#startDate").val();
+			$("#startDateStr").html(temp+" DAY 1");
+			
+// 			var startDateValue = $("#startDate").val();
+			
+// 			var startDateYear = startDateValue.
+			
+// 			var tempDate = new Date(y,m,d);
+			
+			
+			console.log(temp);
+		});
+		
+// 		function parseDate(s) {
+// 			var b = s.split(/\D/);
+// 		    return new Date(b[0], --b[1], b[2]);
+// 		}
+
+		// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
+		$("#mapcategory li").click( function() {
+
+				cleanMarker();
+			
+				var $cat = $(this).data("cat");
+				console.log($cat, " : 눌렸습니다. ");
+				
+				// 캘린더 아이콘 
+				if( $cat == "icon_calender"){
+					console.log("calender");
+					$("#left-tab-right").toggle(1000);
+					//$("#left-tab-right").css("position","absolute","width","0px");
+					//$("#left-tab").toggle(1000);
+					//$("#left-tab-right").attr("class","col-md-2");				
+					
+				}
+				else {
+					
+					for( var i=0; i<10; i++) {
+						var imageSrc = '../images/' + $cat + '.png', // 마커이미지의 주소입니다    
+							imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+							imageOption = {
+							offset : new daum.maps.Point(10, 35)
+						}; 
+						// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+			
+						// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+						// DB에서 가져와 막 찍으면된다.
+						var markerImage = new daum.maps.MarkerImage(
+								imageSrc, imageSize, imageOption), markerPosition = new daum.maps.LatLng(
+								33.450701+i, 126.570667+i); // 마커가 표시될 위치입니다		
+			
+						// 마커를 생성합니다
+						var marker = new daum.maps.Marker({
+							position : markerPosition,
+							image : markerImage			
+						});
+						
+						markers.push(marker);
+					}
+					setMarkers(map);
+					
+				}
+				
+		});
+		
+		//배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다.
+		function setMarkers(map) {
+			for (var i = 0; i < markers.length; i++) {
+				markers[i].setMap(map);
+				//console.log(map);
+			}
+		}
+		// 마커를 보여줍니다.
+		function showMarkers() {
+			console.log("showMarker()");
+			setMarkers(map)
+		}
+
+		// 마커 지우기
+		function cleanMarker() {
+			console.log("cleanMarker()");
+			if ( markers.length != 0 ){
+				setMarkers(null);
+				markers.length = 0;
+			}
+		}
+
+	});
 </script>
 <style type="text/css">
 
@@ -72,9 +155,16 @@ div#map-box {
 #left-tab li a:hover {
 	color: white;
 }
+
+#left-tab-left {
+	height : 880px;
+	background-color: #191970;
+}
+
 #left-tab-right {
 	height: 880px;
 	background-color: white;
+	position:relative;
 }
 #left-tab-header {
 	background-color: #FF6600;
@@ -99,11 +189,15 @@ div#right-tab {
 	background-color: white;
 }
 
+nav#navigationBar {
+	margin-bottom : 0px;
+}
+
 </style>
 </head>
 
 <body>
-	<nav class="navbar nav-pills navbar-inverse navbar-fixed-top">
+	<nav class="navbar nav-pills navbar-inverse" id="navigationBar">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand glyphicon glyphicon-plane" href="#"></a>
@@ -115,170 +209,182 @@ div#right-tab {
 					<li><a href="#">사진</a></li>
 				</ul>
 			</div>
-
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						회원가입</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+						로그인</a></li>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="어디를 여행하고 싶으세요?">
+						<input type="text" class="form-control"
+							placeholder="어디를 여행하고 싶으세요?">
 					</div>
 					<button type="submit" class="btn btn-default">검색</button>
 				</form>
 			</ul>
-
-		</div>
-
-
-
-
-		<div class="col-md-2" id="left-tab">
-		
-			<div class="col-md-2" id="left-tab-left">
-				<ul class="nav nav-pills nav-stacked navbar-inverse left-image-icon" id="mapcategory">
-					<li class="active"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_calender.png"/></a></h3></li>
-					<li class="active" id="mapAll" data-cat="icon_mapAll"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_mapAll.png"/> </a></h3></li>
-					<li class="active" id="shopping" data-cat="icon_shopping"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_shopping.png"/>  </a></h3></li>
-					<li class="active" id="food" data-cat="icon_food"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_food.png"/>  </a></h3></li>
-					<li class="active" id="hotel" data-cat="icon_hotel"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_hotel.png"/></a></h3></li>
-					<li class="active" id="bookmark" data-cat="icon_bookmark"><h3><a href="#"><img class="media-object img-rounded" src="../images/icon_bookmark.png"/>  </a></h3></li>
-				</ul>
-			</div>
-			<div class="col-md-10" id="left-tab-right" style="overflow:auto;">			
-				<div class="row">	
-					<div class="col-md-12" id="left-tab-header">			
-						<h4><strong> 일정만들기 </strong><br/><small>일정을 추가해주세요.</small></h4>
-						<!-- 출발일 설정 -->
-						<form action="">
-							출발일을 입력해주세요 <input type="date">
-						</form>
-					</div>
-					<div class="btn-group btn-group-justified" role="group">
-						<a href="#" class="btn btn-default">추가하기</a>
-						<a href="#" class="btn btn-default">다시하기</a>
-					</div> 			
-				</div>		
-				<div class="row" id="left-tab-plan-contents">					
-					<div class="col-md-12">
-						<p><strong>DAY1 7 JUL</strong></p>
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object img-rounded" src="../images/cat.jpg" alt="cat" width="50" height="50">
-								</a>
-							</div>
-							<div class="media-body">
-								<h5 class="media-heading">신라호텔</h5>
-								<div class="btn-group btn-group-justified" role="group">
-									<a href="#" class="btn btn-default btn-sm">위치</a> 
-									<a href="#" class="btn btn-danger btn-sm">제거</a>
-								</div>
-							</div>
-						</div>
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object img-rounded" src="../images/cat.jpg" alt="cat" width="50" height="50">
-								</a>
-							</div>
-							<div class="media-body">
-								<h5 class="media-heading">김밥천국</h5>
-								<div class="btn-group btn-group-justified" role="group">
-									<a href="#" class="btn btn-default btn-sm">위치</a> 
-									<a href="#" class="btn btn-danger btn-sm">제거</a>
-								</div>
-							</div>
-						</div>
-					</div>		
-										
-				</div>
-			</div>					
-		</div>
-
-		<div class="col-md-8" id="contents-tab">
-			<div id="map-box" class="ui-shadow"></div>
-		</div>
-
-		<div class="col-md-2" id="right-tab">
-			<h4>서울 한국</h4>
-			<p>근처의 호텔</p>
-			<div class="media">
-				<div class="media-left">
-					<a href="#"> <img class="media-object img-rounded" src="../images/cat.jpg" alt="cat" width="50" height="50">
-					</a>
-				</div>
-				<div class="media-body">
-					<h5 class="media-heading">신라호텔</h5>
-					<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
-				</div>
-			</div>
-			<div class="media">
-				<div class="media-left">
-					<a href="#"> <img class="media-object img-rounded" src="../images/cat.jpg" alt="cat" width="50" height="50">
-					</a>
-				</div>
-				<div class="media-body">
-					<h5 class="media-heading">신라호텔</h5>
-					<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
-				</div>
-			</div>
-
-			<hr>
-			<div class="btn-group btn-group-justified" role="group">
-				<a href="#" class="btn btn-defualt">더보기</a>
-			</div>
-			<hr>
-
-
-
-			<div class="row">
-				<div class="col-md-4">
-					<ul class="nav nav-tabs">
-						<li role="presentation" class="active"><h3>
-								<a href="#"><img class="media-object img-rounded" src="../images/icon_mapAll.png"/></a>
-							</h3>
-							<p>명소</p></li>
-					</ul>
-				</div>
-				<div class="col-md-4">
-					<ul class="nav nav-tabs">
-						<li role="presentation"><h3>
-								<a href="#"><img class="media-object img-rounded" src="../images/icon_shopping.png"/></a>
-							</h3>
-							<p>쇼핑</p></li>
-					</ul>
-				</div>
-				<div class="col-md-4">
-					<ul class="nav nav-tabs">
-						<li role="presentation"><h3>
-								<a href="#"><img class="media-object img-rounded" src="../images/icon_food.png"/></a>
-							</h3>
-							<p>음식점</p></li>
-					</ul>
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="list-group">
-					<button type="button" class="list-group-item">1. Cras justo odio</button>
-					<button type="button" class="list-group-item">2. Dapibus ac facilisis in</button>
-					<button type="button" class="list-group-item">3. Morbi leo risus</button>
-					<button type="button" class="list-group-item">4. Porta ac consectetur ac</button>
-					<button type="button" class="list-group-item">5. Vestibulum at eros</button>
-					<button type="button" class="list-group-item">6. Vestibulum at eros</button>
-					<button type="button" class="list-group-item">7. Vestibulum at eros</button>
-					<button type="button" class="list-group-item">8. Vestibulum at eros</button>
-					<button type="button" class="list-group-item">9. Vestibulum at eros</button>
-					<button type="button" class="list-group-item">10. Vestibulum at eros</button>
-				</div>
-			</div>
-
-
-		</div>
-
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="#" class="btn btn-primary">도움말</a> <a href="#" class="btn btn-primary">인기있는 저기일정</a> <a href="#" class="btn btn-primary">어플리케이션</a> <a
-				href="#" class="btn btn-primary">프로모션</a> <a href="#" class="btn btn-primary">파트너</a> <a href="#" class="btn btn-primary">트레블메이커!</a>
 		</div>
 	</nav>
+	
+	<div class="col-md-2" id="left-tab">
+		<div class="col-md-2" id="left-tab-left">
+			<ul class="nav nav-pills nav-stacked left-image-icon"
+				id="mapcategory">
+				<li class="active" data-cat="icon_calender"><h3>
+						<a href="#"><img class="media-object img-rounded" 
+							src="../images/icon_calender.png" /></a>
+					</h3></li>
+				<li class="active" id="mapAll" data-cat="icon_mapAll"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="../images/icon_mapAll.png" /> </a>
+					</h3></li>
+				<li class="active" id="shopping" data-cat="icon_shopping"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="../images/icon_shopping.png" /> </a>
+					</h3></li>
+				<li class="active" id="food" data-cat="icon_food"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="../images/icon_food.png" /> </a>
+					</h3></li>
+				<li class="active" id="hotel" data-cat="icon_hotel"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="../images/icon_hotel.png" /></a>
+					</h3></li>
+				<li class="active" id="bookmark" data-cat="icon_bookmark"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="../images/icon_bookmark.png" /> </a>
+					</h3></li>
+			</ul>
+		</div>
+		<div class="col-md-10" id="left-tab-right" style="overflow: auto;">
+			<div class="row">
+				<div class="col-md-12" id="left-tab-header">
+					<h4>
+						<strong> 일정만들기 </strong><br />
+						<small>일정을 추가해주세요.</small>
+					</h4>
+					<!-- 출발일 설정 -->
+					<form action="">
+						<input type="date" id="startDate"/>
+					</form>
+				</div>
+				<div class="btn-group btn-group-justified" role="group">
+					<a href="#" class="btn btn-default" id="addplan">추가하기</a>
+					<a href="#" class="btn btn-default" id="retryplan">다시하기</a>
+				</div>
+			</div>
+			<div class="row" id="left-tab-plan-contents">
+				<div class="col-md-12">
+					<p>
+						<strong id="startDateStr">출발일을 입력해주세요</strong>
+					</p>			
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-8" id="contents-tab">
+		<div id="map-box" class="ui-shadow"></div>
+	</div>
+
+	<div class="col-md-2" id="right-tab">
+		<h4>서울 한국</h4>
+		<p>근처의 호텔</p>
+		<div class="media">
+			<div class="media-left">
+				<a href="#"> <img class="media-object img-rounded"
+					src="../images/cat.jpg" alt="cat" width="50" height="50">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading">신라호텔</h5>
+				<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
+			</div>
+		</div>
+		<div class="media">
+			<div class="media-left">
+				<a href="#"> <img class="media-object img-rounded"
+					src="../images/cat.jpg" alt="cat" width="50" height="50">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading">신라호텔</h5>
+				<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
+			</div>
+		</div>
+
+		<hr>
+		<div class="btn-group btn-group-justified" role="group">
+			<a href="#" class="btn btn-defualt">더보기</a>
+		</div>
+		<hr>
+
+
+
+		<div class="row">
+			<div class="col-md-4">
+				<ul class="nav nav-tabs">
+					<li role="presentation" class="active"><h3>
+							<a href="#"><img class="media-object img-rounded"
+								src="../images/icon_mapAll.png" /></a>
+						</h3>
+						<p>명소</p></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><h3>
+							<a href="#"><img class="media-object img-rounded"
+								src="../images/icon_shopping.png" /></a>
+						</h3>
+						<p>쇼핑</p></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><h3>
+							<a href="#"><img class="media-object img-rounded"
+								src="../images/icon_food.png" /></a>
+						</h3>
+						<p>음식점</p></li>
+				</ul>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="list-group">
+				<button type="button" class="list-group-item">1. Cras justo
+					odio</button>
+				<button type="button" class="list-group-item">2. Dapibus ac
+					facilisis in</button>
+				<button type="button" class="list-group-item">3. Morbi leo
+					risus</button>
+				<button type="button" class="list-group-item">4. Porta ac
+					consectetur ac</button>
+				<button type="button" class="list-group-item">5. Vestibulum
+					at eros</button>
+				<button type="button" class="list-group-item">6. Vestibulum
+					at eros</button>
+				<button type="button" class="list-group-item">7. Vestibulum
+					at eros</button>
+				<button type="button" class="list-group-item">8. Vestibulum
+					at eros</button>
+				<button type="button" class="list-group-item">9. Vestibulum
+					at eros</button>
+				<button type="button" class="list-group-item">10.
+					Vestibulum at eros</button>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="btn-group btn-group-justified" role="group">
+		<a href="#" class="btn btn-primary">도움말</a> <a href="#"
+			class="btn btn-primary">인기있는 저기일정</a> <a href="#"
+			class="btn btn-primary">어플리케이션</a> <a href="#"
+			class="btn btn-primary">프로모션</a> <a href="#" class="btn btn-primary">파트너</a>
+		<a href="#" class="btn btn-primary">트레블메이커!</a>
+	</div>
 </body>
 
 </html>
