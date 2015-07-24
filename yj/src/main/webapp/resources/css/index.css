@@ -75,7 +75,12 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 23px;
 	font-weight: normal;
 }
-
+h2 .small-title {
+	font-size: 30px !important;
+	color: #000;
+	font-weight: bold;
+	line-height: 1.5em;
+}
 /* ============================== main-tour ============================== */
 .main-tour {
 	padding: 120px 0 55px 0;
@@ -139,12 +144,6 @@ h1, h2, h3, h4, h5, h6 {
 .main-plan {
 	padding: 40px 0 50px 0;
 }
-.main-plan h2 .small-title {
-	font-size: 14px !important;
-	color: #000;
-	font-weight: bold;
-	line-height: 1.5em;
-}
 
 .main-plan .type_band {
 	width: 73px;
@@ -187,13 +186,6 @@ h1, h2, h3, h4, h5, h6 {
 .main-place {
 	overflow: hidden;
 }
-.main-place h2 .small-title {
-	font-size: 14px !important;
-	color: #000;
-	font-weight: bold;
-	line-height: 1.5em;
-}
-
 .main-place .section {
 	width: 100%;
 	float: left;

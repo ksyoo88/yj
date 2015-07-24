@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.MainDao">
+	
+	<select id="getPlaceListByRead" resultType="Place">
+		<!-- TEST 이미지 있는 서울지역만 검색되도록 -->
+		SELECT * FROM(
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY READCOUNT desc) NUM,
+				CONTENTID, ADDR1, ADDR2, ZIPCODE, AREACODE, BOOKTOUR, CAT1, CAT2, CAT3, CONTENTTYPEID, CREATEDTIME, FIRSTIMAGE,
+				FIRSTIMAGE2, MAPX, MAPY, MLEVEL, MODIFIEDTIME, READCOUNT, SIGUNGUCODE, TEL, TELNAME, TITLE, HOMEPAGE, EVENTSTARTDATE,
+				EVENTENDDATE, OVERVIEW
+			FROM
+			  	YJ_PLACE
+			WHERE
+			  	AREACODE = '1'
+			  	AND FIRSTIMAGE IS NOT NULL
+		)
+		WHERE NUM &lt; 6
+	</select>
+	
+</mapper>

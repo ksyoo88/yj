@@ -7,21 +7,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.yj.dao.EmployeeDao;
-import kr.co.yj.vo.Employee;
+import kr.co.yj.service.MainService;
+import kr.co.yj.vo.Place;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	EmployeeDao empDao;
+	MainService mainService;
 	
 	@RequestMapping("/main.do")
 	public String main(Model model) {
-		ArrayList<Employee> empList = empDao.getEmployees();
 		
-		model.addAttribute("empList", empList);
-		model.addAttribute("title", "제목입니다.");
+		model.addAttribute("title", "여기저기 - 여행, 끝이 아닌 시작을 향해.");
+		
+		ArrayList<Place> placeList = mainService.getPlaceListByRead();
+		model.addAttribute("placeList", placeList);
+		
 		return "/main/main.tiles";
 	}
 	

@@ -33,8 +33,7 @@
 	<div class="container-fluid">
 		<div class="jumbotron">
 			<h1>무슨 용도로 사용할까?</h1>
-			<p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more
-				unique by building on or modifying it.</p>
+			<p>사진관련?</p>
 		</div>
 	</div>
 	
@@ -51,7 +50,6 @@
 	<div class="container-fluid main-plan">
 		<h2>
 			<span class="small-title">추천일정</span><br>
-			<img src="resources/images/title_travelog.png">
 		</h2>
 		<h3>여기저기 사용자들의 알찬 여행정보를 공유합니다.</h3>
 		<div class="row">
@@ -60,23 +58,25 @@
 				<!-- normal -->
 				<div class="ih-item square colored effect6 from_top_and_bottom">
 					<a href="#">
-							<div class="posAbsolute type_band type_band_color1">PLACE</div>
+							<div class="posAbsolute type_band type_band_color2">PLAN</div>
 						<div class="img">
 							<img alt="" src="resources/images/test.jpg"/>
 						</div>
 						<div class="info">
-							<h3>Santa Barbara</h3>
-							<div style="color: white;">5 days / 23 places</div>
+							<h3>1881 헤리티지(1881 Heritage)</h3>
+							<div style="color: white;">
+								연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때가격
+							</div>
 						</div>
 						<div class="detail">
 							<div class="desc">
-								산타바바라 자연과 하나되는 여행, 산~타 봐봐라! <br>
-								<span class="colorBlueTeal">Santa Barbara</span>
+								1881 헤리티지(1881 Heritage) <br>
+								<span class="colorBlueTeal">Hong Kong</span>
 							</div>
-							<div class="userName" data-uno="1352">
-								<span>Taekyoung Lee</span>
+							<div class="userName" data-uno="9">
+								<span>Hana Tour</span>
 							</div>
-							<div class="date">2014.08.05 20:42</div>
+							<div class="date">2013.01.11 09:56</div>
 						</div>
 					</a>
 				</div>
@@ -185,70 +185,20 @@
 	<div class="container-fluid main-place">
 		<h2>
 			<span class="small-title">추천장소</span><br>
-			<img src="resources/images/title_cityaward.png">
 		</h2>
 		<h3>엄선된 도시와 장소정보를 공유합니다.</h3>
-		<!-- colored -->
+		<c:forEach var="place" items="${placeList }">
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
 				<div class="img">
-					<img alt="" src="resources/images/test.jpg" />
+					<img alt="" src="${place.firstimage }" />
 				</div>
 				<div class="info">
-					<h3>1881 헤리티지(1881 Heritage)</h3>
+					<h3>${place.title }</h3>
 				</div>
 			</a>
 		</div>
-		<!-- end colored -->
-		<!-- colored -->
-		<div class="colored effect3 from_top_and_bottom">
-			<a href="#">
-				<div class="img">
-					<img alt="" src="resources/images/test.jpg" />
-				</div>
-				<div class="info">
-					<h3>1881 헤리티지(1881 Heritage)</h3>
-				</div>
-			</a>
-		</div>
-		<!-- end colored -->
-		<!-- colored -->
-		<div class="colored effect3 from_top_and_bottom">
-			<a href="#">
-				<div class="img">
-					<img alt="" src="resources/images/test.jpg" />
-				</div>
-				<div class="info">
-					<h3>1881 헤리티지(1881 Heritage)</h3>
-				</div>
-			</a>
-		</div>
-		<!-- end colored -->
-		<!-- colored -->
-		<div class="colored effect3 from_top_and_bottom">
-			<a href="#">
-				<div class="img">
-					<img alt="" src="resources/images/test.jpg" />
-				</div>
-				<div class="info">
-					<h3>1881 헤리티지(1881 Heritage)</h3>
-				</div>
-			</a>
-		</div>
-		<!-- end colored -->
-		<!-- colored -->
-		<div class="colored effect3 from_top_and_bottom">
-			<a href="#">
-				<div class="img">
-					<img alt="" src="resources/images/test.jpg" />
-				</div>
-				<div class="info">
-					<h3>1881 헤리티지(1881 Heritage)</h3>
-				</div>
-			</a>
-		</div>
-		<!-- end colored -->
-	<!-- end From top and bottom-->
+		</c:forEach>
 	</div>
 	<!-- ======================================================================================================= -->
 	
