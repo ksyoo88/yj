@@ -24,14 +24,23 @@
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
 		var markers = [];
 		
+		var planArray = new Array(); 
 		
+		var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+		
+		var day = 1; 
 		
 		$("#addplan").click(function() {
 			if( $("#startDate").val() != "" ) {
 				
-				
+				day++;				
+				var startDate = $("#startDate").val();
+				var nextDayDateFormat = parseAddDate(startDate,day);
+				planArray.push(nextDayDateFormat);
+				console.log(planArray);
 				$("#left-tab-plan-contents").append(
-					"<div class='col-md-12'><p><strong id='startDateStr'>하하하</strong></p></div>");				
+					"<div class='col-md-12'><p><strong id='"+day+"dateStr'>"+ nextDayDateFormat +" DAY "+ day+"</strong></p></div>");	
+				
 			}else {
 				alert("출발일을 설정해 주세요 ");
 			}				
@@ -41,30 +50,44 @@
 			$("#left-tab-plan-contents")
 			.html("<div class='col-md-12'><p><strong id='startDateStr'>출발일을 입력해주세요</strong></p></div>")
 			 $("#startDate").val("");
-			
-			
+			day = 1;			
 		});
 		
 		// 캘린더 변경시 날짜 설정 
-		$("#startDate").change(function() {
+		$("#startDate").change(function() {				
 			
-			var temp = $("#startDate").val();
-			$("#startDateStr").html(temp+" DAY 1");
+			var startDate = $("#startDate").val();				
+			planArray.push(parseDate(startDate));
+			console.log(planArray);
+			$("#startDateStr").html( parseDate(startDate) +" DAY 1 ");	
 			
-// 			var startDateValue = $("#startDate").val();
-			
-// 			var startDateYear = startDateValue.
-			
-// 			var tempDate = new Date(y,m,d);
-			
-			
-			console.log(temp);
 		});
 		
-// 		function parseDate(s) {
-// 			var b = s.split(/\D/);
-// 		    return new Date(b[0], --b[1], b[2]);
-// 		}
+		function parseDate(s) {
+			var b = s.split(/\D/);
+			var tempDate = new Date(b[0], --b[1], b[2]);
+			var year = tempDate.getFullYear();
+			var month = tempDate.getMonth()+1;
+			var date = tempDate.getDate();
+		    return year+"년 "+month+"월 "+date+"일 " + days[tempDate.getDay()] ;
+		}
+		
+		function parseAddDate(s) {
+			var b = s.split(/\D/);
+			var tempDate = new Date(b[0], --b[1], b[2]);
+			tempDate.setDate(tempDate.getDate()+(day-1) );
+			var year = tempDate.getFullYear();
+			var month = tempDate.getMonth()+1;
+			var date = tempDate.getDate();
+		    return year+"년 "+month+"월 "+date+"일 " + days[tempDate.getDay()] ;
+		}
+		
+		function startDateChange(var planArray){
+			var tempArray = new Array();
+			for(var i; i<planArray.length(); i++){
+				parseDate()
+			}
+		}
 
 		// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
 		$("#mapcategory li").click( function() {
