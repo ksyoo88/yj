@@ -11,13 +11,28 @@
 		<put-attribute name="content" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"></put-attribute>
 	</definition>
-	
+	<!-- 
 	<definition name="/*/*.tiles" extends="default">
 		<put-attribute name="title" expression="${title}" />
 		<put-attribute name="style" value="" />
 		<put-attribute name="javascript" value="" />
 		<put-attribute name="header" value="" />
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+		<put-attribute name="footer" value="" />
+	</definition>
+	 -->
+	<definition name="/main/*.tiles" extends="default">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="style" value="/WEB-INF/views/main/{1}_style.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp"/>
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<definition name="/attraction/*.tiles" extends="default">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="style" value="/WEB-INF/views/main/{1}_style.jsp" />
+		<put-attribute name="javascript" value="/WEB-INF/views/main/{1}_js.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/attraction/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
 	</definition>
 
