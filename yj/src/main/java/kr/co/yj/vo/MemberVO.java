@@ -8,8 +8,16 @@ public class MemberVO {
 	private String password;
 	private String birth;
 	private String gender;
+	private String photo;
 	
 	
+	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public MemberVO() {
 		super();
 	}
@@ -52,8 +60,10 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [no=" + no + ", email=" + email + ", name=" + name + ", password=" + password + ", birth="
-				+ birth + ", gender=" + gender + "]";
+				+ birth + ", gender=" + gender + ", photo=" + photo + "]";
 	}
+	
+	
 	
 	
 	

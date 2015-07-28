@@ -15,12 +15,13 @@
 		<result column="MEM_PASSWORD" property="password"/>
 		<result column="MEM_BIRTH" property="birth"/>
 		<result column="MEM_GENDER" property="gender"/>
+		<result column="MEM_PHOTO" property="photo"/>
 	</resultMap> 
 	
 
 	<insert id="addMember" parameterType="Member" >
-	INSERT INTO YJ_MEMBER(MEM_NO,MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER)
-	 VALUES (My_seq.nextval,#{email},#{name},#{password},#{birth},#{gender})
+	INSERT INTO YJ_MEMBER(MEM_NO,MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER,MEM_PHOTO)
+	 VALUES (My_seq.nextval,#{email},#{name},#{password},#{birth},#{gender},#{photo})
 	</insert>
 	
 	<select id="getMemberbyemail" parameterType="string" resultMap="mem">

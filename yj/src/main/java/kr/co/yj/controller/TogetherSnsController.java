@@ -1,6 +1,7 @@
 package kr.co.yj.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,8 +14,9 @@ public class TogetherSnsController {
 	}
 	
 	@RequestMapping("/member.do")
-	public String memberBlog() {
+	public String memberBlog(Model model) {
 		
+		//model.addAttribute("member", model);
 		return "/togethersns/member.tiles";
 	}
 	

@@ -17,6 +17,18 @@
   
 <script type="text/javascript">
 $(document).ready(function(){
+		function   loginfail() {
+		$("#loginfail").modal();
+			
+		}
+	
+	var login = '${login}';
+	
+	if(login==='false'){
+		loginfail();
+	alert(login);
+	}
+	alert(login);
 	
 	var $frm = $("form[name=checkmail]");
 	
@@ -38,8 +50,8 @@ $(document).ready(function(){
     				$frm.submit();
     			}else{
     				var content="";
-    				content +="<h4>없는 이메일입니다.</h4>"
-    				content +="<h4>다시 확인해주세요.</h4>"
+    				content +="<h4>없는 이메일입니다.</h4>";
+    				content +="<h4>다시 확인해주세요.</h4>";
     				
     			}
     			
@@ -54,8 +66,7 @@ $(document).ready(function(){
 
 </script>
 
-</head>
-<body>
+
 
 	<div class="container">
 
@@ -75,17 +86,17 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form">
+						<form role="form" action="login.do" method="post">
 							<div class="form-group">
 								<label for="usrname"><span
 									class="glyphicon glyphicon-user"></span> Username</label> <input
-									type="text" class="form-control" name="username" id="usrname"
+									type="text" class="form-control" name="loginEmail" id="loginEmail"
 									placeholder="Enter email">
 							</div>
 							<div class="form-group">
 								<label for="psw"><span
 									class="glyphicon glyphicon-eye-open"></span> Password</label> <input
-									type="text" class="form-control" name="pwd" id="psw"
+									type="text" class="form-control" name="pwd" id="pwd"
 									placeholder="Enter password">
 							</div>
 							<div class="checkbox">
@@ -114,6 +125,8 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<!-- find Modal -->
+		
+		
 		<div class="modal fade" id="findModal" role="dialog">
 			<div class="modal-dialog">
 
@@ -154,9 +167,45 @@ $(document).ready(function(){
 				</div>
 
 			</div>
+			
+			
 		</div>
+			
 	
 		</div>
+		<!-- Login Modal -->
+		<div class="modal fade" id="loginfail" role="dialog">
+			<div class="modal-dialog">
+			
+				<!-- 로그인실패 -->
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 35px 50px;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>
+							<span class="glyphicon glyphicon-search"></span> 로그인실패
+						</h4>
+					</div>
+					<div class="modal-body" style="padding: 40px 50px;">
+						<h3>아이디나 비번이 아닙니다</h3><h4> 다시 확인해주세요</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger btn-default pull-left"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> Cancel
+						</button>
+						<p>
+							회원이 아니세요? <a data-toggle="modal" data-target="#formModal">회원가입</a>
+						</p>
+						<p>
+							비번이 기억이 안나세요? <a data-toggle="modal" data-target="#findModal">비번 찾기</a>
+						</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		
 		<!-- form Modal -->
 		<div class="modal fade" id="formModal" role="dialog">
 			<div class="modal-dialog">
@@ -180,7 +229,7 @@ $(document).ready(function(){
 							<div class="form-group">
 								<label for="user"><span
 									class="glyphicon glyphicon-envelope"></span> 이메일</label> <input
-									type="text" class="form-control" name="email" id="useremail"
+									type="text" class="form-control" name="email" id="email"
 									placeholder="이메일">
 							</div>
 							<div class="form-group">
@@ -219,5 +268,4 @@ $(document).ready(function(){
 		</div>
 		
 </div>
-</body>
-</html>
+

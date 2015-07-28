@@ -8,4 +8,6 @@ public interface MemberService {
 	void sendemail(/*String subject,String text,String from,*/String to);
 	
 	boolean checkEmail(String email);
+	
+	MemberVO loginCheck(String email,String pwd);
 }

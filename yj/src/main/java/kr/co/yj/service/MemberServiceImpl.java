@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.util.Md5Util;
@@ -24,6 +25,11 @@ public class MemberServiceImpl implements MemberService {
 	public void addMember(MemberVO mem) {
 		
 		String password=mem.getPassword();
+		if(mem.getGender()=="m"){
+			mem.setPhoto("male");
+		}else{
+			mem.setPhoto("female");
+		}
 		String pwd=Md5Util.md5Text(password);
 		mem.setPassword(pwd);
 		dao.addMember(mem);
@@ -72,6 +78,33 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	
+	@Override
+	public MemberVO loginCheck(String email, String pwd) {
+		MemberVO member=dao.getMemberbyemail(email);
+		
+		String md5pwd=Md5Util.md5Text(pwd);
+		
+	
+		System.out.println("pass:"+member.getPassword());
+		System.out.println("pass:"+md5pwd);
+		
+		
+		if(member==null){
+			return null;
+		}else{
+			if(member.getPassword().equals(md5pwd)){
+				
+				
+				return member;
+			}else{
+				
+				return null;
+			}
+		}
+		
+	}
+	
 	
 	
 }
