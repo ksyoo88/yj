@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
 	<!-- Fixed navbar -->
+	<!-- 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -18,7 +19,7 @@
 				<div class="navbar-right">
 					<form class="navbar-form">
 						<a href="" class="btn btn-default">로그인</a>
-						<!-- <a href="" class="btn btn-default">로그아웃</a> -->
+						<a href="" class="btn btn-default">로그아웃</a>
 						<a href="" class="btn btn-default">회원가입</a>
 						<div class="form-group">
 							<input type="text" placeholder="가고싶은 곳을 찾아보세요." class="form-control">
@@ -27,5 +28,33 @@
 					</form>
 				</div>
 			</div>
+		</div>
+	</nav>
+	 -->
+ 	<nav class="navbar nav-pills navbar-inverse" id="navigationBar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand glyphicon glyphicon-plane" href="#"></a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">여기추천</a></li>
+					<li><a href="#">저기저기저기</a></li>
+					<li><a href="#">사진</a></li>
+				</ul>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						회원가입</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+						로그인</a></li>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control"
+							placeholder="어디를 여행하고 싶으세요?">
+					</div>
+					<button type="submit" class="btn btn-default">검색</button>
+				</form>
+			</ul>
 		</div>
 	</nav>
