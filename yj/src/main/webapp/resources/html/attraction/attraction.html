@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>여기저기 추천장소입니다.</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../../css/index.css">
+<style type="text/css">
+.header {
+	border-bottom: solid 1px #d1d1d1;
+	padding-top: 40px;
+	padding-bottom: 10px;
+	position: relative;
+}
+.header .title {
+	width: 100%;
+	text-align: center;
+}
+.header .tab_step {
+	padding: 0;
+	margin: 0;
+	margin-left: 50px;
+	margin-top: 50px;
+	list-style: none;
+}
+.header .tab_step li {
+	width: 130px;
+	margin-right: 40px;
+	display: inline-block;
+	text-align: left;
+	font-size: 12px;
+	color: #a0a9a8;
+	background: url(../../images/attraction/icon_r_arrow_blue_n.png) center right no-repeat;
+}
+.header .tab_step li.last {
+	margin-right: 0;
+	background: none;
+}
+.header .tab_step li.on {
+	color: #000;
+}
+.header .tab_step li strong {
+	font-family: "GodoB";
+}
+.header .tab_step li span.select {
+	color: #24bdcb;
+	font-weight: bold;
+}
+
+/* ================================= */
+.body {
+	margin-top: 28px;
+}
+.body #planb_help {
+	width: 200px;
+	float: left;
+}
+.body #planb_help .help {
+	width: 190px;
+}
+.body #planb_help .help .title {
+	font-size: 14px;
+	color: #000;
+}
+.body #planb_help .help .content {
+	font-size: 12px;
+	color: #858585;
+}
+.body .step_area {
+	width: 797px;
+	float: left;
+	padding-bottom: 50px;
+}
+.body .step_area .step {
+	width: 100%;
+	float: left;
+	display: none;
+}
+.body .step_area .step .btn-area {
+	width: 100%;
+	float: left;
+	margin-top: 40px;
+	color: #fff;
+	text-align: center;
+}
+.body .step_area .step .btn-area .btn-prev {
+	float: left;
+	width: auto;
+	padding: 0 40px;
+	height: 45px;
+	line-height: 45px;
+	cursor: pointer;
+	background: #abbbbb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-weight: bold;
+}
+.body .step_area .step .btn-area .btn-next {
+	float: right;
+	width: auto;
+	padding: 0 40px;
+	height: 45px;
+	line-height: 45px;
+	cursor: pointer;
+	background: #22becb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-weight: bold;
+}
+.body .step_area .step .btn-area .btn-next.off {
+	background: #fff;
+	border: solid 1px #a9c4cd;
+	color: #587982;
+}
+.body .step_area .step .btn-area .btn-next#getPlanbProvide {
+	width: 150px;
+}
+.body .step_area .step .title {
+	width: 100%;
+	float: left;
+	height: 35px;
+	font-size: 26px;
+	font-weight: 700;
+}
+.body .step_area .step .content {
+	width: 100%;
+	float: left;
+}
+.body .step_area .theme-title {
+	font-size: 12px;
+	line-height: 24px; 
+	font-weight: 700;
+}
+.body .step_area .theme-title img {
+	vertical-align: middle;
+}
+
+.body .step_area .step0 .theme-city-list {
+	margin-top: 5px;
+}
+.body .step_area .step0 .theme-city-list .city-box {
+	position: relative;
+	float: left;
+	width: 140px;
+	height: 170px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	display: block;
+}
+.body .step_area .step0 .theme-city-list .city-box .city-img {
+	position: relative;
+}
+.body .step_area .step0 .theme-city-list .city-box .city-img .mask {
+	width: 140px;
+	height: 130px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	background: #22becb url(/_images/check_w.png) 50% 50% no-repeat;
+	filter: alpha(opacity=90);
+	-kthml-opacity: 0.9;
+	-moz-opacity: 0.9;
+	opacity: 0.9;
+	display: none;
+}
+.body .step_area .step0 .theme-city-list .city-box .city-img.on .mask {
+	display: block;
+}
+.body .step_area .step0 .theme-city-list .city-box .city-name {
+	font-size: 14px;
+	color: #000;
+	margin-top: 5px;
+}
+.body .step_area .step0 .theme-city-list .city-box .city-name span {
+	font-size: 12px;
+	color: #768082;
+}
+
+</style>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">이미지</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">여기추천</a></li>
+					<li><a href="#about">저기가자</a></li>
+					<li><a href="#contact">같이보자</a></li>
+				</ul>
+				<div class="navbar-right">
+					<form class="navbar-form">
+						<a href="" class="btn btn-default">로그인</a>
+						<!-- <a href="" class="btn btn-default">로그아웃</a> -->
+						<a href="" class="btn btn-default">회원가입</a>
+						<div class="form-group">
+							<input type="text" placeholder="가고싶은 곳을 찾아보세요." class="form-control">
+						</div>
+						<button type="submit" class="btn btn-default">검색</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="header">
+			<div class="title">
+				<img src="../../images/attraction/title_smartplanb.jpg">
+			</div>
+			<ul class="tab_step">
+				<li class="step0 on"><strong>STEP1</strong> &nbsp;<br><span class="select">서울</span></li>
+				<li class="step1"><strong>STEP2</strong> &nbsp; <br><span>여행일정</span></li>
+				<li class="step2"><strong>STEP3</strong> &nbsp; <br><span>여행친구</span></li>
+				<li class="step3 last"><strong>STEP4</strong> &nbsp; <br><span>개인 여행 성향</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<div class="body">
+			<div id="planb_help">
+				<div class="people">
+					<img class="icon hide" style="display: inline;" src="../../images/attraction/planb_icon_set_city.png"> <img class="character"
+						src="../../images/attraction/planb_icon_people03.png">
+				</div>
+				<div class="help">
+					<p class="title">마음속에 이미 갈곳을 정해두셨다면?</p>
+					<p class="content">여행일정을 추천 받을 도시는 선택해주시면 선택하신 도시에서의 여행일정을 추천해드려요~^^</p>
+				</div>
+			</div>
+			<div class="step_area">
+				<div class="step step0" style="display: block;">
+					<div class="title">여행도시</div>
+					<div class="content">
+						<div class="theme-city-layout">
+							<div class="theme-title">
+								<img title="citis" alt="citis" src="../../images/attraction/icon_pin_city.png"> 투어플랜비 추천도시
+							</div>
+							<div class="theme-city-list mCustomScrollbar _mCS_2">
+								<div class="mCustomScrollBox mCS-light mCSB_horizontal" id="mCSB_2"
+									style="height: 100%; overflow: hidden; position: relative; max-width: 100%;">
+									<div class="mCSB_container" style="left: 0px; width: 1885px; position: relative;">
+										<div class="city-box hand" data-cityidx="5879" data-cityname="서울">
+											<div class="city-img on">
+												<div class="mask"></div>
+												<img title="서울" alt="서울"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F613ce9e8c897db3f9176ca332334de94_1.jpg">
+											</div>
+											<div class="city-name">
+												서울 <br> <span>Korea, Republic of</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="3620" data-cityname="런던">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="런던" alt="런던"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F0581ec18a7b46fe190685f425797fa77_1.jpg">
+											</div>
+											<div class="city-name">
+												런던 <br> <span>United Kingdom</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="532" data-cityname="방콕">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="방콕" alt="방콕"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F42e849806275bbdb2ae6685c4e1794a1_1.jpg">
+											</div>
+											<div class="city-name">
+												방콕 <br> <span>Thailand</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="2559" data-cityname="홍콩">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="홍콩" alt="홍콩"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F1de83cce9511193ffab80565e36fbc61_1.jpg">
+											</div>
+											<div class="city-name">
+												홍콩 <br> <span>Hong Kong</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="5506" data-cityname="로마">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="로마" alt="로마"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2Fd4718d5a5c56ae877a38309d1eed91cb_1.jpg">
+											</div>
+											<div class="city-name">
+												로마 <br> <span>Italy</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="552" data-cityname="바르셀로나">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="바르셀로나" alt="바르셀로나"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2Fb365c7bf7743851cfb29a71325ab0e20_1.jpg">
+											</div>
+											<div class="city-name">
+												바르셀로나 <br> <span>Spain</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="4908" data-cityname="파리">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="파리" alt="파리"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F691e0af0ff61f84ec5ada82e44200390_1.jpg">
+											</div>
+											<div class="city-name">
+												파리 <br> <span>France</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="6523" data-cityname="도쿄">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="도쿄" alt="도쿄"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F02f86b9281f17d4d44561ea109265f80_1.jpg">
+											</div>
+											<div class="city-name">
+												도쿄 <br> <span>Japan</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="3291" data-cityname="군산">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="군산" alt="군산"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2Fc0efb23685867a6af1da20221d82eb4f_1.jpg">
+											</div>
+											<div class="city-name">
+												군산 <br> <span>Korea, Republic of</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="5722" data-cityname="산타 바바라">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="산타 바바라" alt="산타 바바라"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F6b1852d63887cdaa05665109066ac20a_1.png">
+											</div>
+											<div class="city-name">
+												산타 바바라 <br> <span>United States</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="5903" data-cityname="상하이">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="상하이" alt="상하이"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F3b13572387705059cc661aab1cb82fe1_1.jpg">
+											</div>
+											<div class="city-name">
+												상하이 <br> <span>China</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="6003" data-cityname="싱가포르">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="싱가포르" alt="싱가포르"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2F0d62318a6bc18e9c88aaba233ab91ffb_1.jpg">
+											</div>
+											<div class="city-name">
+												싱가포르 <br> <span>Singapore</span>
+											</div>
+										</div>
+										<div class="city-box hand" data-cityidx="3814" data-cityname="말레이">
+											<div class="city-img">
+												<div class="mask"></div>
+												<img title="말레이" alt="말레이"
+													src="../_html/loading.php?tb=1&amp;ws=140&amp;hs=130&amp;file=..%2F_data%2F_scope%2Feff4eda1b5a49d729dec5ce5cece1d8f_1.jpg">
+											</div>
+											<div class="city-name">
+												말레이 <br> <span>Philippines</span>
+											</div>
+										</div>
+									</div>
+									<div class="mCSB_scrollTools" style="display: block; position: absolute;">
+										<div class="mCSB_draggerContainer">
+											<div class="mCSB_dragger" style="left: 0px; width: 337px; position: absolute;" oncontextmenu="return false;">
+												<div class="mCSB_dragger_bar" style="position: relative;"></div>
+											</div>
+											<div class="mCSB_draggerRail"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="btn-area">
+						<span class="btn-next">다음 &gt;</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
