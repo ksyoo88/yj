@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>여기저기 추천장소입니다.</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../../css/index.css">
+<link rel="stylesheet" href="../../css/mscroll/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap-slider.min.css">
+<style type="text/css">
+.header {
+	border-bottom: solid 1px #d1d1d1;
+	padding-top: 40px;
+	padding-bottom: 10px;
+	position: relative;
+}
+.header .title {
+	width: 100%;
+	text-align: center;
+}
+.header .tab_step {
+	padding: 0;
+	margin: 0;
+	margin-left: 50px;
+	margin-top: 50px;
+	list-style: none;
+}
+.header .tab_step li {
+	width: 130px;
+	margin-right: 40px;
+	display: inline-block;
+	text-align: left;
+	font-size: 12px;
+	color: #a0a9a8;
+	background: url(../../images/attraction/icon_r_arrow_blue_n.png) center right no-repeat;
+}
+.header .tab_step li.last {
+	margin-right: 0;
+	background: none;
+}
+.header .tab_step li.on {
+	color: #000;
+}
+.header .tab_step li strong {
+	font-family: "NGBold";
+}
+.header .tab_step li span.select {
+	color: #24bdcb;
+	font-weight: bold;
+}
+
+/* ================================= */
+.body {
+	margin-top: 28px;
+}
+.body #planb_help {
+	width: 200px;
+	float: left;
+}
+.body #planb_help .help {
+	width: 190px;
+}
+.body #planb_help .help .title {
+	font-size: 14px;
+	color: #000;
+}
+.body #planb_help .help .content {
+	font-size: 12px;
+	color: #858585;
+}
+.body .step_area {
+	width: 797px;
+	float: left;
+	padding-bottom: 50px;
+}
+.body .step_area .step {
+	width: 100%;
+	float: left;
+	display: none;
+}
+.body .step_area .step .btn-area {
+	width: 100%;
+	float: left;
+	margin-top: 40px;
+	color: #fff;
+	text-align: center;
+}
+.body .step_area .step .btn-area .btn-prev {
+	float: left;
+	width: auto;
+	padding: 0 40px;
+	height: 45px;
+	line-height: 45px;
+	cursor: pointer;
+	background: #abbbbb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-weight: bold;
+}
+.body .step_area .step .btn-area .btn-next {
+	float: right;
+	width: auto;
+	padding: 0 40px;
+	height: 45px;
+	line-height: 45px;
+	cursor: pointer;
+	background: #22becb;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-weight: bold;
+}
+.body .step_area .step .btn-area .btn-next.off {
+	background: #fff;
+	border: solid 1px #a9c4cd;
+	color: #587982;
+}
+.body .step_area .step .btn-area .btn-next#getPlanbProvide {
+	width: 150px;
+}
+.body .step_area .step .title {
+	width: 100%;
+	float: left;
+	height: 35px;
+	font-size: 26px;
+	font-weight: 700;
+}
+.body .step_area .step .content {
+	width: 100%;
+	float: left;
+}
+.body .step_area .theme-title {
+	font-size: 12px;
+	line-height: 24px; 
+	font-weight: 700;
+}
+.body .step_area .theme-title img {
+	vertical-align: middle;
+}
+
+/* ======================= */
+.slider.slider-vertical {
+	height: 110px;
+}
+
+.favorbar .slider-track-high {
+	background: green;
+}
+
+</style>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/mscroll/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap/bootstrap-slider.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">이미지</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">여기추천</a></li>
+					<li><a href="#about">저기가자</a></li>
+					<li><a href="#contact">같이보자</a></li>
+				</ul>
+				<div class="navbar-right">
+					<form class="navbar-form">
+						<a href="" class="btn btn-default">로그인</a>
+						<!-- <a href="" class="btn btn-default">로그아웃</a> -->
+						<a href="" class="btn btn-default">회원가입</a>
+						<div class="form-group">
+							<input type="text" placeholder="가고싶은 곳을 찾아보세요." class="form-control">
+						</div>
+						<button type="submit" class="btn btn-default">검색</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="header">
+			<div class="title">
+				<img src="../../images/attraction/title_smartplanb.jpg">
+			</div>
+			<ul class="tab_step">
+				<li class="step0 on"><strong>STEP1</strong> &nbsp;<br><span class="select">여행도시</span></li>
+				<li class="step1"><strong>STEP2</strong> &nbsp; <br><span>여행성향</span></li>
+				<li class="step2 last"><strong>STEP3</strong> &nbsp; <br><span>추천장소</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<div class="body">
+			<div id="planb_help">
+				<div class="people">
+					<img class="icon hide" style="display: inline;" src="../../images/attraction/planb_icon_set_city.png"> <img class="character"
+						src="../../images/attraction/planb_icon_people03.png">
+				</div>
+				<div class="help">
+					<p class="title">마음속에 이미 갈곳을 정해두셨다면?</p>
+					<p class="content">여행일정을 추천 받을 도시는 선택해주시면 선택하신 도시에서의 여행일정을 추천해드려요~^^</p>
+				</div>
+			</div>
+			<div class="step_area">
+				<div class="step step3" style="display: block;">
+					<div class="title">여행 성향</div>
+					<div class="row">
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex1" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">관광</span>
+						</div>
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex2" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">쇼핑</span>
+						</div>
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex3" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">쇼핑</span>
+						</div>
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex4" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">쇼핑</span>
+						</div>
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex5" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">쇼핑</span>
+						</div>
+						<div class="favorbar col-md-2" style="margin-top: 20px;">
+							<input id="ex6" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">쇼핑</span>
+						</div>
+					</div>
+					<div class="btn-area">
+						<span class="btn-prev">&lt; 여행도시</span>
+						<span class="btn-next" id="getPlanbProvide">추천장소</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+$(function() {
+	$(".favorbar input").slider({
+		reversed : true,
+		formatter: function(value) {
+			var result = "";
+			if(value == 0) {
+				result = "하";
+			} else if(value == 1) {
+				result = "중";
+			} else if(value == 2) {
+				result = "상";
+			}
+			return result;
+		}
+	});
+});
+</script>
+</html>
