@@ -1,120 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
- 
-    <script type="text/javascript">
-
-      google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawVisualization);
-
-function drawVisualization() {
-  // Some raw data (not necessarily accurate)
-  var data = google.visualization.arrayToDataTable([
-    ['성향', '', ''],
-    ['',  10,     10],
-    ['',  8,       8],
-    ['',  3,       3],
-    ['',  5,       5],
-    ['',  8,       8],
-    ['',  2,       2]
-  ]);
-
-  var options = {
-
-    seriesType: "bars",
-    series: {1: {type: "line"}},
-    width:600
     
-  };
 
-  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
-}
-$(function() {
-
-	$("#modify").hide();
-	$("#profiletabs a:last").click(function(event) {
-		event.preventDefault();
-		$("#profile").hide();
-		$("#profiletabs #tabs a.current").removeClass("current");
-		$(this).addClass("current");
-		$("#modify").show();
-	});
-	
-	$("#profiletabs a:first").click(function(event) {
-		event.preventDefault();
-		$("#modify").hide();
-		$("#profiletabs #tabs a.current").removeClass("current");
-		$(this).addClass("current");
-		$("#profile").show();
-	});
-	
-	$("#newpassword").hide();
-	
-	$("#changepassword").click(function(event) {
-		event.preventDefault();
-		$("#newpassword").toggle();
-	});
-	
-	$("#profiletabs #tabs a:first").click();
-	
-	//메뉴
-	$(".tab-section").hide();
-	$("#category #tabs a").click(function(event){
-		event.preventDefault();
-		$(".tab-section").hide();
-		$("#category #tabs a.current").removeClass("current");
-		$(this).addClass("current");
-		var tabId = $(this).attr("href");
-		$(tabId).show();
-		
-	});
-	
-	$("#category #tabs a:first").click();
-	
-	
-	$("#imagetrevel").hide().slideDown("slow");
-	
-	$("#headimgclose").click(function(e) {
-		$("#imagetrevel").slideUp("slow");
-		
-	})
-})
-
-    </script>
-<style type="text/css">
-#profileimg:hover {
-	opacity: 0.4;
-    filter: alpha(opacity=40);
-}
-
-#profile:hover { 
-	display:"block";
-}
+<script type="text/javascript">
 
 
-#icon{
-	padding-left: 70px
-}
-#icon img{
-	
-	width: 60px;
-	height: 60px;
-	margin-left: 10px
-}
-
-#imagetrevel{
-	padding :0;
-	background-image:  url("../images/sns/trevel.jpg");
-}
 
 
-</style>
-</head>
-<body>
+</script>
+<div class="modal fade" id="makePano" role="dialog">
+	<div class="modal-dialog">
 
-	<div id="imagetrevel" style="width: 100%;height: 200px;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">
+					<strong>파노라마 만들기</strong>
+				</h4>
+			</div>
+			<div class="modal-body">
+				
+					<div id="photologImageArea" class="marginTop10 ui-corner-all2" style="position: relative; 
+						border: 2px dashed #cfd6e3; background: #f6f8fa; height: 228px; text-align: center;">	
+							
+						<img id="selectPhotologImage" class="hand" onclick="photoupload()" src="resources/images/addPhoto.jpg" width="75" 
+						alt="Add photo" style="display: inline-block; 
+						margin-top: 80px; position: relative; z-index: 1;">		
+						
+							<div id="imageListArea" style="position: absolute; height: 64px; left: 15px; bottom: 5px; 
+							right: 15px;" class="mCustomScrollbar _mCS_2">
+							
+								<div class="mCustomScrollBox mCS-light mCSB_horizontal" id="mCSB_2" style="position:relative; height:100%; overflow:hidden; max-width:100%;">
+									<div class="mCSB_container mCS_no_scrollbar" style="left: 0px; width: 0px; position: relative;">
+									
+									</div>
+									<div class="mCSB_scrollTools" style="position: absolute; display: none;">
+										<div class="mCSB_draggerContainer">
+											<div class="mCSB_dragger" style="position: absolute; left: 0px;" oncontextmenu="return false;">
+												<div class="mCSB_dragger_bar" style="position:relative;">
+												</div></div><div class="mCSB_draggerRail">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+							<div style="height:0px;overflow:hidden">
+										
+								<input id="photoupload" type="file" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
+									   
+							</div>
+						
+						</div>
+						<div class="paddingTop20" style="text-align: right;">
+							<input type="button" value="등록" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
+						</div>
+				
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="imagetrevel" style="width: 100%;height: 200px;">
 		<div class="container">
 			<div class="col-sm-3">
 			
@@ -140,26 +90,28 @@ $(function() {
 		
 			<div class="row">
 				<div class="col-sm-1">
-					<div style="height: 150px;"" >
-					<a href="/together.do"><h1><span class="glyphicon glyphicon-chevron-left"></span></h1> </a>
+					<div style="height: 150px;">
+					<a href="together.do"><h1><span class="glyphicon glyphicon-chevron-left"></span></h1> </a>
 					</div>
 				</div>
 				<div class="col-sm-2" >
-				  	<img src="../images/sns/puppy.jpg" class="img-circle" width="180px" height="180px"   > 
+				
+					  	<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="180px" height="180px"   > 
+				
 				
 				</div>			
 			
 				
 				<div class="col-sm-6" >
 					
-					<h1> 누구님 <small>의 블로그</small></h1>
+					<h1> ${member.name } <small>님의 블로그</small></h1>
 					<button data-toggle="modal" data-target="#myPage">프로필수정 </button>
 					
 				</div>
 				<div class="col-sm-3" >
 					
 					
-					<button type="button" class="btn btn-danger">
+					<button  class="btn btn-danger" data-toggle="modal" data-target="#makePano">
 						<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
 					</button>
 
@@ -181,7 +133,7 @@ $(function() {
 
 			<div>
 				<a> 최신순 <span class="glyphicon glyphicon-chevron-down"></span>
-				</a> <a data-toggle="modal" data-target="#myModal"> 여행도시 <span
+				</a> <a data-toggle="modal" data-target="#myAdvice"> 여행도시 <span
 					class="glyphicon glyphicon-plane"></span>
 				</a>
 			</div>
@@ -192,63 +144,63 @@ $(function() {
 		<!-- 미리보기  -->
 		<div class="row">
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+				<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 					<h3>명동</h3>
 					<p>작성자</p> <span>2015.5.26 좋아요 2</span>
 				</a>
 			</div>
 		</div>
 		<!-- 여행추천 모달 -->
-		<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal fade" id="myAdvice" role="dialog">
 			<div class="modal-dialog">
 
 				<!-- Modal content-->
@@ -269,27 +221,27 @@ $(function() {
 						<p>요기조기 추천도시</p>
 						<div class="row">
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 							<div class="col-xs-6 col-md-3">
-								<a href="#" class="thumbnail"> <img src="../images/sns/puppy.jpg">
+								<a href="#" class="thumbnail"> <img src="resources/images/sns/puppy.jpg">
 								</a>
 							</div>
 						</div>
@@ -326,59 +278,71 @@ $(function() {
 						<hr>
 						<!-- 프로필 수정 -->
 						<div id="modify">
-							<div class="row"> 
-								<table>
-									<thead>
-										<tr>
-											<th>E-mail</th>
-											<td>본인이메일</td>
-										</tr>
-										<tr>
-											<th>name or nickname</th>
-											<td><input type="text" value="wooho"></td>
-										</tr>
-										<tr>
-											<th>password</th>
-											<td><button id="changepassword" >change password</button> </td>
-										</tr>
-									</thead>
-								</table>
-										<div id="newpassword" >
-										<table>
-											<thead>
-											<tr>
-												<th>Old Password</th>
-												<td><input type="text" placeholder="이번 비번" > </td>
-											</tr>
-											<tr>
-												<th>NEW Password</th>
-												<td><input type="text" placeholder="새로운비번" > </td>
-											</tr>
-											<tr>
-												<th>Confirm Password</th>
-												<td><input type="text" placeholder="한번더" > </td>
-											</tr>
-											
-									</thead>
-								</table>
-										</div>
+							<div class="modal-body" style="padding: 40px 50px;">
+						<form role="form" method="post" action="modify.do" >
+							
+							<div class="form-group">
+								<label for="username"><span
+									class="glyphicon glyphicon-user"></span> 회원이름</label> <input
+									type="text" class="form-control" name="modifyname" id="username" value="${member.name }"
+									>
 							</div>
-							<div class="row"> 
-								<button>save</button>
+							<div class="form-group">
+							<button type="button" id="changepassword" class="btn btn-info btn-default">
+							 	change password
+							</button>
 							</div>
+							
+							<div id="newpassword" >
+								<div class="form-group">
+									<label for="password1"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호 </label><p></p>
+									<input type="text" class="form-control" onblur="pwdCheck()" id="oldpassword" name="password1" placeholder="Enter password">
+								</div>
+								<div class="form-group">
+									<label for="password2"><span class="glyphicon glyphicon-eye-close"></span>새로운 비밀번호</label> 
+									<input type="text" class="form-control" id="newpassword1" name="password2"  placeholder="Enter password">
+								</div>
+								<div class="form-group">
+									<label for="password3"><span class="glyphicon glyphicon-eye-close"></span> 비밀번호 확인</label><p></p>
+									<input type="text" class="form-control" onkeyup="samepwd()" id="newpassword2" name="password3"  placeholder="Enter password">
+								</div>
+							</div>
+							
+							<button type="submit" class="btn btn-success btn-block">
+								<span class="glyphicon glyphicon-new-window">
+							</span> save
+							</button>
+						</form>
+					</div>
+				
+					
+							<div class="modal-footer">
+						<button type="submit" class="btn btn-danger btn-default pull-left"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove" ></span> Cancel
+						</button>
+							</div>
+						
 							
 						</div>
 						<!-- 프로필 -->
 						<div id="profile">
 							<div class="row">
 								<div class="col-sm-3">
+									<div style="height:0px;overflow:hidden">
+										<form action="profileup.do" method="post" enctype="multipart/form-data">
+										   <input type="file" id="fileInput" onchange="myauto()"  name="upfile" />
+										   <input id="autosubmit" type="submit">
+										</form>
+									   
+									</div>
 								
-				
-									<img src="../images/sns/puppy.jpg" class="img-circle" id="profileimg" width="100px" height="100px"  /> 
+									<img src="resources/images/profilephoto/${member.photo}" onclick="chooseFile()" class="img-circle" id="profileimg" width="100px" height="100px"  /> 
+									
 							
 								</div>
 								<div class="col-sm-6">
-									<h3>이름</h3>
+									<h3 id="membername"></h3>
 								</div>
 								
 							</div>
@@ -388,12 +352,12 @@ $(function() {
 								  
 								  </div>
 							<div id="icon">
-							<img src="../images/sns/숙박.JPG" data-toggle="tooltip" data-placement="top" title="숙박">
-							<img src="../images/sns/쇼핑.JPG" data-toggle="tooltip" data-placement="top" title="문화">
-							<img src="../images/sns/음식.JPG" data-toggle="tooltip" data-placement="top" title="음식">
-							<img src="../images/sns/자연.JPG" data-toggle="tooltip" data-placement="top" title="자연">
-							<img src="../images/sns/레져.JPG" data-toggle="tooltip" data-placement="top" title="레져">
-							<img src="../images/sns/문화.JPG" data-toggle="tooltip" data-placement="top" title="문화">
+							<img src="resources/images/sns/숙박.JPG" data-toggle="tooltip" data-placement="top" title="숙박">
+							<img src="resources/images/sns/쇼핑.JPG" data-toggle="tooltip" data-placement="top" title="문화">
+							<img src="resources/images/sns/음식.JPG" data-toggle="tooltip" data-placement="top" title="음식">
+							<img src="resources/images/sns/자연.JPG" data-toggle="tooltip" data-placement="top" title="자연">
+							<img src="resources/images/sns/레져.JPG" data-toggle="tooltip" data-placement="top" title="레져">
+							<img src="resources/images/sns/문화.JPG" data-toggle="tooltip" data-placement="top" title="문화">
 							</div>
 							</div>
 							<div class="row">
@@ -410,5 +374,4 @@ $(function() {
 	</div>
 
 </div>
-</body>
-</html>
+

@@ -11,4 +11,7 @@ public interface MemberDao {
 	MemberVO getMemberbyemail(String email);
 	
 	void updatePwd(MemberVO mem);
+	
+	void modifyinfo(MemberVO mem);
+	void updateprofile(MemberVO mem);
 }

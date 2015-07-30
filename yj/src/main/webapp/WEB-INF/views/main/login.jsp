@@ -3,18 +3,9 @@
 
 
 
- <style type="text/css">
-  .modal-header, h4, .close {
-      background-color: #5cb85c;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
-  </style>
-  
+
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 		function   loginfail() {
@@ -26,9 +17,9 @@ $(document).ready(function(){
 	
 	if(login==='false'){
 		loginfail();
-	alert(login);
+	
 	}
-	alert(login);
+	
 	
 	var $frm = $("form[name=checkmail]");
 	
@@ -71,8 +62,9 @@ $(document).ready(function(){
 	<div class="container">
 
 		<!-- Trigger the modal with a button -->
-		<button type="button" class="btn btn-default btn-lg" id="myBtn">로그인</button>
-
+		<!-- 		
+			<button type="button" class="btn btn-default btn-lg" id="myBtn">로그인</button>
+		 -->
 		<!-- Login Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">

@@ -1,9 +1,13 @@
 package kr.co.yj.service;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yj.dao.MemberDao;
@@ -25,20 +29,38 @@ public class MemberServiceImpl implements MemberService {
 	public void addMember(MemberVO mem) {
 		
 		String password=mem.getPassword();
-		if(mem.getGender()=="m"){
-			mem.setPhoto("male");
+		if(mem.getGender().equals("m")){
+			mem.setPhoto("male.jpg");
 		}else{
-			mem.setPhoto("female");
+			mem.setPhoto("female.jpg");
 		}
 		String pwd=Md5Util.md5Text(password);
 		mem.setPassword(pwd);
 		dao.addMember(mem);
 		
 	}
+	@Override
+	public MemberVO getMembyEmail(String email) {
+		
+		MemberVO mem=dao.getMemberbyemail(email);
+		
+		return mem;
+	}
 	
 	public String changePwd(MemberVO mem) {
 		
 		return dao.getMemberPwd(mem);
+	}
+	
+	@Override
+	public void modifyinfo(String name, String pwd,String email) {
+		MemberVO mem= new MemberVO();
+		mem.setEmail(email);
+		mem.setName(name);
+		String md5pwd=Md5Util.md5Text(pwd);
+		mem.setPassword(md5pwd);
+		dao.modifyinfo(mem);
+		
 	}
 	
 
@@ -80,13 +102,38 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void profileup(MultipartFile mf,String email) throws Exception {
+		String filename=null;
+		if(!mf.isEmpty()){
+			filename = mf.getOriginalFilename();
+			filename=System.currentTimeMillis()+filename;
+			String contentType =mf.getContentType();
+			long filesize = mf.getSize();
+			
+			byte[] filedata = mf.getBytes();
+			File file = new File("C:/spring_study/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/yj/resources/images/profilephoto",filename);
+			 
+			FileCopyUtils.copy(filedata, file);
+		}
+		
+		MemberVO mem = new MemberVO();
+		mem.setEmail(email);
+		mem.setPhoto(filename);
+		dao.updateprofile(mem);
+		
+	}
+	
+	
+	@Override
 	public MemberVO loginCheck(String email, String pwd) {
+		
 		MemberVO member=dao.getMemberbyemail(email);
 		
 		String md5pwd=Md5Util.md5Text(pwd);
 		
 	
 		System.out.println("pass:"+member.getPassword());
+		System.out.println(pwd);
 		System.out.println("pass:"+md5pwd);
 		
 		

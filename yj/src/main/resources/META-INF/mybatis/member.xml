@@ -36,6 +36,13 @@
 	<update id="updatePwd" parameterType="Member">
 	 	 UPDATE YJ_MEMBER SET MEM_PASSWORD =#{password}  WHERE MEM_EMAIL=#{email} 
 	</update>
+	<update id="modifyinfo" parameterType="Member">
+		UPDATE YJ_MEMBER SET MEM_NAME= #{name} ,MEM_PASSWORD=#{password} WHERE MEM_EMAIL=#{email} 
+	
+	</update>
+	<update id="updateprofile" parameterType="Member">
+	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
+	</update>
 	
 	
 </mapper>
