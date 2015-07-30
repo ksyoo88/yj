@@ -18,14 +18,142 @@ $(function() {
 	var southWestLatLng = bounds.getSouthWest();
 	var northEastLatLng = bounds.getNorthEast();
 	
-	var minX = southWestLatLng.getLat();
-	var maxX = northEastLatLng.getLat();	
-	var minY = southWestLatLng.getLng();
-	var maxY = northEastLatLng.getLng();
+	var minY = southWestLatLng.getLat();
+	var maxY = northEastLatLng.getLat();	
+	var minX = southWestLatLng.getLng();
+	var maxX = northEastLatLng.getLng();
 	console.log("min X : " + minX + " max X : " + maxX );
 	console.log("min Y : " + minY + " max Y : " + maxY );
 	
-	//$.ajax
+	$.ajax({
+		url:"mapSetting.do",
+		type:"post",
+		data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY},
+		dataType:"json",
+		success : function(result) {
+			
+			console.log(result.areaPlaces);
+			var places = result.areaPlaces;
+			
+			for(var i=0; i<places.length; i++){
+				
+				//console.log(places[i]);
+				
+				
+				var imageSrc = 'resources/images/icon_hotel.png', // 마커이미지의 주소입니다    
+								imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+								imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	
+				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				// DB에서 가져와 막 찍으면된다.
+				var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+								  markerPosition = new daum.maps.LatLng(places[i].mapy, places[i].mapx); // 마커가 표시될 위치입니다		
+	
+				// 마커를 생성합니다
+				var marker = new daum.maps.Marker({
+					position : markerPosition,
+					image : markerImage,
+					clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+				});
+				
+				markers.push(marker);
+			
+				//console.log(markers);
+				setMarkers(map);	
+				
+				// 이해가 되지 않는다. 어렵다.
+				$.each(markers, function() {
+					daum.maps.event.addListener(this, 'click', function() {
+						$("#contents-tab").attr("class","col-md-5");
+						$("#place-tab").show(1000,function() {
+							map.relayout();
+						});
+						
+						$("#dateSelect").html("");
+						for(var i=0; i<planArray.length; i++){
+							$("#dateSelect").append("<option>"+planArray[i]+"</option>");
+						}
+					})
+				});				
+			}
+			
+		}
+	});
+	
+	daum.maps.event.addListener(map, 'dragend', function() {
+		
+		cleanMarker();
+		
+		// 현재 지도 영역을 얻어옵니다.
+		var bounds = map.getBounds();
+		var southWestLatLng = bounds.getSouthWest();
+		var northEastLatLng = bounds.getNorthEast();
+		
+		var minY = southWestLatLng.getLat();
+		var maxY = northEastLatLng.getLat();	
+		var minX = southWestLatLng.getLng();
+		var maxX = northEastLatLng.getLng();
+		console.log("min X : " + minX + " max X : " + maxX );
+		console.log("min Y : " + minY + " max Y : " + maxY );
+		
+		$.ajax({
+			url:"mapSetting.do",
+			type:"post",
+			data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY},
+			dataType:"json",
+			success : function(result) {
+				
+				console.log(result.areaPlaces);
+				var places = result.areaPlaces;
+				
+				for(var i=0; i<places.length; i++){
+					
+					//console.log(places[i]);
+					
+					
+					var imageSrc = 'resources/images/icon_hotel.png', // 마커이미지의 주소입니다    
+									imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+									imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					// DB에서 가져와 막 찍으면된다.
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+									  markerPosition = new daum.maps.LatLng(places[i].mapy, places[i].mapx); // 마커가 표시될 위치입니다		
+		
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						position : markerPosition,
+						image : markerImage,
+						clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+					});
+					
+					markers.push(marker);
+				
+					//console.log(markers);
+					setMarkers(map);	
+					
+					// 이해가 되지 않는다. 어렵다.
+					$.each(markers, function() {
+						daum.maps.event.addListener(this, 'click', function() {
+							$("#contents-tab").attr("class","col-md-5");
+							$("#place-tab").show(1000,function() {
+								map.relayout();
+							});
+							
+							$("#dateSelect").html("");
+							for(var i=0; i<planArray.length; i++){
+								$("#dateSelect").append("<option>"+planArray[i]+"</option>");
+							}
+						})
+					});				
+				}
+				
+			}
+		});
+		
+	});
+	
+	
 	
 	// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
 	var markers = new Array();	

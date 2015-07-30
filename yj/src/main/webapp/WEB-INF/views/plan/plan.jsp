@@ -26,6 +26,14 @@
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_hotel.png" /></a>
 					</h3></li>
+				<li class="active" id="leports" data-cat="icon_leports"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="resources/images/icon_leports.png" /></a>
+					</h3></li>
+				<li class="active" id="culture" data-cat="icon_culture"><h3>
+						<a href="#"><img class="media-object img-rounded"
+							src="resources/images/icon_culture.png" /></a>
+					</h3></li>
 				<li class="active" id="bookmark" data-cat="icon_bookmark"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_bookmark.png" /> </a>
