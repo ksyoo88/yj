@@ -22,13 +22,38 @@
 		var map = new daum.maps.Map(container, options);
 
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
-		var markers = [];
-		
+		var markers = new Array();		
 		var planArray = new Array(); 
 		
 		var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
 		
 		var day = 1; 
+		
+		$("#placeToPlanAddBtn").click(function(){
+			
+			var index = document.getElementById("dateSelect").selectedIndex;
+			console.log(index);
+			var options = document.getElementById("dateSelect").options;
+			console.log(options);
+			index = index+1;
+			
+			console.log(index);
+			$("#"+index+"dateStr").parent().append(
+					"<div class='media'>"+
+						"<div class='media-left'>"+
+							"<a href='#'><img class='media-object img-rounded'src='../images/cat.jpg' alt='cat' width='50' height='50'></a>"+
+						"</div>"+
+						"<div class='media-body'>"+
+							"<h5 class='media-heading'>신라호텔</h5>"+
+							"<div class='btn-group btn-group-justified' role='group'>"+
+								"<a href='#' class='btn btn-default btn-sm'>위치</a>"+
+					 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>"+
+							"</div>"+
+						"</div>"+
+					"</div>"					
+					);
+			
+		});
 		
 		$("#addplan").click(function() {
 			if( $("#startDate").val() != "" ) {
@@ -48,18 +73,33 @@
 		
 		$("#retryplan").click(function() {
 			$("#left-tab-plan-contents")
-			.html("<div class='col-md-12'><p><strong id='startDateStr'>출발일을 입력해주세요</strong></p></div>")
+			.html("<div class='col-md-12'><p><strong id='1dateStr'>출발일을 입력해주세요</strong></p></div>")
 			 $("#startDate").val("");
 			day = 1;			
+			planArray.length = 0;
 		});
 		
 		// 캘린더 변경시 날짜 설정 
-		$("#startDate").change(function() {				
+		$("#startDate").change(function() {
 			
 			var startDate = $("#startDate").val();				
-			planArray.push(parseDate(startDate));
-			console.log(planArray);
-			$("#startDateStr").html( parseDate(startDate) +" DAY 1 ");	
+			if( day > 1 ) {
+				$("#left-tab-plan-contents").html("");
+				$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='1dateStr'>"+ parseDate(startDate)+" DAY 1</strong></p></div>");
+				planArray.length = 0;
+				planArray.push(parseDate(startDate))
+				for(var i=2; i<=day; i++) {
+					$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='+i+dateStr'>"+ parseAddDate(startDate,i)+" DAY "+ i+"</strong></p></div>");
+					planArray.push(parseAddDate(startDate,i));
+				}
+				console.log(planArray);
+			}else {
+				
+				planArray.push(parseDate(startDate));
+				console.log(planArray);
+				$("#1dateStr").html( parseDate(startDate) +" DAY 1 ");	
+				
+			}
 			
 		});
 		
@@ -72,7 +112,7 @@
 		    return year+"년 "+month+"월 "+date+"일 " + days[tempDate.getDay()] ;
 		}
 		
-		function parseAddDate(s) {
+		function parseAddDate(s,day) {
 			var b = s.split(/\D/);
 			var tempDate = new Date(b[0], --b[1], b[2]);
 			tempDate.setDate(tempDate.getDate()+(day-1) );
@@ -82,12 +122,18 @@
 		    return year+"년 "+month+"월 "+date+"일 " + days[tempDate.getDay()] ;
 		}
 		
-		function startDateChange(var planArray){
-			var tempArray = new Array();
-			for(var i; i<planArray.length(); i++){
-				parseDate()
-			}
-		}
+		$("#closePlaceBtn").click(function(){
+			$("#place-tab").hide(2000);
+			$("#contents-tab").attr("class","col-md-8");
+			$("#contents-tab").hide();
+			$("#contents-tab").show(2000,function() {
+				map.relayout();
+			});
+			//map = null;
+			//map = new daum.maps.Map(container, options);
+			//setMarkers(map);
+		});
+		
 
 		// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
 		$("#mapcategory li").click( function() {
@@ -125,16 +171,37 @@
 						// 마커를 생성합니다
 						var marker = new daum.maps.Marker({
 							position : markerPosition,
-							image : markerImage			
+							image : markerImage,
+							clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
 						});
 						
 						markers.push(marker);
 					}
+					console.log(markers);
 					setMarkers(map);
+					
+					// 이해가 되지 않는다. 어렵다.
+					$.each(markers, function() {
+						daum.maps.event.addListener(this, 'click', function() {
+							$("#contents-tab").attr("class","col-md-5");
+							$("#place-tab").show(1000,function() {
+								map.relayout();
+							});
+							
+							$("#dateSelect").html("");
+							for(var i=0; i<planArray.length; i++){
+								$("#dateSelect").append("<option>"+planArray[i]+"</option>");
+							}
+						})
+					});
+					
 					
 				}
 				
+				
+				
 		});
+		
 		
 		//배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다.
 		function setMarkers(map) {
@@ -196,7 +263,7 @@ div#map-box {
 #left-tab-plan-contents .col-md-12{
 	padding-top: 10px;
 	padding-bottom: 10px;
-	background-color : #FFCCFF;
+	
 	border : 5px;
 }
 
@@ -214,6 +281,11 @@ div#right-tab {
 
 nav#navigationBar {
 	margin-bottom : 0px;
+}
+
+div#place-tab {
+	border-width :0px;
+	height: 880px;
 }
 
 </style>
@@ -294,18 +366,62 @@ nav#navigationBar {
 					<a href="#" class="btn btn-default" id="addplan">추가하기</a>
 					<a href="#" class="btn btn-default" id="retryplan">다시하기</a>
 				</div>
+				<div class="btn-group btn-group-justified" role="group">
+					<a href="#" class="btn btn-default" id="addplan">저장하기</a>
+				</div>
 			</div>
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
 					<p>
-						<strong id="startDateStr">출발일을 입력해주세요</strong>
+						<strong id="1dateStr">출발일을 입력해주세요</strong>
 					</p>			
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="col-md-3" id="place-tab">
+		<div class="page-header">
+		  	<h2>
+		  		<strong>다음카카오</strong><small>daumkakao</small>
+		  		<button type="button" id="closePlaceBtn" class="btn btn-danger btn-xs pull-right">X</button>
+		  	</h2>
+		</div>
+	  	<div class="row">
+	  		<div class="col-md-12">
+				<img src="../images/daumkakao.jpg" class="img-rounded" alt="Cinque Terre" width="100%" height="236"/>
+			</div>
+	  		<div class="col-md-12">
+				<table class="table">
+					<tr>
+						<th>상세정보</th>
+					</tr>
+					<tr>
+						<td>여기는말이야 우리집이고 내가 20년동안 살아왔는데 개좋음. 일단 놀이터가 자유롭고 굉장히 좋아 그리고 노인정이있는데 아주 잘지내고 아주 편리하고 바로앞에 초등학교가 위치해있어 어린이들이
+						뛰고놀기에 아주 적합한장소야 아주아주 좋아 배리배리굳</td>
+					</tr>
+				</table>
+			</div>
+	  		<div class="col-md-12">
+				<table class="table">
+					<tr>
+						<th>주소</th><td>인천시 부평구 일신동 풍림아파트 105동 905호</td>
+					</tr>
+				</table>
+			</div>
+	  		<div class="col-md-8">
+				<div class="form-group" >
+					<select class="form-control" id="dateSelect">
+						<option>날짜를 선택해주세요!</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<button type="button" id="placeToPlanAddBtn" class="btn btn-success">일정에 추가</button>	
+			</div>
+		</div>
+	</div>
 
-	<div class="col-md-8" id="contents-tab">
+	<div class="col-md-5" id="contents-tab">
 		<div id="map-box" class="ui-shadow"></div>
 	</div>
 
@@ -393,8 +509,7 @@ nav#navigationBar {
 					at eros</button>
 				<button type="button" class="list-group-item">9. Vestibulum
 					at eros</button>
-				<button type="button" class="list-group-item">10.
-					Vestibulum at eros</button>
+				<button type="button" class="list-group-item">10.Vestibulum at eros</button>
 			</div>
 		</div>
 
