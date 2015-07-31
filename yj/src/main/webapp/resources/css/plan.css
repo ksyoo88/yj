@@ -57,3 +57,7 @@ div#place-tab {
 	border-width :0px;
 	height: 880px;
 }
+div.customoverlay{
+	position: relative;
+    bottom:20px;
+}
