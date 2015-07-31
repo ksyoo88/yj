@@ -31,9 +31,64 @@ function drawVisualization() {
   var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
   chart.draw(data, options);
 }
-function photoupload() {
-	$("#photoupload").click();
+
+
+function savetempphoto() {
+		
+	$("#savetempphoto").click();
 }
+
+function getTemPhoto() {
+
+	var url="resources/images/temphoto/ZZZZZ"
+	var str = '<div class="imageList posRelative lineOrange" data-idx="904479" onclick="chageImage()" style="width: 53px; height: 53px; margin: 0 4px; float:left;  background-size: contain; background-repeat:no-repeat; background-image: url('+url+')"></div>'
+	
+	console.log("뿌려");
+	var content="";
+	$.ajax({
+		url:"getTemPhoto.do",
+		type:"post",
+		dataType:"json",
+		success: function(result) {
+			
+			var photos=result.photos;
+			
+			for(var i=0;i<photos.length;i++){
+				
+				content +=str.replace("ZZZZZ", photos[i]);
+				console.log(photos[i]);
+				
+			}
+			
+			$("#tempphotoList").append(content);
+		}
+	});
+}
+
+			
+function saveajax() {
+	console.log("클릭");
+	var form = $("#photoUpForm")[0];
+	var formData = new FormData(form);
+	$.ajax({
+		url:"savetempphoto.do",			
+		processData : false,
+		contentType : false,
+		data : formData,
+		dataType:"text",
+		type : 'POST',
+		success:function(result){
+			
+			getTemPhoto();
+			}
+	})
+};
+
+function photoupload() {
+		
+	$("#photoupload").click();
+};
+
 
 function myauto() {
       $("#autosubmit").click();
@@ -84,15 +139,32 @@ function chooseFile() {
 		
 	};
 
+	function chageImage() {
+		$(".imageList")
+		
+		alert((this).text());
+		alert((this).find("div"));
+		console.log(this);
+		var imgurl=$(this).css("background-image");
+		  holder.style.backgroundImage =imgurl;
+	};
 
 $(function() {
 	
+	
+	
 	 var upload = $("#photoupload")[0];
 	   var holder = document.getElementById('photologImageArea');
+	
 
+	
+	/*
+		$(".imageList").click(
+		); 
+	*/
 	   upload.onchange = function(e) {
 	      e.preventDefault();
-
+	      savetempphoto();
 	      var file = upload.files[0], reader = new FileReader();
 	      reader.onload = function(event) {
 	         var img = new Image();
@@ -187,7 +259,8 @@ $(function() {
 	$("#headimgclose").click(function(e) {
 		$("#imagetrevel").slideUp("slow");
 		
-	})
+	});
+	
 })
 
     </script>

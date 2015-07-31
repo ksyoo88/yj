@@ -1,6 +1,8 @@
 package kr.co.yj.service;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -88,6 +90,14 @@ public class MemberServiceImpl implements MemberService {
 			
 	}
 	
+	@Override
+	public ArrayList<String> getTemPhoto(String email) {
+		
+		ArrayList<String> photos =dao.getTemPhoto(email);
+		
+		return photos;
+	}
+	
 	public boolean checkEmail(String email){
 		MemberVO member=dao.getMemberbyemail(email);
 		
@@ -98,6 +108,30 @@ public class MemberServiceImpl implements MemberService {
 			
 			return true;
 		}
+		
+	}
+	
+	@Override
+	public void saveTempPhoto(MultipartFile mf, String email) throws Exception {
+		String filename=null;
+		System.out.println("service");
+		if(!mf.isEmpty()){
+			filename = mf.getOriginalFilename();
+			filename=System.currentTimeMillis()+filename;
+			String contentType =mf.getContentType();
+			long filesize = mf.getSize();
+			
+			byte[] filedata = mf.getBytes();
+			File file = new File("C:/spring_study/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/yj/resources/images/temphoto/"+filename);
+			 
+			FileCopyUtils.copy(filedata, file);
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		map.put("filename", filename);
+		
+		dao.addtempphoto(map);
 		
 	}
 	

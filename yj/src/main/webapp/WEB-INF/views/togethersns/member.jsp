@@ -18,6 +18,7 @@
 				<h4 class="modal-title">
 					<strong>파노라마 만들기</strong>
 				</h4>
+				
 			</div>
 			<div class="modal-body">
 				
@@ -32,7 +33,8 @@
 							right: 15px;" class="mCustomScrollbar _mCS_2">
 							
 								<div class="mCustomScrollBox mCS-light mCSB_horizontal" id="mCSB_2" style="position:relative; height:100%; overflow:hidden; max-width:100%;">
-									<div class="mCSB_container mCS_no_scrollbar" style="left: 0px; width: 0px; position: relative;">
+									<div id="tempphotoList" class="mCSB_container mCS_no_scrollbar mCSB_horizontal">
+										
 									
 									</div>
 									<div class="mCSB_scrollTools" style="position: absolute; display: none;">
@@ -46,8 +48,12 @@
 								</div>
 							</div>	
 							<div style="height:0px;overflow:hidden">
+								<form action="savetempphoto.do" id=photoUpForm method="post" enctype="multipart/form-data">
+											  
+									<input id="photoupload" name="filename" type="file" onchange="savetempphoto()" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
+									<input id="savetempphoto" onclick="saveajax();" type="button">
+								</form>
 										
-								<input id="photoupload" type="file" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
 									   
 							</div>
 						
@@ -55,8 +61,8 @@
 						<div class="paddingTop20" style="text-align: right;">
 							<input type="button" value="등록" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
 						</div>
-				
-			
+						
+		
 			</div>
 		</div>
 	</div>
@@ -115,7 +121,6 @@
 						<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
 					</button>
 
-				</div>
 			</div>
 			<hr/>
 			<div class="row" id="category">
@@ -329,12 +334,12 @@
 						<div id="profile">
 							<div class="row">
 								<div class="col-sm-3">
+								
 									<div style="height:0px;overflow:hidden">
 										<form action="profileup.do" method="post" enctype="multipart/form-data">
 										   <input type="file" id="fileInput" onchange="myauto()"  name="upfile" />
 										   <input id="autosubmit" type="submit">
 										</form>
-									   
 									</div>
 								
 									<img src="resources/images/profilephoto/${member.photo}" onclick="chooseFile()" class="img-circle" id="profileimg" width="100px" height="100px"  /> 

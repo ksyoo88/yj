@@ -1,6 +1,8 @@
 package kr.co.yj.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.co.yj.service.MemberServiceImpl;
 import kr.co.yj.vo.MemberVO;
@@ -22,6 +27,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberServiceImpl memberservice;
+	@Autowired
+	private MappingJackson2JsonView jsonview;
 	
 	@RequestMapping("/addmember.do")
 	public ModelAndView addMember(MemberVO mem) {
@@ -129,10 +136,58 @@ public class MemberController {
 		return "redirect:/member.do";
 	}
 	
+	@RequestMapping("/getTemPhoto.do")
+	public ModelAndView getTemPhoto(HttpSession session){
+		
+		String email=(String)session.getAttribute("memberEmail");
+		ModelAndView mav = new ModelAndView();
+		
+		ArrayList<String> photos=memberservice.getTemPhoto(email);
+		mav.addObject("photos", photos);
+		mav.setView(jsonview);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/savetempphoto.do", method = RequestMethod.POST)
+	//http://netframework.tistory.com/422
+	@ResponseBody
+	public void savetempphoto(
+			//@RequestParam("filename")MultipartFile mf
+			MultipartHttpServletRequest request
+			,HttpSession session) throws Exception{
+		/*
+		String email=(String)session.getAttribute("memberEmail");
+		memberservice.saveTempPhoto(mf, email);
+		System.out.println("s");
+		return "s";*/
+		
+		 //MultipartHttpServletRequest request
+		System.out.println(request); 
+		
+		Iterator<String> itr =  request.getFileNames();
+		System.out.println(itr.toString());
+		System.out.println(itr.hasNext());
+		
+		if(itr.hasNext()) {
+			MultipartFile mf=request.getFile(itr.next());
+			String email=(String)session.getAttribute("memberEmail");
+			memberservice.saveTempPhoto(mf, email);
+			System.out.println("s");
+			
+			
+		}else {
+			System.out.println("f");
+			
+			
+		}
+		
+	
+	}
+	
+	
 	@RequestMapping("/profileup.do")
 	public String profileup(@RequestParam("upfile")MultipartFile mf,HttpSession session) throws Exception{
 		
-		System.out.println("dd");
 		String email=(String)session.getAttribute("memberEmail");
 		
 		memberservice.profileup(mf,email);

@@ -10,6 +10,7 @@
 	 -->
 	<resultMap type="Member" id="mem">
 		
+		<result column="MEM_NO" property="no"/>
 		<result column="MEM_EMAIL" property="email"/>
 		<result column="MEM_NAME" property="name"/>
 		<result column="MEM_PASSWORD" property="password"/>
@@ -26,7 +27,7 @@
 	
 	<select id="getMemberbyemail" parameterType="string" resultMap="mem">
 		SELECT * FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}
-		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
+		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
 	</select>
 	
 	<select id="getMemberPwd" parameterType="Member" resultType="string" >
@@ -43,6 +44,12 @@
 	<update id="updateprofile" parameterType="Member">
 	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
 	</update>
-	
+	<insert id="addtempphoto" parameterType="hashmap">
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+	</insert>
+	<select id="getTemPhoto" parameterType="string" resultType="string">
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
+		
+	</select>
 	
 </mapper>

@@ -1,5 +1,7 @@
 package kr.co.yj.service;
 
+import java.util.ArrayList;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.yj.vo.MemberVO;
@@ -17,4 +19,8 @@ public interface MemberService {
 	
 	void profileup(MultipartFile mf,String email) throws Exception;
 	MemberVO getMembyEmail(String email);
+	
+	void saveTempPhoto(MultipartFile mf,String email) throws Exception;
+	
+	ArrayList<String> getTemPhoto(String email);
 }

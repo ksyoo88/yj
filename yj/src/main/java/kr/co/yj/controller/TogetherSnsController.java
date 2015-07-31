@@ -26,7 +26,11 @@ public class TogetherSnsController {
 	public String memberBlog(Model model,HttpSession session) {
 		
 		String email=(String)session.getAttribute("memberEmail");
-		MemberVO member=membersevice.getMembyEmail(email);
+		MemberVO member = null;
+		if(email!=null){
+			member=membersevice.getMembyEmail(email);
+			
+		}
 		
 		model.addAttribute("member", member);
 		return "/togethersns/member.tiles";

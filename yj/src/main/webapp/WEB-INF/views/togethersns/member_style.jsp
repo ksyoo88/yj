@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="resources/css/snsstyle.css">
+<script src="resources/js/jquery/jquery.form.js" type="text/javascript" language="javascript"></script>
 <style type="text/css">
 #profileimg:hover {
 	opacity: 0.4;
@@ -8,6 +9,9 @@
 
 #profile:hover { 
 	display:"block";
+}
+.imageList:hover{
+	border: 1px solid red;
 }
 
 
