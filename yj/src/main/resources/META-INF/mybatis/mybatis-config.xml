@@ -7,11 +7,13 @@
 		<typeAlias type="kr.co.yj.vo.MemberVO" alias="Member"/>
 		<typeAlias type="kr.co.yj.vo.Place" alias="Place"/>
 		<typeAlias type="kr.co.yj.vo.PlaceAreaPointVO" alias="PlaceAreaPoint"/>
+		<typeAlias type="kr.co.yj.vo.Attraction" alias="Attraction"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="META-INF/mybatis/main.xml"/>
 		<mapper resource="META-INF/mybatis/member.xml"/>
 		<mapper resource="META-INF/mybatis/place.xml"/>
+		<mapper resource="META-INF/mybatis/attraction.xml"/>
 	</mappers>
 </configuration>
