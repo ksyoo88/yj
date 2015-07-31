@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.AttractionDao">
+	
+	<select id="getAttractionList" resultType="Attraction">
+		SELECT
+			C.CONTENTID, A.AREACODE, A.READCOUNT, B.NAME AREANAME, C.FIRSTIMAGE, C.TITLE
+		FROM
+		  	(SELECT AREACODE, MAX(READCOUNT) READCOUNT FROM YJ_PLACE GROUP BY AREACODE) A,
+		  	(SELECT AREACODE, NAME FROM YJ_AREACODE WHERE SIGUNGUCODE IS NULL) B,
+		  	YJ_PLACE C
+		WHERE
+			A.AREACODE = B.AREACODE
+		  	AND A.READCOUNT = C.READCOUNT
+		ORDER BY DBMS_RANDOM.RANDOM
+	</select>
+	
+</mapper>

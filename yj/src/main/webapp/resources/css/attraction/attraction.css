@@ -154,7 +154,7 @@
 	top: 0;
 	bottom: 0;
 	position: absolute;
-	background: #22becb url(/_images/check_w.png) 50% 50% no-repeat;
+	background: #22becb url(../../images/attraction/check_w.png) 50% 50% no-repeat;
 	filter: alpha(opacity=90);
 	-kthml-opacity: 0.9;
 	-moz-opacity: 0.9;
@@ -176,7 +176,7 @@
 
 /* ===============  step1  ================== */
 .slider.slider-vertical {
-	height: 110px;
+	height: 175px;
 }
 
 .favorbar .slider-track-high {

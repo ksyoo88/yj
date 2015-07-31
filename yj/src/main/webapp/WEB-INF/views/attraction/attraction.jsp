@@ -21,8 +21,8 @@
 						src="resources/images/attraction/planb_icon_people03.png">
 				</div>
 				<div class="help">
-					<p class="title">마음속에 이미 갈곳을 정해두셨다면?</p>
-					<p class="content">여행일정을 추천 받을 도시는 선택해주시면 선택하신 도시에서의 여행일정을 추천해드려요~^^</p>
+					<p class="title">어디를 갈지 아직 정하지 못하셨다면?</p>
+					<p class="content">추천 받은 도시를 선택해주시면 선택하신 도시 인근의 여행장소을 추천해드려요~^^</p>
 				</div>
 			</div>
 			<div class="step_area">
@@ -34,142 +34,24 @@
 								<img title="citis" alt="citis" src="resources/images/attraction/icon_pin_city.png"> 여기저기 추천도시
 							</div>
 							<div class="theme-city-list">
-								<div class="city-box hand">
+<c:forEach var="attraction" items="${attractionList }">
+								<div class="city-box hand" data-areacdoe="${attraction.areacode }">
 									<!-- <div class="city-img on"> -->
 									<div class="city-img">
 										<div class="mask"></div>
-										<img title="서울" alt="서울"
-											src="resources/images/attraction/attraction.jpg">
+										<img title="${attraction.areaname }" alt="${attraction.areaname }"
+											src="${attraction.firstimage }" style="width: 140px; height: 130px;">
 									</div>
 									<div class="city-name">
-										서울 <br> <span>Korea, Republic of</span>
+										${attraction.areaname } <br> <span>${attraction.title }</span>
 									</div>
 								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="런던" alt="런던"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										런던 <br> <span>United Kingdom</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="방콕" alt="방콕"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										방콕 <br> <span>Thailand</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="홍콩" alt="홍콩"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										홍콩 <br> <span>Hong Kong</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="로마" alt="로마"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										로마 <br> <span>Italy</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="바르셀로나" alt="바르셀로나"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										바르셀로나 <br> <span>Spain</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="파리" alt="파리"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										파리 <br> <span>France</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="도쿄" alt="도쿄"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										도쿄 <br> <span>Japan</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="군산" alt="군산"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										군산 <br> <span>Korea, Republic of</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="산타 바바라" alt="산타 바바라"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										산타 바바라 <br> <span>United States</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="상하이" alt="상하이"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										상하이 <br> <span>China</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="싱가포르" alt="싱가포르"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										싱가포르 <br> <span>Singapore</span>
-									</div>
-								</div>
-								<div class="city-box hand">
-									<div class="city-img">
-										<div class="mask"></div>
-										<img title="말레이" alt="말레이"
-											src="resources/images/attraction/attraction.jpg">
-									</div>
-									<div class="city-name">
-										말레이 <br> <span>Philippines</span>
-									</div>
-								</div>
+</c:forEach>
 							</div>
 						</div>
 					</div>
 					<div class="btn-area">
-						<span class="btn-next off">다음 &gt;</span>
+						<span class="btn-next off">건너뛰기 &gt;</span>
 					</div>
 				</div>
 				<div class="step step1" style="display: block;">
@@ -202,7 +84,7 @@
 					</div>
 					<div class="btn-area">
 						<span class="btn-prev">&lt; 여행도시</span>
-						<span class="btn-next" id="getPlanbProvide">추천장소</span>
+						<span class="btn-next" id="getPlanbProvide">추천장소 &gt;</span>
 					</div>
 				</div>
 				<div class="step step2" style="display: block;">
@@ -216,7 +98,6 @@
 								<div class="city-box hand">
 									<!-- <div class="city-img on"> -->
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="서울" alt="서울"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -226,7 +107,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="런던" alt="런던"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -236,7 +116,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="방콕" alt="방콕"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -246,7 +125,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="홍콩" alt="홍콩"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -256,7 +134,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="로마" alt="로마"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -266,7 +143,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="바르셀로나" alt="바르셀로나"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -276,7 +152,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="파리" alt="파리"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -286,7 +161,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="도쿄" alt="도쿄"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -296,7 +170,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="군산" alt="군산"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -306,7 +179,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="산타 바바라" alt="산타 바바라"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -316,7 +188,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="상하이" alt="상하이"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -326,7 +197,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="싱가포르" alt="싱가포르"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
@@ -336,7 +206,6 @@
 								</div>
 								<div class="city-box hand">
 									<div class="city-img">
-										<div class="mask"></div>
 										<img title="말레이" alt="말레이"
 											src="resources/images/attraction/attraction.jpg">
 									</div>
