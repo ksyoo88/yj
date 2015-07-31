@@ -4,7 +4,8 @@
 
 
 $(function() {
-	//$("#map-box")[0];
+	
+	$("#place-tab").hide();
 	var container = document.getElementById('map-box');
 	var options = {
 		center : new daum.maps.LatLng(37.567357, 126.994657),
@@ -12,6 +13,17 @@ $(function() {
 	};
 
 	var map = new daum.maps.Map(container, options);
+	
+	// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
+	var markers = new Array();	
+	
+	// 왼쪽탭에 일정 날짜들을 담습니다.
+	var planArray = new Array(); 
+	
+	var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+	
+	var day = 1; 
+	
 	
 	// 현재 지도 영역을 얻어옵니다.
 	var bounds = map.getBounds();
@@ -32,50 +44,7 @@ $(function() {
 		dataType:"json",
 		success : function(result) {
 			
-			console.log(result.areaPlaces);
-			var places = result.areaPlaces;
-			
-			for(var i=0; i<places.length; i++){
-				
-				//console.log(places[i]);
-				
-				
-				var imageSrc = 'resources/images/icon_hotel.png', // 마커이미지의 주소입니다    
-								imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
-								imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	
-				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-				// DB에서 가져와 막 찍으면된다.
-				var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
-								  markerPosition = new daum.maps.LatLng(places[i].mapy, places[i].mapx); // 마커가 표시될 위치입니다		
-	
-				// 마커를 생성합니다
-				var marker = new daum.maps.Marker({
-					position : markerPosition,
-					image : markerImage,
-					clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-				});
-				
-				markers.push(marker);
-			
-				//console.log(markers);
-				setMarkers(map);	
-				
-				// 이해가 되지 않는다. 어렵다.
-				$.each(markers, function() {
-					daum.maps.event.addListener(this, 'click', function() {
-						$("#contents-tab").attr("class","col-md-5");
-						$("#place-tab").show(1000,function() {
-							map.relayout();
-						});
-						
-						$("#dateSelect").html("");
-						for(var i=0; i<planArray.length; i++){
-							$("#dateSelect").append("<option>"+planArray[i]+"</option>");
-						}
-					})
-				});				
-			}
+			createMarker(result);
 			
 		}
 	});
@@ -103,67 +72,114 @@ $(function() {
 			dataType:"json",
 			success : function(result) {
 				
-				console.log(result.areaPlaces);
-				var places = result.areaPlaces;
-				
-				for(var i=0; i<places.length; i++){
-					
-					//console.log(places[i]);
-					
-					
-					var imageSrc = 'resources/images/icon_hotel.png', // 마커이미지의 주소입니다    
-									imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
-									imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-		
-					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-					// DB에서 가져와 막 찍으면된다.
-					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
-									  markerPosition = new daum.maps.LatLng(places[i].mapy, places[i].mapx); // 마커가 표시될 위치입니다		
-		
-					// 마커를 생성합니다
-					var marker = new daum.maps.Marker({
-						position : markerPosition,
-						image : markerImage,
-						clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-					});
-					
-					markers.push(marker);
-				
-					//console.log(markers);
-					setMarkers(map);	
-					
-					// 이해가 되지 않는다. 어렵다.
-					$.each(markers, function() {
-						daum.maps.event.addListener(this, 'click', function() {
-							$("#contents-tab").attr("class","col-md-5");
-							$("#place-tab").show(1000,function() {
-								map.relayout();
-							});
-							
-							$("#dateSelect").html("");
-							for(var i=0; i<planArray.length; i++){
-								$("#dateSelect").append("<option>"+planArray[i]+"</option>");
-							}
-						})
-					});				
-				}
+				createMarker(result);
 				
 			}
 		});
 		
 	});
 	
+
+	function createMarker(result) {
+		//customOverlay.setMap(null);
+		//console.log(result.areaPlaces);
+		var places = result.areaPlaces;
+		
+		for(var i=0; i<places.length; i++){
+			
+			//console.log(places[i].title);
+			
+			var imageName;
+			
+			if(places[i].cat1 == "A01") { 
+				// 자연
+				imageName = "icon_nature"; 
+			} else if (places[i].cat1 == "A02") {
+				// 인문 문화 예술 역사
+				imageName = "icon_culture";
+			} else if (places[i].cat1 == "A03") {
+				// 레포츠
+				imageName = "icon_leports";
+			} else if (places[i].cat1 == "A04") {
+				// 쇼핑
+				imageName = "icon_shopping";
+			} else if (places[i].cat1 == "A05") {
+				// 음식
+				imageName = "icon_food";
+			} else if (places[i].cat1 == "B02") {
+				// 숙박
+				imageName = "icon_hotel";
+			} else {
+				imageName = "icon_mapAll";
+			}
+			
+			
+			var imageSrc = 'resources/images/'+imageName+'.png', // 마커이미지의 주소입니다    
+							imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+							imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			// DB에서 가져와 막 찍으면된다.
+			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+							  markerPosition = new daum.maps.LatLng(places[i].mapy, places[i].mapx); // 마커가 표시될 위치입니다		
+
+			// 마커를 생성합니다
+			var marker = new daum.maps.Marker({
+				position : markerPosition,
+				image : markerImage,		
+				zIndex: 1,
+				clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+				//place : places[i]
+			});
+			
+			markers.push(marker);
+		
+			//console.log(markers);
+			setMarkers(map);
+			
+			// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+			var content = '<div class="customoverlay">' +
+						  '  <div class="panel panel-info">' +
+						  '    <a class="btn btn-default btn-xs" href="#" role="button">'+places[i].title+'</a>' +
+						  '  </div>' +
+						  '</div>';
+			
+			var position = new daum.maps.LatLng(places[i].mapy, places[i].mapx);
+			
+			var customOverlay = new daum.maps.CustomOverlay({
+				map : map,
+				position : position,
+				content : content,
+				yAnchor : 1				
+			});
+			
+			$(".customoverlay .panel .btn").on("click", function () {
+				console.log("나와주세요");
+			});
+			
+//			// event addListener
+//			$.each(markers, function(index, marker) {
+//				console.log(marker.options);					
+//				
+//				daum.maps.event.addListener(marker, 'click', function() {
+//					
+//					$("#contents-tab").attr("class","col-md-5");
+//					$("#place-tab").show(500,function() {
+//						map.relayout();
+//					});
+//					
+//					$("#dateSelect").html("");
+//					for(var i=0; i<planArray.length; i++){
+//						$("#dateSelect").append("<option>"+planArray[i]+"</option>");
+//					}
+//				})
+//			});				
+		}
+	}
+	
+
 	
 	
-	// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
-	var markers = new Array();	
-	
-	// 왼쪽탭에 일정 날짜들을 담습니다.
-	var planArray = new Array(); 
-	
-	var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
-	
-	var day = 1; 
 	
 	$("#placeToPlanAddBtn").click(function(){
 		
@@ -259,10 +275,10 @@ $(function() {
 	}
 	
 	$("#closePlaceBtn").click(function(){
-		$("#place-tab").hide(2000);
+		$("#place-tab").hide(500);
 		$("#contents-tab").attr("class","col-md-8");
 		$("#contents-tab").hide();
-		$("#contents-tab").show(2000,function() {
+		$("#contents-tab").show(500,function() {
 			map.relayout();
 		});
 		//map = null;
@@ -313,23 +329,24 @@ $(function() {
 					
 					markers.push(marker);
 				}
-				console.log(markers);
+				//console.log(markers);
 				setMarkers(map);
 				
-				// 이해가 되지 않는다. 어렵다.
-				$.each(markers, function() {
-					daum.maps.event.addListener(this, 'click', function() {
-						$("#contents-tab").attr("class","col-md-5");
-						$("#place-tab").show(1000,function() {
-							map.relayout();
-						});
-						
-						$("#dateSelect").html("");
-						for(var i=0; i<planArray.length; i++){
-							$("#dateSelect").append("<option>"+planArray[i]+"</option>");
-						}
-					})
-				});
+//				// 이해가 되지 않는다. 어렵다.
+//				$.each(markers, function(index, marker) {
+//					daum.maps.event.addListener(marker, 'click', function() {
+//						$("#contents-tab").attr("class","col-md-5");
+//						$("#place-tab").show(1000,function() {
+//							map.relayout();
+//							console.log(marker);
+//						});
+//						
+//						$("#dateSelect").html("");
+//						for(var i=0; i<planArray.length; i++){
+//							$("#dateSelect").append("<option>"+planArray[i]+"</option>");
+//						}
+//					})
+//				});
 				
 				
 			}
@@ -348,7 +365,7 @@ $(function() {
 	}
 	// 마커를 보여줍니다.
 	function showMarkers() {
-		console.log("showMarker()");
+		//console.log("showMarker()");
 		setMarkers(map)
 	}
 

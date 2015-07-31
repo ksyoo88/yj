@@ -116,7 +116,7 @@
 	
 	<!-- 지도 컨텐츠  -->
 	
-	<div class="col-md-5" id="contents-tab">
+	<div class="col-md-8" id="contents-tab">
 		<div id="map-box" class="ui-shadow"></div>
 	</div>
 	
