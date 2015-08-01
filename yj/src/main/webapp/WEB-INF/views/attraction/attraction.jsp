@@ -35,7 +35,7 @@
 							</div>
 							<div class="theme-city-list">
 <c:forEach var="attraction" items="${attractionList }">
-								<div class="city-box hand" data-areacdoe="${attraction.areacode }">
+								<div class="city-box hand" data-areacode="${attraction.areacode }">
 									<!-- <div class="city-img on"> -->
 									<div class="city-img">
 										<div class="mask"></div>
@@ -56,35 +56,43 @@
 				</div>
 				<div class="step step1" style="display: block;">
 					<div class="title">여행 성향</div>
+					<!-- 
+					B02	숙박
+					A04	쇼핑
+					A05	음식
+					A01	자연
+					A03	레져
+					A02	문화
+					 -->
 					<div class="row">
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex1" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">관광</span>
+							<input id="favor1" name="B02" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">숙박</span>
 						</div>
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex2" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
+							<input id="favor2" name="A04" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
 							<span style="display: block; margin-top: 10px;">쇼핑</span>
 						</div>
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex3" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">쇼핑</span>
+							<input id="favor3" name="A05" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">음식</span>
 						</div>
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex4" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">쇼핑</span>
+							<input id="favor4" name="A01" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">자연</span>
 						</div>
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex5" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">쇼핑</span>
+							<input id="favor5" name="A03" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">레져</span>
 						</div>
 						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="ex6" type="text" data-slider-min="0" data-slider-max="2" data-slider-step="1" data-slider-value="1" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">쇼핑</span>
+							<input id="favor6" name="A02" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
+							<span style="display: block; margin-top: 10px;">문화</span>
 						</div>
 					</div>
 					<div class="btn-area">
 						<span class="btn-prev">&lt; 여행도시</span>
-						<span class="btn-next" id="getPlanbProvide">추천장소 &gt;</span>
+						<span class="btn-next" id="getfavorplace">추천장소 &gt;</span>
 					</div>
 				</div>
 				<div class="step step2" style="display: block;">

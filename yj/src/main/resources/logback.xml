@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+			</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+	</appender>
+
+  	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>c:/spring_study/yj.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <!-- daily rollover -->
+			<FileNamePattern>yj.%d{yyyy-MM-dd}.log</FileNamePattern>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>60</maxHistory>			
+		</rollingPolicy>
+
+		<encoder>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+		</encoder> 	    
+  	</appender>
+  	<!-- 
+  	<appender name="minuteRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    rollover every minute
+			<FileNamePattern>c:/tmp/minutes/rest-demo-minute.%d{yyyy-MM-dd_HH-mm}.log</FileNamePattern>
+
+			keep 30 minutes' worth of history
+			<maxHistory>30</maxHistory>			
+		</rollingPolicy>
+
+		<encoder>
+			<Pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</Pattern>
+		</encoder> 	    
+  	</appender>  	
+	 
+	<logger name="org.codingpedia" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="dailyRollingFileAppender"/>
+		<appender-ref ref="minuteRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+	-->
+	<!-- Application Loggers -->
+	<logger name="kr.co.yj">
+		<level value="info" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+	
+	<!-- db Loggers -->
+	<logger name="jdbc.resultsettable">
+		<level value="info" /><!-- error -->
+	</logger>
+	<logger name="jdbc.audit"><!-- debug -->
+		<level value="info" />
+	</logger>
+	<logger name="jdbc.resultset">
+		<level value="error" /><!-- error -->
+	</logger>
+	<logger name="jdbc.connection">
+		<level value="info" />
+	</logger>
+	<logger name="java.sql.ResultSet">
+		<level value="info" />
+	</logger>
+	<logger name="java.sql.PreparedStatement">
+		<level value="info" /><!-- debug -->
+	</logger>
+	
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="dailyRollingFileAppender" />
+	</root>
+</configuration>
