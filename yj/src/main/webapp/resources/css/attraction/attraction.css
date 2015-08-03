@@ -209,3 +209,17 @@
 	font-size: 12px;
 	color: #768082;
 }
+.body .step_area .step2 .theme-city-list .city-box .category-name {
+    position: relative;
+    top: -170px;
+    color: #fff;
+    background-color: #00ba9d;
+    width: 73px;
+    height: 18px;
+    line-height: 18px;
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 0.2em;
+}
+}

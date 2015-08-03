@@ -6,10 +6,10 @@
 	
 	<select id="getAttractionList" resultType="Attraction">
 		SELECT
-			C.CONTENTID, A.AREACODE, A.READCOUNT, B.NAME AREANAME, C.FIRSTIMAGE, C.TITLE
+			C.CONTENTID, A.AREACODE, A.READCOUNT, B.AREANAME, C.FIRSTIMAGE, C.TITLE
 		FROM
-		  	(SELECT AREACODE, MAX(READCOUNT) READCOUNT FROM YJ_PLACE GROUP BY AREACODE) A,
-		  	(SELECT AREACODE, NAME FROM YJ_AREACODE WHERE SIGUNGUCODE IS NULL) B,
+		  	(SELECT AREACODE, MAX(READCOUNT) READCOUNT FROM YJ_PLACE WHERE CAT1 &lt;&gt; 'B02' GROUP BY AREACODE) A,
+		  	(SELECT distinct AREACODE, AREANAME FROM YJ_AREACODE) B,
 		  	YJ_PLACE C
 		WHERE
 			A.AREACODE = B.AREACODE
@@ -18,19 +18,30 @@
 	</select>
 	
 	<select id="getAttractionListByFavor" parameterType="FavorPlace" resultType="Attraction">
-		<foreach item="item" index="index" collection="list" open=""
-			separator="UNION" close="">
-			SELECT
-				ROW_NUMBER() OVER (ORDER BY READCOUNT DESC) areacode, ADDR1 AREANAME, READCOUNT cnt
+		SELECT
+			A.ROWCNT, A.CONTENTID, A.FIRSTIMAGE, A.READCOUNT, A.TITLE, A.AREACODE, A.SIGUNGUCODE,
+			B.AREANAME, B.SIGUNGUNAME, A.CONTENTTYPEID,
+			DECODE(C.CAT1NAME, '인문(문화/예술/역사)', '문화', '레포츠', '레져', C.CAT1NAME) CAT1NAME
+		FROM (
+			<foreach item="item" index="index" collection="list" open=""
+				separator="UNION" close="">
+				SELECT
+				    ROW_NUMBER() OVER (ORDER BY READCOUNT DESC) ROWCNT, CONTENTID, FIRSTIMAGE,
+				    READCOUNT, TITLE, AREACODE, SIGUNGUCODE, CONTENTTYPEID
 				FROM YJ_PLACE
-			WHERE 
-				<if test="areacode != null">
-					AREACODE = #{areacode}
-					AND 
-				</if>
-				ROWNUM &lt;= #{item.value}
-				AND CAT1 = #{item.name}
-		</foreach>
+				WHERE
+					<if test="areacode != null">
+						AREACODE = #{areacode}
+						AND 
+					</if>
+					ROWNUM &lt;= #{item.value}
+					AND CAT1 = #{item.name}
+			</foreach>
+		) A, YJ_AREACODE B, (SELECT DISTINCT CONTENTTYPEID, CAT1NAME FROM YJ_CATEGORYCODE) C
+		WHERE
+			A.AREACODE = B.AREACODE
+			AND A.SIGUNGUCODE = B.SIGUNGUCODE
+			AND A.CONTENTTYPEID = C.CONTENTTYPEID
 	</select>
 	
 </mapper>

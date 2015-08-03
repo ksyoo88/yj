@@ -11,31 +11,17 @@ var areacode = undefined;
 
 $(function() {
 	
-	var amount=Math.max.apply(Math,$(".theme-city-list .city-box").map(function(){return $(this).outerWidth(true);}).get());
-	$(".theme-city-list").mCustomScrollbar({
-		axis:"x",
-		theme:"inset",
-		advanced:{
-			autoExpandHorizontalScroll:true
-		},
-		scrollButtons:{
-			enable:true,
-			scrollType:"stepped"
-		},
-		keyboard:{scrollType:"stepped"},
-		snapAmount:amount,
-		mouseWheel:{scrollAmount:amount}
-	});
+	jqScrollbar($(".step0 .theme-city-list"));
 	
 	$(".favorbar input").slider({
 		reversed : true,
 		formatter: function(value) {
 			var result = "";
-			if(value == 0) {
+			if(value == 1) {
 				result = "하";
-			} else if(value == 1) {
-				result = "중";
 			} else if(value == 2) {
+				result = "중";
+			} else if(value == 3) {
 				result = "상";
 			}
 			return result;
@@ -105,6 +91,24 @@ function stepChange($step) {
 	$li.siblings().find("span").removeClass("select");
 }
 
+function jqScrollbar(src) {
+	var amount=Math.max.apply(Math,src.find(":first-child").map(function(){return $(this).outerWidth(true);}).get());
+	$(src).mCustomScrollbar({
+		axis:"x",
+		theme:"inset",
+		advanced:{
+			autoExpandHorizontalScroll:true
+		},
+		scrollButtons:{
+			enable:true,
+			scrollType:"stepped"
+		},
+		keyboard:{scrollType:"stepped"},
+		snapAmount:amount,
+		mouseWheel:{scrollAmount:amount}
+	});
+}
+
 function getFavorPlace(areacode) {
 	var paramdata = {areacode: areacode};
 		paramdata.list = new Array();
@@ -114,19 +118,42 @@ function getFavorPlace(areacode) {
 		favor.value = element.value;
 		paramdata.list.push(favor);
 	});
-	console.log(paramdata);
 	$.ajax({
-         type:"POST",
-         url:"/favorplace.do",
-         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
-         data:JSON.stringify(paramdata),
-         //data:{favor:JSON.stringify(paramdata)},
-         contentType: 'application/json',
-         mimeType: 'application/json',
-         success : function(data) {
-               // alert(data);
-               console.log(data);
+		type:"POST",
+		url:"/favorplace.do",
+		dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+		data:JSON.stringify(paramdata),
+		//data:{favor:JSON.stringify(paramdata)},
+		contentType: 'application/json',
+		mimeType: 'application/json',
+		success : function(data) {
+           	var html = "";
+			$(data).each(function() {
+				var imagePath = this.firstimage == null ? 'resources/images/common/noimage.gif' : this.firstimage;
+				html += '<a href="#'+this.contentid+'"><div class="city-box hand">';
+				html += 	'<div class="city-img">';
+				html += 		'<img title="'+this.title+'" alt="'+this.title+'" src="'+imagePath+'" style="width: 140px; height: 130px;">';
+				html += 	'</div>';
+				html += 	'<div class="city-name">';
+				html += 		''+this.areaname+' '+this.sigunguname+' <br> <span title="'+this.title+'">'+this.title.trunc(10,false)+'</span>';
+				html += 	'</div>';
+				html += 	'<div class="category-name">';
+				html += 		''+this.cat1name+'';
+				html += 	'</div>';
+				html += '</div></a>';
+			});
+			$(".step2 .theme-city-list").mCustomScrollbar("destroy");
+			$(".step2 .theme-city-list").html(html);
+			jqScrollbar($(".step2 .theme-city-list"));
          }
    });
 }
+
+String.prototype.trunc =
+	function(n,useWordBoundary){
+    	var toLong = this.length>n,
+     		s_ = toLong ? this.substr(0,n-1) : this;
+       		s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
+       	return  toLong ? s_ + '&hellip;' : s_;
+	};
 </script>
