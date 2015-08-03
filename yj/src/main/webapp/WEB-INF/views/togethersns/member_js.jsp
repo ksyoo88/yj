@@ -143,7 +143,8 @@ function chooseFile() {
 		
 		
 	};
-	function delTemPhoto() {
+	
+function delTemPhoto() {
 	
 		console.log('삭제')
 		$.ajax({
@@ -157,7 +158,7 @@ function chooseFile() {
 			}
 		})
 	
-	}
+}
 
 $(function() {
 	

@@ -13,10 +13,10 @@ public class PanoramaController {
 	PanoramaService service;
 	
 	
-	@RequestMapping("panoform")
+	@RequestMapping("/panorama.do")
 	public String panoform(){
 		
-		return "/main/panoform.tiles";
+		return "/panorama/panorama.tiles";
 	}
 	
 	
