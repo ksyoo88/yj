@@ -124,14 +124,8 @@ function getFavorPlace(areacode) {
          contentType: 'application/json',
          mimeType: 'application/json',
          success : function(data) {
-               alert(data);
-         },
-         complete : function(data) {
-               // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
-               // TODO
-         },
-         error : function(xhr, status, error) {
-               // alert("에러발생");
+               // alert(data);
+               console.log(data);
          }
    });
 }

@@ -9,17 +9,14 @@
 			<level>TRACE</level>
 		</filter>
 	</appender>
-
   	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>c:/spring_study/yj.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 		    <!-- daily rollover -->
-			<FileNamePattern>yj.%d{yyyy-MM-dd}.log</FileNamePattern>
-
+			<FileNamePattern>c:/spring_study/yj.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!-- keep 30 days' worth of history -->
-			<maxHistory>60</maxHistory>			
+			<maxHistory>30</maxHistory>			
 		</rollingPolicy>
-
 		<encoder>
 			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
 		</encoder> 	    

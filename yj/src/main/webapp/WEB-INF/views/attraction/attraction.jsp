@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
-	
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 	<div class="container-fluid">
 		<div class="header">
 			<div class="title">
@@ -110,7 +111,7 @@
 											src="resources/images/attraction/attraction.jpg">
 									</div>
 									<div class="city-name">
-										서울 <br> <span>Korea, Republic of</span>
+										서울 <br> <span><tags:out text="Korea, Republic of" byteLength="10" ellipsis="..." /></span>
 									</div>
 								</div>
 								<div class="city-box hand">
@@ -231,3 +232,5 @@
 			</div>
 		</div>
 	</div>
+	
+	<%-- <tags:paginate total="${relicForm.count }" page="${relicForm.cPage }" max="${relicForm.pages }" /> --%>
