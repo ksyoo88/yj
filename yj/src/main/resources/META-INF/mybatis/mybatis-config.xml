@@ -8,6 +8,7 @@
 		<typeAlias type="kr.co.yj.vo.Place" alias="Place"/>
 		<typeAlias type="kr.co.yj.vo.PlaceAreaPointVO" alias="PlaceAreaPoint"/>
 		<typeAlias type="kr.co.yj.vo.Attraction" alias="Attraction"/>
+		<typeAlias type="kr.co.yj.vo.FavorPlace" alias="FavorPlace"/>
 	</typeAliases>
 	
 	<mappers>

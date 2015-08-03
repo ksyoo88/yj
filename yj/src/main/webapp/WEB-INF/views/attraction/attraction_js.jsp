@@ -4,7 +4,13 @@
 <script type="text/javascript" src="resources/js/mscroll/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap-slider.min.js"></script>
 <script type="text/javascript">
+// 사진 클릭되었는지 확인하는 변수 선언
+var isClicked = false;
+// areacode 지역코드
+var areacode = undefined;
+
 $(function() {
+	
 	var amount=Math.max.apply(Math,$(".theme-city-list .city-box").map(function(){return $(this).outerWidth(true);}).get());
 	$(".theme-city-list").mCustomScrollbar({
 		axis:"x",
@@ -39,8 +45,6 @@ $(function() {
 	// 화면 열릴 때 step0 만 보여주기
 	$(".step_area .step").hide().filter(":first").show();
 	
-	// 사진 클릭되었는지 확인하는 변수 선언
-	var isClicked = false;
 	$(".city-box.hand").on("click", function() {
 		var $selectedPlace = $(".city-img.on");
 		
@@ -82,9 +86,12 @@ $(function() {
 		stepChange($step);
 		
 		// areacode 값 가져오기
-		var a = $(this).parents(".step").find(".city-img.on").parent().data("areacode");
-		console.log($(this).parents(".step").find(".city-img.on").parent().data("areacode"));
-		alert(a);
+		
+		areacode = $(".city-img.on").parent().data("areacode");
+		
+		if(this.id == "getfavorplace") {
+			getFavorPlace(areacode);
+		}
 	});
 	
 });
@@ -96,6 +103,36 @@ function stepChange($step) {
 	$li.addClass("on").siblings().removeClass("on");
 	$li.find("span").addClass("select");
 	$li.siblings().find("span").removeClass("select");
-	
+}
+
+function getFavorPlace(areacode) {
+	var paramdata = {areacode: areacode};
+		paramdata.list = new Array();
+	$(".favorbar input").each(function(index, element) {
+		var favor = {};
+		favor.name = element.name;
+		favor.value = element.value;
+		paramdata.list.push(favor);
+	});
+	console.log(paramdata);
+	$.ajax({
+         type:"POST",
+         url:"/favorplace.do",
+         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+         data:JSON.stringify(paramdata),
+         //data:{favor:JSON.stringify(paramdata)},
+         contentType: 'application/json',
+         mimeType: 'application/json',
+         success : function(data) {
+               alert(data);
+         },
+         complete : function(data) {
+               // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+               // TODO
+         },
+         error : function(xhr, status, error) {
+               // alert("에러발생");
+         }
+   });
 }
 </script>

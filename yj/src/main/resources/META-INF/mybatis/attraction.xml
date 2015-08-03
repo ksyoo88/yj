@@ -17,4 +17,20 @@
 		ORDER BY DBMS_RANDOM.RANDOM
 	</select>
 	
+	<select id="getAttractionListByFavor" parameterType="FavorPlace" resultType="Attraction">
+		<foreach item="item" index="index" collection="list" open=""
+			separator="UNION" close="">
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY READCOUNT DESC) areacode, ADDR1 AREANAME, READCOUNT cnt
+				FROM YJ_PLACE
+			WHERE 
+				<if test="areacode != null">
+					AREACODE = #{areacode}
+					AND 
+				</if>
+				ROWNUM &lt;= #{item.value}
+				AND CAT1 = #{item.name}
+		</foreach>
+	</select>
+	
 </mapper>
