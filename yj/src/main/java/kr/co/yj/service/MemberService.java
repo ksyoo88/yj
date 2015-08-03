@@ -23,4 +23,5 @@ public interface MemberService {
 	void saveTempPhoto(MultipartFile mf,String email) throws Exception;
 	
 	ArrayList<String> getTemPhoto(String email);
+	void delTemPhoto(String email);
 }

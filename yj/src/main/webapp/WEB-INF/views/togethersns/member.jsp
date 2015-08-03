@@ -14,7 +14,7 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close" onclick="delTemPhoto()" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">
 					<strong>파노라마 만들기</strong>
 				</h4>
@@ -59,9 +59,9 @@
 						
 						</div>
 						<div class="paddingTop20" style="text-align: right;">
+							<input type="button" onclick="delTemPhoto()" value="전부삭제" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
 							<input type="button" value="등록" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
 						</div>
-						
 		
 			</div>
 		</div>

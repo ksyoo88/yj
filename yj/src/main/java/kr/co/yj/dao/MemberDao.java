@@ -20,4 +20,5 @@ public interface MemberDao {
 	void addtempphoto(HashMap<String, String> map);
 	
 	ArrayList<String> getTemPhoto(String email);
+	void delTemPhoto(String email);
 }

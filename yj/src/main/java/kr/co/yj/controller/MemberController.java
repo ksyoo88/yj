@@ -147,6 +147,17 @@ public class MemberController {
 		mav.setView(jsonview);
 		return mav;
 	}
+	@RequestMapping("/delTemPhoto.do")
+	public ModelAndView delTemPhoto(HttpSession session){
+		
+		String email=(String)session.getAttribute("memberEmail");
+		ModelAndView mav = new ModelAndView();
+		
+		memberservice.delTemPhoto(email);
+		//mav.addObject("photos", photos);
+		mav.setView(jsonview);
+		return mav;
+	}
 	
 	@RequestMapping(value = "/savetempphoto.do", method = RequestMethod.POST)
 	//http://netframework.tistory.com/422

@@ -41,9 +41,8 @@ function savetempphoto() {
 function getTemPhoto() {
 
 	var url="resources/images/temphoto/ZZZZZ"
-	var str = '<div class="imageList posRelative lineOrange" data-idx="904479" onclick="chageImage()" style="width: 53px; height: 53px; margin: 0 4px; float:left;  background-size: contain; background-repeat:no-repeat; background-image: url('+url+')"></div>'
+	var str = '<div class="imageList posRelative lineOrange" data-idx="904479"  style="width: 53px; height: 53px; margin: 0 4px; float:left;  background-size: contain; background-repeat:no-repeat; background-image: url('+url+')"></div>'
 	
-	console.log("뿌려");
 	var content="";
 	$.ajax({
 		url:"getTemPhoto.do",
@@ -56,18 +55,24 @@ function getTemPhoto() {
 			for(var i=0;i<photos.length;i++){
 				
 				content +=str.replace("ZZZZZ", photos[i]);
-				console.log(photos[i]);
 				
 			}
 			
-			$("#tempphotoList").append(content);
+			$("#tempphotoList").html(content);
+			
+			$(".imageList").click(function() {
+				var holder = document.getElementById('photologImageArea');
+				var imgurl=$(this).css("background-image");
+				
+				//imgurl = imgurl.replace("url(","url(").replace(")",")");
+				 holder.style.backgroundImage =imgurl;
+			})
 		}
 	});
 }
 
 			
 function saveajax() {
-	console.log("클릭");
 	var form = $("#photoUpForm")[0];
 	var formData = new FormData(form);
 	$.ajax({
@@ -138,18 +143,24 @@ function chooseFile() {
 		
 		
 	};
-
-	function chageImage() {
-		$(".imageList")
-		
-		alert((this).text());
-		alert((this).find("div"));
-		console.log(this);
-		var imgurl=$(this).css("background-image");
-		  holder.style.backgroundImage =imgurl;
-	};
+	function delTemPhoto() {
+	
+		console.log('삭제')
+		$.ajax({
+			url:"delTemPhoto.do",
+			type:"post",
+			dataType:"json",
+			success: function(result) {
+				$("#tempphotoList").html("");
+				var holder = document.getElementById('photologImageArea');
+				holder.style.background ='#f6f8fa';
+			}
+		})
+	
+	}
 
 $(function() {
+	
 	
 	
 	
@@ -157,11 +168,7 @@ $(function() {
 	   var holder = document.getElementById('photologImageArea');
 	
 
-	
-	/*
-		$(".imageList").click(
-		); 
-	*/
+
 	   upload.onchange = function(e) {
 	      e.preventDefault();
 	      savetempphoto();

@@ -90,12 +90,15 @@ public class MemberServiceImpl implements MemberService {
 			
 	}
 	
-	@Override
 	public ArrayList<String> getTemPhoto(String email) {
 		
 		ArrayList<String> photos =dao.getTemPhoto(email);
 		
 		return photos;
+	}
+	
+	public void delTemPhoto(String email) {
+		dao.delTemPhoto(email);
 	}
 	
 	public boolean checkEmail(String email){
