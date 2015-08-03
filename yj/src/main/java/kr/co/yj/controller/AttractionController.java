@@ -26,13 +26,9 @@ public class AttractionController {
 	
 	@RequestMapping("/attraction.do")
 	public String main(Model model) {
-		
 		model.addAttribute("title", "여기저기 - 여기, 가고싶어.");
-		
 		ArrayList<Attraction> attractionList = attractionService.getAttractionList();
 		model.addAttribute("attractionList", attractionList);
-		
-		
 		return "/attraction/attraction.tiles";
 	}
 	
