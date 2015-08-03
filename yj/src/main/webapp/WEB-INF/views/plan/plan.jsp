@@ -10,27 +10,27 @@
 						<a href="#"><img class="media-object img-rounded" 
 							src="resources/images/icon_calender.png" /></a>
 					</h3></li>
-				<li class="active" id="mapAll" data-cat="icon_mapAll"><h3>
+				<li class="active" id="mapAll" data-cat="ALL"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_mapAll.png" /> </a>
 					</h3></li>
-				<li class="active" id="shopping" data-cat="icon_shopping"><h3>
+				<li class="active" id="shopping" data-cat="A04"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_shopping.png" /> </a>
 					</h3></li>
-				<li class="active" id="food" data-cat="icon_food"><h3>
+				<li class="active" id="food" data-cat="A05"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_food.png" /> </a>
 					</h3></li>
-				<li class="active" id="hotel" data-cat="icon_hotel"><h3>
+				<li class="active" id="hotel" data-cat="B02"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_hotel.png" /></a>
 					</h3></li>
-				<li class="active" id="leports" data-cat="icon_leports"><h3>
+				<li class="active" id="leports" data-cat="A03"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_leports.png" /></a>
 					</h3></li>
-				<li class="active" id="culture" data-cat="icon_culture"><h3>
+				<li class="active" id="culture" data-cat="A02"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_culture.png" /></a>
 					</h3></li>
@@ -72,7 +72,7 @@
 	
 	<!-- 왼쪽 장소 탭 -->	
 	
-	<div class="col-md-3" id="place-tab">
+	<div class="col-md-3" id="place-tab" style="overflow: auto;">
 		<div class="page-header">
 		  	<h2>
 		  		<strong>다음카카오</strong><small>daumkakao</small>
@@ -89,7 +89,7 @@
 						<th>상세정보</th>
 					</tr>
 					<tr>
-						<td>여기는말이야 우리집이고 내가 20년동안 살아왔는데 개좋음. 일단 놀이터가 자유롭고 굉장히 좋아 그리고 노인정이있는데 아주 잘지내고 아주 편리하고 바로앞에 초등학교가 위치해있어 어린이들이
+						<td id="overview">여기는말이야 우리집이고 내가 20년동안 살아왔는데 개좋음. 일단 놀이터가 자유롭고 굉장히 좋아 그리고 노인정이있는데 아주 잘지내고 아주 편리하고 바로앞에 초등학교가 위치해있어 어린이들이
 						뛰고놀기에 아주 적합한장소야 아주아주 좋아 배리배리굳</td>
 					</tr>
 				</table>
@@ -97,7 +97,7 @@
 	  		<div class="col-md-12">
 				<table class="table">
 					<tr>
-						<th>주소</th><td>인천시 부평구 일신동 풍림아파트 105동 905호</td>
+						<th>주소</th><td id="addr">인천시 부평구 일신동 풍림아파트 105동 905호</td>
 					</tr>
 				</table>
 			</div>

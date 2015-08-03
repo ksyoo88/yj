@@ -6,6 +6,7 @@ public class PlaceAreaPointVO {
 	private double mapXMax;
 	private double mapYMin;
 	private double mapYMax;
+	private String category;
 	
 	public PlaceAreaPointVO() {}
 
@@ -40,5 +41,15 @@ public class PlaceAreaPointVO {
 	public void setMapYMax(double mapYMax) {
 		this.mapYMax = mapYMax;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
 	
 }

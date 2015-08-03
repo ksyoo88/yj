@@ -33,7 +33,8 @@ public class PlanController {
 	public ModelAndView mapSetting(@RequestParam("minX")double minX,
 								   @RequestParam("maxX")double maxX,
 								   @RequestParam("minY")double minY,
-								   @RequestParam("maxY")double maxY) {
+								   @RequestParam("maxY")double maxY,
+								   @RequestParam( value="cate", required=false )String cate ) {
 		
 		PlaceAreaPointVO placeArea = new PlaceAreaPointVO();
 		//127.06045437528176
@@ -44,6 +45,7 @@ public class PlanController {
 		placeArea.setMapYMax(maxY);
 		//37.55472234766542
 		placeArea.setMapYMin(minY);
+		placeArea.setCategory(cate);
 		
 		ArrayList<Place> areaPlaces = placeDao.getMapOnThePlaces(placeArea);
 		System.out.println(areaPlaces);	

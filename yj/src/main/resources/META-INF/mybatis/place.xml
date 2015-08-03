@@ -48,6 +48,10 @@
 	 	( MAPY > #{mapYMin} AND MAPY < #{mapYMax} ) AND
 	 	( MAPX > #{mapXMin} AND MAPX < #{mapXMax} )
 	 	]]>
+	 	
+	 	<if test="category != 'ALL' and category != null ">
+	 		AND CAT1= #{category}
+	 	</if>
 	 </select>
 
 	
