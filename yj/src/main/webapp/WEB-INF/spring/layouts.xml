@@ -52,5 +52,12 @@
 		<put-attribute name="content" value="/WEB-INF/views/togethersns/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
 	</definition>
+	<definition name="/panorama/*.tiles" extends="default">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="style" value="/WEB-INF/views/panorama/{1}_style.jsp" />
+		<put-attribute name="javascript" value="/WEB-INF/views/panorama/{1}_js.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/panorama/{1}.jsp"/>
+		<put-attribute name="footer" value="" />
+	</definition>
 
 </tiles-definitions>
