@@ -63,7 +63,7 @@
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
 					<p>
-						<strong id="1dateStr">출발일을 입력해주세요</strong>
+						<strong id="1dateStr" ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong>
 					</p>			
 				</div>
 			</div>
@@ -111,6 +111,8 @@
 			<div class="col-md-4">
 				<button type="button" id="placeToPlanAddBtn" class="btn btn-success">일정에 추가</button>	
 			</div>
+			<p id="mapx" hidden></p>
+			<p id="mapy" hidden></p>
 		</div>
 	</div>
 	

@@ -1,10 +1,25 @@
 /**
  *  	plan 일정 만들기 JavaScript
  */
+function drag(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+	console.log(ev.target.id);
+}
 
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    console.log(ev.target.id);
+    $("#"+ev.target.id).append(document.getElementById(data));
+    //ev.target.appendChild( document.getElementById(data) );
+}
+	
 
 $(function() {
-	var $cat;
 	
 	$("#place-tab").hide();
 	var container = document.getElementById('map-box');
@@ -15,6 +30,9 @@ $(function() {
 
 	var map = new daum.maps.Map(container, options);
 	
+	// category
+	var $cat;	
+	
 	// 지도에 표시된 마커 객체를 가지고 있을 배열입니다.
 	var markers = new Array();	
 	
@@ -23,6 +41,9 @@ $(function() {
 	
 	// 왼쪽탭에 일정 날짜들을 담습니다.
 	var planArray = new Array(); 
+		
+	//var placeArray = new Array();
+	var placeIdNum = 0;
 	
 	var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
 	
@@ -150,6 +171,8 @@ $(function() {
 						  '    <p hidden id="place-image">'+places[i].firstimage+'</p>' +
 						  '    <p hidden id="place-overview">'+places[i].overview+'</p>' +
 						  '    <p hidden id="place-tel">'+places[i].tel+'</p>' +
+						  '    <p hidden id="place-mapx">'+places[i].mapx+'</p>' +
+						  '    <p hidden id="place-mapy">'+places[i].mapy+'</p>' +
 						  '  </div>' +
 						  '</div>';
 			
@@ -175,6 +198,8 @@ $(function() {
 			var image = $(this).find("#place-image").text();
 			var overview = $(this).find("#place-overview").text();
 			var tel = $(this).find("#place-tel").text();
+			var mapx = $(this).find("#place-mapx").text();
+			var mapy = $(this).find("#place-mapy").text();
 			
 			$("#contents-tab").attr("class","col-md-5");
 			$("#place-tab").show(500,function() {
@@ -184,44 +209,26 @@ $(function() {
 				$("#place-tab #overview").html( overview);
 				$("#place-tab #addr").html( addr );
 				$("#place-tab small").html( " Tel ( " + tel + " ) ");
+				$("#place-tab #mapx").html(mapx);
+				$("#place-tab #mapy").html(mapy);
 				
 			});
 			
 			dateInit();
 			
-		});
-		
-		
-		
-		
-		
-		// event addListener
-//		$.each(markers, function(index, marker) {
-//			console.log(marker.options);					
-//			
-//			daum.maps.event.addListener(marker, 'click', function() {
-//				
-//				$("#contents-tab").attr("class","col-md-5");
-//				$("#place-tab").show(500,function() {
-//					map.relayout();
-//				});
-//				
-//				$("#dateSelect").html("");
-//				for(var i=0; i<planArray.length; i++){
-//					$("#dateSelect").append("<option>"+planArray[i]+"</option>");
-//				}
-//			})
-//		});		
-		
+		});	
 	}
 	
-
 	// 여기아니면
 	$("#placeToPlanAddBtn").click(function(){
 		
 		var currentTitle = $("#place-tab strong").text();
 		var currentImage = $("#place-tab img").attr("src");
+		var mapx = $("#place-tab #mapx").text();
+		var mapy = $("#place-tab #mapy").text();
 		
+		
+		console.log("Selected Place mapX : " + mapx + " mapY : " + mapy);
 		console.log("title : " + currentTitle + " , image : " + currentImage );
 		
 		var index = document.getElementById("dateSelect").selectedIndex;
@@ -230,9 +237,14 @@ $(function() {
 		console.log("options : " + options);
 		index = index+1;
 		
+		//placeArray.push(currentTitle);
+		placeIdNum++;
+		
+		//console.log(placeArray);
+		
 		console.log("index + 1 : " + index);
-		$("#"+index+"dateStr").parent().append(
-				"<div class='media'>"+
+		$("#"+index+"dateStr").append(
+				"<div class='media' draggable='true' ondragstart='drag(event)' id='placeId"+placeIdNum+"' >"+
 					"<div class='media-left'>"+
 						"<a href='#'><img class='media-object img-rounded'src='"+currentImage+"' alt='사진이 없어여~' width='50' height='50'></a>"+
 					"</div>"+
@@ -240,13 +252,36 @@ $(function() {
 						"<h5 class='media-heading'>"+currentTitle+"</h5>"+
 						"<div class='btn-group btn-group-justified' role='group'>"+
 							"<a href='#' class='btn btn-default btn-sm'>위치</a>"+
-				 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>"+
+				 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>" +
+				 			"<p hidden class='position'>"+ mapx +"</p>"+
+				 			"<p hidden class='position'>"+ mapy +"</p>"+
 						"</div>"+
 					"</div>"+
 				"</div>"					
-				);
+		);
+		
+		$("#left-tab-plan-contents .btn-default").click(function() {
+			console.log("setCenter");
+			var positionX = $(this).parent().find("p:hidden").eq(0).text();
+			var positionY = $(this).parent().find("p:hidden").eq(1).text();
+			
+			console.log(positionX + ",  "+ positionY);
+			map.setCenter(new daum.maps.LatLng(positionY, positionX));		
+		});
+		
+		for ( var i=1; i<=planArray.length; i++){
+			if( !$("#"+i+"dateStr .media").next().html() ){
+				//console($(this).find("p:hidden").eq(0).text());
+				//console( $("#"+i+"dateStr .media .media-heading").text() );
+				console.log( $("#"+i+"dateStr .media").next().html() );
+			}
+		}
 		
 	});
+	
+	
+
+	
 	
 	$("#addplan").click(function() {
 		if( $("#startDate").val() != "" ) {
@@ -258,21 +293,24 @@ $(function() {
 			dateInit();
 			console.log(planArray);
 			$("#left-tab-plan-contents").append(
-				"<div class='col-md-12'><p><strong id='"+day+"dateStr'>"+ nextDayDateFormat +" DAY "+ day+"</strong></p></div>");	
+				"<div class='col-md-12'>" +
+				"<p><strong id='"+day+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'>"+ nextDayDateFormat +" DAY "+ day+"</strong></p></div>");	
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
 		}				
 	});
 	
+	
 	$("#retryplan").click(function() {
 		$("#left-tab-plan-contents")
-		.html("<div class='col-md-12'><p><strong id='1dateStr'>출발일을 입력해주세요</strong></p></div>")
+		.html("<div class='col-md-12'><p><strong id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></p></div>")
 		 $("#startDate").val("");
 		day = 1;			
 		planArray.length = 0;
 		dateInit();
 	});
+	
 	
 	// 캘린더 변경시 날짜 설정 
 	$("#startDate").change(function() {
@@ -280,11 +318,13 @@ $(function() {
 		var startDate = $("#startDate").val();				
 		if( day > 1 ) {
 			$("#left-tab-plan-contents").html("");
-			$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='1dateStr'>"+ parseDate(startDate)+" DAY 1</strong></p></div>");
+			$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)>'" +
+												 parseDate(startDate)+" DAY 1</strong></p></div>");
 			planArray.length = 0;
 			planArray.push(parseDate(startDate))
 			for(var i=2; i<=day; i++) {
-				$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='"+i+"dateStr'>"+ parseAddDate(startDate,i)+" DAY "+ i+"</strong></p></div>");
+				$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='"+i+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)>'" +
+													 parseAddDate(startDate,i)+" DAY "+ i+"</strong></p></div>");
 				planArray.push(parseAddDate(startDate,i));
 			}
 			console.log(planArray);
@@ -375,10 +415,8 @@ $(function() {
 				data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY,cate:$cat},
 				dataType:"json",
 				success : function(result) {
-		
 					
-					createMarker(result);
-					
+					createMarker(result);					
 				}
 			});
 							
@@ -412,10 +450,12 @@ $(function() {
 	function cleanOverlayCustom() {
 		console.log("-------------cleanOverlayCustom()-------------");
 		for(var i=0; i<customArrays.length; i++){
-			console.log("setMap null : " + i)
+			//console.log("setMap null : " + i)
 			customArrays[i].setMap(null);
 		}
-		//customArrays.length=0;
 	}
+	
+	
+	
 
 });
