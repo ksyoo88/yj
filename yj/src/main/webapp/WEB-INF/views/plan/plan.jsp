@@ -62,9 +62,9 @@
 			</div>
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
-					<p>
-						<strong id="1dateStr" ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong>
-					</p>			
+					<div class="panel-group" id="1dateStr">
+						 <div class="panel-heading"><strong ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></div>
+					</div>			
 				</div>
 			</div>
 		</div>

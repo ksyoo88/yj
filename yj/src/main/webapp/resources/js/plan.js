@@ -1,6 +1,7 @@
 /**
  *  	plan 일정 만들기 JavaScript
  */
+
 function drag(ev) {
 	ev.dataTransfer.setData("text", ev.target.id);
 	console.log(ev.target.id);
@@ -15,11 +16,14 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     console.log(ev.target.id);
     $("#"+ev.target.id).append(document.getElementById(data));
+    //lineDraw();
     //ev.target.appendChild( document.getElementById(data) );
 }
 	
 
 $(function() {
+	
+	
 	
 	$("#place-tab").hide();
 	var container = document.getElementById('map-box');
@@ -28,7 +32,7 @@ $(function() {
 		level : 3
 	};
 
-	var map = new daum.maps.Map(container, options);
+	map = new daum.maps.Map(container, options);
 	
 	// category
 	var $cat;	
@@ -41,11 +45,20 @@ $(function() {
 	
 	// 왼쪽탭에 일정 날짜들을 담습니다.
 	var planArray = new Array(); 
+	
+	// 선 배열
+	var polyline;
+	
+	// 원 배열
+	var circleArray = new Array();
 		
+	// Day 마커 배열 
+	var dayMarkerArray = new Array(); 
+	
 	//var placeArray = new Array();
 	var placeIdNum = 0;
 	
-	var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+	var days = ["(일)","(월)","(화)","(수)","(목)","(금)","(토)"];
 	
 	var day = 1; 
 	
@@ -214,9 +227,11 @@ $(function() {
 				
 			});
 			
-			dateInit();
-			
+			dateInit();			
 		});	
+		
+		
+		
 	}
 	
 	// 여기아니면
@@ -244,9 +259,10 @@ $(function() {
 		
 		console.log("index + 1 : " + index);
 		$("#"+index+"dateStr").append(
+				"<div class='panel-body'>" +
 				"<div class='media' draggable='true' ondragstart='drag(event)' id='placeId"+placeIdNum+"' >"+
 					"<div class='media-left'>"+
-						"<a href='#'><img class='media-object img-rounded'src='"+currentImage+"' alt='사진이 없어여~' width='50' height='50'></a>"+
+						"<a href='#'><img class='media-object img-rounded'src='"+currentImage+"' alt='no photo' width='50' height='50'></a>"+
 					"</div>"+
 					"<div class='media-body'>"+
 						"<h5 class='media-heading'>"+currentTitle+"</h5>"+
@@ -257,7 +273,8 @@ $(function() {
 				 			"<p hidden class='position'>"+ mapy +"</p>"+
 						"</div>"+
 					"</div>"+
-				"</div>"					
+				"</div>" +					
+				"</div>" 					
 		);
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
@@ -266,22 +283,110 @@ $(function() {
 			var positionY = $(this).parent().find("p:hidden").eq(1).text();
 			
 			console.log(positionX + ",  "+ positionY);
-			map.setCenter(new daum.maps.LatLng(positionY, positionX));		
+			map.panTo(new daum.maps.LatLng(positionY, positionX));		
 		});
 		
-		for ( var i=1; i<=planArray.length; i++){
-			if( !$("#"+i+"dateStr .media").next().html() ){
-				//console($(this).find("p:hidden").eq(0).text());
-				//console( $("#"+i+"dateStr .media .media-heading").text() );
-				console.log( $("#"+i+"dateStr .media").next().html() );
-			}
-		}
+		lineDraw();
 		
 	});
 	
+	function circleDraw(mapY, mapX) {
+		
+		var circle = new daum.maps.Circle({
+		    map: map,
+		    center : new daum.maps.LatLng(mapY, mapX),
+		    radius: 10,
+		    strokeWeight: 2,
+		    strokeColor: '#FF00FF',
+		    strokeOpacity: 0.8,
+		    strokeStyle: 'solid',
+		    fillColor: '#000066',
+		    fillOpacity: 0.5 
+		});
+		
+		circleArray.push(circle);
+		
+	}
+	
+	function dayMarkerDraw(mapY, mapX, dayIndex) {
+		
+		var position = new daum.maps.LatLng(mapY,mapX);
+		
+		var content = "<div class='dayMarker'><h5>DAY"+ dayIndex +"</h5></div>"; 
+		
+		var dayMarkerDraw = new daum.maps.CustomOverlay({
+			position : position,
+			content : content,
+			zIndex: 2,
+			yAnchor : 1
+		});
+		
+		dayMarkerArray.push(dayMarkerDraw);
+		dayMarkerDraw.setMap(map);
+	}
+	
+	function clearDayMarker(){
+		for(var i=0; i<dayMarkerArray.length; i++) {
+			dayMarkerArray[i].setMap(null);
+		}
+	}
 	
 
 	
+	function lineDraw() {
+		
+		var linePoint = new Array();
+ 
+		clearDayMarker();
+		clearCircle();
+		clearLine();
+		
+		polyline = new daum.maps.Polyline({
+			map : map,
+			strokeWeight :2,
+			strokeColor : '#FF00FF',
+			strokeOpacity: 1,
+		    strokeStyle: 'longdash'
+		});
+		
+		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
+			
+			index = index+1
+			var dayX = $(item).find("p.position").eq(0).text();
+			var dayY = $(item).find("p.position").eq(1).text();
+			console.log("DAY : ",index , " Day X : ", dayX , " Day Y : ", dayY);
+			dayMarkerDraw(dayY, dayX, index);
+			
+			$(item).find(".media").each( function(i,pos) {
+				console.log ("위도 : ", $(pos).find("p.position").eq(0).text() , " 경도 : ", $(pos).find("p.position").eq(1).text() );  
+				
+				var positionX = $(pos).find("p.position").eq(0).text();
+				var positionY = $(pos).find("p.position").eq(1).text();
+				
+				linePoint.push( new daum.maps.LatLng( positionY, positionX ) );
+				circleDraw(positionY, positionX);
+				console.log(i + " 배열 넣어라. ")
+				
+			});		
+		});
+		
+		console.log("---line Draw---");
+		polyline.setPath(linePoint);
+		
+	}
+	
+	function clearLine() {
+		if (polyline) {
+			polyline.setMap(null);    
+			polyline = null;        
+	    }
+	}
+	
+	function clearCircle() {
+		for(var i=0; i<circleArray.length; i++) {
+			circleArray[i].setMap(null);
+		}
+	}
 	
 	$("#addplan").click(function() {
 		if( $("#startDate").val() != "" ) {
@@ -294,7 +399,7 @@ $(function() {
 			console.log(planArray);
 			$("#left-tab-plan-contents").append(
 				"<div class='col-md-12'>" +
-				"<p><strong id='"+day+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'>"+ nextDayDateFormat +" DAY "+ day+"</strong></p></div>");	
+				"<div class='panel-group' id='"+day+"dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
@@ -304,8 +409,11 @@ $(function() {
 	
 	$("#retryplan").click(function() {
 		$("#left-tab-plan-contents")
-		.html("<div class='col-md-12'><p><strong id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></p></div>")
+		.html("<div class='col-md-12'><div class='panel-group' id='1dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></div></div></div>")
 		 $("#startDate").val("");
+		clearCircle();
+		clearLine();
+		clearDayMarker();
 		day = 1;			
 		planArray.length = 0;
 		dateInit();
@@ -318,13 +426,13 @@ $(function() {
 		var startDate = $("#startDate").val();				
 		if( day > 1 ) {
 			$("#left-tab-plan-contents").html("");
-			$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)>'" +
-												 parseDate(startDate)+" DAY 1</strong></p></div>");
+			$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='1dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>" +
+												 parseDate(startDate)+" DAY 1</strong></div></div></div>");
 			planArray.length = 0;
 			planArray.push(parseDate(startDate))
 			for(var i=2; i<=day; i++) {
-				$("#left-tab-plan-contents").append("<div class='col-md-12'><p><strong id='"+i+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)>'" +
-													 parseAddDate(startDate,i)+" DAY "+ i+"</strong></p></div>");
+				$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='"+i+"dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>" +
+													 parseAddDate(startDate,i)+" DAY "+ i+"</strong></div></div></div>");
 				planArray.push(parseAddDate(startDate,i));
 			}
 			console.log(planArray);
@@ -332,9 +440,13 @@ $(function() {
 			
 			planArray.push(parseDate(startDate));
 			console.log(planArray);
-			$("#1dateStr").html( parseDate(startDate) +" DAY 1 ");	
+			$("#1dateStr .panel-heading strong").html( parseDate(startDate) +" DAY 1 ");	
 						
 		}
+		
+		clearDayMarker();
+		clearCircle();
+		clearLine();
 		dateInit();
 		
 	});

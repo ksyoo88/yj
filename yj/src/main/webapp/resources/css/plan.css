@@ -61,3 +61,8 @@ div.customoverlay{
 	position: relative;
     bottom:20px;
 }
+
+div.dayMarker{
+/* 	background-image : url("../images/icon_day_flag.png"); */
+}
+
