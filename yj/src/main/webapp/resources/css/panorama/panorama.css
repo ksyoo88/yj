@@ -1,0 +1,152 @@
+
+/*div {border:1px solid #F00;}*/
+
+
+.clearBoth {
+	clear: both;
+}
+
+html, body { height:100%; }
+#container { margin:0 auto; width:100%; height:100%; background:#666;}
+
+
+#photologDetailBox										{ position:relative; width:650px; min-width:650px; height:100%;  } /* background:rgba(138,210,214,0.6); */
+#photolog-timeline										{ position:relative; float:left; padding-top:50px; width:90px; min-width:90px; max-width:90px; background:url(../_images/icon_travelog_category_3.png) top left no-repeat; text-align:center; overflow:hidden;}
+#photolog-timeline .date-year 							{ font-size:16px; font-family:Roboto-Bold !important; }
+#photolog-timeline .date-month 							{ font-size:32px; color:#000; font-family:Roboto-Bold !important; }
+#photolog-timeline .date-month-text 					{ font-size:10px; }
+#photolog-timeline .date-day p 							{ font-size:15px; line-height:30px; }
+#photolog-timeline .date-day p:hover 					{ font-size:15px; color:#000; cursor:pointer; }
+#photolog-timeline .date-day .on 						{ font-size:15px; color:#000; text-decoration:underline; }
+
+#photolog-container 									{ position:relative; float:right; width:555px;  min-width:555px; border-left:1px solid #efefef; box-shadow:5px 5px 5px rgba(0,0,0,0.1); overflow:hidden;}
+#photolog-container .photolog-header 					{ position:relative; width:100%;  height:300px; background-size: cover; }
+#photolog-container .photolog-header .mask				{ position:absolute; width:555px;  height:300px; background-image: url(../_images/img_photo_mask.png); background-repeat: repeat-x; background-position: bottom; }
+#photolog-container .photolog-header .title 			{ position:absolute; bottom:100px; left:0px; /*background:#22becc;*/ max-width:65%;  padding:5px 20px;  font-size:32px; color:#fff; font-family:'NanumGothic-Bold' !important; line-height:40px;letter-spacing:-2px; }
+#photolog-container .photolog-header .date 				{ position:absolute; top:0px; left:0px; background:#000; padding:5px 20px; font-size:12px; color:#fff; font-family:'NanumGothic-Bold' !important; line-height:12px;}
+#photolog-container .photolog-header .user 				{  }
+#photolog-container .photolog-header .btn-act			{ position:absolute; bottom:20px; right: 10px; color:#fff; }
+#photolog-container .photolog-header .photolog-share	{ padding:15px; background-color:#fff; border-radius:7px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out;}
+#photolog-container .photolog-header .photolog-share button {cursor:pointer;}
+
+#photolog-container .photolog-header .user 				{ position:absolute; bottom:20px; left:20px; color:#fff; }
+#photolog-container .photolog-header .user .user-photo	{ float:left; width:50px; height:50px; border-radius:50px; background:#fff;  text-align:center;}
+#photolog-container .photolog-header .user .t-name		{ float:left; width:220px; padding-left:10px; margin-top:18px; font-size:13px; color:#fff; line-height:12px; font-family:'NanumGothic-Bold' !important; vertical-align:middle; }
+#photolog-container .photolog-header .btn-act			{ position:absolute; bottom:10px; right: 15px; color:#fff; }
+#photolog-container .photolog-header .btn-act > ul		{ list-style:none; }
+#photolog-container .photolog-header .btn-act > ul > li	{ float:left; margin-left:10px; text-align:center; }
+#photolog-container .photolog-header .btn-act p			{ line-height:2px; }
+#photolog-container .photolog-header .btn-act .count	{ font-size:16px; color:#fff; font-family:'Roboto-Bold' !important; }
+#photolog-container .photolog-header .btn-act .t-subj	{ font-size:11px; color:#fff; font-family:'NanumGothic-Bold' !important; }
+
+
+#photolog-container .header-edit	 							{ position:relative; width:100%; padding-top:20px;  border-bottom:1px dashed #ccc;  }
+#photolog-container .header-edit p		 						{ padding-left:22px; font-size:14px; color:#000; font-family:'NanumGothic-Bold' !important; }
+#photolog-container .header-edit .title		 					{ position:relative; padding:10px; font-size:18px; color:#000; font-family:'NanumGothic-Bold' !important; line-height:30px;letter-spacing:-1px; background:#efefef; }
+#photolog-container .header-edit .title img	 					{ vertical-align:middle; padding:0 10px; cursor:pointer;}
+#photolog-container .header-edit .title .clearTitle				{ position:absolute; top:26px; right:43px; }
+#photolog-container .header-edit .public-buttons				{ position:absolute; top:30px; right:18px; }
+
+
+#photolog-container .button-set 								{ position:relative; width:96%;  height:50px; padding:15px 0 5px 20px; border-bottom:1px solid #efefef; }
+.set-modify				 										{ background:#383f49;}
+#photologDetailBox .btn-public						{ float:left; width:80px;  padding:5px 0; background:#22becc;  text-align:center; border:1px solid #22becc; border-radius:3px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photologDetailBox .btn-public span 				{ font-size:11px; color:#fff; font-family:'NanumGothic-Bold' !important; vertical-align:middle; }
+#photologDetailBox .btn-public img 				{ vertical-align:middle; padding-right:5px; padding-bottom:2px; }
+#photologDetailBox .btn-public:hover				{ width:80px; border:1px solid #00ba9d; background:#00ba9d; color:#fff; text-align:center; }
+#photologDetailBox .btn-public:hover span			{ color:#fff; text-align:center; }
+#photologDetailBox .btn-unpublic					{ float:left; width:80px;  padding:5px 0; background:#fff;  text-align:center; border:1px solid #768082; border-radius:3px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photologDetailBox .btn-unpublic span 				{ font-size:11px; color:#22becc; font-family:'NanumGothic-Bold' !important; vertical-align:middle; }
+#photologDetailBox .btn-unpublic img 				{ vertical-align:middle; padding-right:5px; padding-bottom:2px; }
+#photologDetailBox .btn-unpublic:hover				{ border:1px solid #22becc; background:#22becc; color:#fff; text-align:center; }
+#photologDetailBox .btn-unpublic:hover	span 		{ color:#fff; text-align:center; }
+#photolog-container .button-set .btn-modify						{ float:right; margin-right:5px; width:50px;  padding:5px 0; background:#fff;  text-align:center; border:1px solid #768082; border-radius:3px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photolog-container .button-set .btn-modify span 				{ font-size:11px; color:#768082; font-family:'NanumGothic-Bold' !important; vertical-align:middle; }
+#photolog-container .button-set .btn-modify:hover				{ border:1px solid #768082; background:#768082; color:#fff; text-align:center;  }
+#photolog-container .button-set .btn-modify:hover span			{ color:#fff; text-align:center; }
+#photolog-container .button-set .btn-delete						{ float:right; margin-right:10px; width:26px; height:20px;  padding-top:4px; background:#fff; text-align:center; border:1px solid #768082; border-radius:3px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photolog-container .button-set .btn-delete span 				{ font-size:12px; color:#fff; font-family:'NanumGothic-Bold' !important; }
+#photolog-container .button-set .btn-delete:hover				{ border:1px solid #768082; background:#768082; color:#fff; text-align:center; }
+#photolog-container .button-set .btn-delete:hover span			{ color:#fff; text-align:center;  }
+
+#photolog-container .button-set .btn-regist						{ float:left; width:80px;  padding:5px 0; background:#22becc;  text-align:center; border:1px solid #22becc; border-radius:3px; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; margin-left:3px;}
+#photolog-container .button-set .btn-regist span 				{ font-size:11px; color:#fff; font-family:'NanumGothic-Bold' !important; vertical-align:middle; }
+#photolog-container .button-set .btn-regist:hover				{ width:80px; border:1px solid #00ba9d; background:#00ba9d; color:#fff; text-align:center; }
+#photolog-container .button-set .btn-regist:hover span			{ color:#fff; text-align:center; }
+
+#photolog-container .button-set .btn-addphoto					{ position:absolute; top:0; left:0; width:120px; height:50px;  padding-top:17px; background:#59c0a7; text-align:center; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; cursor:pointer;}
+#photolog-container .button-set .btn-addphoto span 				{ font-size:14px; color:#fff; font-family:'NanumGothic-Regular' !important; }
+#photolog-container .button-set .btn-addphoto img 				{ vertical-align:middle; padding-right:5px; padding-bottom:2px; }
+#photolog-container .button-set .btn-addphoto:hover				{ background:#38af92; color:#fff; text-align:center; }
+#photolog-container .button-set .btn-addphoto:hover span		{ color:#fff; text-align:center; }
+
+#photolog-container .button-set .btn-save						{ position:absolute; top:0; right:0; width:120px; height:50px;  padding-top:14px; background:#ef6149; text-align:center; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; cursor:pointer;}
+#photolog-container .button-set .btn-save span 					{ font-size:14px; color:#fff; font-family:'NanumGothic-Regular' !important; }
+#photolog-container .button-set .btn-save img 					{ vertical-align:middle; padding-right:5px; padding-bottom:5px; }
+#photolog-container .button-set .btn-save:hover					{ background:#f37b45; color:#fff; text-align:center; }
+#photolog-container .button-set .btn-save:hover span			{ color:#fff; text-align:center; }
+
+#photolog-container .button-set .btn-cancel						{ position:absolute; top:0; right:120px; width:120px; height:50px;  padding-top:14px; /* background:#596271;*/ text-align:center; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; cursor:pointer;}
+#photolog-container .button-set .btn-cancel span 				{ font-size:14px; color:#fff; font-family:'NanumGothic-Regular' !important; }
+#photolog-container .button-set .btn-cancel img 				{ vertical-align:middle; padding-right:5px; padding-bottom:5px; }
+#photolog-container .button-set .btn-cancel:hover				{ background:#505660; color:#fff; text-align:center; }
+#photolog-container .button-set .btn-cancel:hover span			{ color:#fff; text-align:center; }
+
+
+
+#photolog-container .photolog-day	 											{ position:relative; width:100%;}
+#photolog-container .photolog-day .title-box									{ position:relative; float:left; width:94%;  border-bottom:1px dashed #ccc; margin-top:40px; margin-left:20px; padding:15px 0 25px 0; text-align:center;   }
+#photolog-container .photolog-day .title-box .day								{ width:100%; font-size:36px; color:#000; font-family:"Trebuchet MS", Arial, Roboto-Thin,fontawesome !important; letter-spacing:0px; padding:5px 0; }
+#photolog-container .photolog-day .title-box .day span							{ font-size:18px; color:#ccc; font-family: "Trebuchet MS", Arial, Roboto-Thin, fontawesome !important; display:block; }
+#photolog-container .photolog-day .title-box .day .city							{ float:left; width:100%; font-size:12px; color:#22becc; font-family:'NanumGothic-Regular', Roboto-Medium, fontawesome !important;}
+#photolog-container .photolog-day .title-box .location							{ width:100%; padding-top:10px; font-size:11px; color:#989fa9; font-family:'NanumGothic-Regular' !important;}
+#photolog-container .photolog-day .title-box .location span						{ color:#dfdfdf; font-family:Roboto-Bold !important;}
+#photolog-container .photolog-day .photo-box									{ position:relative; float:left; width:530px; padding:30px 10px 30px 25px; background:#fff; }
+#photolog-container .photolog-day .photo-box .place								{ width:100%; padding-bottom:5px; font-size:14px; color:#000; font-family: NanumGothic-Regular !important;}
+#photolog-container .photolog-day .photo-box .place span.time					{ font-size:14px; color:#ccc; font-family: Helvetica, Roboto-Regular !important; font-weight:100; }
+#photolog-container .photolog-day .photo-box .place img							{ vertical-align: middle; padding-right:5px; }
+
+
+#photolog-container .photolog-day .photo-box .photo-cont							{ position:relative; width:515px; height:325px; margin-top:5px; padding-bottom:3px; }
+#photolog-container .photolog-day .photo-box .photo-cont .photo						{ position:relative; float:left;}
+#photolog-container .photolog-day .photo-box .photo-cont .photo .delete				{ position:absolute; right:0px; top:0px; background:#333; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out;}
+#photolog-container .photolog-day .photo-box .photo-cont .photo .delete:hover		{ background:#666; }
+#photolog-container .photolog-day .photo-box .photo-cont .photo .inline				{ width:100%; height:100%; border:2px solid #fff; }
+#photolog-container .photolog-day .photo-box .photo-cont .size1						{ width:100%; height:100%; }
+#photolog-container .photolog-day .photo-box .photo-cont .size2						{ width:50%; height:100%;}
+#photolog-container .photolog-day .photo-box .photo-cont .size3						{ width:50%; height:50%; }
+#photolog-container .photolog-day .photo-box .photo-cont .size4						{ width:25%; height:50%; }
+#photolog-container .photolog-day .photo-box .photo-cont .size5						{ width:25%; height:25%; }
+
+#photolog-container .photolog-day .photo-box .photo-cont .photo-add					{ position:relative; float:left; margin-top:3px; width:123px; height:123px; border:1px solid #d7d8dd; text-align:center; }
+#photolog-container .photolog-day .photo-box .photo-cont .photo-add:hover			{ border:1px solid #f0f2f5; background:#f0f2f5;  -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photolog-container .photolog-day .photo-box .photo-cont .photo-add	.add-btn 		{ position:absolute; top:50px; left:50px; border-radius:25px; width:25px; height:25px; background:#89d4d7; cursor:pointer;}
+#photolog-container .photolog-day .photo-box .photo-cont .photo-add	.add-btn span	{ font-size:20px; color:#fff; font-family:Roboto-Bold !important;}
+#photolog-container .photolog-day .photo-box .photo-cont-modify								{ position:relative; width:492px; padding:20px 10px; background:#efefef; }
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo						{ position:relative; float:left; width:120px; height:120px; margin:3px 3px 0 0; }
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo .delete				{ position:absolute; right:0px; top:0px;  background: rgba(232, 225, 225, 0); -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out;}
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo .delete:hover		{ background:#666; }
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo-add					{ position:relative; float:left; margin-top:3px; width:118px; height:118px; border:1px solid #abb1b5; text-align:center; }
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo-add:hover			{ border:1px solid #a5e4e8; background:#a5e4e8;  -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out; }
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo-add	.add-btn 		{ position:absolute; top:48px; left:48px; border-radius:25px; width:25px; height:25px; background:#89d4d7; cursor:pointer;}
+#photolog-container .photolog-day .photo-box .photo-cont-modify .photo-add	.add-btn span	{ font-size:20px; color:#fff; font-family:Roboto-Bold !important;}
+#photolog-container .photolog-day .photo-box .memo								{ position:relative; width:100%; padding-top:10px; font-size:14px; color:#393f48; line-height:26px; /* border-left:1px dashed #e7e7e7;  border-right:1px solid #e7e7e7; */ font-family:  Helvetica, 'NanumGothic-Regular', fontawesome !important; background:#fff;}
+#photolog-container .photolog-day .photo-box .memo-modify						{ width:492px; padding:15px 30px 10px 10px; background:#efefef; border-radius:0 0 6px 6px; }
+#photolog-container .photolog-day .photo-box .modify							{ width:445px; padding:15px 40px 30px 0px; color:#393f48; line-height:20px; /* border-bottom:1px dashed #ccc; */ background:#fff;}
+#photolog-container .photolog-day .photo-box .modify img						{ vertical-align:center; padding-left:10px; cursor:pointer;}
+#photolog-container .photolog-day .photo-box .memo span							{ color:#22becc; font-family:Roboto-Bold !important;}
+#photolog-container .photolog-day .photo-box .memo .clearMemo					{ position:absolute; top:28px; left:22px; cursor:pointer; }
+
+#photolog-container .photolog-day .photo-box .modify-button						{ position:relative; width:492px; height:45px; margin-top:5px; padding:10px 10px 5px 10px; background:#efefef;  text-align:center; border-radius:6px 6px 0 0; border-bottom:1px dashed #d7d8dd; }
+#photolog-container .photolog-day .photo-box .modify-button .place-modify		{ font-size:12px; color:#393f48; font-family:'NanumGothic-Regular' !important; -webkit-transition: all 0.2s ease-in-out;  -moz-transition: all 0.2s ease-in-out;  -o-transition: all 0.2s ease-in-out;  transition: all 0.2s ease-in-out;}
+#photolog-container .photolog-day .photo-box .modify-button .place-modify:hover	{ font-size:12px; color:#22becc; font-family:'NanumGothic-Regular' !important; }
+#photolog-container .photolog-day .photo-box .modify-button .location			{ float:left; width:33%; height:22px; padding-top:5px; margin-right:2px; cursor:pointer; border-right:1px solid #e3e3e8; /*background:#d7d8dd;*/ border-radius:3px 0 0 3px; }
+#photolog-container .photolog-day .photo-box .modify-button .timechange			{ float:left; width:33%; height:22px; padding-top:5px; cursor:pointer; border-right:1px solid #e3e3e8; /*background:#d7d8dd;*/}
+#photolog-container .photolog-day .photo-box .modify-button .delete				{ float:right; width:33%; height:22px; padding-top:5px; cursor:pointer; /*background:#d7d8dd;*/ border-radius:0 3px 3px 0;}
+#photolog-container .photolog-day .photo-box .modify-button .location:hover, #photolog-container .photolog-day .photo-box .modify-button .timechange:hover, #photolog-container .photolog-day .photo-box .modify-button .delete:hover { background:#fff;}
+#photolog-container .photolog-day .photo-box .modify-button img					{ vertical-align:middle; margin-right:5px; padding-bottom:3px; }
+
+
+#photolog-container input.no-line-input {width:86%;  height:100%; margin-left:12px; padding:10px 35px 10px 12px;  font-size:18px; color:#393f48; font-family:'NanumGothic-Regular' !important; background:#fff; border:none; box-shadow:1px 1px 2px rgba(0,0,0,0.1); }/*border:0; background:transparent; */
+#photolog-container textarea.no-line-input {width:95%; height:100px; padding:10px 10px 10px 35px ; font-size:14px; color:#393f48; font-family:'NanumGothic-Regular' !important; background:#fff; border:none; border-radius:3px; box-shadow:1px 1px 2px rgba(0,0,0,0.1);   }/*border:0; background:transparent; */
+ 

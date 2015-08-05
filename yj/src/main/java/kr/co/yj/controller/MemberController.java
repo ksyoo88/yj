@@ -174,7 +174,9 @@ public class MemberController {
 		
 		 //MultipartHttpServletRequest request
 		System.out.println(request); 
-		
+		System.out.println(request.getServletPath());
+		System.out.println(request.getContextPath());
+		System.out.println(request.getSession().getServletContext().getRealPath("/"));
 		Iterator<String> itr =  request.getFileNames();
 		System.out.println(itr.toString());
 		System.out.println(itr.hasNext());

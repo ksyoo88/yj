@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -125,7 +127,8 @@ public class MemberServiceImpl implements MemberService {
 			long filesize = mf.getSize();
 			
 			byte[] filedata = mf.getBytes();
-			File file = new File("C:/spring_study/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/yj/resources/images/temphoto/"+filename);
+			System.out.println("filename:" + filename);
+			File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/temphoto/"+filename);
 			 
 			FileCopyUtils.copy(filedata, file);
 		}
