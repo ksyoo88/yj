@@ -24,7 +24,7 @@ div#map-box {
 #left-tab-right {
 	height: 880px;
 	background-color: white;
-	position:relative;
+/* 	position:relative; */
 }
 #left-tab-header {
 	background-color: #FF6600;

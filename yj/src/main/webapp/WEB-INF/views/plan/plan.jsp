@@ -44,22 +44,61 @@
 			<div class="row">
 				<div class="col-md-12" id="left-tab-header">
 					<h4>
-						<strong> 일정만들기 </strong><br />
-						<small>일정을 추가해주세요.</small>
+						<strong> 일정만들기 </strong>						
 					</h4>
 					<!-- 출발일 설정 -->
-					<form action="">
-						<input type="date" id="startDate"/>
-					</form>
+					<div class="input-append date form_datetime form-group input-group">
+						<input class="form-control" size=18" type="text" value=""  placeholder="출발 날짜를 입력하세요!" id="startDate" readonly/>
+						<span class="add-on input-group-addon"><i class="icon-th glyphicon glyphicon-calendar "></i></span>
+					</div>
 				</div>
+				
 				<div class="btn-group btn-group-justified" role="group">
 					<a href="#" class="btn btn-default" id="addplan">추가하기</a>
 					<a href="#" class="btn btn-default" id="retryplan">다시하기</a>
 				</div>
 				<div class="btn-group btn-group-justified" role="group">
-					<a href="#" class="btn btn-default" id="addplan">저장하기</a>
+					<a href="#" class="btn btn-default" data-toggle="modal" data-target="" id="saveBtn">저장하기</a>
 				</div>
+				
+				<!-- 저장 모달 -->
+				<div id="saveModal" class="modal fade" role="dialog">
+					<div class="modal-dialog">	
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header modal-primary">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">일정을 저장하시겠습니까?</h4>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" role="form">
+									<div class="form-group">
+										<label class="control-label col-md-2" >제목 :</label>
+										<div class="col-md-10">
+											<input type="text" class="form-control" id="plan-title" maxlength="20" placeholder="제목을 입력하세요.">
+										</div>										
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2" >날짜 :</label>
+										<div class="col-md-5">
+											<input type="text" id="startDay" class="form-control" value="2015년 8월 9일" readonly>
+										</div>										
+										<div class="col-md-5">
+											<input type="text" id="endDay" class="form-control" value="2015년 8월 12일" readonly>
+										</div>										
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="planSaveBtn" data-dismiss="modal">일정 저장하기</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
 			</div>
+		
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
 					<div class="panel-group" id="1dateStr">
@@ -70,6 +109,7 @@
 		</div>
 	</div>
 	
+
 	<!-- 왼쪽 장소 탭 -->	
 	
 	<div class="col-md-3" id="place-tab" style="overflow: auto;">
@@ -113,12 +153,14 @@
 			</div>
 			<p id="mapx" hidden></p>
 			<p id="mapy" hidden></p>
+			<p id="contentid" hidden></p>
 		</div>
 	</div>
 	
 	<!-- 지도 컨텐츠  -->
 	
 	<div class="col-md-8" id="contents-tab">
+	
 		<div id="map-box" class="ui-shadow"></div>
 	</div>
 	

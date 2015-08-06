@@ -14,15 +14,89 @@ function allowDrop(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    console.log(data);
     console.log(ev.target.id);
     $("#"+ev.target.id).append(document.getElementById(data));
     //lineDraw();
     //ev.target.appendChild( document.getElementById(data) );
 }
+
 	
 
 $(function() {
 	
+	$("#saveBtn").click(function(){
+		
+		var startDate = $("#startDate").val();
+		
+		if ( startDate ) {
+			$(this).attr("data-target","#saveModal");
+			
+			$("#startDay").val(planArray[0]); 
+			$("#endDay").val(planArray[planArray.length-1]); 
+			
+//			$("#saveModel .date-period div").each(function(index, item) {				
+//				console.log( item.find("input").val() );				
+//			});
+		}			
+	});
+	
+	$("#planSaveBtn").click(function(){
+		
+		var tempPlan = {};
+		
+		var title = $("#plan-title").val();
+		var startDay = $("#startDay").val();
+		var endDay = $("#endDay").val();
+		
+		console.log("멤버 no: 아직 없다" );
+		console.log("제목    : " + title);
+		console.log("출발 일 : " + startDay);
+		console.log("도착 일 : " + endDay);
+		console.log("총 날짜 : " + day);
+		
+		tempPlan.title = title;
+		tempPlan.startDay = startDay;
+		tempPlan.endDay = endDay;
+		tempPlan.day = day;	
+		
+		var planDay = {};
+		var planInfoArray = new Array();
+		var planDayArray;
+
+		
+		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
+			
+			console.log("날짜 : " , planArray[index]);
+			planDayArray = planArray[index];
+			//contentidArray.length = 0;
+			var contentidArray = [];
+			
+			$(item).find(".media").each( function(i,pos) {
+			
+				var contentid = $(pos).find("span").eq(0).text();
+				contentidArray.push(contentid);
+				console.log(contentid);
+				
+			});
+			
+			planDay = {planDayArray : planDayArray, contentid : contentidArray};
+			planInfoArray.push(planDay);
+			
+		});
+		
+		tempPlan.planInfo = planInfoArray;
+		console.log(JSON.stringify(tempPlan));
+		
+	});
+	
+	$(".form_datetime").datetimepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayBtn: true,
+		minView : 'month',
+		language : 'ko'
+	});
 	
 	
 	$("#place-tab").hide();
@@ -186,6 +260,7 @@ $(function() {
 						  '    <p hidden id="place-tel">'+places[i].tel+'</p>' +
 						  '    <p hidden id="place-mapx">'+places[i].mapx+'</p>' +
 						  '    <p hidden id="place-mapy">'+places[i].mapy+'</p>' +
+						  '    <p hidden id="place-contentid">'+places[i].contentid+'</p>' +
 						  '  </div>' +
 						  '</div>';
 			
@@ -213,6 +288,7 @@ $(function() {
 			var tel = $(this).find("#place-tel").text();
 			var mapx = $(this).find("#place-mapx").text();
 			var mapy = $(this).find("#place-mapy").text();
+			var contentid = $(this).find("#place-contentid").text();
 			
 			$("#contents-tab").attr("class","col-md-5");
 			$("#place-tab").show(500,function() {
@@ -224,6 +300,7 @@ $(function() {
 				$("#place-tab small").html( " Tel ( " + tel + " ) ");
 				$("#place-tab #mapx").html(mapx);
 				$("#place-tab #mapy").html(mapy);
+				$("#place-tab #contentid").html(contentid);
 				
 			});
 			
@@ -241,6 +318,7 @@ $(function() {
 		var currentImage = $("#place-tab img").attr("src");
 		var mapx = $("#place-tab #mapx").text();
 		var mapy = $("#place-tab #mapy").text();
+		var contentid = $("#place-tab #contentid").text();
 		
 		
 		console.log("Selected Place mapX : " + mapx + " mapY : " + mapy);
@@ -271,6 +349,7 @@ $(function() {
 				 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>" +
 				 			"<p hidden class='position'>"+ mapx +"</p>"+
 				 			"<p hidden class='position'>"+ mapy +"</p>"+
+				 			"<span hidden>"+ contentid +"</span>"+
 						"</div>"+
 					"</div>"+
 				"</div>" +					
@@ -312,7 +391,7 @@ $(function() {
 		
 		var position = new daum.maps.LatLng(mapY,mapX);
 		
-		var content = "<div class='dayMarker'><h5>DAY"+ dayIndex +"</h5></div>"; 
+		var content = "<div class='dayMarker'><h3>DAY"+ dayIndex +"</h3></div>"; 
 		
 		var dayMarkerDraw = new daum.maps.CustomOverlay({
 			position : position,
@@ -399,7 +478,7 @@ $(function() {
 			console.log(planArray);
 			$("#left-tab-plan-contents").append(
 				"<div class='col-md-12'>" +
-				"<div class='panel-group' id='"+day+"dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
+				"<div class='panel-group' id='"+day+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
@@ -409,7 +488,7 @@ $(function() {
 	
 	$("#retryplan").click(function() {
 		$("#left-tab-plan-contents")
-		.html("<div class='col-md-12'><div class='panel-group' id='1dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></div></div></div>")
+		.html("<div class='col-md-12'><div class='panel-group' id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>출발일을 입력해주세요</strong></div></div></div>")
 		 $("#startDate").val("");
 		clearCircle();
 		clearLine();
@@ -417,6 +496,13 @@ $(function() {
 		day = 1;			
 		planArray.length = 0;
 		dateInit();
+		$("#saveBtn").attr("data-target","");
+	});
+	
+	$("#planSaveBtn").click(function(){
+		
+		//***alert("hi");
+		
 	});
 	
 	
@@ -426,18 +512,18 @@ $(function() {
 		var startDate = $("#startDate").val();				
 		if( day > 1 ) {
 			$("#left-tab-plan-contents").html("");
-			$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='1dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>" +
+			$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>" +
 												 parseDate(startDate)+" DAY 1</strong></div></div></div>");
 			planArray.length = 0;
 			planArray.push(parseDate(startDate))
 			for(var i=2; i<=day; i++) {
-				$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='"+i+"dateStr'><div class='panel-heading'><strong ondrop='drop(event)' ondragover='allowDrop(event)'>" +
+				$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='"+i+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>" +
 													 parseAddDate(startDate,i)+" DAY "+ i+"</strong></div></div></div>");
 				planArray.push(parseAddDate(startDate,i));
 			}
 			console.log(planArray);
 		}else {
-			
+			planArray.length = 0;
 			planArray.push(parseDate(startDate));
 			console.log(planArray);
 			$("#1dateStr .panel-heading strong").html( parseDate(startDate) +" DAY 1 ");	

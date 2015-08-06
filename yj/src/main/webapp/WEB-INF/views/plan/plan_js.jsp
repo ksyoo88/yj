@@ -1,2 +1,4 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
+<script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.min.js" ></script>
+<script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.ko.js" charset="UTF-8"></script>
 <script type="text/javascript" src="resources/js/plan.js"></script>
