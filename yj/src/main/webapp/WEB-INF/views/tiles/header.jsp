@@ -3,46 +3,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 	<!-- Fixed navbar -->
-	<!-- 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">이미지</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="#">여기추천</a></li>
-					<li><a href="#about">저기가자</a></li>
-					<li><a href="#contact">같이보자</a></li>
-				</ul>
-				<div class="navbar-right">
-					<form class="navbar-form">
-						<a href="" class="btn btn-default">로그인</a>
-						<a href="" class="btn btn-default">로그아웃</a>
-						<a href="" class="btn btn-default">회원가입</a>
-						<div class="form-group">
-							<input type="text" placeholder="가고싶은 곳을 찾아보세요." class="form-control">
-						</div>
-						<button type="submit" class="btn btn-default">검색</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</nav>
-	 -->
  	<nav class="navbar nav-pills navbar-inverse" id="navigationBar">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand glyphicon glyphicon-plane" href="#"></a>
+				<a class="navbar-brand glyphicon glyphicon-plane" href="/"></a>
 			</div>
 			<div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">여기추천</a></li>
-					<li><a href="#">저기저기저기</a></li>
-					<li><a href="#">사진</a></li>
+					<li class="active"><a href="attraction.do">여기추천</a></li>
+					<li><a href="plan.do">저기가자</a></li>
+					<li><a href="member.do">같이보자</a></li>
 				</ul>
 			</div>
 			

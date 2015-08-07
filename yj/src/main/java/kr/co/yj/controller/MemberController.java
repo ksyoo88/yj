@@ -37,15 +37,8 @@ public class MemberController {
 		
 		memberservice.addMember(mem);
 		
-		mav.setViewName("redirect:/form.do");
+		mav.setViewName("redirect:/main.do");
 		return mav;
-	}
-	
-	
-	@RequestMapping("/form.do")
-	public String form() {
-		
-		return "/main/login.tiles";
 	}
 	
 	@RequestMapping("/email.do")
