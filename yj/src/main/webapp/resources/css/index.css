@@ -60,8 +60,11 @@ h1, h2, h3, h4, h5, h6 {
 .container-fluid {
 	width: 100%;
 	float: left;
-	text-align: center;
+	/* text-align: center; */
 	background: #fff;
+}
+.text-center {
+	text-align: center;
 }
 .container-fluid h2 {
 	width: 100%;

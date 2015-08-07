@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-	<div class="container-fluid">
+	<div class="container-fluid text-center">
 		<div class="header">
 			<div class="title">
 				<img src="resources/images/attraction/title_smartplanb.jpg">

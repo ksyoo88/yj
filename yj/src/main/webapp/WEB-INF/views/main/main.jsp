@@ -1,14 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
-	
+	<!-- 
 	<div class="container-fluid">
 		<div class="jumbotron">
 			<h1>무슨 용도로 사용할까?</h1>
 			<p>사진관련?</p>
 		</div>
 	</div>
-	
-	<div class="container-fluid main-tour">
+	 -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading" id="accordion">
+						<span class="glyphicon glyphicon-comment"></span> Chat
+						<div class="btn-group pull-right">
+							<a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<span class="glyphicon glyphicon-chevron-down"></span>
+							</a>
+						</div>
+					</div>
+					<div class="panel-collapse collapse" id="collapseOne">
+						<div class="row">
+							<div class="col-xs-9">
+								<div class="contentDiv" id="chatBox">
+									<!--           <div><span class="username">hsilomedus : </span><span>whass uuup?</span></div> -->
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="contentDiv" id="nicknamesBox">
+									<!--           <div class="username">hsilomedus</div> -->
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 10px;">
+							<div class="col-xs-7">
+								<input type="text" id="txtMessage" class="form-control" placeholder="Type your message here." />
+							</div>
+							<div class="col-xs-2">
+								<button id="btnSend" class="btn btn-primary" style="width: 100%;">Send</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid text-center main-tour">
 		<span class="sub_title">나만의 여행을 만들어 보세요!</span>
 		<h1><span>미리 떠나는 나만의 여행<br />시작해 볼까요?</span></h1>
 		<ul class="main_btn">
@@ -18,7 +56,7 @@
 	</div>
 	
 	<!-- From top and bottom-->
-	<div class="container-fluid main-plan">
+	<div class="container-fluid text-center main-plan">
 		<h2>
 			<span class="small-title">추천일정</span><br>
 		</h2>
@@ -153,7 +191,7 @@
 	<!-- end From top and bottom-->
 	</div>
 	<!-- ======================================================================================================= -->
-	<div class="container-fluid main-place">
+	<div class="container-fluid text-center main-place">
 		<h2>
 			<span class="small-title">추천장소</span><br>
 		</h2>
@@ -174,7 +212,7 @@
 	<!-- ======================================================================================================= -->
 	
 	
-	<div class="container-fluid">
+	<div class="container-fluid text-center">
 		<div class="main-footer">
 			<h2>
 				<img src="resources/images/title_makeshare.png">
