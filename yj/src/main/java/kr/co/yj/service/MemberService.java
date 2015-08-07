@@ -15,12 +15,12 @@ public interface MemberService {
 	
 	MemberVO loginCheck(String email,String pwd);
 	
-	void modifyinfo(String name,String pwd,String email);
+	String modifyinfo(String name,String pwd,String email);
 	
-	void profileup(MultipartFile mf,String email) throws Exception;
+	String profileup(MultipartFile mf,String email) throws Exception;
 	MemberVO getMembyEmail(String email);
 	
-	void saveTempPhoto(MultipartFile mf,String email) throws Exception;
+	void saveTempPhoto(MultipartFile mf,String email,String day) throws Exception;
 	
 	ArrayList<String> getTemPhoto(String email);
 	void delTemPhoto(String email);

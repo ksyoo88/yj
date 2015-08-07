@@ -19,4 +19,36 @@
 		<result column="MEM_PHOTO" property="photo"/>
 	</resultMap> 
 	
+	<insert id="addtempphoto" parameterType="hashmap">
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+	</insert>
+	<insert id="savePanoTitle" parameterType="hashmap">
+	INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},my_seq.nextval,#{title},0,sysdate);
+	</insert>
+	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
+		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int})}
+		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
+	</insert>
+	
+	
+	<select id="getTemPhoto" parameterType="string" resultType="string">
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
+	</select>
+	
+	<select id="getTemPhotoByday" parameterType="hashmap" resultType="string">
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and day=#{day})
+	</select>
+	
+	<delete id="delTemPhoto" parameterType="string">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email}
+	</delete>
+	
+	<delete id="delTemPhotoByname" parameterType="hashmap">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND PHOTO_NAME=#{filename}
+	</delete>
+	
+	<delete id="delTemPhotoByday" parameterType="hashmap">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND day=#{day}
+	</delete>
+	
 </mapper>

@@ -45,7 +45,7 @@
 	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
 	</update>
 	<insert id="addtempphoto" parameterType="hashmap">
-		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name,DAY) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR},#{day})
 	</insert>
 	<select id="getTemPhoto" parameterType="string" resultType="string">
 		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
