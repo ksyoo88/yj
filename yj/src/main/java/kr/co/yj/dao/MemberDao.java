@@ -17,7 +17,7 @@ public interface MemberDao {
 	
 	void modifyinfo(MemberVO mem);
 	void updateprofile(MemberVO mem);
-	void addtempphoto(HashMap<String, String> map);
+	void addtempphoto(HashMap<String, Object> map);
 	
 	ArrayList<String> getTemPhoto(String email);
 	void delTemPhoto(String email);

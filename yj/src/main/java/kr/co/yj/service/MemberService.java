@@ -20,7 +20,7 @@ public interface MemberService {
 	String profileup(MultipartFile mf,String email) throws Exception;
 	MemberVO getMembyEmail(String email);
 	
-	void saveTempPhoto(MultipartFile mf,String email,String day) throws Exception;
+	void saveTempPhoto(MultipartFile mf,String email,int day) throws Exception;
 	
 	ArrayList<String> getTemPhoto(String email);
 	void delTemPhoto(String email);

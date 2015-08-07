@@ -154,6 +154,7 @@ public class MemberController {
 		mav.setView(jsonview);
 		return mav;
 	}
+	
 	@RequestMapping("/delTemPhoto.do")
 	public ModelAndView delTemPhoto(HttpSession session){
 		
@@ -176,7 +177,7 @@ public class MemberController {
 	public void savetempphoto(
 			MultipartHttpServletRequest request
 			,HttpSession session,
-			@RequestParam("day")String day) throws Exception{
+			@RequestParam("day")int day) throws Exception{
 
 		System.out.println("day : "+day); 
 		
@@ -197,14 +198,10 @@ public class MemberController {
 			//String email=(String)session.getAttribute("memberEmail");
 			memberservice.saveTempPhoto(mf, email,day);
 			System.out.println("s");
-			
-			
 		}else {
 			System.out.println("f");
 			
-			
 		}
-		
 	
 	}
 	
@@ -223,6 +220,5 @@ public class MemberController {
 		
 		return "redirect:/member.do";
 	}
-	
 
 }

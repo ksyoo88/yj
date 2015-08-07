@@ -60,7 +60,7 @@
 						</div>
 						<div class="paddingTop20" style="text-align: right;">
 							<input type="button" onclick="delTemPhoto()" value="전부삭제" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
-							<input type="button" value="등록" onclick="location.href='/yj/panorama.do';" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
+							<input type="button" value="등록" onclick="location.href='/panorama.do';" class="submitButton blueFillButton" style="width: 120px; padding: 10px;">
 						</div>
 		
 			</div>
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 				<div class="col-sm-2" >
-				
+						${member.photo }
 					  	<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="180px" height="180px"   > 
 				
 				

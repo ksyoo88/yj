@@ -22,7 +22,7 @@
 
 	<insert id="addMember" parameterType="Member" >
 	INSERT INTO YJ_MEMBER(MEM_NO,MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER,MEM_PHOTO)
-	 VALUES (My_seq.nextval,#{email},#{name},#{password},#{birth},#{gender},#{photo})
+	 VALUES (MEM_SEQ.nextval,#{email},#{name},#{password},#{birth},#{gender},#{photo})
 	</insert>
 	
 	<select id="getMemberbyemail" parameterType="string" resultMap="mem">
@@ -45,7 +45,7 @@
 	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
 	</update>
 	<insert id="addtempphoto" parameterType="hashmap">
-		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name,DAY) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR},#{day})
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name,PANO_DAY) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR},#{day,jdbcType=NUMERIC})
 	</insert>
 	<select id="getTemPhoto" parameterType="string" resultType="string">
 		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)

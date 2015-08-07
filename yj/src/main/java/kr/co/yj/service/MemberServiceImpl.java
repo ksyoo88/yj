@@ -117,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void saveTempPhoto(MultipartFile mf, String email,String day) throws Exception {
+	public void saveTempPhoto(MultipartFile mf, String email,int day) throws Exception {
 		String filename=null;
 		System.out.println("service");
 		if(!mf.isEmpty()){
@@ -133,7 +133,7 @@ public class MemberServiceImpl implements MemberService {
 			FileCopyUtils.copy(filedata, file);
 		}
 		
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("filename", filename);
 		map.put("day", day);

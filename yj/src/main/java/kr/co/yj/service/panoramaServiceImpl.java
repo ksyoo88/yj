@@ -17,7 +17,7 @@ public class panoramaServiceImpl implements PanoramaService {
 	@Override
 	public ArrayList<String> getTemPhotoByday(String email, String day) {
 		
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("day", day);
 		
@@ -43,7 +43,7 @@ public class panoramaServiceImpl implements PanoramaService {
 	}
 	@Override
 	public void delTemPhotoByday(String email, String day) {
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("day", day);
 		

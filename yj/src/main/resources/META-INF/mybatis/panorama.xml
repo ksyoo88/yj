@@ -23,7 +23,7 @@
 		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
 	</insert>
 	<insert id="savePanoTitle" parameterType="hashmap">
-	INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},my_seq.nextval,#{title},0,sysdate);
+	INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},PANO_SEQ.nextval,#{title},0,sysdate);
 	</insert>
 	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
 		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int})}

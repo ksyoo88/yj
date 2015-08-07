@@ -6,9 +6,9 @@ import java.util.HashMap;
 public interface PanoramaDao {
 	
 	ArrayList<String> getTemPhoto(String email);
-	ArrayList<String> getTemPhotoByday(HashMap<String, String> map);
+	ArrayList<String> getTemPhotoByday(HashMap<String, Object> map);
 	void delTemPhotoByname(HashMap<String, String> map);
-	void delTemPhotoByday(HashMap<String, String> map);
+	void delTemPhotoByday(HashMap<String, Object> map);
 	void savePanoTitle(HashMap<String, String> map);
 	void savePanoPhotobyDay(HashMap<String, Object> map);
 	
