@@ -86,7 +86,22 @@ $(function() {
 		});
 		
 		tempPlan.planInfo = planInfoArray;
+		
 		console.log(JSON.stringify(tempPlan));
+		
+		$.ajax({
+			type:"POST",
+			url:"/favorplace.do",
+			dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+			data:JSON.stringify(tempPlan),
+			//data:{favor:JSON.stringify(paramdata)},
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success : function(data) {
+				
+			}
+		});
+		
 		
 	});
 	
