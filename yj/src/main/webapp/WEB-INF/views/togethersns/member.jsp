@@ -49,7 +49,7 @@
 							</div>	
 							<div style="height:0px;overflow:hidden">
 								<form action="savetempphoto.do" id=photoUpForm method="post" enctype="multipart/form-data">
-											  
+									<input name="day" value="1">		  
 									<input id="photoupload" name="filename" type="file" onchange="savetempphoto()" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
 									<input id="savetempphoto" onclick="saveajax();" type="button">
 								</form>

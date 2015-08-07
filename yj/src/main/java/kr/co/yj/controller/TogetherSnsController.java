@@ -23,16 +23,18 @@ public class TogetherSnsController {
 	}
 	
 	@RequestMapping("/member.do")
-	public String memberBlog(Model model,HttpSession session) {
+	public String memberBlog(/*Model model,HttpSession session*/) {
 		
-		String email=(String)session.getAttribute("memberEmail");
-		MemberVO member = null;
-		if(email!=null){
+		// String email=(String)session.getAttribute("memberEmail");
+		//MemberVO member=(MemberVO)session.getAttribute("member");
+		/*
+		if(MemberVO!=null){
 			member=membersevice.getMembyEmail(email);
 			
 		}
+		*/
 		
-		model.addAttribute("member", member);
+		//model.addAttribute("member", member);
 		return "/togethersns/member.tiles";
 	}
 	

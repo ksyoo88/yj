@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/x-handlebars-template" id="form-template">
 <div id ="newtemp" class="mCSB_container mCS_no_scrollbar"   style="position: relative; top: 0px;">		
@@ -22,27 +23,38 @@
 					<span class="glyphicon glyphicon-plane"></span>위치변경
 				</div>					
 													
-				<div class="place-modify delete" data-code="c3604ec6241c02961917854c2ff5c34d">
+				<div class="place-modify delete" onclick="delTemPhotoByday(1)" data-code="c3604ec6241c02961917854c2ff5c34d">
 				 	<span class="glyphicon glyphicon-trash"></span>삭제
 				</div>				
 				</div>				
-				<div class="photo-cont-modify" >					
+				<div class="photo-cont-modify" >
+
+					<div id="photoView">					
 							
+					</div>				
 														
-					<div class="photo-add" data-seqcode="c3604ec6241c02961917854c2ff5c34d">
-						<div class="add-btn"><span>+</span>
-						</div>
-					</div>
+					<div style="height:0px;overflow:hidden">
+										<form action="savetempphoto.do" id="photoUpForm1" method="post" enctype="multipart/form-data">
+											<input name="day" value="1">		  
+											<input id="photoupload1" name="filename" type="file" onchange="savetempphoto(1)" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
+											<input id="savetempphoto1" onclick="saveajax(1)" type="button">
+										</form>
+									</div>
+										<div class="photo-add" onclick="photoupload(1)" data-seqcode="c3604ec6241c02961917854c2ff5c34d">
+											<div class="add-btn"  style="background-size: contain; background-repeat:no-repeat; 
+										background-image:url(resources/images/addPhoto.jpg)">
+												
+											</div>
+										</div>
 
 					<div class="clearBoth">
 					</div>				
 				</div>				
 				<div class="clearBoth">
 				</div>				
-				<div class="memo memo-modify">
-					<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d">오늘 창진이&lt;br/&gt;를 만났다
-					</textarea> 	
-					<img class="clearMemo" src="resources/images/panorama/cross-mark1.png" alt="delete">
+				<div id="Memo1" class="memo memo-modify">
+					<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d"></textarea> 	
+					<img class="clearMemo" onclick="clearmemo(1)" src="resources/images/panorama/cross-mark1.png" alt="delete">
 										
 				</div>			
 			</div>		
@@ -101,7 +113,6 @@
 					<div class="date-month" id="date-month">${month }</div>
 					<div class="date-day" id="date-day">	
 						<p><a class="moveScroll" href="#photo-2015-07-27">${day }</a></p>
-						
 					</div>
 				</div>
 				
@@ -129,7 +140,7 @@
 					<img src="resources/images/panorama/photos13.png" alt="save">
 					 <span>일정 추가</span>
 				</div>	
-				<div class="btn-cancel">
+				<div class="btn-cancel" >
 					<img src="resources/images/panorama/delete85.png" alt="save">
 					<span>취소</span>
 				</div>	
@@ -140,18 +151,11 @@
 			</div>	
 				<div class="header-edit">	
 					<div>			
-						<p>포토로그 타이틀</p>			
+						<p>파노라마 타이틀</p>			
 							<p class="title">
-							<input type="text" name="title" class="no-line-input" value="Wooho Jung님의 포토로fdbgdfcgvf그">
+							<input type="text" name="title" class="no-line-input" value="${member.name }님의 파노라마">
 							 <span class="glyphicon glyphicon-remove"></span></p>	
-						<!-- <div class="public-buttons">
-							<div class="btn-unpublic hand" data-btitle="공개로 설정">
-								<img src="../_images/icon_unpublic.png" alt="unpublic"><span>비공개</span>
-							</div>
-							<div class="btn-public hand hide" data-btitle="비공개로 설정">
-								<img src="../_images/icon_public.png" alt="public"><span>공개</span>
-							</div>
-						</div>	 -->	
+						
 					</div>
 				</div>	
 				<div class="photolog-day mCustomScrollbar _mCS_95" style="height: 629px;">
@@ -181,39 +185,46 @@
 										<!-- <div class="place-modify timechange" data-date="2015-07-27" data-time="15:55" data-code="c3604ec6241c02961917854c2ff5c34d">
 											<img src="../_images/icon_time_on.png" alt="place pin">시간 변경
 										</div>	 -->				
-										<div class="place-modify delete" data-code="c3604ec6241c02961917854c2ff5c34d">
+										<div class="place-modify delete" onclick="delTemPhotoByday(1)" data-code="c3604ec6241c02961917854c2ff5c34d">
 											 <span class="glyphicon glyphicon-trash"></span>삭제
 										</div>				
 									</div>				
 									<div class="photo-cont-modify" id="photo-cont-modify">		
-												
-										<div class="photo" data-idx="904456" style="background-size: contain; background-repeat:no-repeat; background-image:url(resources/images/temphoto/1438671759406slave1.JPG)">						
-											<div class="delete hand" data-idx="904456" data-uploaded="true">
-											<img src="resources/images/panorama/cancel28.png" alt="delete">
-												<span class="glyphicon glyphicon-remove"></span>
-											</div>					
-										</div>	
-														
-										<div class="photo" data-idx="904457" style="background:url(http://img6.tourplanb.com/_html/loading.php?idx=904457&amp;tb=1&amp;ws=120&amp;hs=120&amp;mode=tmpphotolog) no-repeat">						
-											<div class="delete hand" data-idx="904457" data-uploaded="true">
-												<img src="resources/images/panorama/cancel28.png" alt="delete">
-											</div>					
-										</div>					
-														
-										<div class="photo-add" data-seqcode="c3604ec6241c02961917854c2ff5c34d">
-											<div class="add-btn"><span>+</span>
-											</div>
+									
+									<div id="photoView">
+										<c:forEach var="photo" items="${photos }">
+											<div class="photo" data-idx="904456" data-imagename="${photo}" style="background-size: contain; background-repeat:no-repeat; 
+											background-image:url(resources/images/temphoto/${photo})">						
+												<div class="delete hand" data-idx="904456" data-uploaded="true">
+													<span class="glyphicon glyphicon-remove"></span>
+												</div>					
+											</div>	
+										
+										</c:forEach>
+									</div>
+									
+									<div style="height:0px;overflow:hidden">
+										<form action="savetempphoto.do" id="photoUpForm1" method="post" enctype="multipart/form-data">
+											<input name="day" id="day" value="1">
+											<input id="photoupload1" name="filename" type="file" onchange="savetempphoto(1)" style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png">
+											<input id="savetempphoto1" onclick="saveajax(1);" type="button">
+										</form>
+									</div>
+									<div class="photo-add" onclick="photoupload(1)" data-seqcode="c3604ec6241c02961917854c2ff5c34d">
+										<div class="add-btn"  style="background-size: contain; background-repeat:no-repeat; 
+									background-image:url(resources/images/addPhoto.jpg)">
+											
 										</div>
+									</div>
+										
 										<div class="clearBoth">
 										</div>				
 									</div>				
 									<div class="clearBoth">
 									</div>				
-									<div class="memo memo-modify">
-										<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d">
-										
-										</textarea> 	
-											<img class="clearMemo" src="resources/images/panorama/cross-mark1.png" alt="delete">
+									<div id="Memo1" class="memo memo-modify">
+										<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d"></textarea> 	
+											<img  class="clearMemo" onclick="clearmemo(1)" src="resources/images/panorama/cross-mark1.png" alt="delete">
 										
 									</div>			
 								</div>		
@@ -242,6 +253,5 @@
 						<button id="daydeletebutton" >지우기</button>
 				</div>
 			</div>
-			<button id="photologDetailBoxCloseButton"></button>
 		</div>
 		</div>

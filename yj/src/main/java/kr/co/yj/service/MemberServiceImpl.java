@@ -57,14 +57,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void modifyinfo(String name, String pwd,String email) {
+	public String modifyinfo(String name, String pwd,String email) {
 		MemberVO mem= new MemberVO();
 		mem.setEmail(email);
 		mem.setName(name);
 		String md5pwd=Md5Util.md5Text(pwd);
 		mem.setPassword(md5pwd);
 		dao.modifyinfo(mem);
-		
+		return md5pwd;
 	}
 	
 
@@ -117,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void saveTempPhoto(MultipartFile mf, String email) throws Exception {
+	public void saveTempPhoto(MultipartFile mf, String email,String day) throws Exception {
 		String filename=null;
 		System.out.println("service");
 		if(!mf.isEmpty()){
@@ -136,13 +136,14 @@ public class MemberServiceImpl implements MemberService {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("filename", filename);
+		map.put("day", day);
 		
 		dao.addtempphoto(map);
 		
 	}
 	
 	@Override
-	public void profileup(MultipartFile mf,String email) throws Exception {
+	public String profileup(MultipartFile mf,String email) throws Exception {
 		String filename=null;
 		if(!mf.isEmpty()){
 			filename = mf.getOriginalFilename();
@@ -151,7 +152,7 @@ public class MemberServiceImpl implements MemberService {
 			long filesize = mf.getSize();
 			
 			byte[] filedata = mf.getBytes();
-			File file = new File("C:/spring_study/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/yj/resources/images/profilephoto",filename);
+			File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/profilephoto/",filename);
 			 
 			FileCopyUtils.copy(filedata, file);
 		}
@@ -160,6 +161,8 @@ public class MemberServiceImpl implements MemberService {
 		mem.setEmail(email);
 		mem.setPhoto(filename);
 		dao.updateprofile(mem);
+		
+		return filename;
 		
 	}
 	

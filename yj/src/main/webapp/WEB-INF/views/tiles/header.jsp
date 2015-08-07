@@ -46,7 +46,7 @@
 				</ul>
 			</div>
 			
-			<input type="hidden" id="hdnSession" data-value="${memberEmail }">
+			<input type="hidden" id="hdnSession" data-value="${member }">
 			
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 
@@ -54,7 +54,7 @@
 						회원가입</a></li> 
 				-->
 				<c:choose>
-					<c:when test="${memberEmail!=null}">
+					<c:when test="${member!=null}">
 						<li><a href="#" id="membername" >
 						<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="30px" height="30px">
 								${member.name }</a>

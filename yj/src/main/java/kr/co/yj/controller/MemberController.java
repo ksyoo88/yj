@@ -74,7 +74,8 @@ public class MemberController {
 		MemberVO member= memberservice.loginCheck(email, pwd);
 		if(member!=null){
 			mav.addObject("login", true);
-			session.setAttribute("memberEmail", member.getEmail());
+			//session.setAttribute("memberEmail", member.getEmail());
+			session.setAttribute("member", member);
 			mav.setViewName("redirect:/member.do");
 		}else{
 			mav.addObject("login", false);
@@ -110,7 +111,10 @@ public class MemberController {
 	@ResponseBody
 	public String checkpwd(@RequestParam("pwd")String pwd
 							,HttpSession session) {
-		String email=(String)session.getAttribute("memberEmail");
+		//String email=(String)session.getAttribute("memberEmail");
+		
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
 		
 		MemberVO member= memberservice.loginCheck(email, pwd);
 		if(member!=null){
@@ -130,16 +134,26 @@ public class MemberController {
 						@RequestParam("password2")String pwd
 						,HttpSession session){
 		
-		String email=(String)session.getAttribute("memberEmail");
-		memberservice.modifyinfo(name, pwd, email);
+		//String email=(String)session.getAttribute("memberEmail");
 		
+
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
+		
+		String mdpwd = memberservice.modifyinfo(name, pwd, email);
+		memberold.setName(name);
+		memberold.setPassword(mdpwd);
+		session.setAttribute("member", memberold);
 		return "redirect:/member.do";
 	}
 	
 	@RequestMapping("/getTemPhoto.do")
 	public ModelAndView getTemPhoto(HttpSession session){
 		
-		String email=(String)session.getAttribute("memberEmail");
+		//String email=(String)session.getAttribute("memberEmail");
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
+		
 		ModelAndView mav = new ModelAndView();
 		
 		ArrayList<String> photos=memberservice.getTemPhoto(email);
@@ -150,7 +164,11 @@ public class MemberController {
 	@RequestMapping("/delTemPhoto.do")
 	public ModelAndView delTemPhoto(HttpSession session){
 		
-		String email=(String)session.getAttribute("memberEmail");
+		//String email=(String)session.getAttribute("memberEmail");
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
+		
+		
 		ModelAndView mav = new ModelAndView();
 		
 		memberservice.delTemPhoto(email);
@@ -163,16 +181,12 @@ public class MemberController {
 	//http://netframework.tistory.com/422
 	@ResponseBody
 	public void savetempphoto(
-			//@RequestParam("filename")MultipartFile mf
 			MultipartHttpServletRequest request
-			,HttpSession session) throws Exception{
-		/*
-		String email=(String)session.getAttribute("memberEmail");
-		memberservice.saveTempPhoto(mf, email);
-		System.out.println("s");
-		return "s";*/
+			,HttpSession session,
+			@RequestParam("day")String day) throws Exception{
+
+		System.out.println("day : "+day); 
 		
-		 //MultipartHttpServletRequest request
 		System.out.println(request); 
 		System.out.println(request.getServletPath());
 		System.out.println(request.getContextPath());
@@ -183,8 +197,12 @@ public class MemberController {
 		
 		if(itr.hasNext()) {
 			MultipartFile mf=request.getFile(itr.next());
-			String email=(String)session.getAttribute("memberEmail");
-			memberservice.saveTempPhoto(mf, email);
+			
+			MemberVO memberold=(MemberVO)session.getAttribute("member");
+			String email =memberold.getEmail();
+			
+			//String email=(String)session.getAttribute("memberEmail");
+			memberservice.saveTempPhoto(mf, email,day);
 			System.out.println("s");
 			
 			
@@ -201,10 +219,14 @@ public class MemberController {
 	@RequestMapping("/profileup.do")
 	public String profileup(@RequestParam("upfile")MultipartFile mf,HttpSession session) throws Exception{
 		
-		String email=(String)session.getAttribute("memberEmail");
+		//String email=(String)session.getAttribute("memberEmail");
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
 		
-		memberservice.profileup(mf,email);
 		
+		String filename=memberservice.profileup(mf,email);
+		memberold.setPhoto(filename);
+		session.setAttribute("member", memberold);
 		
 		return "redirect:/member.do";
 	}
