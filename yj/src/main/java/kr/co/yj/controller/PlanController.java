@@ -29,6 +29,21 @@ public class PlanController {
 		
 	}
 	
+	@RequestMapping("/plansave.do") 
+	public ModelAndView planSave(@RequestParam("title")String title,
+			                     @RequestParam("startDay")String startDay,
+			                     @RequestParam("endDay")String endDay,
+			                     @RequestParam("dayCount")int dayCount,
+			                     @RequestParam("day")String[] day,
+			                     @RequestParam("place")String[] place) {
+		
+		System.out.println(title + startDay + endDay + dayCount + day + place);
+		
+		ModelAndView mav = new ModelAndView();
+		return mav;
+		
+	}
+	
 	@RequestMapping("/mapSetting.do")
 	public ModelAndView mapSetting(@RequestParam("minX")double minX,
 								   @RequestParam("maxX")double maxX,

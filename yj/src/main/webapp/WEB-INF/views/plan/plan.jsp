@@ -71,27 +71,30 @@
 								<h4 class="modal-title">일정을 저장하시겠습니까?</h4>
 							</div>
 							<div class="modal-body">
-								<form class="form-horizontal" role="form">
+								<form role="form" action="plansave.do" class="form-horizontal" method="post">
 									<div class="form-group">
-										<label class="control-label col-md-2" >제목 :</label>
+										<label class="control-label col-md-2" for="title">제목 :</label>
 										<div class="col-md-10">
-											<input type="text" class="form-control" id="plan-title" maxlength="20" placeholder="제목을 입력하세요.">
+											<input type="text" class="form-control" name="title" maxlength="20" placeholder="제목을 입력하세요.">
 										</div>										
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-2" >날짜 :</label>
 										<div class="col-md-5">
-											<input type="text" id="startDay" class="form-control" value="2015년 8월 9일" readonly>
+											<input type="text" id="startDay" name="startDay" class="form-control" value="2015년 8월 9일" readonly>
 										</div>										
 										<div class="col-md-5">
-											<input type="text" id="endDay" class="form-control" value="2015년 8월 12일" readonly>
+											<input type="text" id="endDay" name="endDay" class="form-control" value="2015년 8월 12일" readonly>
 										</div>										
 									</div>
+									<div class="from-group" id="insertPlan">
+									
+									</div>
+									
+									<button type="submit" class="btn btn-primary pull-right" id="plansaveBtn">일정 저장하기</button>
 								</form>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" id="planSaveBtn" data-dismiss="modal">일정 저장하기</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 							</div>
 						</div>	
 					</div>

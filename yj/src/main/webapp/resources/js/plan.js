@@ -24,6 +24,11 @@ function drop(ev) {
 	
 
 $(function() {
+	/*
+	$("#plansaveBtn").on('click', function(){
+		$("form[action='plansave.do']").submit();
+	});
+	*/
 	
 	$("#saveBtn").click(function(){
 		
@@ -32,78 +37,84 @@ $(function() {
 		if ( startDate ) {
 			$(this).attr("data-target","#saveModal");
 			
+			var html;
+			
+			html += '<input type="text" name="dayCount" value="'+day+'"/>';
+
+			
 			$("#startDay").val(planArray[0]); 
 			$("#endDay").val(planArray[planArray.length-1]); 
 			
-//			$("#saveModel .date-period div").each(function(index, item) {				
-//				console.log( item.find("input").val() );				
-//			});
+			$("div#left-tab-plan-contents .panel-group").each(function(index, item){
+				
+				
+				$(item).find(".media").each( function(i,pos) {
+				
+					var contentid = $(pos).find("span").eq(0).text();
+					
+					console.log(planArray[index], ", ", contentid);
+					
+					html += '<input type="text" name="day" value="'+planArray[index]+'"/>';
+					html += '<input type="text" name="place" value="'+contentid+'"/>';
+					
+				});	
+			});
+			console.log(html);
+			$("#insertPlan").append(html);
+			
 		}			
 	});
 	
-	$("#planSaveBtn").click(function(){
-		
-		var tempPlan = {};
-		
-		var title = $("#plan-title").val();
-		var startDay = $("#startDay").val();
-		var endDay = $("#endDay").val();
-		
-		console.log("멤버 no: 아직 없다" );
-		console.log("제목    : " + title);
-		console.log("출발 일 : " + startDay);
-		console.log("도착 일 : " + endDay);
-		console.log("총 날짜 : " + day);
-		
-		tempPlan.title = title;
-		tempPlan.startDay = startDay;
-		tempPlan.endDay = endDay;
-		tempPlan.day = day;	
-		
-		var planDay = {};
-		var planInfoArray = new Array();
-		var planDayArray;
-
-		
-		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
-			
-			console.log("날짜 : " , planArray[index]);
-			planDayArray = planArray[index];
-			//contentidArray.length = 0;
-			var contentidArray = [];
-			
-			$(item).find(".media").each( function(i,pos) {
-			
-				var contentid = $(pos).find("span").eq(0).text();
-				contentidArray.push(contentid);
-				console.log(contentid);
-				
-			});
-			
-			planDay = {planDayArray : planDayArray, contentid : contentidArray};
-			planInfoArray.push(planDay);
-			
-		});
-		
-		tempPlan.planInfo = planInfoArray;
-		
-		console.log(JSON.stringify(tempPlan));
-		
-		$.ajax({
-			type:"POST",
-			url:"/favorplace.do",
-			dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
-			data:JSON.stringify(tempPlan),
-			//data:{favor:JSON.stringify(paramdata)},
-			contentType: 'application/json',
-			mimeType: 'application/json',
-			success : function(data) {
-				
-			}
-		});
-		
-		
-	});
+//	$("#planSaveBtn").click(function(){
+//		
+//		var tempPlan = {};
+//		
+//		var title = $("#plan-title").val();
+//		var startDay = $("#startDay").val();
+//		var endDay = $("#endDay").val();
+//		
+//		console.log("멤버 no: 아직 없다" );
+//		console.log("제목    : " + title);
+//		console.log("출발 일 : " + startDay);
+//		console.log("도착 일 : " + endDay);
+//		console.log("총 날짜 : " + day);
+//		
+//		tempPlan.title = title;
+//		tempPlan.startDay = startDay;
+//		tempPlan.endDay = endDay;
+//		tempPlan.day = day;	
+//		
+//		var planDay = {};
+//		var planInfoArray = new Array();
+//		var planDayArray;
+//		
+//		
+//		
+//		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
+//			
+//			console.log("날짜 : " , planArray[index]);
+//			planDayArray = planArray[index];
+//			//contentidArray.length = 0;
+//			var contentidArray = [];
+//			
+//			$(item).find(".media").each( function(i,pos) {
+//			
+//				var contentid = $(pos).find("span").eq(0).text();
+//				contentidArray.push(contentid);
+//				console.log(contentid);
+//				
+//			});
+//			
+//			planDay = {planDayArray : planDayArray, contentid : contentidArray};
+//			planInfoArray.push(planDay);
+//			
+//		});
+//		
+//		tempPlan.planInfo = planInfoArray;
+//		
+//		console.log(JSON.stringify(tempPlan));
+//
+//	});
 	
 	$(".form_datetime").datetimepicker({
 		format: "yyyy-mm-dd",
