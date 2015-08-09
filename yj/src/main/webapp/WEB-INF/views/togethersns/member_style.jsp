@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="resources/css/snsstyle.css">
 <script src="resources/js/jquery/jquery.form.js" type="text/javascript" language="javascript"></script>
 <style type="text/css">
+nav#navigationBar {
+	margin-bottom : 0px;
+}
 #profileimg:hover {
 	opacity: 0.4;
     filter: alpha(opacity=40);
