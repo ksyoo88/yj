@@ -19,7 +19,7 @@
 	
 	<websocket:handlers>
         <websocket:mapping path="/chat" handler="chatHandler"/>
-        <websocket:sockjs />
+        <websocket:sockjs client-library-url="http://192.168.0.31/resources/js/sockjs/sockjs-0.3.js" />
     </websocket:handlers>
     
 	<mvc:resources mapping="/resources/**" location="/resources/" />

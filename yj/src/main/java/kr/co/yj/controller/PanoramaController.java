@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -89,7 +90,7 @@ public class PanoramaController {
 	}
 
 	@RequestMapping("/getTemPhotoByday.do")
-	public ModelAndView getTemPhotoByday(@RequestParam("day")String day,HttpSession session){
+	public ModelAndView getTemPhotoByday(@RequestParam("day")int day,HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
@@ -102,16 +103,95 @@ public class PanoramaController {
 		mav.setView(jsonview);
 		return mav;
 	}
+	
+	@RequestMapping("/searchlocation.do")
+	public ModelAndView getLocationTitle(@RequestParam("inputkeyword")String keyword){
+		ModelAndView mav = new ModelAndView();
+		ArrayList<String> titles=service.getLocationTitle(keyword);
+		
+		mav.setView(jsonview);
+		mav.addObject("titles", titles);
+		return mav;
+	}
+	
+	
 	@RequestMapping("/savePanoTitle.do")
 	public ModelAndView savePanoTitle(@RequestParam("title")String title,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		int no =memberold.getNo();
 		
-		service.savePanoTitle(no,title);
-		
+		int panoseq=service.savePanoTitle(no,title);
+		mav.addObject("panoseq", panoseq);
+		mav.setView(jsonview);
 		return mav;
-		
 	}
+	
+	@RequestMapping("/savePanoMemo.do")
+	public ModelAndView savePanoMemo(@RequestParam("Memo")String memo,
+										@RequestParam("day")int day,
+										@RequestParam("panoseq")int panoseq,
+										@RequestParam("locaTitle")String locaTitle
+										) {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		
+		int panodayseq=service.savePanoDay(memo, day, panoseq, locaTitle);
+		
+		mav.addObject("panodayseq", panodayseq);
+		mav.setView(jsonview);
+		return mav;
+	}
+	
+	@RequestMapping("/savePanoDayPhoto.do")
+	public ModelAndView savePanoDayPhoto(@RequestParam("panodayseq")int panodayseq,
+										@RequestParam("day")int day,HttpSession session){
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		String email =memberold.getEmail();
+		
+		ModelAndView mav = new ModelAndView();
+		
+		
+		service.savePanoPhotobyDay(email, day, panodayseq);
+		mav.setView(jsonview);
+		return mav;
+	}
+	
+	@RequestMapping("/savePanorama.do")
+	public ModelAndView savePanorama(@RequestParam("title")String title,
+									@RequestParam("locaform")String[] locaArr,
+									@RequestParam("memoform")String[] memoArr,
+									HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		System.out.println("제목은"+title);
+		System.out.println("배열"+locaArr);
+		System.out.println("배열은"+memoArr);
+		System.out.println("로카길이는"+locaArr.length);
+		System.out.println("메모길이는"+memoArr.length);
+		int day=locaArr.length;
+		System.out.println("왜 4죠->"+day);
+		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		int no =memberold.getNo();
+		String email=memberold.getEmail();
+		
+		int panoseq=service.savePanoTitle(no, title);
+		
+		for(int i=0;i<day;i++ ){
+			String memo=memoArr[i];
+			String locaTitle=locaArr[i];
+			int panodayseq=service.savePanoDay(memo, i+1, panoseq, locaTitle);
+			System.out.println("panodayseq는 이거-"+panodayseq);
+			service.savePanoPhotobyDay(email, i+1, panodayseq);
+		}
+		
+		service.delTemPhoto(email);
+		
+		mav.setViewName("/panorama/panodetail.tiles");
+		return mav;
+	}
+	
+	
+	
 	
 }

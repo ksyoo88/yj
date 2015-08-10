@@ -15,7 +15,7 @@ public class panoramaServiceImpl implements PanoramaService {
 	PanoramaDao dao;
 	
 	@Override
-	public ArrayList<String> getTemPhotoByday(String email, String day) {
+	public ArrayList<String> getTemPhotoByday(String email, int day) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
@@ -30,6 +30,13 @@ public class panoramaServiceImpl implements PanoramaService {
 		
 		ArrayList<String> photos =dao.getTemPhoto(email);
 		return photos;
+	}
+	
+	@Override
+	public ArrayList<String> getLocationTitle(String keyword) {
+		ArrayList<String> titles =dao.getLocationTitle(keyword);
+		
+		return titles;
 	}
 	
 	@Override
@@ -50,23 +57,53 @@ public class panoramaServiceImpl implements PanoramaService {
 		dao.delTemPhotoByday(map);
 		
 	}
+	
 	@Override
-	public void savePanoTitle(int no, String title) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		String noo=String.valueOf(no);
-		map.put("no", noo);
-		map.put("title", title);
+	public int savePanoDay(String memo,int day,int panoseq,String locaTitle) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memo", memo);
+		map.put("day", day);
+		map.put("panoseq", panoseq);
 		
-		dao.savePanoTitle(map);		
+		String ID=dao.getLocationIDbytitle(locaTitle);
+		
+		map.put("locaID", ID);
+		
+		int panodayseq=dao.selectPano_day_seq();
+		map.put("panodayseq", panodayseq);
+		dao.savePanoDay(map);
+		
+		return panodayseq;
 	}
 	
 	@Override
-	public void savePanoPhotobyDay(String email, int day) {
+	public int savePanoTitle(int no, String title) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	
+		map.put("no", no);
+		map.put("title", title);
+		int panoseq=dao.selectPano_seq();
+		map.put("panoseq", panoseq);
+		
+		dao.savePanoTitle(map);
+		return panoseq;
+		
+	}
+	
+	@Override
+	public void savePanoPhotobyDay(String email, int day,int panodayseq) {
 		HashMap<String, Object> map= new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("day", day);
+		map.put("panodayseq", panodayseq);
 		
 		dao.savePanoPhotobyDay(map);
+		
+		
+	}
+	@Override
+	public void delTemPhoto(String email) {
+		dao.delTemPhoto(email);
 		
 	}
 	

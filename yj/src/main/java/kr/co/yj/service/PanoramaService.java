@@ -6,10 +6,18 @@ import java.util.HashMap;
 public interface PanoramaService {
 	
 	ArrayList<String> getTempPhoto(String email);
-	ArrayList<String> getTemPhotoByday(String email,String day);
+	ArrayList<String> getTemPhotoByday(String email,int day);
+	ArrayList<String> getLocationTitle(String keyword);
 	void delTemPhotoByname(String email,String filename);
 	void delTemPhotoByday(String email,String day);
-	void savePanoTitle(int no,String title);
-	void savePanoPhotobyDay(String email,int day);
+	void delTemPhoto(String email);
+	int savePanoTitle(int no,String title);
+	
+	int savePanoDay(String memo,int day,int panoseq,String locaTitle);
+	
+	
+	void savePanoPhotobyDay(String email,int day,int panodayseq);
+	
+	
 	
 }

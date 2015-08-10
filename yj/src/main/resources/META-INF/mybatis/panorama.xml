@@ -23,20 +23,38 @@
 		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
 	</insert>
 	<insert id="savePanoTitle" parameterType="hashmap">
-	INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},PANO_SEQ.nextval,#{title},0,sysdate);
+		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoseq},#{title},0,sysdate)
 	</insert>
 	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
-		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int})}
+		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int},#{panodayseq,jdbcType=NUMERIC,javaType=int})}
 		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
 	</insert>
+	<insert id="savePanoDay" parameterType="hashmap">
+		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
+		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
+	</insert>
 	
+	<select id="selectPano_seq" resultType="int">
+		SELECT pano_seq.nextval FROM dual
+	</select>
+	<select id="selectPano_day_seq" resultType="int">
+		SELECT pano_day_seq.nextval FROM dual
+	</select>
+	
+	<select id="getLocationIDbytitle" parameterType="string" resultType="string">
+		SELECT CONTENTID FROM YJ_PLACE WHERE TITLE=#{title}
+	</select>
+	
+	<select id="getLocationTitle" parameterType="string" resultType="string">
+		SELECT TITLE FROM YJ_PLACE WHERE TITLE LIKE '%'||#{keyword}||'%'
+	</select>
 	
 	<select id="getTemPhoto" parameterType="string" resultType="string">
 		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
 	</select>
 	
 	<select id="getTemPhotoByday" parameterType="hashmap" resultType="string">
-		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and day=#{day})
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and PANO_DAY=#{day})
 	</select>
 	
 	<delete id="delTemPhoto" parameterType="string">
@@ -50,5 +68,6 @@
 	<delete id="delTemPhotoByday" parameterType="hashmap">
 		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND day=#{day}
 	</delete>
+	
 	
 </mapper>
