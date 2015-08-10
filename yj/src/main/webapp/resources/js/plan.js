@@ -39,11 +39,13 @@ $(function() {
 			
 			var html;
 			
-			html += '<input type="text" name="dayCount" value="'+day+'"/>';
+			$("#insertPlan").html("");
+			
+			html += '<input type="text" name="trevelCnt" value="'+day+'"/>';
 
 			
 			$("#startDay").val(planArray[0]); 
-			$("#endDay").val(planArray[planArray.length-1]); 
+			$("#finishDay").val(planArray[planArray.length-1]); 
 			
 			$("div#left-tab-plan-contents .panel-group").each(function(index, item){
 				

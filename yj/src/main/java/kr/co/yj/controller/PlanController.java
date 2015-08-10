@@ -1,10 +1,15 @@
 package kr.co.yj.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
-import kr.co.yj.dao.PlaceDao;
+import javax.servlet.http.HttpSession;
+
+import kr.co.yj.service.PlanServiceImpl;
+import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
+import kr.co.yj.vo.PlanVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +22,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 public class PlanController {
 	
 	@Autowired
-	private PlaceDao placeDao;
+	private PlanServiceImpl planService;
 	
 	@Autowired
 	private MappingJackson2JsonView jsonView;
@@ -29,17 +34,32 @@ public class PlanController {
 		
 	}
 	
-	@RequestMapping("/plansave.do") 
-	public ModelAndView planSave(@RequestParam("title")String title,
-			                     @RequestParam("startDay")String startDay,
-			                     @RequestParam("endDay")String endDay,
-			                     @RequestParam("dayCount")int dayCount,
-			                     @RequestParam("day")String[] day,
-			                     @RequestParam("place")String[] place) {
+	@RequestMapping("/planinsert.do") 
+	public String planSave(PlanVO planVo ,
+			                     @RequestParam("day")String[] dayDate,
+			                     @RequestParam("place")String[] contentid,
+			                     HttpSession session) throws ParseException {
 		
-		System.out.println(title + startDay + endDay + dayCount + day + place);
+		MemberVO memberVo = (MemberVO)session.getAttribute("member");
+		planVo.setMember(memberVo);
+		
+		int planNo = planService.insertPlan(planVo, contentid, dayDate);		
+
+		return "redirect:/plandetail.do?no="+planNo;
+		
+	}
+	
+	@RequestMapping("/plandetail.do")
+	public ModelAndView planDetail(@RequestParam("no")int no){
+		
+		System.out.println("번호가 오면 된다. : "+no );
 		
 		ModelAndView mav = new ModelAndView();
+		
+		PlanVO plan = planService.getPlanByNo(no);
+		mav.addObject("plan", plan );
+		mav.setViewName("/plandetail/plandetail.tiles");
+		
 		return mav;
 		
 	}
@@ -52,17 +72,14 @@ public class PlanController {
 								   @RequestParam( value="cate", required=false )String cate ) {
 		
 		PlaceAreaPointVO placeArea = new PlaceAreaPointVO();
-		//127.06045437528176
+		
 		placeArea.setMapXMax(maxX);
-		//126.92888255495521
 		placeArea.setMapXMin(minX);
-		//37.57995616819309
 		placeArea.setMapYMax(maxY);
-		//37.55472234766542
 		placeArea.setMapYMin(minY);
 		placeArea.setCategory(cate);
 		
-		ArrayList<Place> areaPlaces = placeDao.getMapOnThePlaces(placeArea);
+		ArrayList<Place> areaPlaces = planService.getMapOnThePlaces(placeArea);
 		System.out.println(areaPlaces);	
 		
 		ModelAndView mav = new ModelAndView();

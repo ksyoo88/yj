@@ -4,9 +4,10 @@ import java.util.Date;
 
 public class PlanDayVO {
 
-	private PlanVO plan;
 	private int no;
+	private PlanVO plan;
 	private Date dayDate;
+	private Place place;
 	
 	public PlanDayVO () {}
 
@@ -32,6 +33,16 @@ public class PlanDayVO {
 
 	public void setDayDate(Date dayDate) {
 		this.dayDate = dayDate;
+	}
+
+	public Place getPlace() {
+		return place;
+	}
+
+	public void setPlace(Place place) {
+		this.place = place;
 	}	
+	
+	
 	
 }

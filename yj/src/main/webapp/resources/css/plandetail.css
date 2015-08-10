@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+div#map-box {
+	width: 100%;
+	height: 880px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position:relative;overflow:hidden;
+}
+
+div#contents-tab{
+	padding : 0px;
+}
+
+div#left-tab{
+	
+}
+
+nav#navigationBar {
+	margin-bottom : 0px;
+}

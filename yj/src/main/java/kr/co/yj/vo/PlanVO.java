@@ -8,8 +8,10 @@ public class PlanVO {
 	private MemberVO member;
 	private String title;
 	private int trevelCnt;
-	private Date startDay;
-	private Date finishDay;
+	private String startDay;
+	private String finishDay;
+	private Date startDayDate;
+	private Date finishDayDate;
 	private int likeCnt;
 	
 	public PlanVO(){}
@@ -46,19 +48,19 @@ public class PlanVO {
 		this.trevelCnt = trevelCnt;
 	}
 
-	public Date getStartDay() {
+	public String getStartDay() {
 		return startDay;
 	}
 
-	public void setStartDay(Date startDay) {
+	public void setStartDay(String startDay) {
 		this.startDay = startDay;
 	}
 
-	public Date getFinishDay() {
+	public String getFinishDay() {
 		return finishDay;
 	}
 
-	public void setFinishDay(Date finishDay) {
+	public void setFinishDay(String finishDay) {
 		this.finishDay = finishDay;
 	}
 
@@ -68,6 +70,33 @@ public class PlanVO {
 
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
+	}
+
+	public Date getStartDayDate() {
+		return startDayDate;
+	}
+
+	public void setStartDayDate(Date startDayDate) {
+		this.startDayDate = startDayDate;
+	}
+
+	public Date getFinishDayDate() {
+		return finishDayDate;
+	}
+
+	public void setFinishDayDate(Date finishDayDate) {
+		this.finishDayDate = finishDayDate;
+	}
+
+	@Override
+	public String toString() {
+		return "PlanVO [no=" + no + ", member=" + member + ", title=" + title
+				+ ", trevelCnt=" + trevelCnt + ", startDay=" + startDay
+				+ ", finishDay=" + finishDay + ", startDayDate=" + startDayDate
+				+ ", finishDayDate=" + finishDayDate + ", likeCnt=" + likeCnt
+				+ "]";
 	}	
+	
+	
 	
 }
