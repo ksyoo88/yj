@@ -8,16 +8,7 @@
 
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/addmember.do" security="none" />
-	<!-- <http pattern="/chat/**" security="none" /> -->
-	<!-- 
-	<http auto-config="true" use-expressions="false">
-		<csrf disabled="true"/>
-		<intercept-url pattern="/main.do" access="ROLE_ANONYMOUS,ROLE_USER"/>
-		<intercept-url pattern="/**" access="ROLE_USER"/>
-		<form-login login-page="/main.do" default-target-url="/main.do" always-use-default-target="true" />
-		<logout logout-success-url="/main.do"/>
-	</http>
-	 -->
+	<http pattern="/chat/**" security="none" />
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="false">
 		<intercept-url pattern="/main.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
@@ -33,7 +24,7 @@
 			password-parameter="j_password" />
 		<logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/main.do?logout"/>
 		<!-- enable csrf protection -->
-		<csrf/>
+		<csrf disabled="true"/>
 		<expression-handler ref="webexpressionHandler"/>
 	</http>
 	
@@ -41,6 +32,7 @@
 		<authentication-provider ref="memberAuthenticationProvider">
 		</authentication-provider>
 	</authentication-manager>
+	
 	<beans:bean id="memberAuthenticationProvider" class="kr.co.yj.security.MemberAuithenticationProvider"></beans:bean>
 	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
 </beans:beans>
