@@ -1,6 +1,5 @@
 package kr.co.yj.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,8 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,32 +56,6 @@ public class MemberController {
 		return mem;
 	}
 	
-	@RequestMapping("/login.do")
-	public ModelAndView login(@RequestParam("loginEmail")String email,
-			@RequestParam("pwd")String pwd,
-			HttpSession session){
-		ModelAndView mav = new ModelAndView();
-		MemberVO member= memberservice.loginCheck(email, pwd);
-		if(member!=null){
-			mav.addObject("login", true);
-			//session.setAttribute("memberEmail", member.getEmail());
-			session.setAttribute("member", member);
-			mav.setViewName("redirect:/member.do");
-		}else{
-			mav.addObject("login", false);
-			mav.setViewName("/main/login.tiles");
-		}
-		return mav;
-	}
-	
-	@RequestMapping("/logout.do")
-	public String logout(HttpSession session){
-		
-		session.invalidate();
-		
-		return "/main/main.tiles";
-	}
-	
 	@RequestMapping("/checkEmail.do")
 	@ResponseBody
 	public String checkEmail(@RequestParam("email")String email) {
@@ -95,17 +66,13 @@ public class MemberController {
 			return "true";
 		}else{
 			return "false";
-			
 		}
-		
 	}
 	
 	@RequestMapping("/checkpwd.do")
 	@ResponseBody
 	public String checkpwd(@RequestParam("pwd")String pwd
 							,HttpSession session) {
-		//String email=(String)session.getAttribute("memberEmail");
-		
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
@@ -118,8 +85,6 @@ public class MemberController {
 			return "false";
 			
 		}
-	
-		
 	}
 	
 	@RequestMapping("/modify.do")
@@ -128,7 +93,6 @@ public class MemberController {
 						,HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		
 
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		String email =memberold.getEmail();
@@ -212,7 +176,6 @@ public class MemberController {
 		//String email=(String)session.getAttribute("memberEmail");
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		String email =memberold.getEmail();
-		
 		
 		String filename=memberservice.profileup(mf,email);
 		memberold.setPhoto(filename);
