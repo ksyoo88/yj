@@ -12,7 +12,7 @@
 		<typeAlias type="kr.co.yj.vo.PlanVO" alias="Plan" />
 		<typeAlias type="kr.co.yj.vo.PlanDayVO" alias="PlanDay"/>
 	</typeAliases>
-	
+
 	<mappers>
 		<mapper resource="META-INF/mybatis/main.xml"/>
 		<mapper resource="META-INF/mybatis/member.xml"/>
