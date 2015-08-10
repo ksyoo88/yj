@@ -11,7 +11,7 @@
 		<typeAlias type="kr.co.yj.vo.FavorPlace" alias="FavorPlace"/>
 		<typeAlias type="kr.co.yj.vo.PlanVO" alias="Plan" />
 		<typeAlias type="kr.co.yj.vo.PlanDayVO" alias="PlanDay"/>
-	</typeAliases> 
+	</typeAliases>
 	
 	<mappers>
 		<mapper resource="META-INF/mybatis/main.xml"/>
@@ -20,5 +20,6 @@
 		<mapper resource="META-INF/mybatis/attraction.xml"/>
 		<mapper resource="META-INF/mybatis/panorama.xml"/>
 		<mapper resource="META-INF/mybatis/plan.xml"/>
+		<mapper resource="META-INF/mybatis/login.xml"/>
 	</mappers>
 </configuration>
