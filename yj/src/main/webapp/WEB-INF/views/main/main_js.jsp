@@ -17,7 +17,7 @@
 			console.log("Opened socket.");
 			//register the user
 			//var nickname = $("#nickname").val();
-			var nickname = "111";
+			var nickname = "${member.name}";
 			socket.send(nickname);
 		};
 
@@ -46,7 +46,7 @@
 
 		}
 		socket.onclose = function() {
-			document.write("Closed socket.");
+			// document.write("Closed socket.");
 		};
 		socket.onerror = function() {
 			document.write("Error during transfer.");
@@ -71,6 +71,8 @@
 	}
 
 	$(document).ready(function() {
-		startClient();
+		<sec:authorize access="isAuthenticated()">
+			startClient();
+		</sec:authorize>
 	});
 </script>

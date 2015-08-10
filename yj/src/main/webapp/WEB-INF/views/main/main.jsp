@@ -8,6 +8,7 @@
 		</div>
 	</div>
 	 -->
+	<sec:authorize access="isAuthenticated()">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -46,6 +47,7 @@
 			</div>
 		</div>
 	</div>
+	</sec:authorize>
 	<div class="container-fluid text-center main-tour">
 		<span class="sub_title">나만의 여행을 만들어 보세요!</span>
 		<h1><span>미리 떠나는 나만의 여행<br />시작해 볼까요?</span></h1>

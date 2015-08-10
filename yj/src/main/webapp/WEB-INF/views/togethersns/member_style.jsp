@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="resources/css/snsstyle.css">
+<link rel="stylesheet" href="resources/css/mypage/mypage.css">
 <script src="resources/js/jquery/jquery.form.js" type="text/javascript" language="javascript"></script>
 <style type="text/css">
 nav#navigationBar {
@@ -31,6 +31,10 @@ nav#navigationBar {
 #imagetrevel{
 	padding :0;
 	background-image:  url("resources/images/sns/trevel.jpg");
+}
+
+.mypage-header {
+	text-align: center;
 }
 
 

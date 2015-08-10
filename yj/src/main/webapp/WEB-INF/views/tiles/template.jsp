@@ -24,10 +24,18 @@ var setImage404 = function () {
 	});
 };
 
-// layout 관련
 $(function () {
+	// layout 관련
 	setImage404();				// no image
+
+	// logout
+	$("a[href='/logout']").on("click", function(event){
+		event.preventDefault();
+		$logoutForm = $("#logoutForm");
+		$logoutForm.submit();
+	});
 });
+
 </script>
 </head>
 <body>

@@ -29,16 +29,19 @@
 						<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="30px" height="30px">
 								${member.name }</a>
 						</li>
-						<li><a href="logout.do" ><span class="glyphicon glyphicon-log-in"></span>
-								로그아웃</a></li>
+						<li>
+							<a href="<c:url value='/logout' />" ><span class="glyphicon glyphicon-log-in"></span>	로그아웃</a>
+						</li>
+						<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+						<form action="${logoutUrl}" method="post" id="logoutForm" style="display: none;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						</form>
 						
 					</c:when>
 					<c:otherwise>
 						<li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span>
 								로그인</a></li>
-					
 					</c:otherwise>
-				
 				</c:choose>
 				
 				
@@ -52,26 +55,16 @@
 			</ul>
 		</div>
 	</nav>
-	
-	
-	
-
 
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	
-		function   loginfail() {
+	<c:if test="${not empty error}">
 		$("#loginfail").modal();
-			
-		}
-	
-	var login = '${login}';
-	
-	if(login==='false'){
-		loginfail();
-	}
+	</c:if>
+	<c:if test="${not empty msg}">
+		$("#msgModal").modal();
+	</c:if>
 	
 	var $frm = $("form[name=checkmail]");
 	
@@ -130,17 +123,17 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form" action="login.do" method="post">
+						<form role="form" action="<c:url value='/j_spring_security_check' />" method="post">
 							<div class="form-group">
 								<label for="usrname"><span
 									class="glyphicon glyphicon-user"></span> Username</label> <input
-									type="text" class="form-control" name="loginEmail" id="loginEmail"
+									type="text" class="form-control" name="j_username" id="loginEmail"
 									placeholder="Enter email">
 							</div>
 							<div class="form-group">
 								<label for="psw"><span
 									class="glyphicon glyphicon-eye-open"></span> Password</label> <input
-									type="text" class="form-control" name="pwd" id="pwd"
+									type="text" class="form-control" name="j_password" id="pwd"
 									placeholder="Enter password">
 							</div>
 							<div class="checkbox">
@@ -150,6 +143,7 @@ $(document).ready(function(){
 							<button type="submit" class="btn btn-success btn-block">
 								<span class="glyphicon glyphicon-off"></span> Login
 							</button>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -230,7 +224,9 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<h3>아이디나 비번이 아닙니다</h3><h4> 다시 확인해주세요</h4>
+						<h3>
+							<c:out value="${error }" />
+						</h3><h4> 다시 확인해주세요</h4>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
@@ -245,6 +241,26 @@ $(document).ready(function(){
 						</p>
 					</div>
 
+				</div>
+			</div>
+		</div>
+		<!-- msg Modal -->
+		<div class="modal fade" id="msgModal" role="dialog">
+			<div class="modal-dialog">
+			
+				<!-- 로그인실패 -->
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 35px 50px;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>
+							<span class="glyphicon glyphicon-search"></span> INFO
+						</h4>
+					</div>
+					<div class="modal-body" style="padding: 40px 50px;">
+						<h3>
+							<c:out value="${msg }" />
+						</h3>
+					</div>
 				</div>
 			</div>
 		</div>
