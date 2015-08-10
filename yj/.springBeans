@@ -10,6 +10,7 @@
 		<config>src/main/webapp/WEB-INF/spring/yj-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/yj-datasource.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/yj-sqlmap.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/yj-security.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
