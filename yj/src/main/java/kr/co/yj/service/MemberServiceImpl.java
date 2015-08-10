@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yj.dao.MemberDao;
-import kr.co.yj.util.Md5Util;
+import kr.co.yj.security.Md5Util;
 import kr.co.yj.vo.MemberVO;
 
 @Service

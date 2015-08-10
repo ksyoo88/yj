@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/addmember.do" security="none" />
+	<!-- <http pattern="/chat/**" security="none" /> -->
+	<!-- 
+	<http auto-config="true" use-expressions="false">
+		<csrf disabled="true"/>
+		<intercept-url pattern="/main.do" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<intercept-url pattern="/**" access="ROLE_USER"/>
+		<form-login login-page="/main.do" default-target-url="/main.do" always-use-default-target="true" />
+		<logout logout-success-url="/main.do"/>
+	</http>
+	 -->
+	<!-- enable use-expressions -->
+	<http auto-config="true" use-expressions="false">
+		<intercept-url pattern="/main.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/**" access="ROLE_USER"/>
+		<!-- access denied page -->
+		<access-denied-handler error-page="/main.do" />
+		<form-login 
+		    login-page="/main.do?login"
+		    default-target-url="/main.do" 
+		    login-processing-url="/j_spring_security_check"
+			authentication-failure-url="/main.do?error" 
+			username-parameter="j_username"
+			password-parameter="j_password" />
+		<logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/main.do?logout"/>
+		<!-- enable csrf protection -->
+		<csrf/>
+		<expression-handler ref="webexpressionHandler"/>
+	</http>
+	
+	<authentication-manager> 
+		<authentication-provider ref="memberAuthenticationProvider">
+		</authentication-provider>
+	</authentication-manager>
+	<beans:bean id="memberAuthenticationProvider" class="kr.co.yj.security.MemberAuithenticationProvider"></beans:bean>
+	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+</beans:beans>
