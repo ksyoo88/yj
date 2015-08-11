@@ -1,6 +1,7 @@
 package kr.co.yj.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,13 +78,14 @@ public class panoramaServiceImpl implements PanoramaService {
 	}
 	
 	@Override
-	public int savePanoTitle(int no, String title) {
+	public int savePanoTitle(int no, String title,Date to) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	
 		map.put("no", no);
 		map.put("title", title);
 		int panoseq=dao.selectPano_seq();
 		map.put("panoseq", panoseq);
+		map.put("date", to);
 		
 		dao.savePanoTitle(map);
 		return panoseq;

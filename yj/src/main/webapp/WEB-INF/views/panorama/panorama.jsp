@@ -64,8 +64,9 @@
 
 	
 	<div class="col-md-4" id="panoform-">
-	<form action="savePanorama.do" id="submitForm" >
+	<form action="savePanorama.do" method="post" id="submitForm" hidden>
 		<input type="text" id="title" name="title">
+		<input type="text" id="datepick" name="date">
 		<input type="text" id="locaform1" name="locaform">
 		<input type="text" id="memoform1" name="memoform">
 		

@@ -1,5 +1,6 @@
 package kr.co.yj.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -121,8 +122,8 @@ public class PanoramaController {
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		int no =memberold.getNo();
 		
-		int panoseq=service.savePanoTitle(no,title);
-		mav.addObject("panoseq", panoseq);
+		//int panoseq=service.savePanoTitle(no,title);
+		//mav.addObject("panoseq", panoseq);
 		mav.setView(jsonview);
 		return mav;
 	}
@@ -162,20 +163,20 @@ public class PanoramaController {
 	public ModelAndView savePanorama(@RequestParam("title")String title,
 									@RequestParam("locaform")String[] locaArr,
 									@RequestParam("memoform")String[] memoArr,
-									HttpSession session){
+									@RequestParam("date")String date,
+									HttpSession session) throws ParseException{
 		ModelAndView mav = new ModelAndView();
-		System.out.println("제목은"+title);
-		System.out.println("배열"+locaArr);
-		System.out.println("배열은"+memoArr);
-		System.out.println("로카길이는"+locaArr.length);
-		System.out.println("메모길이는"+memoArr.length);
+		
 		int day=locaArr.length;
-		System.out.println("왜 4죠->"+day);
 		MemberVO memberold=(MemberVO)session.getAttribute("member");
 		int no =memberold.getNo();
 		String email=memberold.getEmail();
 		
-		int panoseq=service.savePanoTitle(no, title);
+		System.out.println(date);
+		SimpleDateFormat transFormat = new SimpleDateFormat("d/M/yyyy");
+		Date to = transFormat.parse(date);
+		
+		int panoseq=service.savePanoTitle(no, title,to);
 		
 		for(int i=0;i<day;i++ ){
 			String memo=memoArr[i];
@@ -186,6 +187,19 @@ public class PanoramaController {
 		}
 		
 		service.delTemPhoto(email);
+		
+		mav.setViewName("redirect:panodetail.do?panoNo="+panoseq);
+		return mav;
+	}
+	
+	@RequestMapping("panodetail.do")
+	public ModelAndView panodetail(@RequestParam("panoNo")int panoNo){
+		ModelAndView mav = new ModelAndView();
+		
+		
+		
+		
+		
 		
 		mav.setViewName("/panorama/panodetail.tiles");
 		return mav;
