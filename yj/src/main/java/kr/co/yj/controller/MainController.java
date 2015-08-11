@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,6 +58,18 @@ public class MainController {
 		return "/main/main.tiles";
 	}
 	
-	
+	/**
+	 * If the login in from remember me cookie, refer
+	 * org.springframework.security.authentication.AuthenticationTrustResolverImpl
+	 */
+	private boolean isRememberMeAuthenticated() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null) {
+			return false;
+		}
+
+		return RememberMeAuthenticationToken.class.isAssignableFrom(authentication.getClass());
+	}
 	
 }

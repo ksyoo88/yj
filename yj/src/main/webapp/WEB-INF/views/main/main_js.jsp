@@ -28,7 +28,10 @@
 			var message = JSON.parse(a.data);
 			if (message.addUser) {
 				var d = document.createElement('div');
-				$(d).addClass("username user").text(message.addUser).attr(
+				var img = new Image(30,30);
+				img.src = 'resources/images/profilephoto/'+'${member.photo}';
+				
+				$(d).addClass("username user").append(img).append(message.addUser).attr(
 						"data-user", message.addUser).appendTo("#nicknamesBox");
 			} else if (message.removeUser) {
 				$(".user[data-user=" + message.removeUser + "]").remove();
@@ -36,8 +39,10 @@
 				var d = document.createElement('div');
 				var suser = document.createElement('span');
 				var smessage = document.createElement('span');
+				var img = new Image(30,30);
+				img.src = 'resources/images/profilephoto/'+'${member.photo}';
 
-				$(suser).addClass("username").text(message.nickname + " : ")
+				$(suser).addClass("username").append(img).append(message.nickname + " : ")
 						.appendTo($(d));
 				$(smessage).text(message.message).appendTo($(d));
 				$(d).appendTo("#chatBox");

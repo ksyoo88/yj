@@ -7,25 +7,38 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 	<http pattern="/resources/**" security="none" />
+	<http pattern="/index.jsp" security="none" />
+	<http pattern="/favicon.ico" security="none" />
 	<http pattern="/addmember.do" security="none" />
 	<http pattern="/chat/**" security="none" />
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="false">
+		<!-- <headers>
+			<cache-control />
+		</headers> -->
+		
 		<intercept-url pattern="/main.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<!-- <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" /> -->
 		<intercept-url pattern="/**" access="ROLE_USER"/>
 		<!-- access denied page -->
 		<access-denied-handler error-page="/main.do" />
 		<form-login 
 		    login-page="/main.do?login"
-		    default-target-url="/main.do" 
+		    default-target-url="/main.do"
 		    login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/main.do?error" 
 			username-parameter="j_username"
 			password-parameter="j_password" />
-		<logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/main.do?logout"/>
+		<logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/main.do?logout" delete-cookies="JSESSIONID" />
 		<!-- enable csrf protection -->
 		<csrf disabled="true"/>
 		<expression-handler ref="webexpressionHandler"/>
+		<remember-me 
+		    token-validity-seconds="1209600"
+			remember-me-parameter="remember-me"
+			user-service-ref="loginService"
+			data-source-ref="connectionPool"
+			authentication-success-handler-ref="autoLoginSuccessHandler" />
 	</http>
 	
 	<authentication-manager> 
@@ -35,4 +48,6 @@
 	
 	<beans:bean id="memberAuthenticationProvider" class="kr.co.yj.security.MemberAuithenticationProvider"></beans:bean>
 	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	<beans:bean id="loginService" class="kr.co.yj.service.LoginService" />
+	<beans:bean id="autoLoginSuccessHandler" class="kr.co.yj.security.AutoLoginSuccessHandler" />
 </beans:beans>

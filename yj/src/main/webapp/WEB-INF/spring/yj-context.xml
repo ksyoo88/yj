@@ -23,6 +23,7 @@
     </websocket:handlers>
     
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/favicon.ico" location="/resources/images/favicon.ico" />
 	
 	<!-- 스프링과 타일즈 연동하기 -->
 	<!-- 타일즈 레이아웃 설정정보를 읽어가는 빈을 등록한다. -->

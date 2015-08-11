@@ -137,7 +137,7 @@ $(document).ready(function(){
 									placeholder="Enter password">
 							</div>
 							<div class="checkbox">
-								<label><input type="checkbox" value="" checked>Remember
+								<label><input type="checkbox" name="remember-me" checked>Remember
 									me</label>
 							</div>
 							<button type="submit" class="btn btn-success btn-block">

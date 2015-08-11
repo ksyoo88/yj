@@ -1,39 +1,36 @@
 package kr.co.yj.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import kr.co.yj.dao.LoginDao;
+import kr.co.yj.dao.MemberDao;
+import kr.co.yj.security.MemberDetail;
+import kr.co.yj.vo.MemberVO;
 
 @Service
 public class LoginService implements UserDetailsService {
 	
+	static final Logger logger = LoggerFactory.getLogger(LoginService.class);
+	
 	@Autowired
-	LoginDao dao;
+	MemberDao memberDao;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public MemberDetail loadUserByUsername(String email) throws UsernameNotFoundException {
 		// email로 회원 정보 가져오기
-		String memberPwd = dao.getMemberPwdByEmail(email);
+		MemberVO member = memberDao.getMemberbyemail(email);
 		
-		System.out.println("email:" + email);
-		System.out.println("memberPwd:" + memberPwd);
-		
-		// "ROLE_USER" 란 이름으로 권한을 설정한다.
-		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+		logger.debug("############### member: " + member);
 		
 		// 로그인 정보를 리턴한다.
-		UserDetails user = new User(email, memberPwd, roles);
-		return user;
+		MemberDetail memberDetail = new MemberDetail();
+		BeanUtils.copyProperties(member, memberDetail);
+		return memberDetail;
 	}
 	
 }
