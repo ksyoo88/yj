@@ -10,6 +10,7 @@
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"></put-attribute>
 		<put-attribute name="content" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"></put-attribute>
+		<put-attribute name="current" value="" cascade="true" />
 	</definition>
 	<!-- 
 	<definition name="/*/*.tiles" extends="default">
@@ -27,6 +28,7 @@
 		<put-attribute name="javascript" value="/WEB-INF/views/main/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
+		<put-attribute name="current" value="main" cascade="true" />
 	</definition>
 	
 	<definition name="/attraction/*.tiles" extends="default">
@@ -35,8 +37,8 @@
 		<put-attribute name="javascript" value="/WEB-INF/views/attraction/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/attraction/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
+		<put-attribute name="current" value="attraction" cascade="true" />
 	</definition>
-	
 	
 	<definition name="/plan/*.tiles" extends="default">
 		<put-attribute name="title" expression="${title}" />
@@ -44,6 +46,7 @@
 		<put-attribute name="javascript" value="/WEB-INF/views/plan/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/plan/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+		<put-attribute name="current" value="plan" cascade="true" />
 	</definition>
 	
 	<definition name="/plandetail/*.tiles" extends="default">
@@ -52,6 +55,7 @@
 		<put-attribute name="javascript" value="/WEB-INF/views//plandetail/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views//plandetail/{1}.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+		<put-attribute name="current" value="plan" cascade="true" />
 	</definition>
 	
 	<definition name="/togethersns/*.tiles" extends="default">
@@ -60,6 +64,7 @@
 		<put-attribute name="javascript" value="/WEB-INF/views/togethersns/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/togethersns/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
+		<put-attribute name="current" value="togethersns" cascade="true" />
 	</definition>
 	<definition name="/panorama/*.tiles" extends="default">
 		<put-attribute name="title" expression="${title}" />
@@ -67,6 +72,7 @@
 		<put-attribute name="javascript" value="/WEB-INF/views/panorama/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/panorama/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
+		<put-attribute name="current" value="togethersns" cascade="true" />
 	</definition>
 
 </tiles-definitions>

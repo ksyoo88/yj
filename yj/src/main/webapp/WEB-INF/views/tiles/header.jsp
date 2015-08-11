@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tilesx" uri="http://tiles.apache.org/tags-tiles-extras"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
+<tilesx:useAttribute name="current"/>
 
 	<!-- Fixed navbar -->
  	<nav class="navbar nav-pills navbar-inverse" id="navigationBar">
@@ -10,12 +13,11 @@
 			</div>
 			<div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="attraction.do">여기추천</a></li>
-					<li><a href="plan.do">저기가자</a></li>
-					<li><a href="member.do">같이보자</a></li>
+					<li class="${current == 'attraction' ? 'active' : '' }"><a href="attraction.do">여기추천</a></li>
+					<li class="${current == 'plan' ? 'active' : '' }"><a href="plan.do">저기가자</a></li>
+					<li class="${current == 'togethersns' ? 'active' : '' }"><a href="together.do">같이보자</a></li>
 				</ul>
 			</div>
-			
 			<input type="hidden" id="hdnSession" data-value="${member }">
 			
 			<ul class="nav navbar-nav navbar-right">
