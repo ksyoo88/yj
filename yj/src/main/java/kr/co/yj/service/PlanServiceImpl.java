@@ -76,9 +76,24 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public PlanVO getPlanByNo(int no) {
 		
-		PlanVO tempPlan = planDao.getPlanByNo(no);
+		PlanVO tempPlanVo = planDao.getPlanByNo(no);
 		
-		return tempPlan;
+		return tempPlanVo;
+	}
+	
+	@Override
+	public ArrayList<PlanDayVO> getPlanDayByNo(int no) {
+		
+		ArrayList<PlanDayVO> tempPlanDayVo = planDao.getPlanDayByNo(no); 
+		
+		for(PlanDayVO temp : tempPlanDayVo) {
+			
+			String contentid = temp.getPlace().getContentid();
+			temp.setPlace( placeDao.getPlaceByContentid(contentid) );
+			//System.out.println( temp.getPlace().getTitle() );
+		}
+		
+		return tempPlanDayVo;
 	}
 	
 }

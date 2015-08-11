@@ -3,11 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.yj.dao.PlanDao">
-	<!-- 
-		resultMap 은 컬럼명과 클래스의 변수명을 매핑한다
-		type에는 결과값을 담을 객체의 클래스명
-		id에는 <select/>resultMap에서 사용할이름
-	 -->
+
 	 <resultMap type="Plan" id="plan">		
 		<result column="PLAN_NO" property="no"/>
 		<result column="MEM_NO" property="member.no"/>
@@ -15,8 +11,14 @@
 		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
 		<result column="PLAN_START_DAY" property="startDayDate"/>
 		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
-		<result column="PLAN_LIKE_CNT" property="likeCnt"/>
-		
+		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+	 </resultMap>	 
+	 
+	 <resultMap type="PlanDay" id="planday">		
+		<result column="PLAN_NO" property="plan.no"/>
+		<result column="PLAN_DAY_NO" property="no"/>
+		<result column="PLAN_DAY_DATE" property="dayDate"/>
+		<result column="CONTENTID" property="place.contentid"/>
 	 </resultMap>
 	 
 	<!-- PlaceAreaPoint 사용해라 -->
@@ -59,6 +61,15 @@
 		VALUES( #{plan.no}, #{no}, #{dayDate}, #{place.contentid} ) 
 	</insert>
 	
+	<select id="getPlanDayByNo" parameterType="int" resultMap="planday">
+		SELECT PLAN_NO,
+			   PLAN_DAY_NO,
+			   PLAN_DAY_DATE,
+			   CONTENTID			   	
+		FROM YJ_PLAN_DAY
+		WHERE PLAN_NO = #{value}
+		ORDER BY PLAN_DAY_NO ASC
+	</select>
 	
 
 	

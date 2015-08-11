@@ -1,11 +1,14 @@
 package kr.co.yj.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import kr.co.yj.security.MemberDetail;
 
 public class PlanVO {
 
 	private int no;
-	private MemberVO member;
+	private MemberDetail member;
 	private String title;
 	private int trevelCnt;
 	private String startDay;
@@ -24,11 +27,11 @@ public class PlanVO {
 		this.no = no;
 	}
 
-	public MemberVO getMember() {
+	public MemberDetail getMember() {
 		return member;
 	}
 
-	public void setMember(MemberVO member) {
+	public void setMember(MemberDetail member) {
 		this.member = member;
 	}
 
@@ -51,9 +54,14 @@ public class PlanVO {
 	public String getStartDay() {
 		return startDay;
 	}
-
+	
 	public void setStartDay(String startDay) {
 		this.startDay = startDay;
+	}
+	
+	public String getStrStartDay() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");		
+		return sdf.format(startDayDate); 
 	}
 
 	public String getFinishDay() {
@@ -62,6 +70,11 @@ public class PlanVO {
 
 	public void setFinishDay(String finishDay) {
 		this.finishDay = finishDay;
+	}
+	
+	public String getStrFinishDay() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");		
+		return sdf.format(finishDayDate);
 	}
 
 	public int getLikeCnt() {

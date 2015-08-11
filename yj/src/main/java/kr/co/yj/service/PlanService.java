@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
+import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
 
 public interface PlanService {
@@ -14,4 +15,6 @@ public interface PlanService {
 	int insertPlan(PlanVO planVO, String[] contentid, String[] days ) throws ParseException;
 	
 	PlanVO getPlanByNo(int no);
+	
+	ArrayList<PlanDayVO> getPlanDayByNo(int no);
 }

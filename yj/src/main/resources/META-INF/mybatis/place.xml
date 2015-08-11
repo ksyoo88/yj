@@ -53,6 +53,12 @@
 	 		AND CAT1= #{category}
 	 	</if>
 	 </select>
+	 
+	 <select id="getPlaceByContentid" parameterType="string" resultMap="place">
+	 	SELECT *
+		FROM YJ_PLACE
+		WHERE CONTENTID = #{value}
+	 </select>
 
 	
 </mapper>

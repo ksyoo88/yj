@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.PlanServiceImpl;
 import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
+import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,9 @@ public class PlanController {
 			                     @RequestParam("place")String[] contentid,
 			                     HttpSession session) throws ParseException {
 		
-		MemberVO memberVo = (MemberVO)session.getAttribute("member");
+		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
 		planVo.setMember(memberVo);
+		
 		
 		int planNo = planService.insertPlan(planVo, contentid, dayDate);		
 
@@ -57,7 +60,18 @@ public class PlanController {
 		ModelAndView mav = new ModelAndView();
 		
 		PlanVO plan = planService.getPlanByNo(no);
+		ArrayList<PlanDayVO> planDay = planService.getPlanDayByNo(no);
+
+//		for(PlanDayVO p : planDay ){
+//			System.out.println(p.getPlace().getTitle());
+//			System.out.println(p.getPlace().getAddr1());
+//			System.out.println(p.getPlace().getCat1());
+//			System.out.println(p.getPlace().getTel());
+//		}
+		
+		mav.addObject("count", 0);
 		mav.addObject("plan", plan );
+		mav.addObject("planDay", planDay);
 		mav.setViewName("/plandetail/plandetail.tiles");
 		
 		return mav;

@@ -1,5 +1,6 @@
 package kr.co.yj.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PlanDayVO {
@@ -35,6 +36,11 @@ public class PlanDayVO {
 		this.dayDate = dayDate;
 	}
 
+	public String getStrDayDate(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		return sdf.format(dayDate);
+	}
+	
 	public Place getPlace() {
 		return place;
 	}

@@ -8,5 +8,6 @@ import kr.co.yj.vo.PlaceAreaPointVO;
 public interface PlaceDao {
 
 	ArrayList<Place> getMapOnThePlaces(PlaceAreaPointVO placeAreaPoint);
+	Place getPlaceByContentid(String contentid);
 	
 }
