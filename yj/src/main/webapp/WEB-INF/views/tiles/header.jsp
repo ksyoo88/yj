@@ -27,7 +27,7 @@
 				-->
 				<c:choose>
 					<c:when test="${member!=null}">
-						<li><a href="/member.do" id="membername" >
+						<li><a href="/mypage.do" id="membername" >
 						<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="30px" height="30px">
 								${member.name }</a>
 						</li>
@@ -135,7 +135,7 @@ $(document).ready(function(){
 							<div class="form-group">
 								<label for="psw"><span
 									class="glyphicon glyphicon-eye-open"></span> Password</label> <input
-									type="text" class="form-control" name="j_password" id="pwd"
+									type="password" class="form-control" name="j_password" id="pwd"
 									placeholder="Enter password">
 							</div>
 							<div class="checkbox">
@@ -296,11 +296,11 @@ $(document).ready(function(){
 							</div>
 							<div class="form-group">
 								<label for="password1"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
-								<input type="text" class="form-control" id="password1" name="password" placeholder="Enter password">
+								<input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
 							</div>
 							<div class="form-group">
 								<label for="password2"><span class="glyphicon glyphicon-eye-close"></span> 비밀번호 확인</label> 
-								<input type="text" class="form-control" id="password2"  placeholder="Enter password">
+								<input type="password" class="form-control" id="password2"  placeholder="Enter password">
 							</div>
 							<div class="form-group">
 								<label for="birth"><span class="glyphicon glyphicon-gift"></span> 생년월일</label> 
