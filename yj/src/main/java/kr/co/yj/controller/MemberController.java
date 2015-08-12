@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.MemberServiceImpl;
 import kr.co.yj.vo.MemberVO;
 
@@ -73,7 +75,8 @@ public class MemberController {
 	@ResponseBody
 	public String checkpwd(@RequestParam("pwd")String pwd
 							,HttpSession session) {
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberVO memberold= new MemberVO();
+		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 		String email =memberold.getEmail();
 		
 		MemberVO member= memberservice.loginCheck(email, pwd);
@@ -94,21 +97,23 @@ public class MemberController {
 		
 		//String email=(String)session.getAttribute("memberEmail");
 
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberVO memberold= new MemberVO();
+		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 		String email =memberold.getEmail();
 		
 		String mdpwd = memberservice.modifyinfo(name, pwd, email);
 		memberold.setName(name);
 		memberold.setPassword(mdpwd);
 		session.setAttribute("member", memberold);
-		return "redirect:/member.do";
+		return "redirect:/mypage.do";
 	}
 	
 	@RequestMapping("/getTemPhoto.do")
 	public ModelAndView getTemPhoto(HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberVO memberold= new MemberVO();
+		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 		String email =memberold.getEmail();
 		
 		ModelAndView mav = new ModelAndView();
@@ -123,7 +128,8 @@ public class MemberController {
 	public ModelAndView delTemPhoto(HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberVO memberold= new MemberVO();
+		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 		String email =memberold.getEmail();
 		
 		
@@ -156,9 +162,9 @@ public class MemberController {
 		if(itr.hasNext()) {
 			MultipartFile mf=request.getFile(itr.next());
 			
-			MemberVO memberold=(MemberVO)session.getAttribute("member");
+			MemberVO memberold= new MemberVO();
+			BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 			String email =memberold.getEmail();
-			
 			//String email=(String)session.getAttribute("memberEmail");
 			memberservice.saveTempPhoto(mf, email,day);
 			System.out.println("s");
@@ -174,14 +180,15 @@ public class MemberController {
 	public String profileup(@RequestParam("upfile")MultipartFile mf,HttpSession session) throws Exception{
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberVO memberold= new MemberVO();
+		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
 		String email =memberold.getEmail();
 		
 		String filename=memberservice.profileup(mf,email);
 		memberold.setPhoto(filename);
 		session.setAttribute("member", memberold);
 		
-		return "redirect:/member.do";
+		return "redirect:/mypage.do";
 	}
 
 }
