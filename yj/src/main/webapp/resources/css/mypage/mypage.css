@@ -40,7 +40,7 @@ ul.tabs a.current{
 	background-color: #0D0D0D;
 	color: white;
 }
-.modal-header, h4, .close {
+.modal-header h4, .close {
     background-color: #5cb85c;
     color:white !important;
     text-align: center;

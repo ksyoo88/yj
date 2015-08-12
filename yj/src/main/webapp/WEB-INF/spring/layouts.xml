@@ -74,5 +74,13 @@
 		<put-attribute name="footer" value="" />
 		<put-attribute name="current" value="togethersns" cascade="true" />
 	</definition>
+	<definition name="/mypage/*.tiles" extends="default">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="style" value="/WEB-INF/views/mypage/{1}_style.jsp" />
+		<put-attribute name="javascript" value="/WEB-INF/views/mypage/{1}_js.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"/>
+		<put-attribute name="footer" value="" />
+		<put-attribute name="current" value="" cascade="true" />
+	</definition>
 
 </tiles-definitions>

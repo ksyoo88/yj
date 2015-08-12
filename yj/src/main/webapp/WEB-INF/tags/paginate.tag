@@ -15,7 +15,7 @@
 </c:if>
 <c:if test="${empty cssClass }">
 	<c:set var="cssClass" value="pageNav" />
-</c:if> 
+</c:if>
 
 <spring:eval var="numberOfPageGroup" expression="T(java.lang.Integer).parseInt(numberOfPageGroup)" />
 <spring:eval var="max" expression="T(java.lang.Math).max(max, 10)" />
@@ -29,15 +29,14 @@
 <c:if test="${empty pageName }">
 	<c:set var="pageName" value="cPage" />
 </c:if>
+<c:if test="${page eq 1 }">
+	<c:set var="firstCss" value="disabled" />
+</c:if>
 
-<div class="<c:out value="${cssClass }" />">
-	<a href="?${pageName }=1&amp;${queryString }" data-no="1" class="first"><span></span>첫페이지</a>
-	<a href="?${pageName }=${prev }&amp;${queryString }" data-no="${prev }" class="prev"><span></span>이전 ${numberOfPageGroup}페이지</a>
-	<span>
-		<c:forEach var="p" begin="${begin }" end="${end }">
-			<a href="?${pageName }=${p }&amp;${queryString }" data-no="${p }"${p eq page ? ' class="on"' : '' } >${p }</a>
-		</c:forEach>
-	</span>
-	<a href="?${pageName }=${next }&amp;${queryString }" data-no="${next }" class="next"><span></span>다음 ${numberOfPageGroup}페이지</a>
-	<a href="?${pageName }=${pages }&amp;${queryString }" data-no="${pages }" class="last"><span></span>마지막페이지</a>
-</div>
+<ul class="<c:out value="${cssClass }" />">
+	<li class="${firstCss }"><a href="?${pageName }=${prev }&amp;${queryString }" data-no="${prev }">«</a></li>
+	<c:forEach var="p" begin="${begin }" end="${end }">
+		<li ${p eq page ? ' class="active"' : '' }><a href="?${pageName }=${p }&amp;${queryString }" data-no="${p }" >${p }</a></li>
+	</c:forEach>
+	<li><a href="?${pageName }=${next }&amp;${queryString }">»</a></li>
+</ul>
