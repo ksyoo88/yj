@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.PanoramaService;
 import kr.co.yj.vo.MemberVO;
 
@@ -193,8 +194,9 @@ public class PanoramaController {
 	}
 	
 	@RequestMapping("panodetail.do")
-	public ModelAndView panodetail(@RequestParam("panoNo")int panoNo){
+	public ModelAndView panodetail(@RequestParam("panoNo")int panoNo,HttpSession session){
 		ModelAndView mav = new ModelAndView();
+		MemberDetail member=(MemberDetail)session.getAttribute("member");
 		
 		
 		
@@ -204,7 +206,17 @@ public class PanoramaController {
 		mav.setViewName("/panorama/panodetail.tiles");
 		return mav;
 	}
-	
+	@RequestMapping("panolike.do")
+	public ModelAndView panolike(@RequestParam("panono")int panono,@RequestParam("likecheck")boolean likecheck,HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		MemberDetail member=(MemberDetail)session.getAttribute("member");
+		int memno=member.getNo();
+		int panolikecnt = service.panolike(memno, panono, likecheck);
+		
+		mav.addObject("panolikecnt", panolikecnt);
+		mav.setView(jsonview);
+		return mav;
+	}
 	
 	
 	

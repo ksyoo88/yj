@@ -21,6 +21,8 @@ public class TogetherSnsController {
 		
 		return "/togethersns/blog.tiles";
 	}
+	
+	
 	/*
 	@RequestMapping("/member.do")
 	public String memberBlog(Model model,HttpSession session) {

@@ -8,16 +8,33 @@
 		type에는 결과값을 담을 객체의 클래스명
 		id에는 <select/>resultMap에서 사용할이름
 	 -->
-	<resultMap type="Member" id="mem">
-		
-		<result column="MEM_NO" property="no"/>
-		<result column="MEM_EMAIL" property="email"/>
-		<result column="MEM_NAME" property="name"/>
-		<result column="MEM_PASSWORD" property="password"/>
-		<result column="MEM_BIRTH" property="birth"/>
-		<result column="MEM_GENDER" property="gender"/>
-		<result column="MEM_PHOTO" property="photo"/>
-	</resultMap> 
+	<resultMap type="Panorama" id="panorama">		
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="member.no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
+		<result column="PLAN_START_DAY" property="startDayDate"/>
+		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
+		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+	 </resultMap>	 
+	<resultMap type="PanoDay" id="panoday">		
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="member.no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
+		<result column="PLAN_START_DAY" property="startDayDate"/>
+		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
+		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+	 </resultMap>	 
+	<resultMap type="PanoDayPhoto" id="panodayphoto">		
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="member.no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
+		<result column="PLAN_START_DAY" property="startDayDate"/>
+		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
+		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+	 </resultMap>	 
 	
 	<insert id="addtempphoto" parameterType="hashmap">
 		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
@@ -68,6 +85,26 @@
 	<delete id="delTemPhotoByday" parameterType="hashmap">
 		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND day=#{day}
 	</delete>
+	
+	<select id="likecheck" parameterType="hashmap" resultType="string">
+		SELECT NVL2((SELECT PANO_LIKE FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}),'T','F') AS LIKECHECK FROM DUAL
+	</select>
+	<insert id="likelisert" parameterType="hashmap">
+		INSERT INTO YJ_PANO_LIKE(MEM_NO,PANO_NO,PANO_LIKE) VALUES (#{memno},#{panono},'-')
+	</insert>
+	<delete id="likedelete" parameterType="hashmap">
+		DELETE FROM YJ_PANO_LIKE  WHERE MEM_NO=#{memno} and PANO_NO=#{panono}
+	</delete>
+	<select id="panolikecnt" resultType="int">
+		SELECT PANO_LIKE FROM YJ_PANORAMA WHERE PANO_NO=#{panono}
+	</select>
+	<update id="updatelikecnt" parameterType="hashmap">
+		UPDATE YJ_PANORAMA 
+	
+		SET PANO_LIKE = #{newpanolike}
+
+		WHERE PANO_NO=#{panono}
+	</update>
 	
 	
 </mapper>

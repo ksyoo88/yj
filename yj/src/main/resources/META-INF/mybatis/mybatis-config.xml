@@ -11,6 +11,9 @@
 		<typeAlias type="kr.co.yj.vo.FavorPlace" alias="FavorPlace"/>
 		<typeAlias type="kr.co.yj.vo.PlanVO" alias="Plan" />
 		<typeAlias type="kr.co.yj.vo.PlanDayVO" alias="PlanDay"/>
+		<typeAlias type="kr.co.yj.vo.PanoramaVO" alias="Panorama"/>
+		<typeAlias type="kr.co.yj.vo.PanoDayVO" alias="PanoDay"/>
+		<typeAlias type="kr.co.yj.vo.PanoDayPhotoVO" alias="PanoDayPhoto"/>
 	</typeAliases>
 
 	<mappers>
