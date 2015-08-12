@@ -43,14 +43,17 @@
 								</div>
 								<div class="btn-act">
 									<ul>
-										<li>
-											<img id="photologLikeButton" class="hand"
-											src="resources/images/panorama/likebefore.png" alt="좋아요">
+										<li id="LikeBtn">
+											<img id="photologLikeButton" likecheck="likebefore" class="hand"
+											src="resources/images/panorama/likebefore.png" style="width: 30px"  alt="좋아요">
 											<p></p>
 										<p class="t-subj">좋아요</p>
 											<p></p>
 											<p class="count like">3</p>
 											</li>
+										
+										
+										
 										<li></li>
 									</ul>
 								</div>

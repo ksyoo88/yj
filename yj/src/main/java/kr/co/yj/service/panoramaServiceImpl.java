@@ -108,6 +108,30 @@ public class panoramaServiceImpl implements PanoramaService {
 		dao.delTemPhoto(email);
 		
 	}
+	@Override
+	public int panolike(int memno, int panono, boolean likecheck) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memno", memno);
+		map.put("panono", panono);
+		String check=dao.likecheck(map);
+		int panolikecnt=dao.panolikecnt(panono);
+		if(check.equals("T")){
+			dao.likedelete(map);
+			
+			map.put("newpanolike", panolikecnt-1);
+			dao.updatelikecnt(map);
+		}else{
+			dao.likelisert(map);
+			
+			map.put("newpanolike", panolikecnt+1);
+			dao.updatelikecnt(map);
+		}
+		
+		int newpanolikecnt=dao.panolikecnt(panono);
+		
+		return newpanolikecnt;
+		
+	}
 	
 	
 }

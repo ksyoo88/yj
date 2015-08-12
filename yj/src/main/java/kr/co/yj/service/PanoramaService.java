@@ -19,6 +19,8 @@ public interface PanoramaService {
 	
 	void savePanoPhotobyDay(String email,int day,int panodayseq);
 	
+	int panolike(int memno,int panono,boolean likecheck);
 	
+	 //getPanorama(int panono);
 	
 }

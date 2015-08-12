@@ -22,5 +22,11 @@ public interface PanoramaDao {
 	int selectPano_seq();
 	int selectPano_day_seq();
 	
+	String likecheck(HashMap<String, Object> map);
+	void likelisert(HashMap<String, Object> map);
+	void likedelete(HashMap<String, Object> map);
+	
+	int panolikecnt(int panono);
+	void updatelikecnt(HashMap<String, Object> map);
 
 }
