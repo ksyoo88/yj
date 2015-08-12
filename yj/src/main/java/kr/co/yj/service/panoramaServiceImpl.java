@@ -7,16 +7,24 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PanoramaDao;
+import kr.co.yj.dao.PlaceDao;
 import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
 import kr.co.yj.vo.PanoramaVO;
+import kr.co.yj.vo.Place;
 
 @Service
 public class panoramaServiceImpl implements PanoramaService {
 
 	@Autowired
 	PanoramaDao dao;
+	
+	@Autowired
+	MemberDao memberdao;
+	@Autowired
+	PlaceDao placedao;
 	
 	@Override
 	public ArrayList<String> getTemPhotoByday(String email, int day) {
@@ -139,12 +147,29 @@ public class panoramaServiceImpl implements PanoramaService {
 	public PanoramaVO getPanorama(int panono) {
 		
 		PanoramaVO panorama=dao.getPanorama(panono);
+		int memno=panorama.getMember().getNo();
+		panorama.setMember(memberdao.getMemberbyNo(memno)); 
 		return panorama;
 	}
 	
 	@Override
 	public ArrayList<PanoDayVO> getPanoday(int panono) {
 		ArrayList<PanoDayVO> panodayList = dao.getPanoday(panono);
+		for(PanoDayVO panoday : panodayList){
+			System.out.println(panoday.toString());
+			
+			
+			if(panoday.getPlace()==null){
+				System.out.println("널");
+				Place place = null;
+				panoday.setPlace(place); 
+			}else{
+				String contentid=panoday.getPlace().getContentid();
+				System.out.println("노널");
+				panoday.setPlace(placedao.getPlaceByContentid(contentid)); 
+				
+			}
+		}
 		return panodayList;
 	}
 	

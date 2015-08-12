@@ -13,6 +13,7 @@ public interface MemberDao {
 	String getMemberPwd(MemberVO mem);
 	
 	MemberVO getMemberbyemail(String email);
+	MemberVO getMemberbyNo(int no);
 	
 	void updatePwd(MemberVO mem);
 	

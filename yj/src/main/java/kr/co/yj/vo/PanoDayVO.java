@@ -72,6 +72,12 @@ public class PanoDayVO {
 	public void setDayMemo(String dayMemo) {
 		this.dayMemo = dayMemo;
 	}
+	@Override
+	public String toString() {
+		return "PanoDayVO [panorama=" + panorama + ", no=" + no + ", dayCnt=" + dayCnt + ", place=" + place
+				+ ", dayMemo=" + dayMemo + ", photocnt=" + photocnt + ", date=" + date + ", photos=" + photos + "]";
+	}
+	
 	
 	
 

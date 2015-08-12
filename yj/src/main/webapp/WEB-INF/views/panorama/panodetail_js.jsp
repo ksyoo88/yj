@@ -24,7 +24,7 @@ $(function (){
 			$("#photologLikeButton").attr("likecheck","likebefore");
 			likeCheck=false;
 		}
-		var panono=46;
+		var panono=$(".title").data("panoNo");
 		$.ajax({
 			url:"panolike.do",
 			data:{likecheck:likeCheck,panono:panono},

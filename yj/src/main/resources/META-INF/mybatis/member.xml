@@ -37,6 +37,10 @@
 		SELECT * FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}
 		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
 	</select>
+	<select id="getMemberbyNo" parameterType="int" resultMap="mem">
+		SELECT * FROM YJ_MEMBER WHERE MEM_NO=#{no}
+		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
+	</select>
 	
 	<select id="getMemberPwd" parameterType="Member" resultType="string" >
 	select substr(pwd,1,8)

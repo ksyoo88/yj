@@ -48,6 +48,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mem;
 	}
+	@Override
+	public MemberVO getMembyNO(int no) {
+		MemberVO member = dao.getMemberbyNo(no);
+		return member;
+	}
 	
 	public String changePwd(MemberVO mem) {
 		

@@ -33,7 +33,7 @@
 							<div class="photolog-header"
 								style="background: url(resources/images/cat.jpg); background-repeat: round;">
 								<div class="mask"></div>
-								<div class="title">${panorama.panoTitle }</div>
+								<div class="title" data-pano-no="${panorama.panoNo }" >${panorama.panoTitle }</div>
 								<div class="user">
 									<div class="profile user-photo">
 										<div class="memberProfileImage profileImageMedium"
@@ -80,75 +80,88 @@
 									</div>
 									<div class="location"></div>
 								</div>
+								
 								<div class="photo-box">
 									<div class="place">
 										<img src="resources/images/panorama/pinok.png" alt="place pin">
 										${panodays.place.title }
 									</div>
 									<div class="photo-cont">
-									<c:forEach items="${panodays.photos }" var="photos" varStatus="">
+									
+									<c:forEach items="${panodays.photos }" var="photos" varStatus="i">
 									
 										<a href="resources/images/temphoto/${photos.photo }" data-lightbox="${day.index }">
-										<div title="23:38" class="photo images hand box size${photos.size} }"
-											style="background-image: url(resources/images/temphoto/${photos.photo }); background-repeat: round;">
+											<div title="23:38" class="photo images hand box size${photos.size}"
+												style="background-image: url(resources/images/temphoto/${photos.photo }); background-repeat: round;">
 											<div class="inline"></div>
+											</div>
 										</a>
 											
 									</c:forEach>
-										</div>
 									</div>
 									<div class="memo modify">${panodays.dayMemo }</div>
+									</div>
 								</div>
-							</c:forEach>					
+							</c:forEach>	
 							
-								<div class="photolog-day">
-									<div class="title-box" id="photo-2015-03-29">
-										<div class="day">
-											DAY 1 <span>29/03/15</span>
-										</div>
-										<div class="location"></div>
-									</div>
-									<div class="photo-box">
-										<div class="place">
-											<img src="resources/images/panorama/pinno.png" alt="place pin">
-										</div>
-										<div class="photo-cont">
-									
-											<a  href="resources/images/panorama/ㄱ.jpg" data-lightbox="roadtrip">
-											<div title="요석궁" class="photo images hand box size3" 
-											style="background-image:url(resources/images/panorama/ㄱ.jpg); background-repeat: round;">
-												<div class="inline"></div>
+							
+							<div id="panoReplyWei" >
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<div class="user">
+												<div class="profile user-photo">
+													<div class="memberProfileImage profileImageMedium"
+														style="position: relative; ">
+													<img src="resources/images/profilephoto/${panorama.member.photo }" class="img-circle" 
+													width="45px" height="45px"style="margin-top: 3px;">
+													</div>
+													
+												</div>
+												
 											</div>
-											</a>
-											<a href="resources/images/panorama/ㄴ.jpg" data-lightbox="roadtrip">
-											<div title="요석궁" class="photo images hand box size3" 
-											style="background-image:url(resources/images/panorama/ㄴ.jpg); background-repeat: round;" 
-											>
-											<div class="inline"></div></div>
-											</a>
-											
-											<a href="resources/images/panorama/ㄷ.jpg"data-lightbox="roadtrip">
-											<div title="요석궁" class="photo images hand box size3" 
-											style="background-image:url(resources/images/panorama/ㄷ.jpg); background-repeat: round;" 
-											href="resources/images/panorama/ㄷ.jpg" data-lightbox="roadtrip">
-											<div class="inline"></div></div>
-											</a>
-											<a href="resources/images/panorama/ㄹ.jpg"data-lightbox="roadtrip">
-											<div title="요석궁" class="photo images hand box size4" 
-											style="background-image:url(resources/images/panorama/ㄹ.jpg); background-repeat: round;" 
-											>
-											<div class="inline"></div></div>
-											</a>
-											<a href="resources/images/panorama/ㅁ.jpg" data-lightbox="roadtrip">
-											<div title="요석궁" class="photo images hand box size4" 
-											style="background-image:url(resources/images/panorama/ㅁ.jpg); background-repeat: round;">
-											<div class="inline"></div></div>
-											</a>
+										</td>
+										<td>
 										
-										</div>
-										<div class="memo modify">캐나다어느시골마을</div>
-									</div>
-								</div>
+											<div class="userName t-name" data-uno="4060">${panorama.member.name }</div>
+										</td>
+										<td>
+											 <input type="text" class="form-control" id="replywrite">
+										</td>
+										<td>
+											<button type="button" class="btn btn-default">작성</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div id="panoReplyShow">
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<div class="user">
+												<div class="profile user-photo">
+													<div class="memberProfileImage profileImageMedium"
+														style="position: relative; ">
+													<img src="resources/images/profilephoto/${panorama.member.photo }" class="img-circle" 
+													width="45px" height="45px"style="margin-top: 3px;">
+													</div>
+													
+												</div>
+												
+											</div>
+										</td>
+										<td>
+											<div class="userName t-name" data-uno="4060">${panorama.member.name }</div>
+										</td>
+										<td> 
+											안녕하세요 구리네요
+										</td>
+										<td>
+											<button type="button" class="btn btn-danger">삭제</button>
+										</td>
+									</tr>
+								</table>
+								
 							</div>
 							
 						</div>
