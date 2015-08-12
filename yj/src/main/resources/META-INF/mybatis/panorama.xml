@@ -9,31 +9,23 @@
 		id에는 <select/>resultMap에서 사용할이름
 	 -->
 	<resultMap type="Panorama" id="panorama">		
-		<result column="PLAN_NO" property="no"/>
+		<result column="PANO_NO" property="panoNo"/>
 		<result column="MEM_NO" property="member.no"/>
-		<result column="PLAN_TITLE" property="title"/>
-		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
-		<result column="PLAN_START_DAY" property="startDayDate"/>
-		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
-		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+		<result column="PANO_TITLE" property="panotitle"/>
+		<result column="PANO_LIKE" property="panoLike"/>
+		<result column="PANO_REGDATE" property="panoRegdate"/>
 	 </resultMap>	 
 	<resultMap type="PanoDay" id="panoday">		
-		<result column="PLAN_NO" property="no"/>
-		<result column="MEM_NO" property="member.no"/>
-		<result column="PLAN_TITLE" property="title"/>
-		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
-		<result column="PLAN_START_DAY" property="startDayDate"/>
-		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
-		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+		<result column="PANO_NO" property="panorama.panoNo"/>
+		<result column="PANO_DAY_NO" property="no"/>
+		<result column="PANO_DAY_DATE" property="dayCnt"/>
+		<result column="PANO_DAY_LOCA" property="place.contentid"/>
+		<result column="PANO_DAY_MEMO" property="dayMemo"/>		
 	 </resultMap>	 
 	<resultMap type="PanoDayPhoto" id="panodayphoto">		
-		<result column="PLAN_NO" property="no"/>
-		<result column="MEM_NO" property="member.no"/>
-		<result column="PLAN_TITLE" property="title"/>
-		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
-		<result column="PLAN_START_DAY" property="startDayDate"/>
-		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
-		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+		<result column="PANO_DAY_PHOTO_NO" property="panoDayPhoto"/>
+		<result column="PANO_DAY_NO" property="panoday.no"/>
+		<result column="PANO_DAY_PHOTO" property="photo"/>
 	 </resultMap>	 
 	
 	<insert id="addtempphoto" parameterType="hashmap">

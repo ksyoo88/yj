@@ -2,16 +2,16 @@ package kr.co.yj.vo;
 
 public class PanoDayPhotoVO {
 	
-	private int dayDayPhoto;
+	private int panoDayPhoto;
 	private PanoDayVO panoDay;
 	private String photo;
 	
 	
-	public int getDayDayPhoto() {
-		return dayDayPhoto;
+	public int getPanoDayPhoto() {
+		return panoDayPhoto;
 	}
-	public void setDayDayPhoto(int dayDayPhoto) {
-		this.dayDayPhoto = dayDayPhoto;
+	public void setPanoDayPhoto(int dayDayPhoto) {
+		this.panoDayPhoto = dayDayPhoto;
 	}
 	public PanoDayVO getPanoDay() {
 		return panoDay;
