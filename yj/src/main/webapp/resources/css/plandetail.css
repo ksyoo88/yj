@@ -27,21 +27,39 @@ div#title p {
 }
 div#centerLeftContent .palceName{
 	text-align : left;
-	background-color : #FFAD33;
+/* 	background-color : #FFAD33; */
 }
 
 div.palceInfo {
 	margin-left : 10px;
 	padding-left : 10px;
+	padding-top : 15px;
+	padding-bottom : 13px;
 	border-left : solid 1px;
+}
+
+div#place-tab {
+	padding : 0px;
+}
+
+div#place-tab-image {
+	padding : 0px;
+}
+div#place-tab-content {
+	font-size : 14px;
+	padding : 10px;
 }
 
 div#centerLeftContent{
 	
 }
 
-div#centerRightContent .placeNameRight{
+div#footerContent .panel-body {
 	background-color : #3399FF;
+}
+
+div#centerRightContent .placeNameRight{
+/* 	background-color : #3399FF; */
 }
 
 div#topContent {
@@ -66,3 +84,4 @@ div#footerContent {
 nav#navigationBar {
 	margin-bottom : 0px;
 }
+
