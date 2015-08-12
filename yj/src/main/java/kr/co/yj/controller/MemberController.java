@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,8 +74,7 @@ public class MemberController {
 	@ResponseBody
 	public String checkpwd(@RequestParam("pwd")String pwd
 							,HttpSession session) {
-		MemberVO memberold= new MemberVO();
-		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		MemberVO member= memberservice.loginCheck(email, pwd);
@@ -97,9 +95,8 @@ public class MemberController {
 		
 		//String email=(String)session.getAttribute("memberEmail");
 
-		MemberVO memberold= new MemberVO();
-		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
-		String email =memberold.getEmail();
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
+		String email = memberold.getEmail();
 		
 		String mdpwd = memberservice.modifyinfo(name, pwd, email);
 		memberold.setName(name);
@@ -112,8 +109,7 @@ public class MemberController {
 	public ModelAndView getTemPhoto(HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold= new MemberVO();
-		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		ModelAndView mav = new ModelAndView();
@@ -128,8 +124,7 @@ public class MemberController {
 	public ModelAndView delTemPhoto(HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold= new MemberVO();
-		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		
@@ -144,26 +139,13 @@ public class MemberController {
 	@RequestMapping(value = "/savetempphoto.do", method = RequestMethod.POST)
 	//http://netframework.tistory.com/422
 	@ResponseBody
-	public void savetempphoto(
-			MultipartHttpServletRequest request
-			,HttpSession session,
+	public void savetempphoto(MultipartHttpServletRequest request, HttpSession session,
 			@RequestParam("day")int day) throws Exception{
-
-		System.out.println("day : "+day); 
-		
-		System.out.println(request); 
-		System.out.println(request.getServletPath());
-		System.out.println(request.getContextPath());
-		System.out.println(request.getSession().getServletContext().getRealPath("/"));
 		Iterator<String> itr =  request.getFileNames();
-		System.out.println(itr.toString());
-		System.out.println(itr.hasNext());
-		
 		if(itr.hasNext()) {
 			MultipartFile mf=request.getFile(itr.next());
 			
-			MemberVO memberold= new MemberVO();
-			BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
+			MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 			String email =memberold.getEmail();
 			//String email=(String)session.getAttribute("memberEmail");
 			memberservice.saveTempPhoto(mf, email,day);
@@ -180,8 +162,7 @@ public class MemberController {
 	public String profileup(@RequestParam("upfile")MultipartFile mf,HttpSession session) throws Exception{
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold= new MemberVO();
-		BeanUtils.copyProperties((MemberDetail)session.getAttribute("member"), memberold);
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		String filename=memberservice.profileup(mf,email);

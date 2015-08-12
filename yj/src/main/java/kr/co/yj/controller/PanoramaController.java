@@ -37,7 +37,7 @@ public class PanoramaController {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 
@@ -62,7 +62,7 @@ public class PanoramaController {
 	public ModelAndView delTemPhotoByname(@RequestParam("name")String filename,HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		
@@ -80,7 +80,7 @@ public class PanoramaController {
 		
 		//String email=(String)session.getAttribute("memberEmail");
 		
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 	
 		
@@ -95,7 +95,7 @@ public class PanoramaController {
 	public ModelAndView getTemPhotoByday(@RequestParam("day")int day,HttpSession session){
 		
 		//String email=(String)session.getAttribute("memberEmail");
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		ModelAndView mav = new ModelAndView();
@@ -120,7 +120,7 @@ public class PanoramaController {
 	@RequestMapping("/savePanoTitle.do")
 	public ModelAndView savePanoTitle(@RequestParam("title")String title,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		int no =memberold.getNo();
 		
 		//int panoseq=service.savePanoTitle(no,title);
@@ -149,7 +149,7 @@ public class PanoramaController {
 	@RequestMapping("/savePanoDayPhoto.do")
 	public ModelAndView savePanoDayPhoto(@RequestParam("panodayseq")int panodayseq,
 										@RequestParam("day")int day,HttpSession session){
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
 		ModelAndView mav = new ModelAndView();
@@ -169,7 +169,7 @@ public class PanoramaController {
 		ModelAndView mav = new ModelAndView();
 		
 		int day=locaArr.length;
-		MemberVO memberold=(MemberVO)session.getAttribute("member");
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		int no =memberold.getNo();
 		String email=memberold.getEmail();
 		
