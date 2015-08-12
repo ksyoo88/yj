@@ -14,22 +14,20 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<div id="photologImageArea" class="marginTop10 ui-corner-all2"
-					style="position: relative; border: 2px dashed #cfd6e3; background: #f6f8fa; height: 228px; text-align: center;">
+				<div id="photologImageArea"	style="position: relative; border: 2px dashed #cfd6e3; background: #f6f8fa; height: 228px; text-align: center; background-repeat: round;     background-size: contain; background-repeat: no-repeat; background-position: center;">
 
 					<img id="selectPhotologImage" class="hand" onclick="photoupload()" src="resources/images/addPhoto.jpg" width="75" alt="Add photo"
-						style="display: inline-block; margin-top: 80px; position: relative; z-index: 1;">
+						style="cursor: pointer; display: inline-block; margin-top: 80px; position: relative; z-index: 1;">
 
-					<div id="imageListArea" style="position: absolute; height: 64px; left: 15px; bottom: 5px; right: 15px;" class="mCustomScrollbar _mCS_2">
+					<div id="imageListArea" style="position: absolute; height: 64px; left: 15px; bottom: 5px; right: 15px;">
 
-						<div class="mCustomScrollBox mCS-light mCSB_horizontal" id="mCSB_2" style="position: relative; height: 100%; overflow: hidden; max-width: 100%;">
+						<div style="position: relative; height: 100%; overflow: hidden; max-width: 100%;">
 							<div id="tempphotoList" class="mCSB_container mCS_no_scrollbar mCSB_horizontal"></div>
-							<div class="mCSB_scrollTools" style="position: absolute; display: none;">
-								<div class="mCSB_draggerContainer">
-									<div class="mCSB_dragger" style="position: absolute; left: 0px;" oncontextmenu="return false;">
-										<div class="mCSB_dragger_bar" style="position: relative;"></div>
+							<div style="position: absolute; display: none;">
+								<div>
+									<div style="position: absolute; left: 0px;" oncontextmenu="return false;">
+										<div style="position: relative;"></div>
 									</div>
-									<div class="mCSB_draggerRail"></div>
 								</div>
 							</div>
 						</div>
@@ -40,10 +38,7 @@
 								style="font-size: 1px; opacity: 0;" multiple="" accept="image/jpeg,image/png"> <input id="savetempphoto" onclick="saveajax();"
 								type="button">
 						</form>
-
-
 					</div>
-
 				</div>
 				<div class="paddingTop20" style="text-align: right;">
 					<input type="button" onclick="delTemPhoto()" value="전부삭제" class="submitButton blueFillButton" style="width: 120px; padding: 10px;"> <input
@@ -103,21 +98,9 @@
 					<ul class="tabs">
 						<li><a id="profile-tab">프로필</a></li>
 						<li><a id="modify-tab">계정</a></li>
-						<li><a id="delete-tab">회원탈퇴</a></li>
 					</ul>
 				</div>
 				<hr>
-				<!-- 회원탈퇴 -->
-				<div id="delete" class="tab">
-					<div class="modal-body" style="padding: 40px 50px;">
-						회원탈퇴하시겠습니까? 경고로 표시
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
-						</button>
-					</div>
-				</div>
 				<!-- 프로필 수정 -->
 				<div id="modify" class="tab">
 					<div class="modal-body" style="padding: 40px 50px;">
@@ -334,13 +317,13 @@
 		</div>
 	</div>
 </div><!-- /.container -->
-<img src="resources/images/common/loading.gif" id="loading-indicator" style="display:none" />
+<img src="resources/images/common/loading.gif" id="loading-indicator" style="display:none;" />
 <script id="panoTpl" type="text/template">
 <div class="col-md-3">
 	<a href="#" class="thumbnail">
 		<div class="thumbnail">
 			<div class="caption">
-				<h4>Thumbnail Headline</h4>
+				<h4>{{title}}</h4>
 				<p>short thumbnail description</p>
 			</div>
 			<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
@@ -371,7 +354,8 @@ $(document).ready(function() {
     	for(var i=0; i<4; i++) {
 	    	var template = $('#panoTpl').html();
 	        var html = Mustache.to_html(template, json);
-	        $('#pano .row').append(html);
+	        var $html = $(html).hide().fadeIn(2000);
+	        $('#pano .row').append($html);
     	}
     	thumbnailHover();
     });
@@ -389,13 +373,14 @@ $(document).ready(function() {
                 	$('#loading-indicator').hide();
                 	console.log(json);
                 	pano_load++;
-                    loading = false;
                     for(var i=0; i<4; i++) {
             	    	var template = $('#panoTpl').html();
             	        var html = Mustache.to_html(template, json);
-            	        $('#pano .row').append(html);
+            	        var $html = $(html).hide().fadeIn(2000);
+            	        $('#pano .row').append($html);
                 	}
                     thumbnailHover();
+                    loading = false;
                 });
             }
         }

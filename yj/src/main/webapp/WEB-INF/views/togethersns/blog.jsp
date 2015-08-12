@@ -5,8 +5,8 @@
 
 #imagetrevel{
 	padding :0;
-	background:  url("../images/sns/trevel.jpg") center no-repeat;
-	background-size:cover; 
+	background:  url("resources/images/sns/trevel.jpg") center no-repeat;
+	background-size:cover;
 }
 
 </style>
@@ -14,78 +14,35 @@
 <body>
 <script type="text/javascript">
 $(function(){
-	
-	$(".tab-section").hide();
-	$("#tabs a").click(function(event){
-		event.preventDefault();
-		$(".tab-section").hide();
-		$("#tabs a.current").removeClass("current");
-		$(this).addClass("current");
-		var tabId = $(this).attr("href");
-		$(tabId).show();
-		
-	});
-	
 	$("#tabs a:first").click();
-
 	$("#imagetrevel").hide().slideDown("slow");
-	
 	$("#headimgclose").click(function(e) {
 		$("#imagetrevel").slideUp("slow");
-		
 	})
-	
 });
 </script>
 
-	<div id="imagetrevel" style="width: 100%;height: 200px;">
-		<div class="container">
-			<div class="col-sm-3">
-			
-			</div>
-			<div class="col-sm-6">
-				
-					<h1>PHOLOG OPEN</h1>
-					<h3>사진으로 돌아보는 여행 이야기, 포토로그로 특별한 여행이야기를 만들어 보세요</h3>
-				</div>
-			
-			<div class="col-sm-3">
-				<button type="button" id="headimgclose" class="close" >&times;</button>
-			</div>
-		
+<div id="imagetrevel" style="width: 100%;height: 200px;">
+	<div class="container">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6 transbox">
+			<h1>같이보자 OPEN</h1>
+			<h3>사진으로 돌아보는 여행 이야기, 같이보자로 특별한 여행이야기를 만들어 보세요</h3>
+		</div>
+		<div class="col-sm-3">
+			<button type="button" id="headimgclose" class="close" >&times;</button>
 		</div>
 	</div>
-		
+</div>
 	<div class="container">
-
 		<div class="page-header">
-			
-			
-		
-			<div class="row">
-				<div class="col-sm-3">
-				</div>
-				<div class="col-sm-6">
-					<small>트래블로그</small>
-					<h1>같이보자</h1>
-					
-					<ul id="tabs">
-						<li><a href="#tab1">전부</a></li>
-						<li><a href="#tab2">PLAN</a></li>
-						<li><a href="#tab3">PLACE</a></li>
-						<li><a href="#tab4">PANORAMA</a></li>
-						<li><a href="#tab5">Etc</a></li>
-					</ul>
-				</div>
-				<div class="col-sm-3">
-					<h3><a href="/member.do">누구님</a></h3>
-					<p>개인블로그</p>
-					<button type="button" class="btn btn-danger">
-						<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
-					</button>
-
-				</div>
-			</div>
+			<button type="button" class="btn btn-danger">
+				<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
+			</button>
+			<a href="/plan.do" class="btn btn-default">
+				<span class="glyphicon glyphicon-camera"></span> 일정만들기
+			</a>
 		</div>
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">

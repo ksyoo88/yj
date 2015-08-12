@@ -27,7 +27,7 @@
 				-->
 				<c:choose>
 					<c:when test="${member!=null}">
-						<li><a href="/mypage.do" id="membername" >
+						<li class="${current == 'mypage' ? 'active' : '' }"><a href="/mypage.do" id="membername" >
 						<img src="resources/images/profilephoto/${member.photo}" class="img-circle" width="30px" height="30px">
 								${member.name }</a>
 						</li>

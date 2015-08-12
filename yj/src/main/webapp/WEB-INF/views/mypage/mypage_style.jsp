@@ -44,8 +44,8 @@ nav#navigationBar {
 }
 
 #loading-indicator {
-  position: absolute;
-  left: 10px;
-  top: 10px;
+  position: fixed;
+  left: 49%;
+  top: 90%;
 }
 </style>
