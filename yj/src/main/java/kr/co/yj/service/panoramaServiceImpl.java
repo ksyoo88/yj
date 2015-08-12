@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.yj.dao.PanoramaDao;
+import kr.co.yj.vo.PanoDayPhotoVO;
+import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoramaVO;
 
 @Service
 public class panoramaServiceImpl implements PanoramaService {
@@ -132,6 +135,24 @@ public class panoramaServiceImpl implements PanoramaService {
 		return newpanolikecnt;
 		
 	}
+	@Override
+	public PanoramaVO getPanorama(int panono) {
+		
+		PanoramaVO panorama=dao.getPanorama(panono);
+		return panorama;
+	}
 	
+	@Override
+	public ArrayList<PanoDayVO> getPanoday(int panono) {
+		ArrayList<PanoDayVO> panodayList = dao.getPanoday(panono);
+		return panodayList;
+	}
+	
+	@Override
+	public ArrayList<PanoDayPhotoVO> getPanodayPhoto(int panodayno) {
+		ArrayList<PanoDayPhotoVO> panoDayPhotoList = dao.getPanodayPhoto(panodayno);
+		
+		return panoDayPhotoList;
+	}
 	
 }

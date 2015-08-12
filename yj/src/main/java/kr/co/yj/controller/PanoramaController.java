@@ -20,6 +20,9 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.PanoramaService;
 import kr.co.yj.vo.MemberVO;
+import kr.co.yj.vo.PanoDayPhotoVO;
+import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoramaVO;
 
 @Controller
 public class PanoramaController {
@@ -198,9 +201,64 @@ public class PanoramaController {
 		ModelAndView mav = new ModelAndView();
 		MemberDetail member=(MemberDetail)session.getAttribute("member");
 		
-		
-		
-		
+		PanoramaVO panorama=service.getPanorama(panoNo);
+			
+		ArrayList<PanoDayVO> panodaylist= service.getPanoday(panoNo);
+		panorama.setPanodays(panodaylist);
+		for(int i=0;i<panodaylist.size();i++){
+			ArrayList<PanoDayPhotoVO> photos=service.getPanodayPhoto(panodaylist.get(i).getNo());
+			panodaylist.get(i).setPhotos(photos);
+			panodaylist.get(i).setDate(panorama.getPanoRegdate());
+			panodaylist.get(i).setPhotocnt(photos.size());
+			int photocnt=panodaylist.get(i).getPhotocnt();
+			if(photocnt==1){
+				for(int j=0;j<photos.size();j++){
+					photos.get(j).setSize(1);
+				}
+			}else if(photocnt==2){
+				for(int j=0;j<photos.size();j++){
+					photos.get(j).setSize(2);
+				}
+				
+			}else if(photocnt==3){
+					photos.get(0).setSize(2);
+					photos.get(1).setSize(3);
+					photos.get(2).setSize(3);
+				
+				
+			}else if(photocnt==4){
+				for(int j=0;j<photos.size();j++){
+					photos.get(j).setSize(3);
+				}
+			}else if(photocnt==5){
+				photos.get(0).setSize(3);
+				photos.get(1).setSize(3);
+				photos.get(2).setSize(3);
+				photos.get(3).setSize(4);
+				photos.get(4).setSize(4);
+			}else if(photocnt==6){
+				photos.get(0).setSize(3);
+				photos.get(1).setSize(3);
+				photos.get(2).setSize(4);
+				photos.get(3).setSize(4);
+				photos.get(4).setSize(4);
+				photos.get(5).setSize(4);
+			}else if(photocnt==7){
+				photos.get(0).setSize(3);
+				photos.get(1).setSize(4);
+				photos.get(2).setSize(4);
+				photos.get(3).setSize(4);
+				photos.get(4).setSize(4);
+				photos.get(5).setSize(4);
+				photos.get(6).setSize(4);
+				
+			}else if(photocnt==8){
+				for(int j=0;j<photos.size();j++){
+					photos.get(j).setSize(4);
+				}
+			}
+		}
+		mav.addObject("panorama", panorama);
 		
 		
 		mav.setViewName("/panorama/panodetail.tiles");

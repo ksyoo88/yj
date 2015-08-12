@@ -3,6 +3,10 @@ package kr.co.yj.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.yj.vo.PanoDayPhotoVO;
+import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoramaVO;
+
 public interface PanoramaDao {
 	
 	ArrayList<String> getTemPhoto(String email);
@@ -28,5 +32,9 @@ public interface PanoramaDao {
 	
 	int panolikecnt(int panono);
 	void updatelikecnt(HashMap<String, Object> map);
+	
+	PanoramaVO getPanorama(int panono);
+	ArrayList<PanoDayVO> getPanoday(int panono);
+	ArrayList<PanoDayPhotoVO> getPanodayPhoto(int panodayno);
 
 }

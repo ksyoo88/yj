@@ -1,5 +1,9 @@
 package kr.co.yj.vo;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 public class PanoDayVO {
 	
 	private PanoramaVO panorama;
@@ -7,8 +11,37 @@ public class PanoDayVO {
 	private int dayCnt;
 	private Place place;
 	private String dayMemo;
+	private int photocnt;
+	private Date date;
+	private ArrayList<PanoDayPhotoVO> photos;
 	
 	
+	
+	
+	public Date getDate() {
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(date); 
+		c.add(Calendar.DATE, dayCnt-1);
+		date = c.getTime();
+		
+		return date;
+		
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public ArrayList<PanoDayPhotoVO> getPhotos() {
+		return photos;
+	}
+	public void setPhotos(ArrayList<PanoDayPhotoVO> photos) {
+		this.photos = photos;
+	}
+	public int getPhotocnt() {
+		return photocnt;
+	}
+	public void setPhotocnt(int photocnt) {
+		this.photocnt = photocnt;
+	}
 	public PanoramaVO getPanorama() {
 		return panorama;
 	}

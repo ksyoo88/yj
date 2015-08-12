@@ -5,8 +5,17 @@ public class PanoDayPhotoVO {
 	private int panoDayPhoto;
 	private PanoDayVO panoDay;
 	private String photo;
+	private int size;
 	
 	
+	
+	
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
 	public int getPanoDayPhoto() {
 		return panoDayPhoto;
 	}

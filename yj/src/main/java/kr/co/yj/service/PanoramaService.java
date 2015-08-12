@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import kr.co.yj.vo.PanoDayPhotoVO;
+import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoramaVO;
+
 public interface PanoramaService {
 	
 	ArrayList<String> getTempPhoto(String email);
@@ -21,6 +25,8 @@ public interface PanoramaService {
 	
 	int panolike(int memno,int panono,boolean likecheck);
 	
-	 //getPanorama(int panono);
+	PanoramaVO getPanorama(int panono);
+	ArrayList<PanoDayVO> getPanoday(int panono);
+	ArrayList<PanoDayPhotoVO> getPanodayPhoto(int panodayno);
 	
 }

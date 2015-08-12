@@ -11,7 +11,7 @@
 	<resultMap type="Panorama" id="panorama">		
 		<result column="PANO_NO" property="panoNo"/>
 		<result column="MEM_NO" property="member.no"/>
-		<result column="PANO_TITLE" property="panotitle"/>
+		<result column="PANO_TITLE" property="panoTitle"/>
 		<result column="PANO_LIKE" property="panoLike"/>
 		<result column="PANO_REGDATE" property="panoRegdate"/>
 	 </resultMap>	 
@@ -24,7 +24,7 @@
 	 </resultMap>	 
 	<resultMap type="PanoDayPhoto" id="panodayphoto">		
 		<result column="PANO_DAY_PHOTO_NO" property="panoDayPhoto"/>
-		<result column="PANO_DAY_NO" property="panoday.no"/>
+		<result column="PANO_DAY_NO" property="panoDay.no"/>
 		<result column="PANO_DAY_PHOTO" property="photo"/>
 	 </resultMap>	 
 	
@@ -97,6 +97,18 @@
 
 		WHERE PANO_NO=#{panono}
 	</update>
+	
+	<select id="getPanorama" parameterType="int" resultMap="panorama">
+		SELECT * FROM YJ_PANORAMA WHERE PANO_NO=#{value}
+	</select>
+	<select id="getPanoday" parameterType="int" resultMap="panoday">
+		SELECT * FROM YJ_PANO_DAY WHERE PANO_NO=#{value}
+	</select>
+	<select id="getPanodayPhoto" parameterType="int" resultMap="panodayphoto">
+		SELECT * FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO=#{value}
+	</select>
+	
+	
 	
 	
 </mapper>
