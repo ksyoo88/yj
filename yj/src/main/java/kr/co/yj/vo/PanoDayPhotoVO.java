@@ -1,6 +1,6 @@
 package kr.co.yj.vo;
 
-public class PanoDayPhoto {
+public class PanoDayPhotoVO {
 	
 	private int dayDayPhoto;
 	private PanoDayVO panoDay;
@@ -25,6 +25,7 @@ public class PanoDayPhoto {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
 	
 	
 
