@@ -3,11 +3,12 @@ package kr.co.yj.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.vo.MemberVO;
 
 public interface MemberDao {
 
-	void addMember(MemberVO mem);
+	void addMember(MemberDetail mem);
 	
 	String getMemberPwd(MemberVO mem);
 	

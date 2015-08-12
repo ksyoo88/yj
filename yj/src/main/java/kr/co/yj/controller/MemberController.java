@@ -29,8 +29,7 @@ public class MemberController {
 	private MappingJackson2JsonView jsonview;
 	
 	@RequestMapping("/addmember.do")
-	public ModelAndView addMember(MemberVO mem) {
-		
+	public ModelAndView addMember(MemberDetail mem) {
 		ModelAndView mav= new ModelAndView();
 		
 		memberservice.addMember(mem);

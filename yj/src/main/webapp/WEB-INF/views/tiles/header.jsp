@@ -281,18 +281,18 @@ $(document).ready(function(){
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form" method="post" action="addmember.do" >
+						<form role="form" method="post" action="addmember.do" id="joinform">
 							<div class="form-group">
 								<label for="username"><span
-									class="glyphicon glyphicon-user"></span> 회원이름</label> <input
-									type="text" class="form-control" name="name" id="username"
-									placeholder="이름이나 닉네임">
+									class="glyphicon glyphicon-user"></span> 회원이름</label>
+									<input type="text" class="form-control" name="name" id="username"
+										placeholder="이름이나 닉네임" maxlength="30">
 							</div>
 							<div class="form-group">
 								<label for="user"><span
-									class="glyphicon glyphicon-envelope"></span> 이메일</label> <input
-									type="text" class="form-control" name="email" id="email"
-									placeholder="이메일">
+									class="glyphicon glyphicon-envelope"></span> 이메일</label>
+									<input type="text" class="form-control" name="email" id="email"
+										placeholder="이메일" maxlength="100">
 							</div>
 							<div class="form-group">
 								<label for="password1"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
@@ -311,7 +311,7 @@ $(document).ready(function(){
 								<label><input type="radio" name="gender" value="f" >여자</label>
 							</div>
 							
-							<button type="submit" class="btn btn-success btn-block">
+							<button type="button" class="btn btn-success btn-block joinBtn">
 								<span class="glyphicon glyphicon-new-window">
 							</span> 회원가입
 							</button>
@@ -328,6 +328,80 @@ $(document).ready(function(){
 
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			$(function() {
+				var querystring = location.search.substring(1);
+				if(querystring.includes("join")) {
+					$("#formModal").modal();
+				}
+				// 유효성 검사
+				//name
+				//email
+				//password1
+				//password2
+				//birth
+				$(".joinBtn").on("click", function() {
+					$frm = $("#joinform");
+					$name = $("input[name=name]");
+					$email = $("input[name=email]");
+					$password1 = $("input[id=password1]");
+					$password2 = $("input[id=password2]");
+					$birth = $("input[name=birth]");
+					
+					if ($name.val() == '') {
+						$name.focus();
+						alert('이름을 입력해 주세요.');
+						return false;
+					}
+					if ($email.val() == '') {
+						$email.focus();
+						alert('이메일을 입력해 주세요.');
+						return false;
+					}
+					if ($password1.val() == '') {
+						$password1.focus();
+						alert('비밀번호를 입력해 주세요.');
+						return false;
+					}
+					if ($birth.val() == '') {
+						$birth.focus();
+						alert('생년월일을 입력해 주세요.');
+						return false;
+					}
+					
+					// email patt
+					var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+					if(!regExp.test($email.val())) {
+						$email.focus();
+						alert('이메일이 잘 못 입력되었습니다.');
+						return false;
+					}
+					
+					if($password1.val() != $password2.val()) {
+						$password1.focus();
+						alert('비밀번호가 일치하지 않습니다.');
+						return false;
+					}
+					
+					regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}$/;
+					if(!regExp.test($password1.val())) {
+						$password1.focus();
+						alert('비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6자리 이상 16자리 이하)');
+						return false;
+					}
+					
+					regExp = /^(\d{2})[0|1](\d)[0|1|2|3](\d)$/;
+					if(!regExp.test($birth.val())) {
+						$birth.focus();
+						alert('생년월일(6자리)을 정확히 입력해 주세요.');
+						return false;
+					}
+					
+					$frm.submit();
+				});
+			});
+		</script>
 		
 </div>
 

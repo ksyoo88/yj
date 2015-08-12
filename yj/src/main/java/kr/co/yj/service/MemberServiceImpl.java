@@ -4,18 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.security.Md5Util;
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.vo.MemberVO;
 
 @Service
@@ -30,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//서비스
 	
-	public void addMember(MemberVO mem) {
+	public void addMember(MemberDetail mem) {
 		
 		String password=mem.getPassword();
 		if(mem.getGender().equals("m")){

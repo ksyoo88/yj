@@ -52,8 +52,8 @@
 		<span class="sub_title">나만의 여행을 만들어 보세요!</span>
 		<h1><span>미리 떠나는 나만의 여행<br />시작해 볼까요?</span></h1>
 		<ul class="main_btn">
-			<li class="pink"><span class="hand">여기추천</span></li>
-			<li class="sky"><span class="hand">저기가자</span></li>
+			<li class="pink"><a href="/attraction.do"><span class="hand">여기추천</span></a></li>
+			<li class="sky"><a href="/plan.do"><span class="hand">저기가자</span></a></li>
 		</ul>
 	</div>
 	

@@ -5,7 +5,7 @@
 	<div class="container-fluid text-center">
 		<div class="header">
 			<div class="title">
-				<img src="resources/images/attraction/title_smartplanb.jpg">
+				<h1>여기? 저기!</h1>
 			</div>
 			<ul class="tab_step">
 				<li class="step0 on"><strong>STEP1</strong> &nbsp;<br><span class="select">여행도시</span></li>

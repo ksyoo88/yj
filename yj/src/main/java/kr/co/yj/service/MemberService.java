@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.vo.MemberVO;
 
 public interface MemberService {
 
-	void addMember(MemberVO mem);
+	void addMember(MemberDetail mem);
 	void sendemail(/*String subject,String text,String from,*/String to);
 	
 	boolean checkEmail(String email);
