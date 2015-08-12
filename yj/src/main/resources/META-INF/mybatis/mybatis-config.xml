@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="kr.co.yj.vo.MemberVO" alias="Member"/>
+		<typeAlias type="kr.co.yj.security.MemberDetail" alias="MemberDetail"/>
 		<typeAlias type="kr.co.yj.vo.Place" alias="Place"/>
 		<typeAlias type="kr.co.yj.vo.PlaceAreaPointVO" alias="PlaceAreaPoint"/>
 		<typeAlias type="kr.co.yj.vo.Attraction" alias="Attraction"/>

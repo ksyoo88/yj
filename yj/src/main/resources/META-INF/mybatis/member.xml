@@ -9,7 +9,6 @@
 		id에는 <select/>resultMap에서 사용할이름
 	 -->
 	<resultMap type="Member" id="mem">
-		
 		<result column="MEM_NO" property="no"/>
 		<result column="MEM_EMAIL" property="email"/>
 		<result column="MEM_NAME" property="name"/>
@@ -17,10 +16,19 @@
 		<result column="MEM_BIRTH" property="birth"/>
 		<result column="MEM_GENDER" property="gender"/>
 		<result column="MEM_PHOTO" property="photo"/>
-	</resultMap> 
+	</resultMap>
+	<resultMap type="MemberDetail" id="memberDetail">
+		<result column="MEM_NO" property="no"/>
+		<result column="MEM_EMAIL" property="email"/>
+		<result column="MEM_NAME" property="name"/>
+		<result column="MEM_PASSWORD" property="password"/>
+		<result column="MEM_BIRTH" property="birth"/>
+		<result column="MEM_GENDER" property="gender"/>
+		<result column="MEM_PHOTO" property="photo"/>
+	</resultMap>
 	
 
-	<insert id="addMember" parameterType="Member" >
+	<insert id="addMember" parameterType="MemberDetail" >
 	INSERT INTO YJ_MEMBER(MEM_NO,MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER,MEM_PHOTO)
 	 VALUES (MEM_SEQ.nextval,#{email},#{name},#{password},#{birth},#{gender},#{photo})
 	</insert>
