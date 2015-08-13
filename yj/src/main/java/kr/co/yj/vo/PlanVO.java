@@ -5,6 +5,10 @@ import java.util.Date;
 
 import kr.co.yj.security.MemberDetail;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class PlanVO {
 
 	private int no;
@@ -60,7 +64,10 @@ public class PlanVO {
 	}
 	
 	public String getStrStartDay() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");	
+		if (startDayDate == null) {
+			return "";
+		}
 		return sdf.format(startDayDate); 
 	}
 
@@ -74,6 +81,9 @@ public class PlanVO {
 	
 	public String getStrFinishDay() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");		
+		if (finishDayDate == null) {
+			return "";
+		}
 		return sdf.format(finishDayDate);
 	}
 

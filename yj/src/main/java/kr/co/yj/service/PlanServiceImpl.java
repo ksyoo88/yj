@@ -5,10 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PlaceDao;
 import kr.co.yj.dao.PlanDao;
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
+import kr.co.yj.vo.PlanCommentVO;
 import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
 
@@ -23,6 +26,9 @@ public class PlanServiceImpl implements PlanService {
 	
 	@Autowired
 	PlanDao planDao;
+	
+	@Autowired
+	MemberDao memberDao;
 	
 	@Override
 	public ArrayList<Place> getMapOnThePlaces(PlaceAreaPointVO placeAreaPoint) {
@@ -94,6 +100,23 @@ public class PlanServiceImpl implements PlanService {
 		}
 		
 		return tempPlanDayVo;
+	}
+	
+	@Override
+	public void insertComment(PlanCommentVO planCommentVo) {
+		planDao.insertComment(planCommentVo);
+	}
+	
+	@Override
+	public ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no) {
+		ArrayList<PlanCommentVO> comments = planDao.getPlanCommentByPlanNo(no);
+		
+		for(PlanCommentVO c : comments){
+			int memNo = c.getMember().getNo();
+			c.setMember(memberDao.getMemberbyNo(memNo));
+		}
+		
+		return comments;
 	}
 	
 }

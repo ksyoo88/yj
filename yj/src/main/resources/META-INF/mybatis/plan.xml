@@ -12,13 +12,32 @@
 		<result column="PLAN_START_DAY" property="startDayDate"/>
 		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
 		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
-	 </resultMap>	 
+	 </resultMap>
+	 
+	 <resultMap type="Plan" id="plan2">		
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="member.no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_TREVEL_CNT" property="trevelCnt"/>
+		<result column="PLAN_START_DAY" property="startDayDate"/>
+		<result column="PLAN_FINISH_DAY" property="finishDayDate"/>
+		<result column="PLAN_LIKE_CNT" property="likeCnt"/>		
+		<result column="MEM_NAME" property="member.name"/>	
+	 </resultMap>
 	 
 	 <resultMap type="PlanDay" id="planday">		
 		<result column="PLAN_NO" property="plan.no"/>
 		<result column="PLAN_DAY_NO" property="no"/>
 		<result column="PLAN_DAY_DATE" property="dayDate"/>
 		<result column="CONTENTID" property="place.contentid"/>
+	 </resultMap>
+	 
+	 <resultMap type="PlanComment" id="plancomment">
+	 	<result column="PLAN_COMMENT_NO" property="no"/>
+	 	<result column="MEM_NO" property="member.no"/>
+	 	<result column="PLAN_CONTENT" property="content"/>
+	 	<result column="PLAN_NO" property="plan.no"/>
+	 	<result column="PLAN_COMMENT_DATE" property="commentDate"/>
 	 </resultMap>
 	 
 	<!-- PlaceAreaPoint 사용해라 -->
@@ -39,15 +58,16 @@
 		FROM DUAL
 	</select>
 
-	<select id="getPlanByNo" parameterType="int" resultMap="plan">
+	<select id="getPlanByNo" parameterType="int" resultMap="plan2">
 		SELECT  PLAN_NO, 
-				MEM_NO,
-				PLAN_TITLE, 
-				PLAN_TREVEL_CNT, 
-				PLAN_START_DAY,
-				PLAN_FINISH_DAY,
-				PLAN_LIKE_CNT
-		FROM YJ_PLAN
+				A.MEM_NO,
+				A.PLAN_TITLE, 
+				A.PLAN_TREVEL_CNT, 
+				A.PLAN_START_DAY,
+				A.PLAN_FINISH_DAY,
+				A.PLAN_LIKE_CNT,
+        		(SELECT MEM_NAME FROM YJ_MEMBER B WHERE B.MEM_NO = A.MEM_NO)  MEM_NAME
+		FROM YJ_PLAN A
 		WHERE PLAN_NO = #{value}
 	</select>
 	
@@ -71,6 +91,16 @@
 		ORDER BY PLAN_DAY_NO ASC
 	</select>
 	
+	<insert id="insertComment" parameterType="PlanComment">
+		INSERT INTO YJ_PLAN_COMMENT (PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE )
+    	VALUES ( PLAN_COMMENT_SEQ.NEXTVAL, #{member.no}, #{content}, #{plan.no}, sysdate)
+	</insert>
+	
+	<select id="getPlanCommentByPlanNo" parameterType="int" resultMap="plancomment">
+		SELECT PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE
+	    FROM YJ_PLAN_COMMENT
+	    WHERE PLAN_NO = #{value}
+	</select>
 
 	
 </mapper>

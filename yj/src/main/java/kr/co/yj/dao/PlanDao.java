@@ -2,6 +2,7 @@ package kr.co.yj.dao;
 
 import java.util.ArrayList;
 
+import kr.co.yj.vo.PlanCommentVO;
 import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
 
@@ -15,6 +16,10 @@ public interface PlanDao {
 	
 	PlanVO getPlanByNo(int no);
 	ArrayList<PlanDayVO> getPlanDayByNo(int no);
+	
+	void insertComment(PlanCommentVO planCommentVo);
+	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
+	
 	
 	
 }

@@ -17,9 +17,11 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :
-							${member.no }</p>
+							${plan.member.name }</p>
 						<button type="button" class="btn btn-default">URL 복사</button>
-						<button type="button" class="btn btn-default">수정하기</button>
+						<c:if test="${plan.member.no == member.no }">
+							<button type="button" class="btn btn-default">수정하기</button>
+						</c:if>
 						<button type="button" class="btn btn-default">좋아요</button>
 						<button type="button" class="btn btn-default">공유하기</button>
 					</div>
@@ -83,7 +85,7 @@
 			<div class="col-md-12">
 				<div id="commentContent">
 					<div class="panel panel-default">
-						<div class="panel-body">
+						<div class="panel-body" id="commentContent">
 							<p>
 								와 이 일정 괜찮다 <img src="#" width="30" height="30"> <strong>곽태민</strong>
 								(2015.08.10) 11:30:22
@@ -94,14 +96,15 @@
 				<div id="footerContent">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<div class="input-group input-group-lg">
-								<input type="text" class="form-control" placeholder="뎃글을 입력해주세요."
-									aria-describedby="basic-addon2"> <span
-									class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<strong>곽태민</strong> <img src="#" width="30" height="30">
+							<div class="input-group input-group-lg">				
+									
+								<input id="commentText" type="text" class="form-control" name="comment" placeholder="뎃글을 입력해주세요." aria-describedby="basic-addon2"/> 
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="submit" id="commentInsert" data-plan-no="${plan.no }">
+										<strong>${member.name }</strong> <img src="#" width="30" height="30">
 									</button>
 								</span>
+								
 							</div>
 						</div>
 					</div>

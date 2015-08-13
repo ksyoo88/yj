@@ -2,6 +2,7 @@ package kr.co.yj.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import kr.co.yj.service.PlanServiceImpl;
 import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
+import kr.co.yj.vo.PlanCommentVO;
 import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
 
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -43,6 +46,8 @@ public class PlanController {
 			                     HttpSession session) throws ParseException {
 		
 		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
+		
+		
 		planVo.setMember(memberVo);
 		
 		
@@ -60,6 +65,9 @@ public class PlanController {
 		ModelAndView mav = new ModelAndView();
 		
 		PlanVO plan = planService.getPlanByNo(no);
+		
+		System.out.println("[-------------------------------------]"+plan.getMember().getNo());
+		System.out.println("[-------------------------------------]"+plan.getMember().getName());
 		ArrayList<PlanDayVO> planDay = planService.getPlanDayByNo(no);
 
 //		for(PlanDayVO p : planDay ){
@@ -104,6 +112,26 @@ public class PlanController {
 		
 		return mav;		
 		
+	}
+	@RequestMapping("/plancommentinsert.do")
+	@ResponseBody
+	public ModelAndView commentInsert(PlanCommentVO planComment, HttpSession session ){
+		
+		
+		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
+		
+		planComment.setMember(memberVo);
+		planComment.setCommentDate(new Date());
+		
+		planService.insertComment(planComment);		
+		
+		ModelAndView mav = new ModelAndView();		
+		
+		mav.addObject("comment", planComment);
+		
+		mav.setView(jsonView);
+		
+		return mav;
 	}
 	
 }

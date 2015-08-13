@@ -160,7 +160,26 @@ $(function() {
 		
 	});
 	
+	$("#commentInsert").click(function(){
+		var comment = $("#commentText").val();
+		var planNo = $("#commentInsert").data("plan-no");
+		
+		console.log(comment,", " ,planNo);
+		
+		$.ajax({
+			url:"plancommentinsert.do",
+			type:"post",
+			data:{ "content" :comment, "plan.no" :planNo},
+			dataType:"json",
+			success : function(result) {
+				
+				$("#commentContent p:last").append( "<p>" + result.comment.content + "<img src='#' width='30' height='30'>"+ 
+													"<strong>"+result.comment.member.name+"</strong>"+result.comment.strCommentDate+"</p>");
 
+				
+			}
+		});
+	});
 	
 	
 	

@@ -30,6 +30,12 @@ div#centerLeftContent .palceName{
 /* 	background-color : #FFAD33; */
 }
 
+nav#navigationBar {
+	margin-bottom : 0px;
+	border-radius: 0px;
+	border : 0px;
+}
+
 div.palceInfo {
 	margin-left : 10px;
 	padding-left : 10px;
