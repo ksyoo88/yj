@@ -76,6 +76,11 @@
 		FROM DUAL	
 	</select>
 	
+	<select id="getPlanComment" resultType="int">
+		SELECT PLAN_COMMENT_SEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
 	<insert id="insertPlanDay" parameterType="PlanDay">
 		INSERT INTO YJ_PLAN_DAY (PLAN_NO, PLAN_DAY_NO, PLAN_DAY_DATE, CONTENTID)
 		VALUES( #{plan.no}, #{no}, #{dayDate}, #{place.contentid} ) 
@@ -93,7 +98,7 @@
 	
 	<insert id="insertComment" parameterType="PlanComment">
 		INSERT INTO YJ_PLAN_COMMENT (PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE )
-    	VALUES ( PLAN_COMMENT_SEQ.NEXTVAL, #{member.no}, #{content}, #{plan.no}, sysdate)
+    	VALUES ( #{no}, #{member.no}, #{content}, #{plan.no}, sysdate)
 	</insert>
 	
 	<select id="getPlanCommentByPlanNo" parameterType="int" resultMap="plancomment">
@@ -101,6 +106,10 @@
 	    FROM YJ_PLAN_COMMENT
 	    WHERE PLAN_NO = #{value}
 	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM YJ_PLAN_COMMENT WHERE PLAN_COMMENT_NO= #{value}
+	</delete>
 
 	
 </mapper>

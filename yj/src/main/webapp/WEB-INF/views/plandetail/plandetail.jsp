@@ -79,17 +79,21 @@
 							<strong><small>${day.place.title }</small></strong>
 						</p>
 					</div>
-					<%-- 		<div class="col-md-6"><p style="font-size:80%"><strong> ${day.place.overview }"</strong></p></div> --%>
 				</c:forEach>			
 			</div> <!-- col-md-8 -->
 			<div class="col-md-12">
 				<div id="commentContent">
 					<div class="panel panel-default">
 						<div class="panel-body" id="commentContent">
-							<p>
-								와 이 일정 괜찮다 <img src="#" width="30" height="30"> <strong>곽태민</strong>
-								(2015.08.10) 11:30:22
-							</p>
+							<c:forEach var="comment" items="${planComment }">
+								<p>
+								<c:if test="${comment.member.no == member.no }">
+									<button class="btn btn-danger btn-xs pull-left commentDelete" data-commentno="${comment.no }" type="button">삭제</button>
+								</c:if>
+									${comment.content} <img src="resources/images/profilephoto/${comment.member.photo }" width="30" height="30"> <strong>${comment.member.name}</strong>
+									${comment.strCommentDate}
+								</p>
+							</c:forEach>
 						</div>
 					</div>
 				</div><!-- commentContent -->		
@@ -100,7 +104,7 @@
 									
 								<input id="commentText" type="text" class="form-control" name="comment" placeholder="뎃글을 입력해주세요." aria-describedby="basic-addon2"/> 
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="submit" id="commentInsert" data-plan-no="${plan.no }">
+									<button class="btn btn-default" type="button" id="commentInsert" data-plan-no="${plan.no }">
 										<strong>${member.name }</strong> <img src="#" width="30" height="30">
 									</button>
 								</span>

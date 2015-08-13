@@ -17,8 +17,11 @@ public interface PlanDao {
 	PlanVO getPlanByNo(int no);
 	ArrayList<PlanDayVO> getPlanDayByNo(int no);
 	
+	int getPlanComment();
 	void insertComment(PlanCommentVO planCommentVo);
+	void deleteComment(int no);
 	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
+	
 	
 	
 	

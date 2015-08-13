@@ -21,5 +21,7 @@ public interface PlanService {
 	
 	void insertComment(PlanCommentVO planCommentVo);
 	
+	void deleteComment(int no);
+	
 	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
 }

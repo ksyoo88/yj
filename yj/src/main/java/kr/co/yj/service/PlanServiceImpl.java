@@ -104,6 +104,8 @@ public class PlanServiceImpl implements PlanService {
 	
 	@Override
 	public void insertComment(PlanCommentVO planCommentVo) {
+		int seq = planDao.getPlanComment();
+		planCommentVo.setNo(seq);
 		planDao.insertComment(planCommentVo);
 	}
 	
@@ -114,9 +116,14 @@ public class PlanServiceImpl implements PlanService {
 		for(PlanCommentVO c : comments){
 			int memNo = c.getMember().getNo();
 			c.setMember(memberDao.getMemberbyNo(memNo));
-		}
-		
+		}		
 		return comments;
+	}
+	
+	@Override
+	public void deleteComment(int no) {
+
+		planDao.deleteComment(no);
 	}
 	
 }

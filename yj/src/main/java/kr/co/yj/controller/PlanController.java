@@ -66,20 +66,13 @@ public class PlanController {
 		
 		PlanVO plan = planService.getPlanByNo(no);
 		
-		System.out.println("[-------------------------------------]"+plan.getMember().getNo());
-		System.out.println("[-------------------------------------]"+plan.getMember().getName());
 		ArrayList<PlanDayVO> planDay = planService.getPlanDayByNo(no);
-
-//		for(PlanDayVO p : planDay ){
-//			System.out.println(p.getPlace().getTitle());
-//			System.out.println(p.getPlace().getAddr1());
-//			System.out.println(p.getPlace().getCat1());
-//			System.out.println(p.getPlace().getTel());
-//		}
+		ArrayList<PlanCommentVO> planComment = planService.getPlanCommentByPlanNo(no);
 		
 		mav.addObject("count", 0);
 		mav.addObject("plan", plan );
 		mav.addObject("planDay", planDay);
+		mav.addObject("planComment",planComment);
 		mav.setViewName("/plandetail/plandetail.tiles");
 		
 		return mav;
@@ -133,5 +126,19 @@ public class PlanController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/plancommentdelete.do")
+	public ModelAndView commentDelete(@RequestParam("no")int no){
+	
+		ModelAndView mav = new ModelAndView();
+		
+		planService.deleteComment(no);
+		
+		mav.setView(jsonView);
+		
+		return mav;
+		
+	}
+	
 	
 }

@@ -173,14 +173,46 @@ $(function() {
 			dataType:"json",
 			success : function(result) {
 				
-				$("#commentContent p:last").append( "<p>" + result.comment.content + "<img src='#' width='30' height='30'>"+ 
+				$("#commentContent .panel .panel-body").append( "<p><button class='btn btn-danger btn-xs pull-left commentDelete' data-commentno='"+ result.comment.no +"' type='button'>삭제</button>" + result.comment.content + "<img src='resources/images/profilephoto/"+result.comment.member.photo+"' width='30' height='30'>"+ 
 													"<strong>"+result.comment.member.name+"</strong>"+result.comment.strCommentDate+"</p>");
+				$(".commentDelete").click(function(){
 
-				
+					var no = $(this).data("commentno");
+					$(this).parent().html("");
+					alert(no);
+					$.ajax({
+						url :"plancommentdelete.do",
+						type : "post",
+						data : {no:no},
+						dataType:"json",
+						success :function (result){				
+											
+						}			
+					});		
+	
+				});
 			}
 		});
+		
+		$("#commentText").val("");
+		
 	});
 	
+	$(".commentDelete").click(function(){
+		
+		var no = $(this).data("commentno");
+		$(this).parent().html("");
+		alert(no);
+		$.ajax({
+			url :"plancommentdelete.do",
+			type : "post",
+			data : {no:no},
+			dataType:"json",
+			success :function (result){				
+				$(this).parent().html("");				
+			}			
+		});		
+	});
 	
 	
 });
