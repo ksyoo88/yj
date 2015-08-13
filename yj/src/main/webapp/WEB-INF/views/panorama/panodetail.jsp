@@ -18,7 +18,7 @@
 							<div class="date-day">
 							<c:forEach items="${panorama.panodays }" var="panodays" varStatus="day">
 								<p>
-									<a class="moveScroll" href="#photo-2015-03-29"><fmt:formatDate value="${panodays.date }" pattern="d"/></a>
+									<a class="moveScroll" href="#photo-${panodays.date }"><fmt:formatDate value="${panodays.date }" pattern="d"/></a>
 								</p>
 							</c:forEach>
 							</div>
@@ -74,7 +74,7 @@
 							
 												
 							<div class="photolog-day">
-								<div class="title-box" id="photo-2015-03-29">
+								<div class="title-box" id="photo-${panodays.date }">
 									<div class="day">
 										DAY ${panodays.dayCnt } <span><fmt:formatDate value="${panodays.date }" pattern="d/M/yyyy"/></span>
 									</div>
@@ -105,16 +105,50 @@
 							</c:forEach>	
 							
 							
-							<div id="panoReplyWei" >
+							<div id="panoReplyShow">
+								<table style="width: 100%">
+								<tbody>
+								<c:forEach items="${panorama.replys }" var="replys">
+								
+									<tr id="replyNO${replys.panoReplyNo }">
+										<td>
+											<div class="user">
+												<div class="profile user-photo">
+													<div class="memberProfileImage profileImageMedium" style="position: relative; ">
+														<img src="resources/images/profilephoto/${replys.member.photo }" class="img-circle" width="45px" height="45px"style="margin-top: 3px;">
+													</div>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="userName t-name">${replys.member.name }</div>
+										</td>
+										<td> 
+											<div id="reply" >${replys.reply }</div>
+										</td>
+										<td>
+											<div><fmt:formatDate value="${replys.date }" pattern="yyyy/M/d"/> </div>
+										</td>
+										<td>
+											<c:if  test="${replys.member.no == member.no }">
+												<button type="button" onclick="deletereply(${replys.panoReplyNo })" data-reply-no="${replys.panoReplyNo }" class="btn btn-danger">삭제</button>
+							                </c:if>
+										</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+								</table>
+								
+							</div>
+							
+							<div id="panoReplyWrite" >
 								<table style="width: 100%">
 									<tr>
 										<td>
 											<div class="user">
 												<div class="profile user-photo">
-													<div class="memberProfileImage profileImageMedium"
-														style="position: relative; ">
-													<img src="resources/images/profilephoto/${panorama.member.photo }" class="img-circle" 
-													width="45px" height="45px"style="margin-top: 3px;">
+													<div class="memberProfileImage profileImageMedium" style="position: relative; ">
+														<img src="resources/images/profilephoto/${member.photo }" class="img-circle" width="45px" height="45px"style="margin-top: 3px;">
 													</div>
 													
 												</div>
@@ -123,46 +157,18 @@
 										</td>
 										<td>
 										
-											<div class="userName t-name" data-uno="4060">${panorama.member.name }</div>
+											<div class="userName t-name" >${member.name }</div>
 										</td>
 										<td>
-											 <input type="text" class="form-control" id="replywrite">
+											 <input type="text" class="form-control" onkeypress="if(event.keyCode==13) {replywrite(); return false;}" id="replyinput">
 										</td>
 										<td>
-											<button type="button" class="btn btn-default">작성</button>
+											<button type="button" class="btn btn-default" id="replywrite">작성</button>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div id="panoReplyShow">
-								<table style="width: 100%">
-									<tr>
-										<td>
-											<div class="user">
-												<div class="profile user-photo">
-													<div class="memberProfileImage profileImageMedium"
-														style="position: relative; ">
-													<img src="resources/images/profilephoto/${panorama.member.photo }" class="img-circle" 
-													width="45px" height="45px"style="margin-top: 3px;">
-													</div>
-													
-												</div>
-												
-											</div>
-										</td>
-										<td>
-											<div class="userName t-name" data-uno="4060">${panorama.member.name }</div>
-										</td>
-										<td> 
-											안녕하세요 구리네요
-										</td>
-										<td>
-											<button type="button" class="btn btn-danger">삭제</button>
-										</td>
-									</tr>
-								</table>
-								
-							</div>
+							
 							
 						</div>
 				</div>

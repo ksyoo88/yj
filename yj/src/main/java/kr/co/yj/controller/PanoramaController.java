@@ -22,6 +22,7 @@ import kr.co.yj.service.PanoramaService;
 import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoReplyVO;
 import kr.co.yj.vo.PanoramaVO;
 
 @Controller
@@ -258,6 +259,9 @@ public class PanoramaController {
 				}
 			}
 		}
+		
+		panorama.setReplys(service.getPanoReply(panoNo));
+		
 		mav.addObject("panorama", panorama);
 		
 		
@@ -272,6 +276,26 @@ public class PanoramaController {
 		int panolikecnt = service.panolike(memno, panono, likecheck);
 		
 		mav.addObject("panolikecnt", panolikecnt);
+		mav.setView(jsonview);
+		return mav;
+	}
+	@RequestMapping("panoreply.do")
+	public ModelAndView savePanoReply(@RequestParam("reply")String reply,
+									@RequestParam("panono")int panono,
+									HttpSession session){
+		ModelAndView mav= new ModelAndView();
+		MemberDetail member=(MemberDetail)session.getAttribute("member");
+		int memno=member.getNo();
+		service.savePanoReply(panono, memno, reply);
+		ArrayList<PanoReplyVO> replys=service.getPanoReply(panono);
+		mav.addObject("replys", replys);
+		mav.setView(jsonview);
+		return mav;
+	}
+	@RequestMapping("deletereply.do")
+	public ModelAndView deletereply(@RequestParam("replyno")int replyno){
+		ModelAndView mav= new ModelAndView();
+		service.deletereply(replyno);
 		mav.setView(jsonview);
 		return mav;
 	}

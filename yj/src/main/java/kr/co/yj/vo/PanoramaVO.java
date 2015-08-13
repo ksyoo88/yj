@@ -11,10 +11,19 @@ public class PanoramaVO {
 	private int panoLike;
 	private Date panoRegdate;
 	private ArrayList<PanoDayVO> panodays;
+	private ArrayList<PanoReplyVO> replys;
 	
 	
 	
 	
+	
+	
+	public ArrayList<PanoReplyVO> getReplys() {
+		return replys;
+	}
+	public void setReplys(ArrayList<PanoReplyVO> replys) {
+		this.replys = replys;
+	}
 	public ArrayList<PanoDayVO> getPanodays() {
 		return panodays;
 	}

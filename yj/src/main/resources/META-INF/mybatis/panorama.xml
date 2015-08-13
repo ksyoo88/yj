@@ -26,7 +26,15 @@
 		<result column="PANO_DAY_PHOTO_NO" property="panoDayPhoto"/>
 		<result column="PANO_DAY_NO" property="panoDay.no"/>
 		<result column="PANO_DAY_PHOTO" property="photo"/>
-	 </resultMap>	 
+	 </resultMap>	
+	<resultMap type="kr.co.yj.vo.PanoReplyVO" id="panoreply">		
+		<result column="PANO_REPLY_NO" property="panoReplyNo"/>
+		<result column="PANO_NO" property="panoNo"/>
+		<result column="PANO_REPLY_WRITER" property="member.no"/>
+		<result column="PANO_REPLY" property="reply"/>
+		<result column="PANO_REPLY_REGDATE" property="date"/>
+	 </resultMap>	
+	
 	
 	<insert id="addtempphoto" parameterType="hashmap">
 		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
@@ -108,7 +116,15 @@
 		SELECT * FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO=#{value}
 	</select>
 	
-	
+	<insert id="savePanoReply" parameterType="kr.co.yj.vo.PanoReplyVO">
+		INSERT INTO YJ_PANO_REPLY (PANO_REPLY_NO,PANO_NO,PANO_REPLY_WRITER,PANO_REPLY,PANO_REPLY_REGDATE) VALUES (PANO_REPLY_SEQ.nextval,#{panoNo},#{member.no},#{reply},sysdate)
+	</insert>
+	<select id="getPanoReply" parameterType="int" resultMap="panoreply">
+		SELECT * FROM YJ_PANO_REPLY WHERE PANO_NO=#{value} ORDER BY PANO_REPLY_REGDATE ASC
+	</select>
+	<delete id="deletereply" parameterType="int">
+		DELETE FROM YJ_PANO_REPLY WHERE PANO_REPLY_NO = #{value}
+	</delete>
 	
 	
 </mapper>

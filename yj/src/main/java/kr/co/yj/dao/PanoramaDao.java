@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoReplyVO;
 import kr.co.yj.vo.PanoramaVO;
 
 public interface PanoramaDao {
@@ -37,4 +38,7 @@ public interface PanoramaDao {
 	ArrayList<PanoDayVO> getPanoday(int panono);
 	ArrayList<PanoDayPhotoVO> getPanodayPhoto(int panodayno);
 
+	void savePanoReply(PanoReplyVO panoReply);
+	ArrayList<PanoReplyVO> getPanoReply(int panono);
+	void deletereply(int replyno);
 }

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PanoramaDao;
 import kr.co.yj.dao.PlaceDao;
+import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
+import kr.co.yj.vo.PanoReplyVO;
 import kr.co.yj.vo.PanoramaVO;
 import kr.co.yj.vo.Place;
 
@@ -180,4 +182,30 @@ public class panoramaServiceImpl implements PanoramaService {
 		return panoDayPhotoList;
 	}
 	
+	@Override
+	public void savePanoReply(int panono, int memno, String reply) {
+		PanoReplyVO panoReply = new PanoReplyVO();
+		panoReply.setReply(reply);
+		panoReply.setPanoNo(panono);
+		MemberVO member = new MemberVO();
+		member.setNo(memno);
+		panoReply.setMember(member);
+		
+		dao.savePanoReply(panoReply);
+	}
+	
+	@Override
+	public ArrayList<PanoReplyVO> getPanoReply(int panono) {
+		
+		ArrayList<PanoReplyVO> panoreplys = dao.getPanoReply(panono);
+		for(PanoReplyVO reply:panoreplys){
+			int memno= reply.getMember().getNo();
+			reply.setMember(memberdao.getMemberbyNo(memno));
+		}
+		return panoreplys;
+	}
+	@Override
+	public void deletereply(int replyno) {
+		dao.deletereply(replyno);
+	}
 }
