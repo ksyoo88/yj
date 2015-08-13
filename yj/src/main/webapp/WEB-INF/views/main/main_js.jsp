@@ -18,7 +18,8 @@
 			//register the user
 			//var nickname = $("#nickname").val();
 			var nickname = "${member.name}";
-			socket.send(nickname);
+			var userImage = "${member.photo}";
+			socket.send(nickname+":"+userImage);
 		};
 
 		//When received a message, parse it and either add/remove user or post message.
@@ -29,7 +30,7 @@
 			if (message.addUser) {
 				var d = document.createElement('div');
 				var img = new Image(30,30);
-				img.src = 'resources/images/profilephoto/'+'${member.photo}';
+				img.src = 'resources/images/profilephoto/'+message.userImage;
 				
 				$(d).addClass("username user").append(img).append(message.addUser).attr(
 						"data-user", message.addUser).appendTo("#nicknamesBox");
@@ -40,7 +41,7 @@
 				var suser = document.createElement('span');
 				var smessage = document.createElement('span');
 				var img = new Image(30,30);
-				img.src = 'resources/images/profilephoto/'+'${member.photo}';
+				img.src = 'resources/images/profilephoto/'+message.userImage;
 
 				$(suser).addClass("username").append(img).append(message.nickname + " : ")
 						.appendTo($(d));

@@ -13,70 +13,75 @@ import org.springframework.web.socket.WebSocketSession;
 
 @Service
 public class ChatService {
-  
-  private Set<WebSocketSession> conns = java.util.Collections.synchronizedSet(new HashSet<WebSocketSession>());
-  private Map<WebSocketSession, String> nickNames = new ConcurrentHashMap<WebSocketSession, String>();
-  
-  public void registerOpenConnection(WebSocketSession session) {
-    conns.add(session);
-  }
-  
-  public void registerCloseConnection(WebSocketSession session) {
-    String nick = nickNames.get(session);
-    conns.remove(session);
-    nickNames.remove(session);
-    if (nick!= null) {
-      String messageToSend = "{\"removeUser\":\"" + nick + "\"}";
-      for (WebSocketSession sock : conns) {
-        try {
-          sock.sendMessage(new TextMessage(messageToSend));
-        } catch (IOException e) {
-          System.out.println("IO exception when sending remove user message");
-        }
-      }
-    }    
-  }
-  
-  public void processMessage(WebSocketSession session, String message) {
-    if (!nickNames.containsKey(session)) {
-      //No nickname has been assigned by now
-      //the first message is the nickname
-      //escape the " character first
-      message = message.replace("\"", "\\\"");
-      
-      //broadcast all the nicknames to him
-      for (String nick : nickNames.values()) {
-        try {
-          session.sendMessage(new TextMessage("{\"addUser\":\"" + nick + "\"}"));
-        } catch (IOException e) {
-          System.out.println("Error when sending addUser message");          
-        }
-      }
-      
-      //Register the nickname with the 
-      nickNames.put(session, message);
-      
-      //broadcast him to everyone now
-      String messageToSend = "{\"addUser\":\"" + message + "\"}";
-      for (WebSocketSession sock : conns) {
-        try {
-          sock.sendMessage(new TextMessage(messageToSend));
-        } catch (IOException e) {
-          System.out.println("Error when sending broadcast addUser message");
-        }
-      }
-    } else {
-      //Broadcast the message
-      String messageToSend = "{\"nickname\":\"" + nickNames.get(session)
-          + "\", \"message\":\"" + message.replace("\"", "\\\"") +"\"}";
-      for (WebSocketSession sock : conns) {
-        try {
-          sock.sendMessage(new TextMessage(messageToSend));
-        } catch (IOException e) {
-          System.out.println("Error when sending message message");
-        }
-      }
-    }
-  }
+
+	private Set<WebSocketSession> conns = java.util.Collections.synchronizedSet(new HashSet<WebSocketSession>());
+	private Map<WebSocketSession, String> nickNames = new ConcurrentHashMap<WebSocketSession, String>();
+
+	public void registerOpenConnection(WebSocketSession session) {
+		conns.add(session);
+	}
+
+	public void registerCloseConnection(WebSocketSession session) {
+		String nick = nickNames.get(session);
+		conns.remove(session);
+		nickNames.remove(session);
+		if (nick!= null) {
+			String messageToSend = "{\"removeUser\":\"" + nick.split(":")[0] + "\"}";
+			for (WebSocketSession sock : conns) {
+				try {
+					sock.sendMessage(new TextMessage(messageToSend));
+				} catch (IOException e) {
+					System.out.println("IO exception when sending remove user message");
+				}
+			}
+		}    
+	}
+
+	public void processMessage(WebSocketSession session, String message) {
+		if (!nickNames.containsKey(session)) {
+			//No nickname has been assigned by now
+			//the first message is the nickname
+			//escape the " character first
+			message = message.replace("\"", "\\\"");
+
+			//broadcast all the nicknames to him
+			for (String nick : nickNames.values()) {
+				System.out.println(nick);
+				String[] nickArr = nick.split(":");
+				try {
+					session.sendMessage(new TextMessage("{\"addUser\":\"" + nickArr[0] + "\", \"userImage\":\"" + nickArr[1] + "\"}"));
+				} catch (IOException e) {
+					System.out.println("Error when sending addUser message");          
+				}
+			}
+
+			//Register the nickname with the 
+			nickNames.put(session, message);
+
+			//broadcast him to everyone now
+			String[] strArr = nickNames.get(session).split(":");
+			String messageToSend = "{\"addUser\":\"" + strArr[0] + "\", \"userImage\":\"" + strArr[1] + "\"}";
+			for (WebSocketSession sock : conns) {
+				try {
+					sock.sendMessage(new TextMessage(messageToSend));
+				} catch (IOException e) {
+					System.out.println("Error when sending broadcast addUser message");
+				}
+			}
+		} else {
+			//Broadcast the message
+			String[] strArr = nickNames.get(session).split(":");
+			
+			String messageToSend = "{\"nickname\":\"" + strArr[0]
+					+ "\", \"userImage\":\"" +strArr[1]+ "\", \"message\":\"" + message.replace("\"", "\\\"") +"\"}";
+			for (WebSocketSession sock : conns) {
+				try {
+					sock.sendMessage(new TextMessage(messageToSend));
+				} catch (IOException e) {
+					System.out.println("Error when sending message message");
+				}
+			}
+		}
+	}
 
 }

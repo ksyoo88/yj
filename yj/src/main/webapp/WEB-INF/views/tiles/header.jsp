@@ -330,15 +330,30 @@ $(document).ready(function(){
 		<script type="text/javascript">
 			$(function() {
 				var querystring = location.search.substring(1);
-				if(querystring.includes("join")) {
+				if(querystring.indexOf("join") != -1) {
 					$("#formModal").modal();
 				}
+				
+				$("input[name=email]").on("blur", function() {
+					var $email = $(this);
+					$.ajax({
+			    		url : "checkEmail.do",
+			    		type : "post",
+			    		data : {email:$email.val()},
+			    		dataType : "text",
+			    		success : function (result) {
+			    			
+			    			if(result == "true") {
+			    				alert("존재하는 이메일 입니다.");
+			    				$email.val("");
+			    				$email.focus();
+			    				return false;
+			    			}
+			    		}
+			    	});
+				});
+				
 				// 유효성 검사
-				//name
-				//email
-				//password1
-				//password2
-				//birth
 				$(".joinBtn").on("click", function() {
 					$frm = $("#joinform");
 					$name = $("input[name=name]");

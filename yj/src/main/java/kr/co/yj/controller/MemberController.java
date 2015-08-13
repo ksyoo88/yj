@@ -23,7 +23,6 @@ import kr.co.yj.security.Md5Util;
 import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.MailService;
 import kr.co.yj.service.MemberServiceImpl;
-import kr.co.yj.vo.MemberVO;
 
 @Controller
 public class MemberController {
@@ -77,15 +76,6 @@ public class MemberController {
 		
 			return "redirect:/main.do?sendmail";
 		
-	}
-	
-	@RequestMapping("/getmem.do")
-	public MemberVO getmem(@RequestParam("email")String email){
-		
-		MemberVO mem= new MemberVO();
-		memberservice.getMembyEmail(email);
-		
-		return mem;
 	}
 	
 	@RequestMapping("/checkEmail.do")
