@@ -52,6 +52,8 @@ public class MemberController {
 		MemberVO mem = memberservice.getMembyEmail(to);
 		String pwd= memberservice.changePwd(mem);
 		String password=Md5Util.md5Text(pwd);
+		mem.setPassword(password);
+		memberservice.changePwd(mem);
 		StringBuffer html = new StringBuffer();
 		String html_str = "";
 		BufferedReader in = null;
