@@ -1,5 +1,8 @@
 package kr.co.yj.controller;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -16,7 +19,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import kr.co.yj.security.Md5Util;
 import kr.co.yj.security.MemberDetail;
+import kr.co.yj.service.MailService;
 import kr.co.yj.service.MemberServiceImpl;
 import kr.co.yj.vo.MemberVO;
 
@@ -25,6 +30,10 @@ public class MemberController {
 	
 	@Autowired
 	private MemberServiceImpl memberservice;
+	
+	@Autowired
+	private MailService mailService;
+	
 	@Autowired
 	private MappingJackson2JsonView jsonview;
 	
@@ -39,11 +48,32 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/email.do")
-	public String email(@RequestParam("to")String to){
+	public String email(@RequestParam("to")String to) {
+		MemberVO mem = memberservice.getMembyEmail(to);
+		String pwd= memberservice.changePwd(mem);
+		String password=Md5Util.md5Text(pwd);
+		StringBuffer html = new StringBuffer();
+		String html_str = "";
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new InputStreamReader(new FileInputStream("C:/spring_study/git/yj/src/main/webapp/resources/mail/findpw.jsp"),"UTF8"));
+			while((html_str =in.readLine() ) != null){
+				html.append(html_str);
+			}
+			System.out.println("##abc##:" + html.toString());
+			html_str = html.toString();
+			html_str = html_str.replaceAll("<pwd>", pwd);
+			mailService.sendHtmlMail("yogijogi@naver.com", to, "[여기저기]임시 비밀번호가 발급되었습니다.", html_str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(in != null) { in.close(); }
+			} catch (Exception e2) { }
+		}
+		// memberservice.sendemail(/*subject, text, from,*/ to);
 		
-		memberservice.sendemail(/*subject, text, from,*/ to);
-		
-			return "/main/login.tiles";
+			return "redirect:/main.do?sendmail";
 		
 	}
 	
@@ -59,7 +89,6 @@ public class MemberController {
 	@RequestMapping("/checkEmail.do")
 	@ResponseBody
 	public String checkEmail(@RequestParam("email")String email) {
-		
 		boolean check=memberservice.checkEmail(email);
 		
 		if(check){

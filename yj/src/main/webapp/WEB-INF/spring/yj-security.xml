@@ -10,6 +10,9 @@
 	<http pattern="/index.jsp" security="none" />
 	<http pattern="/favicon.ico" security="none" />
 	<http pattern="/addmember.do" security="none" />
+	<http pattern="/checkEmail.do" security="none" />
+	<http pattern="/email.do" security="none" />
+	<http pattern="/checkpwd.do" security="none" />
 	<http pattern="/chat/**" security="none" />
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="false">
@@ -18,7 +21,7 @@
 		</headers> -->
 		
 		<intercept-url pattern="/main.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-		<!-- <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" /> -->
+		
 		<intercept-url pattern="/**" access="ROLE_USER"/>
 		<!-- access denied page -->
 		<access-denied-handler error-page="/main.do" />

@@ -44,7 +44,7 @@
 	
 	<select id="getMemberPwd" parameterType="Member" resultType="string" >
 	select substr(pwd,1,8)
-		from (SELECT MEM_PASSWORD pwd FROM YJ_MEMBER WHERE MEM_EMAIL=#{email})		
+		from (SELECT MEM_PASSWORD pwd FROM YJ_MEMBER WHERE MEM_EMAIL=#{email})
 	</select>
 	<update id="updatePwd" parameterType="Member">
 	 	 UPDATE YJ_MEMBER SET MEM_PASSWORD =#{password}  WHERE MEM_EMAIL=#{email} 

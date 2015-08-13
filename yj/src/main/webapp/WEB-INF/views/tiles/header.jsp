@@ -36,7 +36,6 @@
 						</li>
 						<c:url var="logoutUrl" value="/j_spring_security_logout"/>
 						<form action="${logoutUrl}" method="post" id="logoutForm" style="display: none;">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						</form>
 						
 					</c:when>
@@ -145,7 +144,6 @@ $(document).ready(function(){
 							<button type="submit" class="btn btn-success btn-block">
 								<span class="glyphicon glyphicon-off"></span> Login
 							</button>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
 					<div class="modal-footer">

@@ -92,7 +92,6 @@ public class MemberServiceImpl implements MemberService {
 					message.setText("바뀐 비번은 [ "+pwd+" ] 입니다.");
 					
 					mailSender.send(message);
-			
 	}
 	
 	public ArrayList<String> getTemPhoto(String email) {
