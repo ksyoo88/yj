@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PanoramaDao;
 import kr.co.yj.dao.PlaceDao;
+import kr.co.yj.security.MemberDetail;
 import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
@@ -127,6 +128,7 @@ public class panoramaServiceImpl implements PanoramaService {
 		map.put("memno", memno);
 		map.put("panono", panono);
 		String check=dao.likecheck(map);
+		
 		int panolikecnt=dao.panolikecnt(panono);
 		if(check.equals("T")){
 			dao.likedelete(map);
@@ -145,6 +147,16 @@ public class panoramaServiceImpl implements PanoramaService {
 		return newpanolikecnt;
 		
 	}
+	@Override
+	public String likecheck(int panoNo, int memno) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memno", memno);
+		map.put("panono", panoNo);
+		String likecheck=dao.likecheck(map);
+		
+		return likecheck;
+	}
+	
 	@Override
 	public PanoramaVO getPanorama(int panono) {
 		
@@ -187,7 +199,7 @@ public class panoramaServiceImpl implements PanoramaService {
 		PanoReplyVO panoReply = new PanoReplyVO();
 		panoReply.setReply(reply);
 		panoReply.setPanoNo(panono);
-		MemberVO member = new MemberVO();
+		MemberDetail member = new MemberDetail();
 		member.setNo(memno);
 		panoReply.setMember(member);
 		

@@ -7,22 +7,16 @@
 function replywrite() {
 	$("#replywrite").click();
 }
-	
 function deletereply(replyno) {
-	
-	console.log(replyno);
-	
 	$.ajax({
 		url:"deletereply.do",
 		data:{replyno:replyno},
 		type:"post",
 		dataType:"json",
 		success: function(result) {
-			console.log('삭제성공?');
 			$("#replyNO"+replyno).remove();
 			}
 	})
-
 }
 
 
@@ -56,7 +50,6 @@ $(function (){
 	})
 	
 	$("#replywrite").click(function() {
-		console.log("작성")
 		var reply =$("#replyinput").val();
 		var panono=$(".title").data("panoNo");
 		var replyadd='';
@@ -90,8 +83,6 @@ $(function (){
 			}
 		})
 	})	
-	
-	
 	
 });
 </script>

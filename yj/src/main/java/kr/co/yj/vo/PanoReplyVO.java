@@ -2,10 +2,12 @@ package kr.co.yj.vo;
 
 import java.util.Date;
 
+import kr.co.yj.security.MemberDetail;
+
 public class PanoReplyVO {
 	private int panoReplyNo;
 	private int panoNo;
-	private MemberVO member;
+	private MemberDetail member;
 	private Date date;
 	private String reply;
 	
@@ -23,10 +25,10 @@ public class PanoReplyVO {
 	public void setPanoNo(int panoNo) {
 		this.panoNo = panoNo;
 	}
-	public MemberVO getMember() {
+	public MemberDetail getMember() {
 		return member;
 	}
-	public void setMember(MemberVO member) {
+	public void setMember(MemberDetail member) {
 		this.member = member;
 	}
 	public Date getDate() {

@@ -201,7 +201,7 @@ public class PanoramaController {
 	public ModelAndView panodetail(@RequestParam("panoNo")int panoNo,HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		MemberDetail member=(MemberDetail)session.getAttribute("member");
-		
+		int memno=member.getNo();
 		PanoramaVO panorama=service.getPanorama(panoNo);
 			
 		ArrayList<PanoDayVO> panodaylist= service.getPanoday(panoNo);
@@ -261,7 +261,7 @@ public class PanoramaController {
 		}
 		
 		panorama.setReplys(service.getPanoReply(panoNo));
-		
+		panorama.setLikecheck(service.likecheck(panoNo,memno));
 		mav.addObject("panorama", panorama);
 		
 		
@@ -273,9 +273,10 @@ public class PanoramaController {
 		ModelAndView mav = new ModelAndView();
 		MemberDetail member=(MemberDetail)session.getAttribute("member");
 		int memno=member.getNo();
-		int panolikecnt = service.panolike(memno, panono, likecheck);
+		int panolikecnt= service.panolike(memno, panono, likecheck);
 		
 		mav.addObject("panolikecnt", panolikecnt);
+		
 		mav.setView(jsonview);
 		return mav;
 	}

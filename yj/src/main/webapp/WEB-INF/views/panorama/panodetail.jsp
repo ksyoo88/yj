@@ -16,7 +16,8 @@
 							<div class="date-year"><fmt:formatDate value="${panorama.panoRegdate }" pattern="yyyy"/></div>
 							<div class="date-month"><fmt:formatDate value="${panorama.panoRegdate }" pattern="M"/></div>
 							<div class="date-day">
-							<c:forEach items="${panorama.panodays }" var="panodays" varStatus="day">
+							<c:forEach items="${panorama.panodays }" var="panodays">
+								
 								<p>
 									<a class="moveScroll" href="#photo-${panodays.date }"><fmt:formatDate value="${panodays.date }" pattern="d"/></a>
 								</p>
@@ -48,8 +49,18 @@
 								<div class="btn-act">
 									<ul>
 										<li id="LikeBtn">
+										${panorama.likecheck}
+										<c:choose>
+											<c:when test="${panorama.likecheck =='T' }">
+											<img id="photologLikeButton" likecheck="likeafter" class="hand"
+											src="resources/images/panorama/likeafter.png" style="width: 30px"  alt="좋아요">
+											</c:when>
+											<c:otherwise>
 											<img id="photologLikeButton" likecheck="likebefore" class="hand"
 											src="resources/images/panorama/likebefore.png" style="width: 30px"  alt="좋아요">
+											</c:otherwise>
+											
+										</c:choose>
 											<p></p>
 										<p class="t-subj">좋아요</p>
 											<p></p>
@@ -62,6 +73,7 @@
 									</ul>
 								</div>
 							</div>
+							<c:if test="${panorama.member.no == member.no }">
 							<div class="button-set">		
 										
 										<div class="btn-delete hand">
@@ -69,7 +81,8 @@
 										</div>		
 										<div class="btn-modify hand"><span>수정</span>
 										</div>		
-												</div>
+							</div>
+                 			</c:if>
 							<c:forEach items="${panorama.panodays }" var="panodays" varStatus="day">
 							
 												
@@ -83,7 +96,15 @@
 								
 								<div class="photo-box">
 									<div class="place">
-										<img src="resources/images/panorama/pinok.png" alt="place pin">
+									<c:choose>
+										<c:when test="${panodays.place.title !=null }">
+											<img src="resources/images/panorama/pinok.png" alt="place pin">
+										</c:when>
+										<c:otherwise>
+											<img src="resources/images/panorama/pinno.png" alt="place pin">
+										</c:otherwise>
+									</c:choose>
+									
 										${panodays.place.title }
 									</div>
 									<div class="photo-cont">

@@ -3,21 +3,30 @@ package kr.co.yj.vo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import kr.co.yj.security.MemberDetail;
+
 public class PanoramaVO {
 	
 	private int panoNo;
-	private MemberVO member;
+	private MemberDetail member;
 	private String panoTitle;
 	private int panoLike;
 	private Date panoRegdate;
 	private ArrayList<PanoDayVO> panodays;
 	private ArrayList<PanoReplyVO> replys;
+	private String likecheck;
 	
 	
 	
 	
 	
 	
+	public String getLikecheck() {
+		return likecheck;
+	}
+	public void setLikecheck(String likecheck) {
+		this.likecheck = likecheck;
+	}
 	public ArrayList<PanoReplyVO> getReplys() {
 		return replys;
 	}
@@ -36,10 +45,10 @@ public class PanoramaVO {
 	public void setPanoNo(int panoNo) {
 		this.panoNo = panoNo;
 	}
-	public MemberVO getMember() {
+	public MemberDetail getMember() {
 		return member;
 	}
-	public void setMember(MemberVO member) {
+	public void setMember(MemberDetail member) {
 		this.member = member;
 	}
 	public String getPanoTitle() {

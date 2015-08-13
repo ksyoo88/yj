@@ -13,20 +13,17 @@ public class PanoDayVO {
 	private String dayMemo;
 	private int photocnt;
 	private Date date;
+	
 	private ArrayList<PanoDayPhotoVO> photos;
 	
-	
-	
-	
 	public Date getDate() {
+		
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(date); 
 		c.add(Calendar.DATE, dayCnt-1);
-		date = c.getTime();
-		
-		return date;
-		
+		return c.getTime();
 	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}
