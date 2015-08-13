@@ -49,11 +49,11 @@ public class MemberController {
 	
 	@RequestMapping("/email.do")
 	public String email(@RequestParam("to")String to) {
-		MemberVO mem = memberservice.getMembyEmail(to);
+		MemberDetail mem = memberservice.getMembyEmail(to);
 		String pwd= memberservice.changePwd(mem);
 		String password=Md5Util.md5Text(pwd);
 		mem.setPassword(password);
-		memberservice.changePwd(mem);
+		memberservice.updatePwd(mem);
 		StringBuffer html = new StringBuffer();
 		String html_str = "";
 		BufferedReader in = null;
@@ -107,7 +107,7 @@ public class MemberController {
 		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		String email =memberold.getEmail();
 		
-		MemberVO member= memberservice.loginCheck(email, pwd);
+		MemberDetail member= memberservice.loginCheck(email, pwd);
 		if(member!=null){
 			
 			return "true";

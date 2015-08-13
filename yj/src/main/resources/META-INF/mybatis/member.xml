@@ -33,27 +33,27 @@
 	 VALUES (MEM_SEQ.nextval,#{email},#{name},#{password},#{birth},#{gender},#{photo})
 	</insert>
 	
-	<select id="getMemberbyemail" parameterType="string" resultMap="mem">
+	<select id="getMemberbyemail" parameterType="string" resultMap="memberDetail">
 		SELECT * FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}
 		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
 	</select>
-	<select id="getMemberbyNo" parameterType="int" resultMap="mem">
+	<select id="getMemberbyNo" parameterType="int" resultMap="memberDetail">
 		SELECT * FROM YJ_MEMBER WHERE MEM_NO=#{no}
 		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
 	</select>
 	
-	<select id="getMemberPwd" parameterType="Member" resultType="string" >
+	<select id="getMemberPwd" parameterType="MemberDetail" resultType="string" >
 	select substr(pwd,1,8)
 		from (SELECT MEM_PASSWORD pwd FROM YJ_MEMBER WHERE MEM_EMAIL=#{email})
 	</select>
-	<update id="updatePwd" parameterType="Member">
+	<update id="updatePwd" parameterType="MemberDetail">
 	 	 UPDATE YJ_MEMBER SET MEM_PASSWORD =#{password}  WHERE MEM_EMAIL=#{email} 
 	</update>
-	<update id="modifyinfo" parameterType="Member">
+	<update id="modifyinfo" parameterType="MemberDetail">
 		UPDATE YJ_MEMBER SET MEM_NAME= #{name} ,MEM_PASSWORD=#{password} WHERE MEM_EMAIL=#{email} 
 	
 	</update>
-	<update id="updateprofile" parameterType="Member">
+	<update id="updateprofile" parameterType="MemberDetail">
 	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
 	</update>
 	<insert id="addtempphoto" parameterType="hashmap">

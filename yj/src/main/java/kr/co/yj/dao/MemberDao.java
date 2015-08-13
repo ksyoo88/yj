@@ -10,15 +10,15 @@ public interface MemberDao {
 
 	void addMember(MemberDetail mem);
 	
-	String getMemberPwd(MemberVO mem);
+	String getMemberPwd(MemberDetail mem);
 	
-	MemberVO getMemberbyemail(String email);
-	MemberVO getMemberbyNo(int no);
+	MemberDetail getMemberbyemail(String email);
+	MemberDetail getMemberbyNo(int no);
 	
-	void updatePwd(MemberVO mem);
+	void updatePwd(MemberDetail mem);
 	
-	void modifyinfo(MemberVO mem);
-	void updateprofile(MemberVO mem);
+	void modifyinfo(MemberDetail mem);
+	void updateprofile(MemberDetail mem);
 	void addtempphoto(HashMap<String, Object> map);
 	
 	ArrayList<String> getTemPhoto(String email);

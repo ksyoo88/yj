@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.security.Md5Util;
 import kr.co.yj.security.MemberDetail;
-import kr.co.yj.vo.MemberVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -42,26 +41,26 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	@Override
-	public MemberVO getMembyEmail(String email) {
+	public MemberDetail getMembyEmail(String email) {
 		
-		MemberVO mem=dao.getMemberbyemail(email);
+		MemberDetail mem=dao.getMemberbyemail(email);
 		
 		return mem;
 	}
 	@Override
-	public MemberVO getMembyNO(int no) {
-		MemberVO member = dao.getMemberbyNo(no);
+	public MemberDetail getMembyNO(int no) {
+		MemberDetail member = dao.getMemberbyNo(no);
 		return member;
 	}
 	
-	public String changePwd(MemberVO mem) {
+	public String changePwd(MemberDetail mem) {
 		
 		return dao.getMemberPwd(mem);
 	}
 	
 	@Override
 	public String modifyinfo(String name, String pwd,String email) {
-		MemberVO mem= new MemberVO();
+		MemberDetail mem= new MemberDetail();
 		mem.setEmail(email);
 		mem.setName(name);
 		String md5pwd=Md5Util.md5Text(pwd);
@@ -78,7 +77,7 @@ public class MemberServiceImpl implements MemberService {
 				/*message.setSubject(subject);
 				message.setText(text);
 				message.setFrom(from);*/
-				MemberVO mem = dao.getMemberbyemail(to);
+				MemberDetail mem = dao.getMemberbyemail(to);
 				
 			
 					String pwd=changePwd(mem);
@@ -106,7 +105,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public boolean checkEmail(String email){
-		MemberVO member=dao.getMemberbyemail(email);
+		MemberDetail member=dao.getMemberbyemail(email);
 		
 		if(member==null){
 			
@@ -159,7 +158,7 @@ public class MemberServiceImpl implements MemberService {
 			FileCopyUtils.copy(filedata, file);
 		}
 		
-		MemberVO mem = new MemberVO();
+		MemberDetail mem = new MemberDetail();
 		mem.setEmail(email);
 		mem.setPhoto(filename);
 		dao.updateprofile(mem);
@@ -170,9 +169,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public MemberVO loginCheck(String email, String pwd) {
+	public MemberDetail loginCheck(String email, String pwd) {
 		
-		MemberVO member=dao.getMemberbyemail(email);
+		MemberDetail member=dao.getMemberbyemail(email);
 		
 		String md5pwd=Md5Util.md5Text(pwd);
 		
@@ -197,6 +196,9 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
-	
+	@Override
+	public void updatePwd(MemberDetail mem) {
+		dao.updatePwd(mem);
+	}
 	
 }
