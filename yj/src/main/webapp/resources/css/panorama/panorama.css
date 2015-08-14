@@ -10,7 +10,7 @@ html, body { height:100%; }
 #container { margin:0 auto; width:100%; height:100%; background:#666;}
 
 
-#photologDetailBox										{ position:relative; width:650px; min-width:650px; height:100%;  } /* background:rgba(138,210,214,0.6); */
+#photologDetailBox										{ position:relative; width:650px; min-width:650px; height:100%; z-index:100; } /* background:rgba(138,210,214,0.6); */
 #photolog-timeline										{ position:relative; float:left; padding-top:50px; width:90px; min-width:90px; max-width:90px;  text-align:center; overflow:hidden;}
 #photolog-timeline .date-year 							{ font-size:16px; font-family:Roboto-Bold !important; }
 #photolog-timeline .date-month 							{ font-size:32px; color:#000; font-family:Roboto-Bold !important; }

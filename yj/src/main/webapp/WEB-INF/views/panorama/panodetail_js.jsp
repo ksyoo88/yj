@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <script type="text/javascript" src="resources/js/mscroll/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap-slider.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
 <script type="text/javascript" src="resources/js/lightbox.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -24,6 +25,14 @@ function deletereply(replyno) {
 
 
 $(function (){
+	
+	var container = document.getElementById('map-box'),
+	options = {
+		center : new daum.maps.LatLng(37.567357, 126.994657),
+		level : 3
+	};
+
+	var map = new daum.maps.Map(container, options);
 	
 	//라이트박스 실행
 	lightbox.init();

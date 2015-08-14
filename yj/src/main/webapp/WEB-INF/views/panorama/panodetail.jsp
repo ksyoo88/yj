@@ -214,6 +214,8 @@
 				
 			</div>
 		</div>
-
+	</div>
+	<div class="col-md-8" id="contents-tab">
+		<div id="map-box" style="width:100%; height:880px;"></div>
 	</div>
 <!-- <script type="text/javascript" src="resources/js/lightbox.js"></script> -->
