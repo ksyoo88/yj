@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
 	<!-- 왼쪽 탭 -->
-	
 	<div class="col-md-2" id="left-tab">
 		<div class="col-md-2" id="left-tab-left">
 			<ul class="nav nav-pills nav-stacked left-image-icon"

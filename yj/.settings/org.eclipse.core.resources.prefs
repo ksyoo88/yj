@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/plan/plan_js.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/plandetail/plandetail_js.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/tiles/footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/tiles/header.jsp=UTF-8

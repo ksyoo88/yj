@@ -126,4 +126,12 @@ public class PlanServiceImpl implements PlanService {
 		planDao.deleteComment(no);
 	}
 	
+	@Override
+	public Place getPlaceByContentId(String contentid) {
+		
+		Place tempPlace = placeDao.getPlaceByContentid(contentid);
+		
+		return tempPlace;
+		
+	}
 }

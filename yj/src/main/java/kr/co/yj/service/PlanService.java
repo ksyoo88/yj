@@ -24,4 +24,6 @@ public interface PlanService {
 	void deleteComment(int no);
 	
 	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
+	
+	Place getPlaceByContentId(String contentid);
 }

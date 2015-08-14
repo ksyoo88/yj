@@ -4,11 +4,24 @@
 
 $(function() {
 	
+	var height = $(window).height()-84;
+	$("#map-box").css("height", height );
+	$("#left-tab").css("height",height);
+	$("#place-tab").css("height",height);
+	
+	$(window).resize(function(){
+		
+		var height = $(window).height()-84;
+		$("#map-box").css("height", height );
+		$("#left-tab").css("height",height);
+		$("#place-tab").css("height",height);
+		
+	});
 
 	var container = document.getElementById('map-box'),
 		options = {
 			center : new daum.maps.LatLng(37.567357, 126.994657),
-			level : 3
+			level : 7
 		};
 	
 	var map = new daum.maps.Map(container, options);
@@ -17,12 +30,17 @@ $(function() {
 	 
 	polyline = new daum.maps.Polyline({
 		map : map,
-		strokeWeight :2,
+		strokeWeight :4,
 		strokeColor : '#CC0000',
 		strokeOpacity: 1,
 	    strokeStyle: 'solid',
 	    endArrow : true 
 	});
+	
+	var totalX = 0;
+	var totalY = 0;
+	var markerCount = 0;
+	var totalDistance = 0;
 	
 	$(".mapX").each(function(index,item){
 		
@@ -40,10 +58,18 @@ $(function() {
 		var contentid = $(".contentid").eq(index).text();
 		var addr = $(".addr").eq(index).text();
 		
+		totalX = totalX + parseFloat(mapX);
+		totalY = totalY + parseFloat(mapY);
+		markerCount = index + 1;
+		console.log("totalX : ", totalX,"totalY : ", totalY, "markerCount : ", markerCount );
+
+		
+
+		
 		var circle = new daum.maps.Circle({
 		    map: map,
 		    center : new daum.maps.LatLng( mapY, mapX ),
-		    radius: 5,
+		    radius: 10,
 		    strokeWeight: 2,
 		    strokeColor: '#CC0000',
 		    strokeOpacity: 1,
@@ -107,9 +133,7 @@ $(function() {
 		});
 		
 		daum.maps.event.addListener(marker, 'click', function() {
-			
-			
-			
+	
 		  	console.log("title",title);
 		  	console.log("overview",overview);
 		  	console.log("image",image);
@@ -139,7 +163,7 @@ $(function() {
 		  	$("#place-tab").show(500);
 		  	$("#contents-tab").attr("class","col-md-6").show(500);
 		  	
-		  	
+		  	map.relayout();
 		});
 		
 		linePoint.push( new daum.maps.LatLng( mapY, mapX ) );
@@ -155,7 +179,7 @@ $(function() {
 		}
 		
 		console.log( polyline.getLength() - distance );
-		var totalDistance = polyline.getLength()/1000;
+		totalDistance = polyline.getLength()/1000;
 		$(".distance:last").html( "<span class='label label-success'>총거리 " +totalDistance.toFixed(2)+"km </span>" );
 		
 	});
@@ -179,7 +203,6 @@ $(function() {
 
 					var no = $(this).data("commentno");
 					$(this).parent().html("");
-					alert(no);
 					$.ajax({
 						url :"plancommentdelete.do",
 						type : "post",
@@ -202,7 +225,6 @@ $(function() {
 		
 		var no = $(this).data("commentno");
 		$(this).parent().html("");
-		alert(no);
 		$.ajax({
 			url :"plancommentdelete.do",
 			type : "post",
@@ -213,6 +235,31 @@ $(function() {
 			}			
 		});		
 	});
+	
+	console.log("중심좌표 : ",totalY/markerCount,", ",totalX/markerCount)
+	map.setCenter(new daum.maps.LatLng( totalY/markerCount, totalX/markerCount) );
+	
+	if(totalDistance > 2.5 && totalDistance < 4.99){
+		map.setLevel(5);
+	}else if( totalDistance > 5 && totalDistance < 9.99) {
+		map.setLevel(6);	
+	}else if( totalDistance > 10 &&  totalDistance < 19.99) {
+		map.setLevel(7);
+	} else if (totalDistance > 20 && totalDistance < 39.99) {
+		map.setLevel(8);
+	} else if (totalDistance > 40 && totalDistance < 79.99) {
+		map.setLevel(9);
+	} else if (totalDistance > 80 && totalDistance < 159.99) {
+		map.setLevel(10);
+	} else if (totalDistance > 160 && totalDistance < 319.99) {
+		map.setLevel(11);
+	} else if (totalDistance > 320 && totalDistance < 639.99) {
+		map.setLevel(12);
+	} else if (totalDistance > 640) {
+		map.setLevel(13);
+	} else {
+		map.setLevel(4);
+	}
 	
 	
 });

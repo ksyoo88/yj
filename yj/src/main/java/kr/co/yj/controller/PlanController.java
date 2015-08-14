@@ -33,9 +33,18 @@ public class PlanController {
 	private MappingJackson2JsonView jsonView;
 
 	@RequestMapping("/plan.do")
-	public String planIndex(){	
+	public ModelAndView planIndex(@RequestParam(value="contentid",required=false)String contentid){	
 		
-		return "/plan/plan.tiles";
+		ModelAndView mav = new ModelAndView();
+				
+		if ( contentid != null) {
+			Place place = planService.getPlaceByContentId(contentid);		
+			mav.addObject("place", place );
+		}
+		
+		mav.setViewName("/plan/plan.tiles");
+		
+		return mav;
 		
 	}
 	
