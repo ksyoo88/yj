@@ -127,7 +127,7 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("service");
 		if(!mf.isEmpty()){
 			filename = mf.getOriginalFilename();
-			filename = filename.replaceAll(" ", "");
+			filename = filename.replaceAll(" ", "_");
 			filename=System.currentTimeMillis()+filename;
 			
 			byte[] filedata = mf.getBytes();
