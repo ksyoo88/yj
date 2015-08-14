@@ -85,6 +85,7 @@
 						type:"post",
 						dataType:"json",
 						success: function(result) {
+							$(".photo-add").show();
 							$this.remove();
 						}
 						
@@ -103,6 +104,7 @@
   			type:"post",
   			dataType:"json",
   			success: function(result) {
+  				$(".photo-add").show();
   				$("#photoView").empty();
   			}
   		})
@@ -244,7 +246,7 @@ $(function() {
 	//취소버튼 누를시 임시 저장소 삭제하고 member.do로 이동
 	$(".btn-cancel").click(function() {
 		delTemPhoto();
-		location.href='/yj/member.do';
+		location.href='/mypage.do';
 	})
 	
 	//파노 제목 지우기
@@ -266,7 +268,7 @@ $(function() {
 			dataType:"json",
 			success: function(result) {
 				$this.remove();
-				
+				$(".photo-add").show();
 				
 			}
 			

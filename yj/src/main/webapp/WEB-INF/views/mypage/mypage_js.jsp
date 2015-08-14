@@ -25,6 +25,9 @@ function getTemPhoto() {
 			for(var i=0;i<photos.length;i++){
 				
 				content +=str.replace("ZZZZZ", photos[i]);
+				if(i==7){
+					$("#selectPhotologImage").hide();
+				}	
 				
 			}
 			
@@ -118,6 +121,7 @@ function delTemPhoto() {
 		type:"post",
 		dataType:"json",
 		success: function(result) {
+			$("#selectPhotologImage").show();
 			$("#tempphotoList").html("");
 			var holder = document.getElementById('photologImageArea');
 			holder.style.background ='#f6f8fa';
