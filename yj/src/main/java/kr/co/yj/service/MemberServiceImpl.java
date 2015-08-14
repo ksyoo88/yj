@@ -1,6 +1,7 @@
 package kr.co.yj.service;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -126,14 +127,12 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("service");
 		if(!mf.isEmpty()){
 			filename = mf.getOriginalFilename();
+			filename = filename.replaceAll(" ", "");
 			filename=System.currentTimeMillis()+filename;
-			String contentType =mf.getContentType();
-			long filesize = mf.getSize();
 			
 			byte[] filedata = mf.getBytes();
-			System.out.println("filename:" + filename);
 			File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/temphoto/"+filename);
-			 
+			
 			FileCopyUtils.copy(filedata, file);
 		}
 		
