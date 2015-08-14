@@ -177,6 +177,7 @@ $(function() {
 
 		return true;
 	}
+	
 
 	// $("#modify").hide();
 	$(".tabs li a").click(function(event) {

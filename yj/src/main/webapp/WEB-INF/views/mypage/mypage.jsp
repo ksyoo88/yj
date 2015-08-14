@@ -168,138 +168,20 @@
 
 
 <div class="container">
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#pano" data-toggle="tab" aria-expanded="false">파노라마</a></li>
-		<li class=""><a href="#plan" data-toggle="tab" aria-expanded="false">일정</a></li>
+	<ul class="nav nav-tabs content-tabs">
+		<li class="active" data-tab="pano"><a href="#pano" data-toggle="tab" aria-expanded="false">파노라마</a></li>
+		<li class="" data-tab="plan"><a href="#plan" data-toggle="tab" aria-expanded="false">일정</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade active in" id="pano">
 			<div class="row">
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
 			</div>
-			
 			<!-- paging -->
 			<%-- <tags:paginate total="50" page="1" max="10" cssClass="pagination"/> --%>
 
 		</div>
 		<div class="tab-pane fade" id="plan">
 			<div class="row">
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
 				<div class="col-md-3">
 					<a href="#" class="thumbnail">
 						<div class="thumbnail">
@@ -323,25 +205,29 @@
 	<a href="#" class="thumbnail">
 		<div class="thumbnail">
 			<div class="caption">
-				<h4>{{title}}</h4>
-				<p>short thumbnail description</p>
+				<p>{{day_memo}}</p>
 			</div>
-			<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
+			<img src="resources/images/temphoto/{{#day_photo}}{{.}}{{/day_photo}}" alt="{{day_photo[0]}}">
 		</div>
-		<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-		<p>작성자</p> <span>2015.5.26 좋아요 2</span>
+		<h3>{{title}}</h3>
+		<span>{{regdate}} 좋아요 {{like}}</span>
 	</a>
 </div>
 </script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-    var pano_load = 0; //total loaded record group(s) 난 이게 두개 필요하네
-    var plan_load = 0;
+    var pano_load = 1; //total loaded record group(s) 난 이게 두개 필요하네
+    var plan_load = 1;
     var tab = 'pano';
     var loading  = false; //to prevents multipal ajax loads
-    var pano_total_groups = 10; //total record group(s)
-    var plan_total_groups = 10; //total record group(s)
+    var pano_total_groups = 0; //total record group(s)
+    var plan_total_groups = 0; //total record group(s)
+    
+    $.getJSON("loadtotalgroups.json").done(function(json) {
+    	pano_total_groups = json.panoTotalGroups;
+    	plan_total_groups = json.planTotalGroups;
+    });
     
     $('#loading-indicator').show();
     $.getJSON("loadpano.json", {
@@ -351,38 +237,43 @@ $(document).ready(function() {
     	console.log(json);
     	$('#loading-indicator').hide();
     	pano_load++;
-    	for(var i=0; i<4; i++) {
-	    	var template = $('#panoTpl').html();
-	        var html = Mustache.to_html(template, json);
+    	var template = $('#panoTpl').html();
+    	$(json).each(function() {
+	        var html = Mustache.to_html(template, this);
 	        var $html = $(html).hide().fadeIn(2000);
 	        $('#pano .row').append($html);
-    	}
+    	});
     	thumbnailHover();
     });
     
     $(window).scroll(function() {
+    	tab = $(".content-tabs li.active").data("tab");
     	if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
-            if(pano_load <= pano_total_groups && loading==false){
-                loading = true;
-                $('#loading-indicator').show();
-                
-                $.getJSON("loadpano.json", {
-                	currPage : pano_load,
-                	tab : tab
-                }).done(function(json) {
-                	$('#loading-indicator').hide();
-                	console.log(json);
-                	pano_load++;
-                    for(var i=0; i<4; i++) {
-            	    	var template = $('#panoTpl').html();
-            	        var html = Mustache.to_html(template, json);
-            	        var $html = $(html).hide().fadeIn(2000);
-            	        $('#pano .row').append($html);
-                	}
-                    thumbnailHover();
-                    loading = false;
-                });
-            }
+    		if(tab == "pano") {
+	            if(pano_load <= pano_total_groups && loading==false){
+	                loading = true;
+	                $('#loading-indicator').show();
+	                
+	                $.getJSON("loadpano.json", {
+	                	currPage : pano_load,
+	                	tab : tab
+	                }).done(function(json) {
+	                	$('#loading-indicator').hide();
+	                	console.log(json);
+	                	pano_load++;
+	                    for(var i=0; i<4; i++) {
+	            	    	var template = $('#panoTpl').html();
+	            	        var html = Mustache.to_html(template, json);
+	            	        var $html = $(html).hide().fadeIn(2000);
+	            	        $('#pano .row').append($html);
+	                	}
+	                    thumbnailHover();
+	                    loading = false;
+	                });
+	            }
+    		} else if(tab == "plan") {
+    			
+    		}
         }
     });
 });

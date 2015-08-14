@@ -48,4 +48,8 @@ nav#navigationBar {
   left: 49%;
   top: 90%;
 }
+
+div.imageList {
+	border: 1px solid red;
+}
 </style>

@@ -130,7 +130,7 @@ function getFavorPlace(areacode) {
            	var html = "";
 			$(data).each(function() {
 				var imagePath = this.firstimage == null ? 'resources/images/common/noimage.gif' : this.firstimage;
-				html += '<a href="#'+this.contentid+'"><div class="city-box hand">';
+				html += '<a href="plan.do?contentid='+this.contentid+'"><div class="city-box hand">';
 				html += 	'<div class="city-img">';
 				html += 		'<img title="'+this.title+'" alt="'+this.title+'" src="'+imagePath+'" style="width: 140px; height: 130px;">';
 				html += 	'</div>';
