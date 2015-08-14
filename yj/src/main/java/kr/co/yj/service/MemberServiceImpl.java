@@ -63,8 +63,11 @@ public class MemberServiceImpl implements MemberService {
 		MemberDetail mem= new MemberDetail();
 		mem.setEmail(email);
 		mem.setName(name);
-		String md5pwd=Md5Util.md5Text(pwd);
-		mem.setPassword(md5pwd);
+		String md5pwd = null;
+		if(pwd != null && pwd.trim() != "") {
+			md5pwd=Md5Util.md5Text(pwd);
+			mem.setPassword(md5pwd);
+		}
 		dao.modifyinfo(mem);
 		return md5pwd;
 	}
@@ -170,30 +173,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public MemberDetail loginCheck(String email, String pwd) {
-		
 		MemberDetail member=dao.getMemberbyemail(email);
-		
 		String md5pwd=Md5Util.md5Text(pwd);
-		
-	
-		System.out.println("pass:"+member.getPassword());
-		System.out.println(pwd);
-		System.out.println("pass:"+md5pwd);
-		
-		
 		if(member==null){
 			return null;
 		}else{
 			if(member.getPassword().equals(md5pwd)){
-				
-				
 				return member;
 			}else{
-				
 				return null;
 			}
 		}
-		
 	}
 	
 	@Override

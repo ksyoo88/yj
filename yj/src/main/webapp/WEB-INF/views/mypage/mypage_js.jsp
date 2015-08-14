@@ -66,6 +66,18 @@ function myauto() {
 function chooseFile() {
       $("#fileInput").click();
 }
+
+function validationCheck() {
+	var newPwd = $("#newpassword1");
+	var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}$/;
+	if(!regExp.test(newPwd.val())) {
+		newPwd.val("");
+		// newPwd.focus();
+		alert('비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6자리 이상 16자리 이하)');
+		return false;
+	}
+}
+
 function samepwd() {
 	var pwd1=$("#newpassword1").val();
 	var pwd2=$("#newpassword2").val();

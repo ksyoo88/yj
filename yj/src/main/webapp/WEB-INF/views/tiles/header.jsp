@@ -294,7 +294,7 @@ $(document).ready(function(){
 							</div>
 							<div class="form-group">
 								<label for="password1"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
-								<input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
+								<input type="password" class="form-control" id="password1" name="password" placeholder="비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6~16자리)">
 							</div>
 							<div class="form-group">
 								<label for="password2"><span class="glyphicon glyphicon-eye-close"></span> 비밀번호 확인</label> 
@@ -399,6 +399,7 @@ $(document).ready(function(){
 					
 					regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}$/;
 					if(!regExp.test($password1.val())) {
+						$password1.val("");
 						$password1.focus();
 						alert('비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6자리 이상 16자리 이하)');
 						return false;

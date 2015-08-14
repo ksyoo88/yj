@@ -120,7 +120,9 @@ public class MemberController {
 		
 		String mdpwd = memberservice.modifyinfo(name, pwd, email);
 		memberold.setName(name);
-		memberold.setPassword(mdpwd);
+		if(mdpwd != null) {
+			memberold.setPassword(mdpwd);
+		}
 		session.setAttribute("member", memberold);
 		return "redirect:/mypage.do";
 	}

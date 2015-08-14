@@ -115,18 +115,18 @@
 
 							<div id="newpassword">
 								<div class="form-group">
-									<label for="password1"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호 </label>
+									<label for="oldpassword"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호 </label>
 									<p></p>
-									<input type="text" class="form-control" onblur="pwdCheck()" id="oldpassword" name="password1" placeholder="Enter password">
+									<input type="password" class="form-control" onblur="pwdCheck()" id="oldpassword" name="password1" placeholder="Enter password">
 								</div>
 								<div class="form-group">
-									<label for="password2"><span class="glyphicon glyphicon-eye-close"></span>새로운 비밀번호</label> <input type="text" class="form-control"
-										id="newpassword1" name="password2" placeholder="Enter password">
+									<label for="newpassword1"><span class="glyphicon glyphicon-eye-close"></span>새로운 비밀번호</label> <input type="password" class="form-control"
+										onblur="validationCheck();" id="newpassword1" name="password2" placeholder="비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6~16자리)">
 								</div>
 								<div class="form-group">
-									<label for="password3"><span class="glyphicon glyphicon-eye-close"></span> 비밀번호 확인</label>
+									<label for="newpassword2"><span class="glyphicon glyphicon-eye-close"></span> 비밀번호 확인</label>
 									<p></p>
-									<input type="text" class="form-control" onkeyup="samepwd()" id="newpassword2" name="password3" placeholder="Enter password">
+									<input type="password" class="form-control" onkeyup="samepwd()" id="newpassword2" name="password3" placeholder="Enter password">
 								</div>
 							</div>
 

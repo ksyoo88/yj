@@ -50,8 +50,15 @@
 	 	 UPDATE YJ_MEMBER SET MEM_PASSWORD =#{password}  WHERE MEM_EMAIL=#{email} 
 	</update>
 	<update id="modifyinfo" parameterType="MemberDetail">
-		UPDATE YJ_MEMBER SET MEM_NAME= #{name} ,MEM_PASSWORD=#{password} WHERE MEM_EMAIL=#{email} 
-	
+		UPDATE
+			YJ_MEMBER
+		SET
+			MEM_NAME= #{name}
+			<if test="password != null">
+				,MEM_PASSWORD=#{password}
+			</if>
+		WHERE
+			MEM_EMAIL=#{email} 
 	</update>
 	<update id="updateprofile" parameterType="MemberDetail">
 	UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
