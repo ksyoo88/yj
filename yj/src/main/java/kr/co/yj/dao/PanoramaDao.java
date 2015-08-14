@@ -41,4 +41,8 @@ public interface PanoramaDao {
 	void savePanoReply(PanoReplyVO panoReply);
 	ArrayList<PanoReplyVO> getPanoReply(int panono);
 	void deletereply(int replyno);
+	
+	void deletePanoDayPhoto(int panoDayPhotoNo);
+	void deletePanoDay(int panoDayNo);
+	void deletePanorama(int panoNo);
 }

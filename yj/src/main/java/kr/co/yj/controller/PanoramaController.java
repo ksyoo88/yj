@@ -173,11 +173,14 @@ public class PanoramaController {
 		ModelAndView mav = new ModelAndView();
 		
 		int day=locaArr.length;
+		int memocnt=memoArr.length;
+		
+		
 		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		int no =memberold.getNo();
 		String email=memberold.getEmail();
 		
-		System.out.println(date);
+		
 		SimpleDateFormat transFormat = new SimpleDateFormat("d/M/yyyy");
 		Date to = transFormat.parse(date);
 		
@@ -187,7 +190,7 @@ public class PanoramaController {
 			String memo=memoArr[i];
 			String locaTitle=locaArr[i];
 			int panodayseq=service.savePanoDay(memo, i+1, panoseq, locaTitle);
-			System.out.println("panodayseq는 이거-"+panodayseq);
+			
 			service.savePanoPhotobyDay(email, i+1, panodayseq);
 		}
 		
@@ -297,6 +300,17 @@ public class PanoramaController {
 	public ModelAndView deletereply(@RequestParam("replyno")int replyno){
 		ModelAndView mav= new ModelAndView();
 		service.deletereply(replyno);
+		mav.setView(jsonview);
+		return mav;
+	}
+	
+	@RequestMapping("deletePanorama.do")
+	public ModelAndView deletePanorama(@RequestParam()int panoNo){
+		ModelAndView mav = new ModelAndView();
+		
+		service.deletePanorama(panoNo);
+		
+		
 		mav.setView(jsonview);
 		return mav;
 	}

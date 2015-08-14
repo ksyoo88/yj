@@ -37,4 +37,6 @@ public interface PanoramaService {
 	void deletereply(int replyno);
 	
 	String likecheck(int panoNo,int memno);
+	
+	void deletePanorama(int panoNo);
 }

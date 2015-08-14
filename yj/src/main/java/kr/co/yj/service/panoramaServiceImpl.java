@@ -220,4 +220,23 @@ public class panoramaServiceImpl implements PanoramaService {
 	public void deletereply(int replyno) {
 		dao.deletereply(replyno);
 	}
+	
+	@Override
+	public void deletePanorama(int panoNo) {
+		
+		ArrayList<PanoDayVO> panodays=dao.getPanoday(panoNo);
+		for(PanoDayVO panoday: panodays){
+			ArrayList<PanoDayPhotoVO> photos=dao.getPanodayPhoto(panoday.getNo());
+			for(PanoDayPhotoVO photo:photos){
+				dao.deletePanoDayPhoto(photo.getPanoDayPhoto());
+			}
+			dao.deletePanoDay(panoday.getNo());
+		}
+		ArrayList<PanoReplyVO> replys= dao.getPanoReply(panoNo);
+		for(PanoReplyVO reply:replys){
+			dao.deletereply(reply.getPanoReplyNo());
+		}
+		dao.deletePanorama(panoNo);
+	}
+	
 }

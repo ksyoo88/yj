@@ -68,9 +68,8 @@
 		<input type="text" id="title" name="title">
 		<input type="text" id="datepick" name="date">
 		<input type="text" id="locaform1" name="locaform">
-		<input type="text" id="memoform1" name="memoform">
-		
-		
+		<textarea  id="memoform1" name="memoform">
+		</textarea>
 		<button id="submitBtn" type="submit"></button>
 	</form>
 	
@@ -132,12 +131,16 @@
 				
 				
 					<div class="mCustomScrollBox mCS-light"  id="mCSB_95" style="position:relative; height:100%; overflow:hidden; max-width:100%;">
-								<!-- 위치 검색 다이알로그 -->
-								<div id="dialog" title="Basic dialog" style="width: 200px; height: 400px " hidden>
-								  <p>여행한 도시를 선택해주세요</p>
-								  <input class="form-control input-lg" type="text" id="tag" onkeyup="search();"  placeholder="2자 이상 검색" maxlength="40" >
-								</div>		
 						
+						<!-- 위치 검색 다이알로그 -->
+						<div id="dialog" title="Basic dialog" style="width: 200px; height: 400px " hidden>
+						  <p>여행한 도시를 선택해주세요</p>
+						  <input class="form-control input-lg" type="text" id="tag" onkeyup="search();"  placeholder="2자 이상 검색" maxlength="40" >
+						  
+						  
+						  <input class="form-control input-lg" type="text" id="tagtext" readonly="readonly" style ="top: 250px; position: relative;">
+						</div>		
+				
 						<div id ="newtemp1" class="mCustomScrollBox mCS_no_scrollbar"  style="position: relative; top: 0px;">		
 							<div class="day-box" id="day-box">	
 								<div class="title-box" id="photo-${day }-${month }-${year }">			
@@ -168,7 +171,7 @@
 									
 									<div id="photoView">
 										<c:forEach var="photo" items="${photos }">
-											<div class="photo" data-idx="904456" data-imagename="${photo}" style="background-size: contain; background-repeat:no-repeat; 
+											<div class="photo"  data-imagename="${photo}" style="background-size: contain; background-repeat:no-repeat; 
 											background-image:url(resources/images/temphoto/${photo})">						
 												<div class="delete hand" data-idx="904456" data-uploaded="true">
 													<span class="glyphicon glyphicon-remove"></span>
@@ -198,7 +201,7 @@
 									<div class="clearBoth">
 									</div>				
 									<div id="Memo1" class="memo memo-modify">
-										<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d"></textarea> 	
+										<textarea name="memo[]" class="no-line-input"  > </textarea> 	
 											<img  class="clearMemo" onclick="clearmemo(1)" src="resources/images/panorama/cross-mark1.png" alt="delete">
 										
 									</div>			

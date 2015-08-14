@@ -83,7 +83,7 @@
 	</delete>
 	
 	<delete id="delTemPhotoByday" parameterType="hashmap">
-		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND day=#{day}
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND PANO_DAY=#{day}
 	</delete>
 	
 	<select id="likecheck" parameterType="hashmap" resultType="string">
@@ -124,6 +124,15 @@
 	</select>
 	<delete id="deletereply" parameterType="int">
 		DELETE FROM YJ_PANO_REPLY WHERE PANO_REPLY_NO = #{value}
+	</delete>
+	<delete id="deletePanoDayPhoto" parameterType="int">
+		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_PHOTO_NO= #{value}
+	</delete>
+	<delete id="deletePanoDay" parameterType="int">
+		DELETE FROM YJ_PANO_DAY WHERE PANO_DAY_NO= #{value}
+	</delete>
+	<delete id="deletePanorama" parameterType="int">
+		DELETE FROM YJ_PANORAMA WHERE PANO_NO= #{value}
 	</delete>
 	
 	

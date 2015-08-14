@@ -31,8 +31,18 @@
 					style="height: 879px;">
 						
 						<div class="mCSB_container" style="position: relative; top: 0px;">
-							<div class="photolog-header"
-								style="background: url(resources/images/cat.jpg); background-repeat: round;">
+							
+							<c:choose>
+								<c:when test="${panorama.panodays[0].photos[0].photo !=null}">
+							<div class="photolog-header" style="background: url(resources/images/temphoto/${panorama.panodays[0].photos[0].photo }); background-repeat: round;">
+								</c:when>
+								<c:otherwise>
+							<div class="photolog-header" style="background: url(resources/images/cat.jpg); background-repeat: round;">
+								</c:otherwise>
+							
+							</c:choose>
+							
+								
 								<div class="mask"></div>
 								<div class="title" data-pano-no="${panorama.panoNo }" >${panorama.panoTitle }</div>
 								<div class="user">
@@ -46,10 +56,11 @@
 									</div>
 									<div class="userName t-name" data-uno="4060">${panorama.member.name }</div>
 								</div>
+								
 								<div class="btn-act">
 									<ul>
 										<li id="LikeBtn">
-										${panorama.likecheck}
+										
 										<c:choose>
 											<c:when test="${panorama.likecheck =='T' }">
 											<img id="photologLikeButton" likecheck="likeafter" class="hand"
@@ -75,11 +86,15 @@
 							</div>
 							<c:if test="${panorama.member.no == member.no }">
 							<div class="button-set">		
-										
+							
+								<div id="dialog" title="Empty the recycle bin?">
+								  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>정말 삭제하시겠습니까?</p>
+								</div>
+																		
 										<div class="btn-delete hand">
 											<img src="resources/images/panorama/trash1.png" alt="delete">
 										</div>		
-										<div class="btn-modify hand"><span>수정</span>
+											<div class="btn-modify hand"><span>수정</span>
 										</div>		
 							</div>
                  			</c:if>

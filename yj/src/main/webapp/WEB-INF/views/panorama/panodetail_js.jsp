@@ -3,10 +3,13 @@
 <script type="text/javascript" src="resources/js/mscroll/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="resources/js/lightbox.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
+//리플 엔터
 function replywrite() {
 	$("#replywrite").click();
 }
+//리플삭제
 function deletereply(replyno) {
 	$.ajax({
 		url:"deletereply.do",
@@ -21,8 +24,10 @@ function deletereply(replyno) {
 
 
 $(function (){
-	lightbox.init();
 	
+	//라이트박스 실행
+	lightbox.init();
+	//좋아요
 	$("#LikeBtn").click(function() {
 		var likecheck=$("#photologLikeButton").attr("likecheck");
 		var likeCheck;
@@ -49,6 +54,7 @@ $(function (){
 		})
 	})
 	
+	//리플쓰기
 	$("#replywrite").click(function() {
 		var reply =$("#replyinput").val();
 		var panono=$(".title").data("panoNo");
@@ -83,6 +89,42 @@ $(function (){
 			}
 		})
 	})	
+	
+ 
+    $( "#opener" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+	
+	
+		 $( "#dialog" ).dialog({
+			 autoOpen: false,
+		      resizable: false,
+		      height:200,
+		      modal: true,
+		      buttons: {
+		        "삭제": function() {
+		        var panono=$(".title").data("panoNo");
+		         	$.ajax({
+		         		url:"deletePanorama.do",
+		         		data:{panoNo:panono},
+		    			type:"post",
+		    			dataType:"json",
+		    			success: function(result) {
+		    				
+		    				location.href='/mypage.do';
+		    			}
+		         	})
+		        	
+		        },
+		        "취소": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    }); 
+	//삭제 버튼
+	$(".btn-delete").click(function() {
+		 $( "#dialog" ).dialog( "open" );
+	})
 	
 });
 </script>

@@ -55,10 +55,13 @@
 				var photos=result.photos;
 				
 				for(var i=0;i<photos.length;i++){
-					
 					var cc=str.replace("AAAAA", photos[i]);
 					cc=cc.replace("ZZZZZ", photos[i]);
 					content +=cc;
+					
+					if(i==7){
+						$(".photo-add").hide();
+					}	
 					
 				}
 				
@@ -140,14 +143,14 @@
 		
 		//데이 전체 삭제
 		function delTemPhotoByday(temday) {
-			     
+			    
 			$.ajax({
 				url:"delTemPhotoByday.do",
 				data:{day:temday},
 				type:"post",
 				dataType:"json",
 				success: function(result) {
-					$("#newtemp"+tempday+" #photoView").empty();
+					$("#newtemp"+temday+" #photoView").empty();
 					
 					
 				}
@@ -172,20 +175,26 @@
 				data:{inputkeyword:inputkeyword},
 				dataType:"json",
 				success:function(result){
-					console.log(result)
+					
 					var data='';
 					var titlevalue = new Array();
 					
 					titles=result.titles
 					 for(var i =0; i<titles.length;i++){
 						var title = titles[i];
-						console.log("제못"+title);
 						titlevalue.push(title);
 					}
-					console.log("데이타"+data);
-					console.log("타이틀 배열"+titlevalue);
+					
 					$("#tag").autocomplete({
-					      source: titlevalue
+					      source: titlevalue,
+					      select:function(e, i){
+					    	  console.log(this);
+					    	  console.log(i);
+					    	  console.log(i.item.value);
+					    	 // var dataItem = this.dataItem(e.item.index());
+					    	 
+					      	$("#tagtext").val(i.item.value);
+					      }
 					 });
 				}
 			})
@@ -204,12 +213,24 @@
 	         modal: true,
 	         buttons: {
 	           "저장": function() {
-	        	  var title=$("#tag").val();
+	        	  var title=$("#tagtext").val();
+	        	   if(title==""){
+	        		 alert("없는 장소입니다. \n다른장소를 입력해주세요.")
+	        		 $("#tag").val("");
+	 	        	 $("#tagtext").val("");
+	 	        	 $( this ).dialog( "close" );
+	        	   }else{
+	        		   
 	        	  $("#newtemp"+daycount+" #location").html(title);
 	        	  $("#newtemp"+daycount+" #spotname").html(" <span class='glyphicon glyphicon-map-marker'></span>"+title);
-	             $( this ).dialog( "close" );
+	        	  $("#tag").val("");
+	        	  $("#tagtext").val("");
+	        	  $( this ).dialog( "close" );
+	        	   }
 	           },
 	           Cancel: function() {
+	        	  $("#tag").val("");
+	        	  $("#tagtext").val("");
 	             $( this ).dialog( "close" );
 	           }
 	         }
@@ -306,6 +327,8 @@ $(function() {
 		
 		$("#day"+daycnt+" span").html(
 				newday + "/" + newmonth + "/" + newyear);
+		
+		
 
 	})
 	
@@ -375,7 +398,7 @@ $(function() {
 			for(var i=2;i<=daycnt;i++){
 				var tempContent='';
 				tempContent+='<input type="text" id="locaform'+i+'" name="locaform">'
-				tempContent+='<input type="text" id="memoform'+i+'" name="memoform">'
+				tempContent+='<textarea type="text" id="memoform'+i+'" name="memoform"> </textarea>'
 				
 				$(tempContent).insertBefore('#submitBtn');
 				
