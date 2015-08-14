@@ -91,11 +91,11 @@ $(function (){
 	})	
 	
  
-    $( "#opener" ).click(function() {
-      $( "#dialog" ).dialog( "open" );
-    });
 	
-	
+	//삭제 버튼
+	$(".btn-delete").click(function() {
+		 $( "#dialog" ).dialog( "open" );
+	})
 		 $( "#dialog" ).dialog({
 			 autoOpen: false,
 		      resizable: false,
@@ -121,10 +121,28 @@ $(function (){
 		        }
 		      }
 		    }); 
-	//삭제 버튼
-	$(".btn-delete").click(function() {
-		 $( "#dialog" ).dialog( "open" );
+		 
+	//수정 버튼
+	$(".btn-modify").click(function() {
+		 $( "#dialogmodify" ).dialog( "open" );
 	})
+		 $( "#dialogmodify" ).dialog({
+			 autoOpen: false,
+		      resizable: false,
+		      height:200,
+		      modal: true,
+		      buttons: {
+		        "수정": function() {
+		        var panono=$(".title").data("panoNo");
+		    	location.href='/modifyPano.do?panoNo='+panono;
+		    	
+		        },
+		        "취소": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    }); 
+	
 	
 });
 </script>

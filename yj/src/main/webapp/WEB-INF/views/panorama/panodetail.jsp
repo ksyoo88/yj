@@ -87,8 +87,11 @@
 							<c:if test="${panorama.member.no == member.no }">
 							<div class="button-set">		
 							
-								<div id="dialog" title="Empty the recycle bin?">
+								<div id="dialog" title="삭제 여부입니다">
 								  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>정말 삭제하시겠습니까?</p>
+								</div>
+								<div id="dialogmodify" title="수정여부입니다.">
+								  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>수정 하시겠습니까?</p>
 								</div>
 																		
 										<div class="btn-delete hand">

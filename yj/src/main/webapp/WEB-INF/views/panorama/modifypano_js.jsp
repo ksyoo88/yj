@@ -278,7 +278,7 @@ $(function() {
 	})
 	
 
-	//오늘날짜 생성
+	오늘날짜 생성
 
 	var d = new Date();
 	var month = d.getMonth() + 1;

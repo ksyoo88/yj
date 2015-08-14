@@ -314,6 +314,26 @@ public class PanoramaController {
 		mav.setView(jsonview);
 		return mav;
 	}
+	@RequestMapping("modifyPano.do")
+	public ModelAndView modifyPanorama(@RequestParam()int panoNo){
+		
+		ModelAndView mav = new ModelAndView();
+		
+		PanoramaVO panorama=service.getPanorama(panoNo);
+			
+		ArrayList<PanoDayVO> panodaylist= service.getPanoday(panoNo);
+		for(int i=0;i<panodaylist.size();i++){
+			ArrayList<PanoDayPhotoVO> photos=service.getPanodayPhoto(panodaylist.get(i).getNo());
+			panodaylist.get(i).setPhotos(photos);
+		}	
+		
+		panorama.setPanodays(panodaylist);
+		mav.addObject("panorama", panorama);
+		
+		
+		mav.setViewName("/panorama/modifypano.tiles");
+		return mav;
+	}
 	
 	
 	
