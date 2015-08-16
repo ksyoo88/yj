@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import kr.co.yj.security.MemberDetail;
 import kr.co.yj.service.MypageService;
-import kr.co.yj.vo.Panorama;
 
 @Controller
 public class MypageController {

@@ -26,5 +26,6 @@
 		<mapper resource="META-INF/mybatis/panorama.xml"/>
 		<mapper resource="META-INF/mybatis/plan.xml"/>
 		<mapper resource="META-INF/mybatis/mypage.xml"/>
+		<mapper resource="META-INF/mybatis/together.xml"/>
 	</mappers>
 </configuration>

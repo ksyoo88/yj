@@ -15,7 +15,7 @@
 				<ul class="nav navbar-nav">
 					<li class="${current == 'attraction' ? 'active' : '' }"><a href="attraction.do">여기추천</a></li>
 					<li class="${current == 'plan' ? 'active' : '' }"><a href="plan.do">저기가자</a></li>
-					<li class="${current == 'togethersns' ? 'active' : '' }"><a href="together.do">같이보자</a></li>
+					<li class="${current == 'together' ? 'active' : '' }"><a href="together.do">같이보자</a></li>
 				</ul>
 			</div>
 			<input type="hidden" id="hdnSession" data-value="${member }">

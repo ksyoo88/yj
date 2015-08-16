@@ -240,7 +240,6 @@ $(document).ready(function() {
 	        var $html = $(html).hide().fadeIn(2000);
 	        $('#pano .row').append($html);
     	});
-    	$('#pano .row > div:nth-child(4n+1)').css("clear","both");
     	thumbnailHover();
     });
     
@@ -258,7 +257,6 @@ $(document).ready(function() {
 	        var $html = $(html).hide().fadeIn(2000);
 	        $('#plan .row').append($html);
     	});
-    	$('#plan .row > div:nth-child(4n+1)').css("clear","both");
     });
     
     $(window).scroll(function() {
@@ -280,7 +278,6 @@ $(document).ready(function() {
 	            	        var $html = $(html).hide().fadeIn(2000);
 	            	        $('#pano .row').append($html);
 	                	});
-	                	$('#pano .row > div:nth-child(4n+1)').css("clear","both");
 	                	thumbnailHover();
 	                    loading = false;
 	                });
@@ -301,7 +298,6 @@ $(document).ready(function() {
 	            	        var $html = $(html).hide().fadeIn(2000);
 	            	        $('#plan .row').append($html);
 	                	});
-	                	$('#plan .row > div:nth-child(4n+1)').css("clear","both");
 	                    loading = false;
 	                });
 	            }

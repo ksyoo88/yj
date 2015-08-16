@@ -18,7 +18,7 @@
 </c:if>
 
 <spring:eval var="numberOfPageGroup" expression="T(java.lang.Integer).parseInt(numberOfPageGroup)" />
-<spring:eval var="max" expression="T(java.lang.Math).max(max, 10)" />
+<spring:eval var="max" expression="T(java.lang.Math).max(max, 5)" />
 <spring:eval var="page" expression="T(java.lang.Math).max(page, 1)" />
 <spring:eval var="pages" expression="T(java.lang.Math).max((total + (max - 1)) / max, 1)" />
 <spring:eval var="begin" expression="((page - 1) / numberOfPageGroup) * numberOfPageGroup + 1" />

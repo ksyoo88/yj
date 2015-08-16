@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<script src="resources/js/jquery/jquery.form.js" type="text/javascript"></script>
-<script src="resources/js/mustache/mustache.js" type="text/javascript"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="resources/js/mypage/mypage.js"></script>
+<script src="resources/js/jquery/jquery.form.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript">
+function thumbnailHover() {
+	$('.thumbnail').hover(
+        function(){
+            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+        },
+        function(){
+            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+        }
+    );
+};
 function savetempphoto() {
 	$("#savetempphoto").click();
 }
-
 function getTemPhoto() {
 	var url="resources/images/temphoto/ZZZZZ"
 	var str = '<div class="imageList posRelative lineOrange" data-idx="904479"  style="width: 53px; height: 53px; margin: 0 4px; float:left;  background-size: contain; background-repeat:no-repeat; background-image: url('+url+')"></div>'
@@ -63,56 +68,6 @@ function saveajax() {
 function photoupload() {
 	$("#photoupload").click();
 };
-function myauto() {
-	$("#autosubmit").click();
-}
-function chooseFile() {
-      $("#fileInput").click();
-}
-
-function validationCheck() {
-	var newPwd = $("#newpassword1");
-	var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}$/;
-	if(!regExp.test(newPwd.val())) {
-		newPwd.val("");
-		// newPwd.focus();
-		alert('비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요. (6자리 이상 16자리 이하)');
-		return false;
-	}
-}
-
-function samepwd() {
-	var pwd1=$("#newpassword1").val();
-	var pwd2=$("#newpassword2").val();
-
-	var content="";
-	
-	if(pwd1===pwd2){
-		content +="<span style='color: green'>비번이 일치합니다.</span>";
-	}else{
-		content +="<span style='color: red'>비번이 일치하지 않습니다.</span>";
-	}
-	$("#newpassword .form-group:last p").html(content);
-}
-
-function pwdCheck() {
-	var pwd=$("#oldpassword").val();
-   	var content="";
-	$.ajax({
-		url	:"checkpwd.do",
-		type:"post",
-		data:{pwd:pwd},
-		dataType:"text",
-		success: function(result) {
-			if(result == "true") {
-   				content +="<span style='color: green'>비번이 일치합니다.</span>";
-   			}else{
-   				content +="<span style='color: red'>틀린비번입니다.</span>";
-   			}
-			$("#newpassword .form-group:first p").html(content);
-		}
-	})
-};
 	
 function delTemPhoto() {
 	console.log('삭제')
@@ -131,11 +86,18 @@ function delTemPhoto() {
 
 
 $(function() {
+	 thumbnailHover();
+	$("#imagetrevel").hide().slideDown("slow");
+	$("#headimgclose").click(function(e) {
+		$("#imagetrevel").slideUp("slow");
+	})
+	
 	var upload = $("#photoupload")[0];
 	var holder = document.getElementById('photologImageArea');
 
 	upload.onchange = function(e) {
 		e.preventDefault();
+		checkvalue();
 		savetempphoto();
 		var file = upload.files[0], reader = new FileReader();
 		reader.onload = function(event) {
@@ -177,46 +139,6 @@ $(function() {
 
 		return true;
 	}
-	
-
-	// $("#modify").hide();
-	$(".tabs li a").click(function(event) {
-		event.preventDefault();
-		$(this).addClass("current").parent().siblings().each(function(){
-			$(this).find("a").removeClass("current");
-		});
-		var clickedId = "#" + $(this).attr("id").replace("-tab","");
-		$(".profile .tab").hide();
-		$(clickedId).show();
-	});
-	$("#newpassword").hide();
-	$("#changepassword").click(function(event) {
-		event.preventDefault();
-		$("#newpassword").toggle(500);
-	});
-
-	$("#profiletabs .tabs a:first").click();
-
-	//메뉴
-	$(".tab-section").hide();
-	$("#category .tabs a").click(function(event) {
-		event.preventDefault();
-		$(".tab-section").hide();
-		$("#category .tabs a.current").removeClass("current");
-		$(this).addClass("current");
-		var tabId = $(this).attr("href");
-		$(tabId).show();
-
-	});
-
-	$("#category .tabs a:first").click();
-
-	$("#imagetrevel").hide().slideDown("slow");
-
-	$("#headimgclose").click(function(e) {
-		$("#imagetrevel").slideUp("slow");
-
-	});
 
 });
 </script>
