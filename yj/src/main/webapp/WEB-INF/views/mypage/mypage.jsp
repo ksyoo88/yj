@@ -182,19 +182,6 @@
 		</div>
 		<div class="tab-pane fade" id="plan">
 			<div class="row">
-				<div class="col-md-3">
-					<a href="#" class="thumbnail">
-						<div class="thumbnail">
-							<div class="caption">
-								<h4>Thumbnail Headline</h4>
-								<p>short thumbnail description</p>
-							</div>
-							<img src="http://lorempixel.com/400/300/sports/4/" alt="...">
-						</div>
-						<h3>유관수님에게 딱 맞는 홍콩 일정</h3>
-						<p>작성자</p> <span>2015.5.26 좋아요 2</span>
-					</a>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -202,15 +189,27 @@
 <img src="resources/images/common/loading.gif" id="loading-indicator" style="display:none;" />
 <script id="panoTpl" type="text/template">
 <div class="col-md-3">
-	<a href="#" class="thumbnail">
+	<a href="panodetail.do?panoNo={{no}}" class="thumbnail">
 		<div class="thumbnail">
 			<div class="caption">
-				<p>{{day_memo}}</p>
+				<h4>{{day_memo}}</h4>
+				<p></p>
 			</div>
-			<img src="resources/images/temphoto/{{#day_photo}}{{.}}{{/day_photo}}" alt="{{day_photo[0]}}">
+			<img src="resources/images/temphoto/{{#day_photo}}{{.}}{{/day_photo}}" alt="{{#day_photo}}{{.}}{{/day_photo}}">
 		</div>
 		<h3>{{title}}</h3>
 		<span>{{regdate}} 좋아요 {{like}}</span>
+	</a>
+</div>
+</script>
+<script id="planTpl" type="text/template">
+<div class="col-md-3">
+	<a href="plandetail.do?no={{no}}" class="thumbnail">
+		<div class="thumbnail">
+			<img src="{{firstimage}}" alt="{{place_title}}">
+		</div>
+		<h3>{{title}}</h3>
+		<p>작성자</p> <span> 좋아요 {{like}}</span>
 	</a>
 </div>
 </script>
@@ -231,10 +230,8 @@ $(document).ready(function() {
     
     $('#loading-indicator').show();
     $.getJSON("loadpano.json", {
-    	currPage : pano_load,
-    	tab : tab
+    	currPage : pano_load
     }).done(function(json) {
-    	console.log(json);
     	$('#loading-indicator').hide();
     	pano_load++;
     	var template = $('#panoTpl').html();
@@ -243,7 +240,25 @@ $(document).ready(function() {
 	        var $html = $(html).hide().fadeIn(2000);
 	        $('#pano .row').append($html);
     	});
+    	$('#pano .row > div:nth-child(4n+1)').css("clear","both");
     	thumbnailHover();
+    });
+    
+    $('#loading-indicator').show();
+    $.getJSON("loadplan.json", {
+    	currPage : plan_load
+    }).done(function(json) {
+    	console.log(json);
+    	$('#loading-indicator').hide();
+    	plan_load++;
+    	var template = $('#planTpl').html();
+    	$(json).each(function() {
+    		console.log(this);
+	        var html = Mustache.to_html(template, this);
+	        var $html = $(html).hide().fadeIn(2000);
+	        $('#plan .row').append($html);
+    	});
+    	$('#plan .row > div:nth-child(4n+1)').css("clear","both");
     });
     
     $(window).scroll(function() {
@@ -255,24 +270,41 @@ $(document).ready(function() {
 	                $('#loading-indicator').show();
 	                
 	                $.getJSON("loadpano.json", {
-	                	currPage : pano_load,
-	                	tab : tab
+	                	currPage : pano_load
 	                }).done(function(json) {
 	                	$('#loading-indicator').hide();
-	                	console.log(json);
 	                	pano_load++;
-	                    for(var i=0; i<4; i++) {
-	            	    	var template = $('#panoTpl').html();
-	            	        var html = Mustache.to_html(template, json);
+	                	var template = $('#panoTpl').html();
+	                	$(json).each(function() {
+	            	        var html = Mustache.to_html(template, this);
 	            	        var $html = $(html).hide().fadeIn(2000);
 	            	        $('#pano .row').append($html);
-	                	}
-	                    thumbnailHover();
+	                	});
+	                	$('#pano .row > div:nth-child(4n+1)').css("clear","both");
+	                	thumbnailHover();
 	                    loading = false;
 	                });
 	            }
     		} else if(tab == "plan") {
-    			
+    			if(plan_load <= plan_total_groups && loading==false){
+	                loading = true;
+	                $('#loading-indicator').show();
+	                
+	                $.getJSON("loadplan.json", {
+	                	currPage : plan_load
+	                }).done(function(json) {
+	                	$('#loading-indicator').hide();
+	                	plan_load++;
+	                	var template = $('#planTpl').html();
+	                	$(json).each(function() {
+	            	        var html = Mustache.to_html(template, this);
+	            	        var $html = $(html).hide().fadeIn(2000);
+	            	        $('#plan .row').append($html);
+	                	});
+	                	$('#plan .row > div:nth-child(4n+1)').css("clear","both");
+	                    loading = false;
+	                });
+	            }
     		}
         }
     });

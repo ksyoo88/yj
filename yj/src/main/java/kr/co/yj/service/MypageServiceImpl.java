@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.yj.dao.MypageDao;
-import kr.co.yj.vo.Panorama;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -27,7 +26,12 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public ArrayList<HashMap<String, String>> getPanoListByPage(int currPage) {
-		return mypageDao.getPanoListByPage(currPage);
+	public ArrayList<HashMap<String, String>> getPanoListByPage(HashMap<String, Object> map) {
+		return mypageDao.getPanoListByPage(map);
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, String>> getPlanListByPage(HashMap<String, Object> map) {
+		return mypageDao.getPlanListByPage(map);
 	}
 }

@@ -11,6 +11,8 @@ public interface MypageDao {
 
 	int getPlanTotalGroups(int userNo);
 
-	ArrayList<HashMap<String, String>> getPanoListByPage(int currPage);
+	ArrayList<HashMap<String, String>> getPanoListByPage(HashMap<String, Object> map);
+
+	ArrayList<HashMap<String, String>> getPlanListByPage(HashMap<String, Object> map);
 
 }

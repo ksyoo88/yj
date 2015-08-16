@@ -44,11 +44,10 @@ public class MypageController {
 		ModelAndView mav = new ModelAndView();
 		MemberDetail member = (MemberDetail)session.getAttribute("member");
 		int userNo = member.getNo();
-		System.out.println(userNo);
-		int panoTotalGroups = mypageService.getPanoTotalGroups(41);
-		//int planTotalGroups = mypageService.getPlanTotalGroups(userEmail);
+		int panoTotalGroups = mypageService.getPanoTotalGroups(userNo);
+		int planTotalGroups = mypageService.getPlanTotalGroups(userNo);
 		mav.addObject("panoTotalGroups", panoTotalGroups);
-		mav.addObject("planTotalGroups", 5);
+		mav.addObject("planTotalGroups", planTotalGroups);
 		
 		mav.setView(jsonView);
 		return mav;
@@ -56,22 +55,27 @@ public class MypageController {
 	
 	@RequestMapping("/loadpano.json")
 	@ResponseBody
-	public ArrayList<HashMap<String, String>> loadpano(int currPage, String tab) {
-		System.out.println("currPage,tab" + currPage + ", " + tab);
-		
-		if(tab.equals("pano")) {
-			ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
-			list = mypageService.getPanoListByPage(currPage);
-			return list;
-		} else {
-			return null;
-		}
+	public ArrayList<HashMap<String, String>> loadpano(int currPage, HttpSession session) {
+		MemberDetail member = (MemberDetail)session.getAttribute("member");
+		int userNo = member.getNo();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("currPage", currPage);
+		map.put("userNo", userNo);
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+		list = mypageService.getPanoListByPage(map);
+		return list;
 		
 	}
 	@RequestMapping("/loadplan.json")
 	@ResponseBody
-	public ArrayList<Panorama> loadplan() {
-		ArrayList<Panorama> list = new ArrayList<Panorama>();
+	public ArrayList<HashMap<String, String>> loadplan(int currPage, HttpSession session) {
+		MemberDetail member = (MemberDetail)session.getAttribute("member");
+		int userNo = member.getNo();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("currPage", currPage);
+		map.put("userNo", userNo);
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+		list = mypageService.getPlanListByPage(map);
 		return list;
 	}
 }
