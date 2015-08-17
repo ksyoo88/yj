@@ -141,6 +141,16 @@
 									<div class="memo modify">${panodays.dayMemo }</div>
 									</div>
 								</div>
+								<div class="palceInfo">
+									<p class="distance"><small></small></p>
+									<p hidden class="mapX"><small>${panodays.place.mapx }</small></p>
+									<p hidden class="mapY"><small>${panodays.place.mapy }</small></p>
+									<p hidden class="cate">${panodays.place.cat1}</p>
+									<p hidden class="pTitle">${panodays.place.title }</p>
+									<p hidden class="image">${panodays.place.firstimage }</p>
+									<p hidden class="contentid">${panodays.place.contentid }</p>
+								</div>
+								
 							</c:forEach>	
 							
 							
@@ -215,7 +225,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-8" id="contents-tab">
-		<div id="map-box" style="width:100%; height:880px;"></div>
-	</div>
+	
+	<div id="map-box" style="position:absolute; top:60px; left:680px; width:1200px; height:880px; float:left;"></div>
 <!-- <script type="text/javascript" src="resources/js/lightbox.js"></script> -->

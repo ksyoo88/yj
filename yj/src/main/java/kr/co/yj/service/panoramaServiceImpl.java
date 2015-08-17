@@ -48,10 +48,11 @@ public class panoramaServiceImpl implements PanoramaService {
 	}
 	
 	@Override
-	public ArrayList<String> getLocationTitle(String keyword) {
-		ArrayList<String> titles =dao.getLocationTitle(keyword);
+	public ArrayList<Place> getLocationTitle(String keyword) {
 		
-		return titles;
+		ArrayList<Place> places=placedao.getLocationbyTitle(keyword);
+		
+		return places;
 	}
 	
 	@Override
@@ -278,6 +279,13 @@ public class panoramaServiceImpl implements PanoramaService {
 			}
 			
 		}
+	}
+	
+	@Override
+	public Place movelocation(String title) {
+		
+		ArrayList<Place> places=placedao.getLocationbyTitle(title);
+		return places.get(0);
 	}
 	
 }

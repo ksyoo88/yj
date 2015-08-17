@@ -8,12 +8,13 @@ import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
 import kr.co.yj.vo.PanoReplyVO;
 import kr.co.yj.vo.PanoramaVO;
+import kr.co.yj.vo.Place;
 
 public interface PanoramaService {
 	
 	ArrayList<String> getTempPhoto(String email);
 	ArrayList<String> getTemPhotoByday(String email,int day);
-	ArrayList<String> getLocationTitle(String keyword);
+	ArrayList<Place> getLocationTitle(String keyword);
 	void delTemPhotoByname(String email,String filename);
 	void delTemPhotoByday(String email,String day);
 	void delTemPhoto(String email);
@@ -44,4 +45,6 @@ public interface PanoramaService {
 	void deletePanorama(int panoNo);
 	
 	void movetempphoto(int panoNo,String email);
+	
+	Place movelocation(String title);
 }

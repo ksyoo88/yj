@@ -242,4 +242,5 @@
 				</div>
 			</div>
 		</div>
+		<div id="map-box" style="position:absolute; top:75px; left:660px; width:1200px; height:880px; float:left;"></div>
 		</div>
