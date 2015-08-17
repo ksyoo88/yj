@@ -51,6 +51,10 @@ nav#navigationBar {
 	border : 0px;
 }
 
+div#right-tab-header .row {
+	text-align: center;
+}
+
 div#place-tab {
 	border-width :0px;
 }

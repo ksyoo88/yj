@@ -9,6 +9,7 @@ import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PlaceDao;
 import kr.co.yj.dao.PlanDao;
 import kr.co.yj.security.MemberDetail;
+import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
 import kr.co.yj.vo.PlanCommentVO;
@@ -134,4 +135,37 @@ public class PlanServiceImpl implements PlanService {
 		return tempPlace;
 		
 	}
+	
+	@Override
+	public void insertBookmark(BookmarkVO bookmarkVo) {
+		
+		planDao.insertBookmark(bookmarkVo);
+		
+	}
+	
+	@Override
+	public ArrayList<BookmarkVO> getBookmarkByMemberNo(int no) {
+		
+		ArrayList<BookmarkVO> bookmarks = planDao.getBookmarkByMemberNo(no);
+		
+		for( BookmarkVO mark : bookmarks ){
+			
+			String contentid = mark.getPlace().getContentid();
+			Place place = placeDao.getPlaceByContentid(contentid);
+			mark.setPlace(place);
+			
+		}
+		
+		return bookmarks;
+	}
+	
+	@Override
+	public ArrayList<Place> getTopPlace(String category) {
+		
+		ArrayList<Place> topPlaces = placeDao.getTopPlace(category);
+		
+		return topPlaces;		
+		
+	}
+	
 }

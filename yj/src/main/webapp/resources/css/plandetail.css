@@ -46,6 +46,7 @@ div.palceInfo {
 
 div#place-tab {
 	padding : 0px;
+	overflow: auto;
 }
 
 div#place-tab-image {

@@ -9,5 +9,7 @@ public interface PlaceDao {
 
 	ArrayList<Place> getMapOnThePlaces(PlaceAreaPointVO placeAreaPoint);
 	Place getPlaceByContentid(String contentid);
-	
+	ArrayList<Place> getTopPlace(String category);
+	ArrayList<Place> getLocationbyTitle(String keyword);
+	   
 }

@@ -221,6 +221,12 @@ $(function() {
 		
 	});
 	
+	$("#place-tab-close").click(function(){
+		$("#place-tab").hide(500);
+		$("#contents-tab").attr("class","col-md-8").show(500);
+		map.relayout();
+	});
+	
 	$(".commentDelete").click(function(){
 		
 		var no = $(this).data("commentno");

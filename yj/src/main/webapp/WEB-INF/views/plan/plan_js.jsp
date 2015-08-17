@@ -173,16 +173,17 @@ $(function() {
 				   ,placeObj.firstimage, ", ", placeObj.tel,", " , placeObj.overview);
 		
 		
-		$("#contents-tab").attr("class","col-md-5");
+		$("#contents-tab").attr("class","col-md-6");
 		
 		$("#place-tab").show(500,function() {
+			
 			
 			map.relayout();
 			$("#place-tab strong").html( placeObj.title );
 			$("#place-tab img").attr("src", placeObj.firstimage );
 			$("#place-tab #overview").html( placeObj.overview );
 			$("#place-tab #addr").html( placeObj.addr );
-			$("#place-tab small").html( " Tel ( " + placeObj.tel + " ) ");
+			$("#place-tab small").html( " ( "+placeObj.tel + " ) ");
 			$("#place-tab #mapx").html(placeObj.mapX);
 			$("#place-tab #mapy").html(placeObj.mapY);
 			$("#place-tab #contentid").html(placeObj.contentid);
@@ -307,8 +308,8 @@ $(function() {
 				imageName = "icon_food";
 			} else if (places[i].cat1 == "B02") {
 				// 숙박
-				imageName = "icon_hotel";
-			} else {
+				imageName = "icon_hotel";				
+			} else{
 				imageName = "icon_mapAll";
 			}
 			
@@ -359,9 +360,6 @@ $(function() {
 				yAnchor : 1				
 			});
 			customArrays.push(customOverlay);
-//			console.log(" custom Overlay Arrays : " + customArrays);
-			
-			
 			
 		}
 		
@@ -376,14 +374,27 @@ $(function() {
 			var mapy = $(this).find("#place-mapy").text();
 			var contentid = $(this).find("#place-contentid").text();
 			
-			$("#contents-tab").attr("class","col-md-5");
+			var subStrOverView = overview.substring(0,300);
+			
+			if( overview.length > 300 ){
+			  	$("#place-tab #overview").text(subStrOverView + "...");				
+				$("#place-tab #overview").append("<a href='#'>더보기</a>");
+			} else {
+			  	$("#place-tab #overview").text(overview);				
+			}
+			
+			$("#place-tab #overview a").click(function(){
+				$("#place-tab-overview").text(overview).hide().slideDown(500);
+			});
+			
+			$("#contents-tab").attr("class","col-md-6");
 			$("#place-tab").show(500,function() {
 				map.relayout();
 				$("#place-tab strong").html( title );
 				$("#place-tab img").attr("src",image);
-				$("#place-tab #overview").html( overview);
+				//$("#place-tab #overview").html( overview);
 				$("#place-tab #addr").html( addr );
-				$("#place-tab small").html( " Tel ( " + tel + " ) ");
+				$("#place-tab small").html( " ( " + tel + " ) ");
 				$("#place-tab #mapx").html(mapx);
 				$("#place-tab #mapy").html(mapy);
 				$("#place-tab #contentid").html(contentid);
@@ -396,6 +407,25 @@ $(function() {
 		
 		
 	}
+	
+	
+	$("#addBookmark").click(function(){
+		var contentid = $("#place-tab #contentid").text();
+		var memberNo = ${member.no};
+		console.log(memberNo,", ",contentid);
+		
+		$.ajax({
+			url:"insertBookmark.do",
+			type:"post",
+			data:{contentid:contentid },
+			dataType:"json",
+			success : function(result) {
+				
+				alert("북마크가 추가되었습니다.");
+				// 북마크가 추가되었습니다				
+			}
+		});
+	});
 	
 	// 여기아니면
 	$("#placeToPlanAddBtn").click(function(){
@@ -585,11 +615,6 @@ $(function() {
 		$("#saveBtn").attr("data-target","");
 	});
 	
-	$("#planSaveBtn").click(function(){
-		
-		//***alert("hi");
-		
-	});
 	
 	
 	// 캘린더 변경시 날짜 설정 
@@ -663,6 +688,214 @@ $(function() {
 		//setMarkers(map);
 	});
 	
+	daum.maps.event.addListener(map, 'dragend', function() { 
+		$.ajax({
+			url:"bookmarkSelect.do",
+			type:"post",
+			dataType:"json",
+			success : function(result) {
+				
+				var bookmarks = result.bookmarks;
+				
+				for(var i=0; i<bookmarks.length; i++){		
+					
+					var imageSrc = 'resources/images/icon_bookmark.png', // 마커이미지의 주소입니다    
+									imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+									imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					// DB에서 가져와 막 찍으면된다.
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+									  markerPosition = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx); // 마커가 표시될 위치입니다		
+
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						position : markerPosition,
+						image : markerImage,		
+						zIndex: 1,
+						clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+					});
+					
+					markers.push(marker);
+				
+					//console.log(markers);
+					setMarkers(map);
+					
+					// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					var content = '<div class="customoverlay">' +
+								  '  <div class="panel panel-info">' +
+								  '    <a class="btn btn-default btn-xs" href="#" role="button">'+bookmarks[i].place.title+'</a>' +
+								  '    <p hidden id="place-addr">'+bookmarks[i].place.addr1+'</p>' +
+								  '    <p hidden id="place-image">'+bookmarks[i].place.firstimage+'</p>' +
+								  '    <p hidden id="place-overview">'+bookmarks[i].place.overview+'</p>' +
+								  '    <p hidden id="place-tel">'+bookmarks[i].place.tel+'</p>' +
+								  '    <p hidden id="place-mapx">'+bookmarks[i].place.mapx+'</p>' +
+								  '    <p hidden id="place-mapy">'+bookmarks[i].place.mapy+'</p>' +
+								  '    <p hidden id="place-contentid">'+bookmarks[i].place.contentid+'</p>' +
+								  '  </div>' +
+								  '</div>';
+					
+					var position = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx);
+					
+					var customOverlay = new daum.maps.CustomOverlay({
+						map : map,
+						position : position,
+						content : content,
+						yAnchor : 1				
+					});
+					customArrays.push(customOverlay);
+					
+					$(".customoverlay .panel").click(function() {
+						
+						var title = $(this).find(".btn").text();
+						var addr = $(this).find("#place-addr").text();
+						var image = $(this).find("#place-image").text();
+						var overview = $(this).find("#place-overview").text();
+						var tel = $(this).find("#place-tel").text();
+						var mapx = $(this).find("#place-mapx").text();
+						var mapy = $(this).find("#place-mapy").text();
+						var contentid = $(this).find("#place-contentid").text();
+						
+						var subStrOverView = overview.substring(0,300);
+						
+						if( overview.length > 300 ){
+						  	$("#place-tab #overview").text(subStrOverView + "...");				
+							$("#place-tab #overview").append("<a href='#'>더보기</a>");
+						} else {
+						  	$("#place-tab #overview").text(overview);				
+						}
+						
+						$("#place-tab #overview a").click(function(){
+							$("#place-tab-overview").text(overview).hide().slideDown(500);
+						});
+						
+						$("#contents-tab").attr("class","col-md-6");
+						$("#place-tab").show(500,function() {
+							map.relayout();
+							$("#place-tab strong").html( title );
+							$("#place-tab img").attr("src",image);
+							//$("#place-tab #overview").html( overview);
+							$("#place-tab #addr").html( addr );
+							$("#place-tab small").html( " ( " + tel + " ) ");
+							$("#place-tab #mapx").html(mapx);
+							$("#place-tab #mapy").html(mapy);
+							$("#place-tab #contentid").html(contentid);
+							
+						});
+						
+						dateInit();			
+					});	
+					
+				}
+			}
+		});
+	});
+	
+	$("#bookmark").click(function(){
+		
+		$.ajax({
+			url:"bookmarkSelect.do",
+			type:"post",
+			dataType:"json",
+			success : function(result) {
+				
+				var bookmarks = result.bookmarks;
+				
+				for(var i=0; i<bookmarks.length; i++){		
+					
+					var imageSrc = 'resources/images/icon_bookmark.png', // 마커이미지의 주소입니다    
+									imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+									imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					// DB에서 가져와 막 찍으면된다.
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+									  markerPosition = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx); // 마커가 표시될 위치입니다		
+
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						position : markerPosition,
+						image : markerImage,		
+						zIndex: 1,
+						clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+					});
+					
+					markers.push(marker);
+				
+					//console.log(markers);
+					setMarkers(map);
+					
+					// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					var content = '<div class="customoverlay">' +
+								  '  <div class="panel panel-info">' +
+								  '    <a class="btn btn-default btn-xs" href="#" role="button">'+bookmarks[i].place.title+'</a>' +
+								  '    <p hidden id="place-addr">'+bookmarks[i].place.addr1+'</p>' +
+								  '    <p hidden id="place-image">'+bookmarks[i].place.firstimage+'</p>' +
+								  '    <p hidden id="place-overview">'+bookmarks[i].place.overview+'</p>' +
+								  '    <p hidden id="place-tel">'+bookmarks[i].place.tel+'</p>' +
+								  '    <p hidden id="place-mapx">'+bookmarks[i].place.mapx+'</p>' +
+								  '    <p hidden id="place-mapy">'+bookmarks[i].place.mapy+'</p>' +
+								  '    <p hidden id="place-contentid">'+bookmarks[i].place.contentid+'</p>' +
+								  '  </div>' +
+								  '</div>';
+					
+					var position = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx);
+					
+					var customOverlay = new daum.maps.CustomOverlay({
+						map : map,
+						position : position,
+						content : content,
+						yAnchor : 1				
+					});
+					customArrays.push(customOverlay);
+					
+					$(".customoverlay .panel").click(function() {
+						
+						var title = $(this).find(".btn").text();
+						var addr = $(this).find("#place-addr").text();
+						var image = $(this).find("#place-image").text();
+						var overview = $(this).find("#place-overview").text();
+						var tel = $(this).find("#place-tel").text();
+						var mapx = $(this).find("#place-mapx").text();
+						var mapy = $(this).find("#place-mapy").text();
+						var contentid = $(this).find("#place-contentid").text();
+						
+						var subStrOverView = overview.substring(0,300);
+						
+						if( overview.length > 300 ){
+						  	$("#place-tab #overview").text(subStrOverView + "...");				
+							$("#place-tab #overview").append("<a href='#'>더보기</a>");
+						} else {
+						  	$("#place-tab #overview").text(overview);				
+						}
+						
+						$("#place-tab #overview a").click(function(){
+							$("#place-tab-overview").text(overview).hide().slideDown(500);
+						});
+						
+						$("#contents-tab").attr("class","col-md-6");
+						$("#place-tab").show(500,function() {
+							map.relayout();
+							$("#place-tab strong").html( title );
+							$("#place-tab img").attr("src",image);
+							//$("#place-tab #overview").html( overview);
+							$("#place-tab #addr").html( addr );
+							$("#place-tab small").html( " ( " + tel + " ) ");
+							$("#place-tab #mapx").html(mapx);
+							$("#place-tab #mapy").html(mapy);
+							$("#place-tab #contentid").html(contentid);
+							
+						});
+						
+						dateInit();			
+					});	
+					
+				}
+			}
+		});
+		
+	});
+	
 
 	// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
 	$("#mapcategory li").click( function() {
@@ -676,7 +909,7 @@ $(function() {
 		// 캘린더 아이콘 
 		if( $cat == "icon_calender"){
 			console.log("calender");
-			$("#left-tab-right").toggle(1000);
+			//$("#left-tab-right").toggle(1000);
 		
 		}
 		else {
@@ -706,6 +939,8 @@ $(function() {
 							
 		}			
 	});
+	
+	
 	
 	
 	//배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다.

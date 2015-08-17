@@ -16,6 +16,7 @@
 		<typeAlias type="kr.co.yj.vo.PanoDayVO" alias="PanoDay"/>
 		<typeAlias type="kr.co.yj.vo.PanoDayPhotoVO" alias="PanoDayPhoto"/>
 		<typeAlias type="kr.co.yj.vo.PlanCommentVO" alias="PlanComment"/>
+		<typeAlias type="kr.co.yj.vo.BookmarkVO" alias ="Bookmark"/>
 	</typeAliases>
 
 	<mappers>

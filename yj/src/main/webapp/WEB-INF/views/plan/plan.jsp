@@ -33,7 +33,7 @@
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_culture.png" /></a>
 					</h3></li>
-				<li class="active" id="bookmark" data-cat="icon_bookmark"><h3>
+				<li class="active" id="bookmark" data-cat="bookmark"><h3>
 						<a href="#"><img class="media-object img-rounded"
 							src="resources/images/icon_bookmark.png" /> </a>
 					</h3></li>
@@ -114,12 +114,12 @@
 
 	<!-- 왼쪽 장소 탭 -->	
 	
-	<div class="col-md-3" id="place-tab" style="overflow: auto;">
+	<div class="col-md-2" id="place-tab" style="overflow: auto;">
 		<div class="page-header">
-		  	<h2>
+		  	<h3>
 		  		<strong>타이틀</strong><small>전화번호</small>
 		  		<button type="button" id="closePlaceBtn" class="btn btn-danger btn-xs pull-right">X</button>
-		  	</h2>
+		  	</h3>
 		</div>
 	  	<div class="row">
 	  		<div class="col-md-12">
@@ -142,15 +142,18 @@
 					</tr>
 				</table>
 			</div>
-	  		<div class="col-md-8">
+	  		<div class="col-md-12">
 				<div class="form-group" >
 					<select class="form-control" id="dateSelect">
 						<option>날짜를 선택해주세요!</option>
 					</select>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<button type="button" id="placeToPlanAddBtn" class="btn btn-success">일정에 추가</button>	
+			<div class="col-md-12">
+				<div class="btn-group btn-group-justified" role="group">
+					<a href="#" class="btn btn-default" id="placeToPlanAddBtn">일정에 추가</a>
+					<a href="#" class="btn btn-default" id="addBookmark">북마크에 추가</a>
+				</div>
 			</div>
 			<p id="mapx" hidden></p>
 			<p id="mapy" hidden></p>
@@ -167,41 +170,8 @@
 	<!-- 오른쪽 탭 -->
 	
 	<div class="col-md-2" id="right-tab">
-		<h4>서울 한국</h4>
-		<p>근처의 호텔</p>
-		<div class="media">
-			<div class="media-left">
-				<a href="#"> <img class="media-object img-rounded"
-					src="resources/images/cat.jpg" alt="cat" width="50" height="50">
-				</a>
-			</div>
-			<div class="media-body">
-				<h5 class="media-heading">신라호텔</h5>
-				<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
-			</div>
-		</div>
-		<div class="media">
-			<div class="media-left">
-				<a href="#"> <img class="media-object img-rounded"
-					src="resources/images/cat.jpg" alt="cat" width="50" height="50">
-				</a>
-			</div>
-			<div class="media-body">
-				<h5 class="media-heading">신라호텔</h5>
-				<button type="button" class="btn btn-primary btn-sm">자세히 보기</button>
-			</div>
-		</div>
-
-		<hr>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="#" class="btn btn-defualt">더보기</a>
-		</div>
-		<hr>
-
-
-
-		<div class="row">
-			<div class="col-md-4">
+		<div class="row" id="right-tab-header">
+			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><h3>
 							<a href="#"><img class="media-object img-rounded"
@@ -210,7 +180,7 @@
 						<p>명소</p></li>
 				</ul>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation"><h3>
 							<a href="#"><img class="media-object img-rounded"
@@ -219,13 +189,22 @@
 						<p>쇼핑</p></li>
 				</ul>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation"><h3>
 							<a href="#"><img class="media-object img-rounded"
 								src="resources/images/icon_food.png" /></a>
 						</h3>
 						<p>음식점</p></li>
+				</ul>
+			</div>
+			<div class="col-md-3">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><h3>
+							<a href="#"><img class="media-object img-rounded"
+								src="resources/images/icon_bookmark.png" /></a>
+						</h3>
+						<p>북마크</p></li>
 				</ul>
 			</div>
 		</div>

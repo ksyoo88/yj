@@ -125,12 +125,28 @@
 			</div>
 			<div id="place-tab-content">					
 				<h3 id="place-tab-title"><strong>title</strong></h3>
-				<kbd>상세정보</kbd>
-				<p id="place-tab-overview">overview</p>
-				<kbd>주소</kbd>
-				<p id="place-tab-addr"><strong>addr</strong></p>
-				<kbd>전화번호</kbd>
-				<p id="place-tab-tel"><strong>tel</strong></p>
+				<table>
+					<tr>
+						<th><kbd>상세정보</kbd></th></hr>
+					</tr>
+					<tr>
+						<td><p id="place-tab-overview">overview</p></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<th width=30%><kbd>주소</kbd></th>
+						<td><p id="place-tab-addr"><strong>addr</strong></p></td>
+					</tr>
+					<tr>
+						<th><kbd>전화번호</kbd></th>
+						<td><p id="place-tab-tel"><strong>tel</strong></p></td>
+					</tr>
+				</table>
+				</hr>
+				<div class="btn-group btn-group-justified" role="group">
+					<a href="#" class="btn btn-danger" id="place-tab-close">닫기</a>
+				</div>	
 			</div>
 		</div>
 		<div class="col-md-8" id="contents-tab">

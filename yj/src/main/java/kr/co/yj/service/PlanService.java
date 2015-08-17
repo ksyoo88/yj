@@ -3,6 +3,7 @@ package kr.co.yj.service;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
 import kr.co.yj.vo.PlanCommentVO;
@@ -26,4 +27,10 @@ public interface PlanService {
 	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
 	
 	Place getPlaceByContentId(String contentid);
+	
+	void insertBookmark(BookmarkVO bookmarkVo);
+	
+	ArrayList<BookmarkVO> getBookmarkByMemberNo(int no);
+	
+	ArrayList<Place> getTopPlace(String category);
 }
