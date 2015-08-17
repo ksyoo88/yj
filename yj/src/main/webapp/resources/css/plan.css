@@ -26,10 +26,14 @@ div#map-box {
 	background-color: #FF6600;
 }
 
+#left-tab-header h4{	
+	color : white;
+	text-shadow: 2px 2px black;	
+}
+
 #left-tab-plan-contents .col-md-12{
 	padding-top: 10px;
-	padding-bottom: 10px;
-	
+	padding-bottom: 10px;	
 	border : 5px;
 }
 
@@ -37,22 +41,30 @@ div#contents-tab{
 	padding : 0px;
 }
 #left-tab{
+	
 	padding : 0px;
 	overflow: auto;
 }
 
 div#right-tab {
 	background-color: white;
+	overflow: auto;
+}
+
+div#right-tab-header {
+}
+
+div#right-tab-header h4{
+	background-color: #FF6600;
+	color : white;
+	text-shadow: 2px 2px black;
+	text-align: center;
 }
 
 nav#navigationBar {
 	margin-bottom : 0px;
 	border-radius: 0px;
 	border : 0px;
-}
-
-div#right-tab-header .row {
-	text-align: center;
 }
 
 div#place-tab {

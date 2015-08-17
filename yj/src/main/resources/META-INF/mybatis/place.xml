@@ -63,10 +63,10 @@
 	 <select id="getTopPlace" parameterType="string" resultMap="place">
 	 	SELECT *
 		FROM 
-		(SELECT TITLE, READCOUNT, ROW_NUMBER() OVER (ORDER BY READCOUNT desc) AS RANK
+		(SELECT TITLE,MAPX,MAPY,READCOUNT, ROW_NUMBER() OVER (ORDER BY READCOUNT desc) AS RANK
 		FROM YJ_PLACE
 		WHERE READCOUNT IS NOT NULL
-		<if test="value!='ALL'"> 
+		<if test="_parameter != 'ALL'"> 
 		AND CAT1 =#{value}
 		</if>
 		)  

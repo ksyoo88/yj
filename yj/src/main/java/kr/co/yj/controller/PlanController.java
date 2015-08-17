@@ -39,7 +39,8 @@ public class PlanController {
 		
 		ModelAndView mav = new ModelAndView();
 		ArrayList<Place> topPlaces = planService.getTopPlace("ALL");
-		System.out.println("---------------------:["+topPlaces+"]-------------------");
+		
+		mav.addObject("topPlaces", topPlaces);
 				
 		if ( contentid != null) {
 			Place place = planService.getPlaceByContentId(contentid);		
@@ -50,6 +51,20 @@ public class PlanController {
 		
 		return mav;
 		
+	}
+	@RequestMapping("/rightPlace.do")
+	public ModelAndView rightPlace(@RequestParam("top")String top) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(!top.equals("Bookmark")){
+			ArrayList<Place> topPlace = planService.getTopPlace(top);
+			mav.addObject("topPlace",topPlace);
+		}
+		
+		mav.setView(jsonView);
+		
+		return mav;
 	}
 	
 	@RequestMapping("/insertBookmark.do")

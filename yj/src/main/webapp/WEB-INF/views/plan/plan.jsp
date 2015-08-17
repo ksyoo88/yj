@@ -104,7 +104,7 @@
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
 					<div class="panel-group" id="1dateStr">
-						 <div class="panel-heading"><strong ondrop='drop(event)' ondragover='allowDrop(event)'>출발일을 입력해주세요</strong></div>
+						 <div class="panel-heading"><strong>출발일을 입력해주세요</strong></div>
 					</div>			
 				</div>
 			</div>
@@ -171,10 +171,11 @@
 	
 	<div class="col-md-2" id="right-tab">
 		<div class="row" id="right-tab-header">
+			<h4>HOT PLACE TOP 100</h4>
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><h3>
-							<a href="#"><img class="media-object img-rounded"
+							<a href="#"><img class="media-object img-rounded" data-top="ALL"
 								src="resources/images/icon_mapAll.png" /></a>
 						</h3>
 						<p>명소</p></li>
@@ -183,7 +184,7 @@
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation"><h3>
-							<a href="#"><img class="media-object img-rounded"
+							<a href="#"><img class="media-object img-rounded" data-top="A04"
 								src="resources/images/icon_shopping.png" /></a>
 						</h3>
 						<p>쇼핑</p></li>
@@ -192,7 +193,7 @@
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation"><h3>
-							<a href="#"><img class="media-object img-rounded"
+							<a href="#"><img class="media-object img-rounded" data-top="A05"
 								src="resources/images/icon_food.png" /></a>
 						</h3>
 						<p>음식점</p></li>
@@ -201,7 +202,7 @@
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation"><h3>
-							<a href="#"><img class="media-object img-rounded"
+							<a href="#"><img class="media-object img-rounded" id="bookmark-tab" data-top="Bookmark"
 								src="resources/images/icon_bookmark.png" /></a>
 						</h3>
 						<p>북마크</p></li>
@@ -210,26 +211,10 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="list-group">
-				<button type="button" class="list-group-item">1. Cras justo
-					odio</button>
-				<button type="button" class="list-group-item">2. Dapibus ac
-					facilisis in</button>
-				<button type="button" class="list-group-item">3. Morbi leo
-					risus</button>
-				<button type="button" class="list-group-item">4. Porta ac
-					consectetur ac</button>
-				<button type="button" class="list-group-item">5. Vestibulum
-					at eros</button>
-				<button type="button" class="list-group-item">6. Vestibulum
-					at eros</button>
-				<button type="button" class="list-group-item">7. Vestibulum
-					at eros</button>
-				<button type="button" class="list-group-item">8. Vestibulum
-					at eros</button>
-				<button type="button" class="list-group-item">9. Vestibulum
-					at eros</button>
-				<button type="button" class="list-group-item">10.Vestibulum at eros</button>
+			<div class="list-group" id="topPlace">
+<c:forEach var="place" items="${topPlaces }" varStatus="index">
+				<button type="button" class="list-group-item" data-mapx="${place.mapx }" data-mapy="${place.mapy }" >${index.count}. ${place.title }</button>
+</c:forEach>
 			</div>
 		</div>
 
