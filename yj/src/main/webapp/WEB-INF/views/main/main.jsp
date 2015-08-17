@@ -64,131 +64,32 @@
 		</h2>
 		<h3>여기저기 사용자들의 알찬 여행정보를 공유합니다.</h3>
 		<div class="row">
+			<c:forEach var="item" items="${planlist }">
 			<div class="col-md-3">
-	
 				<!-- normal -->
 				<div class="ih-item square colored effect6 from_top_and_bottom">
-					<a href="#">
+					<a href="plandetail.do?no=${item.no }">
 							<div class="posAbsolute type_band type_band_color2">PLAN</div>
-						<div class="img">
-							<img alt="" src="resources/images/test.jpg"/>
+						<div class="img" style="height: 292px;">
+							<img alt="" src="${item.firstimage }"/>
 						</div>
 						<div class="info">
-							<h3>1881 헤리티지(1881 Heritage)</h3>
-							<div style="color: white;">
-								연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때가격
-							</div>
+							<h3>${item.place_title }</h3>
 						</div>
 						<div class="detail">
 							<div class="desc">
-								1881 헤리티지(1881 Heritage) <br>
-								<span class="colorBlueTeal">Hong Kong</span>
+								${item.title } <br>
+								<!-- <span class="colorBlueTeal">Hong Kong</span> -->
 							</div>
-							<div class="userName" data-uno="9">
-								<span>Hana Tour</span>
-							</div>
-							<div class="date">2013.01.11 09:56</div>
 						</div>
 					</a>
 				</div>
 				<div class="cnts">
-					<span class="hand like">좋아요 9</span>&nbsp;&nbsp;<span class="hand review">리뷰 0</span>
+					<span class="hand like">좋아요 ${item.like }</span>
 				</div>
 				<!-- end normal -->
 			</div>
-			<div class="col-md-3">
-				<!-- colored -->
-				<div class="ih-item square colored effect6 from_top_and_bottom">
-					<a href="#">
-						<div class="posAbsolute type_band type_band_color2">PLAN</div>
-						<div class="img">
-							<img alt="" src="resources/images/test.jpg" />
-						</div>
-						<div class="info">
-							<h3>1881 헤리티지(1881 Heritage)</h3>
-							<div style="color: white;">
-								연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때가격
-							</div>
-						</div>
-						<div class="detail">
-							<div class="desc">
-								1881 헤리티지(1881 Heritage) <br>
-								<span class="colorBlueTeal">Hong Kong</span>
-							</div>
-							<div class="userName" data-uno="9">
-								<span>Hana Tour</span>
-							</div>
-							<div class="date">2013.01.11 09:56</div>
-						</div>
-					</a>
-				</div>
-				<div class="cnts">
-					<span class="hand like">좋아요 9</span>&nbsp;&nbsp;<span class="hand review">리뷰 0</span>
-				</div>
-				<!-- end colored -->
-			</div>
-			<div class="col-md-3">
-				<!-- colored -->
-				<div class="ih-item square colored effect6 from_top_and_bottom">
-					<a href="#">
-						<div class="posAbsolute type_band type_band_color2">PLAN</div>
-						<div class="img">
-							<img alt="" src="resources/images/test.jpg" />
-						</div>
-						<div class="info">
-							<h3>Santa Barbara</h3>
-							<div style="color: white;">
-								연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때가격
-							</div>
-						</div>
-						<div class="detail">
-							<div class="desc">
-								1881 헤리티지(1881 Heritage) <br>
-								<span class="colorBlueTeal">Hong Kong</span>
-							</div>
-							<div class="userName" data-uno="9">
-								<span>Hana Tour</span>
-							</div>
-							<div class="date">2013.01.11 09:56</div>
-						</div>
-					</a>
-				</div>
-				<div class="cnts">
-					<span class="hand like">좋아요 9</span>&nbsp;&nbsp;<span class="hand review">리뷰 0</span>
-				</div>
-				<!-- end colored -->
-			</div>
-			<div class="col-md-3">
-				<!-- colored -->
-				<div class="ih-item square colored effect6 from_top_and_bottom">
-					<a href="#">
-						<div class="posAbsolute type_band type_band_color2">PLAN</div>
-						<div class="img">
-							<img alt="" src="resources/images/test.jpg" />
-						</div>
-						<div class="info">
-							<h3>Santa Barbara</h3>
-							<div style="color: white;">
-								연희동에 새로운 맛집으로 자리매김하고있는 Ellie. 아메리칸 스타일의 홈메이드 브런치는 물론, 특별 예약을 했을때가격
-							</div>
-						</div>
-						<div class="detail">
-							<div class="desc">
-								1881 헤리티지(1881 Heritage) <br>
-								<span class="colorBlueTeal">Hong Kong</span>
-							</div>
-							<div class="userName" data-uno="9">
-								<span>Hana Tour</span>
-							</div>
-							<div class="date">2013.01.11 09:56</div>
-						</div>
-					</a>
-				</div>
-				<div class="cnts">
-					<span class="hand like">좋아요 9</span>&nbsp;&nbsp;<span class="hand review">리뷰 0</span>
-				</div>
-				<!-- end colored -->
-			</div>
+			</c:forEach>
 		</div>
 	<!-- end From top and bottom-->
 	</div>

@@ -1,6 +1,7 @@
 package kr.co.yj.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<Place> getPlaceListByRead() {
 		return mainDao.getPlaceListByRead();
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, String>> getPlanList() {
+		return mainDao.getPlanList();
 	}
 }

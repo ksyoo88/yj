@@ -2,6 +2,7 @@ package kr.co.yj.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,6 +35,9 @@ public class MainController {
 		
 		ArrayList<Place> placeList = mainService.getPlaceListByRead();
 		model.addAttribute("placeList", placeList);
+		
+		ArrayList<HashMap<String, String>> planlist = mainService.getPlanList();
+		model.addAttribute("planlist", planlist);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof UsernamePasswordAuthenticationToken) {
