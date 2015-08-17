@@ -44,7 +44,12 @@
 		FROM
 		(
 			SELECT
+				<if test="order == 'desc'">
 				CEIL((ROW_NUMBER() OVER (ORDER BY A.PANO_NO DESC))/8) RN,
+				</if>
+				<if test="order == 'asc'">
+				CEIL((ROW_NUMBER() OVER (ORDER BY A.PANO_NO ASC))/8) RN,
+				</if>
 				A.PANO_NO, A.MEM_NO, A.PANO_TITLE, A.PANO_LIKE, TO_CHAR(A.PANO_REGDATE, 'yyyy.mm.dd') PANO_REGDATE,
 		  		B.PANO_DAY_NO, B.PANO_DAY_DATE, B.PANO_DAY_LOCA, B.PANO_DAY_MEMO
 			FROM
@@ -69,7 +74,12 @@
 			RN, PLAN_NO, MEM_NO, PLAN_TITLE, PLAN_LIKE_CNT, CONTENTID, FIRSTIMAGE, PLACE_TITLE
 		FROM
 			(SELECT 
+				<if test="order == 'desc'">
 				CEIL((ROW_NUMBER() OVER (ORDER BY A.PLAN_NO DESC))/8) RN,
+				</if>
+				<if test="order == 'asc'">
+				CEIL((ROW_NUMBER() OVER (ORDER BY A.PLAN_NO ASC))/8) RN,
+				</if>
 	  			A.PLAN_NO,
 				A.MEM_NO,
 				A.PLAN_TITLE,

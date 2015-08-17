@@ -84,8 +84,12 @@
 		<div class="tab-pane fade active in" id="plan">
 			<div class="row">
 				<div>
-					<a> 최신순 <span class="glyphicon glyphicon-chevron-down"></span>
-					</a>
+					<c:if test="${param.order ne 'asc' }">
+					<a href="?type=${param.type }&amp;order=asc"> 최신순 <span class="glyphicon glyphicon-chevron-down"></span> </a>
+					</c:if>
+					<c:if test="${param.order eq 'asc' }">
+					<a href="?type=${param.type }&amp;order=desc"> 최신순 <span class="glyphicon glyphicon-chevron-up"></span> </a>
+					</c:if>
 					<!-- <a data-toggle="modal" data-target="#cityModal"> 여행도시 <span class="glyphicon glyphicon-plane"></span> </a> -->
 				</div>
 				<br />
@@ -104,7 +108,7 @@
 				</c:forEach>
 			</div>
 			<!-- paging -->
-			<tags:paginate total="${totalCnt }" page="${currPage }" max="8" cssClass="pagination" pageName="currPage" queryString="&amp;type=${param.type }"/>
+			<tags:paginate total="${totalCnt }" page="${currPage }" max="8" cssClass="pagination" pageName="currPage" queryString="&amp;type=${param.type }&amp;order=${param.order }"/>
 
 		</div>
 		<div class="tab-pane fade" id="plan">

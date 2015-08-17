@@ -15,22 +15,24 @@ public class TogetherServiceImpl implements TogetherService {
 	private TogetherDao togetherDao;
 	
 	@Override
-	public ArrayList<HashMap<String, String>> getPanoList(int currPage) {
+	public ArrayList<HashMap<String, String>> getPanoList(int currPage, String order) {
 		if(currPage < 1) {
 			currPage = 1;
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("currPage", currPage);
+		map.put("order", order);
 		return togetherDao.getPanoList(map);
 	}
 	
 	@Override
-	public ArrayList<HashMap<String, String>> getPlanList(int currPage) {
+	public ArrayList<HashMap<String, String>> getPlanList(int currPage, String order) {
 		if(currPage < 1) {
 			currPage = 1;
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("currPage", currPage);
+		map.put("order", order);
 		return togetherDao.getPlanList(map);
 	}
 	@Override

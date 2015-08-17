@@ -21,18 +21,19 @@ public class TogetherController {
 	@RequestMapping("/together.do")
 	public String togetherSns(Model model,
 			@RequestParam(value="type", required=false, defaultValue="pano")String type,
-			@RequestParam(value="currPage", required=false, defaultValue="1")int currPage) {
+			@RequestParam(value="currPage", required=false, defaultValue="1")int currPage,
+			@RequestParam(value="order", required=false, defaultValue="desc")String order) {
 		
 		model.addAttribute("currPage", currPage);
 		
 		if("pano".equals(type)) {
-			ArrayList<HashMap<String, String>> list = togetherService.getPanoList(currPage);
+			ArrayList<HashMap<String, String>> list = togetherService.getPanoList(currPage, order);
 			int totalCnt = togetherService.getPanoTotalCnt();
 			model.addAttribute("list", list);
 			model.addAttribute("totalCnt", totalCnt);
 			return "/together/together_pano.tiles";
 		} else if("plan".equals(type)){
-			ArrayList<HashMap<String, String>> list = togetherService.getPlanList(currPage);
+			ArrayList<HashMap<String, String>> list = togetherService.getPlanList(currPage, order);
 			int totalCnt = togetherService.getPlanTotalCnt();
 			model.addAttribute("list", list);
 			model.addAttribute("totalCnt", totalCnt);
