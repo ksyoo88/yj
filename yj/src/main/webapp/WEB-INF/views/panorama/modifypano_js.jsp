@@ -8,7 +8,7 @@
   <script>
 
   function photoupload(dd) {
-  		
+  		console.log("업")
   	$("#photoupload"+dd).click();
   };
   
@@ -278,13 +278,14 @@ $(function() {
 	})
 	
 
-	오늘날짜 생성
+	//오늘날짜 생성
 
-	var d = new Date();
+	var daycnt=${panorama.panodayCnt};
+	var d = new Date(${panorama.panoRegdate.getTime()});
+	d.setDate(d.getDate(d) + (daycnt-1));
 	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	var day = d.getDate();
-	var daycnt=1;
 
 		
 	//일정 추가
@@ -338,10 +339,7 @@ $(function() {
 		$("#day"+daycnt+" span").html(
 				newday + "/" + newmonth + "/" + newyear);
 		
-		
 		}
-		
-		
 
 	})
 	
@@ -419,7 +417,7 @@ $(function() {
 		$("#hiddenCalander").hide('slow');
 	})
 	
-	//저장
+	//수정
 	$(".btn-save").click(function() {
 		
 		var title=$(".title .no-line-input").val()
@@ -432,7 +430,7 @@ $(function() {
 		var memo=$("#Memo1 textarea").val();
 		$("#submitForm #memoform1").val(memo);
 		var loca=$("#newtemp1 #location").html();
-		$("#submitForm #locaform1").val(loca);
+		$("#submitForm #locaform1").val($.trim(loca));
 		
 		if(daycnt>=2){
 			for(var i=2;i<=daycnt;i++){
@@ -445,7 +443,7 @@ $(function() {
 				var memo=$("#Memo"+i+" textarea").val();
 				$("#submitForm #memoform"+i).val(memo);
 				var loca=$("#newtemp"+i+" #location").html();
-				$("#submitForm #locaform"+i).val(loca);
+				$("#submitForm #locaform"+i).val($.trim(loca));
 				
 			}
 			
@@ -462,7 +460,7 @@ $(function() {
 	$("#daydeletebutton").click(function() {
 		if(daycnt>1){
 			
-		$('#mCSB_95 > :last').remove();
+		$('#newtemp'+daycnt).remove();
 		$(".date-day > :last").remove();
 		daycnt-=1;
 		d.setDate(d.getDate(d) - 1);

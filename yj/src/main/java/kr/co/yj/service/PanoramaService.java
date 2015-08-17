@@ -17,9 +17,12 @@ public interface PanoramaService {
 	void delTemPhotoByname(String email,String filename);
 	void delTemPhotoByday(String email,String day);
 	void delTemPhoto(String email);
+	
 	int savePanoTitle(int no,String title,Date to);
+	void modifysavePanoTitle(int no,String title,Date to);
 	
 	int savePanoDay(String memo,int day,int panoseq,String locaTitle);
+	void modifydeletePanoDay(int panoNo);
 	
 	
 	void savePanoPhotobyDay(String email,int day,int panodayseq);
@@ -39,4 +42,6 @@ public interface PanoramaService {
 	String likecheck(int panoNo,int memno);
 	
 	void deletePanorama(int panoNo);
+	
+	void movetempphoto(int panoNo,String email);
 }

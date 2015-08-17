@@ -43,6 +43,11 @@ public interface PanoramaDao {
 	void deletereply(int replyno);
 	
 	void deletePanoDayPhoto(int panoDayPhotoNo);
+	void deletePanoDayPhotobyPanodayNo(int panoDayNo);
 	void deletePanoDay(int panoDayNo);
 	void deletePanorama(int panoNo);
+	
+	void movephotoTotemp (HashMap<String, Object> map);
+
+	void updatePanno(PanoramaVO panorama);
 }

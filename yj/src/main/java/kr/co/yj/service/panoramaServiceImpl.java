@@ -92,6 +92,18 @@ public class panoramaServiceImpl implements PanoramaService {
 	}
 	
 	@Override
+	public void modifydeletePanoDay(int panoNo) {
+		ArrayList<PanoDayVO> panodays =dao.getPanoday(panoNo);
+		for(PanoDayVO pd:panodays){
+			dao.deletePanoDayPhotobyPanodayNo(pd.getNo());
+			dao.deletePanoDay(pd.getNo());
+		}
+		
+		
+		
+	}
+	
+	@Override
 	public int savePanoTitle(int no, String title,Date to) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	
@@ -103,6 +115,18 @@ public class panoramaServiceImpl implements PanoramaService {
 		
 		dao.savePanoTitle(map);
 		return panoseq;
+	}
+	
+	@Override
+	public void modifysavePanoTitle(int panoNo, String title, Date to) {
+		PanoramaVO panorama = new PanoramaVO();
+		
+		panorama.setPanoTitle(title);
+		panorama.setPanoRegdate(to);
+		panorama.setPanoNo(panoNo);
+		
+		dao.updatePanno(panorama);
+		
 		
 	}
 	
@@ -170,7 +194,7 @@ public class panoramaServiceImpl implements PanoramaService {
 	public ArrayList<PanoDayVO> getPanoday(int panono) {
 		ArrayList<PanoDayVO> panodayList = dao.getPanoday(panono);
 		for(PanoDayVO panoday : panodayList){
-			System.out.println(panoday.toString());
+			
 			
 			
 			if(panoday.getPlace()==null){
@@ -237,6 +261,23 @@ public class panoramaServiceImpl implements PanoramaService {
 			dao.deletereply(reply.getPanoReplyNo());
 		}
 		dao.deletePanorama(panoNo);
+	}
+	
+	@Override
+	public void movetempphoto(int panoNo, String email) {
+		ArrayList<PanoDayVO> panodays =dao.getPanoday(panoNo);
+		for(PanoDayVO pd : panodays){
+			ArrayList<PanoDayPhotoVO> photos= dao.getPanodayPhoto(pd.getNo());
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("MEM_EMAIL", email);
+			map.put("PANO_DAY", pd.getDayCnt());
+			for(PanoDayPhotoVO pdp : photos){
+				map.put("PHOTO_NAME", pdp.getPhoto());
+				
+				dao.movephotoTotemp(map);
+			}
+			
+		}
 	}
 	
 }

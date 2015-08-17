@@ -13,7 +13,6 @@ public class PanoDayVO {
 	private String dayMemo;
 	private int photocnt;
 	private Date date;
-	
 	private ArrayList<PanoDayPhotoVO> photos;
 	
 	public Date getDate() {

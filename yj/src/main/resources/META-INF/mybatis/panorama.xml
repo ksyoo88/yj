@@ -128,12 +128,22 @@
 	<delete id="deletePanoDayPhoto" parameterType="int">
 		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_PHOTO_NO= #{value}
 	</delete>
+	<delete id="deletePanoDayPhotobyPanodayNo" parameterType="int">
+		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO= #{value}
+	</delete>
 	<delete id="deletePanoDay" parameterType="int">
 		DELETE FROM YJ_PANO_DAY WHERE PANO_DAY_NO= #{value}
 	</delete>
 	<delete id="deletePanorama" parameterType="int">
 		DELETE FROM YJ_PANORAMA WHERE PANO_NO= #{value}
 	</delete>
+	<insert id="movephotoTotemp" parameterType="hashmap">
+		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME,PANO_DAY) VALUES (#{MEM_EMAIL},#{PHOTO_NAME},#{PANO_DAY})
+	</insert>
+	<update id="updatePanno" parameterType="kr.co.yj.vo.PanoramaVO">
+		UPDATE YJ_PANORAMA SET PANO_TITLE = #{panoTitle} ,PANO_REGDATE = #{panoRegdate} WHERE PANO_NO=#{panoNo}
+	</update>
+	
 	
 	
 </mapper>
