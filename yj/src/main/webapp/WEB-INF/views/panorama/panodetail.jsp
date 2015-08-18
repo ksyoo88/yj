@@ -44,7 +44,7 @@
 							
 								
 								<div class="mask"></div>
-								<div class="title" data-pano-no="${panorama.panoNo }" >${panorama.panoTitle }</div>
+								<div class="title" data-pano-no="${panorama.panoNo }" ><c:out value="${panorama.panoTitle }"></c:out> </div>
 								<div class="user">
 									<div class="profile user-photo">
 										<div class="memberProfileImage profileImageMedium"
@@ -151,7 +151,7 @@
 									<p hidden class="contentid">${panodays.place.contentid }</p>
 								</div>
 								
-							</c:forEach>	
+							</c:forEach>
 							
 							
 							<div id="panoReplyShow">
@@ -173,7 +173,7 @@
 											<div class="userName t-name">${replys.member.name }</div>
 										</td>
 										<td> 
-											<div id="reply" >${replys.reply }</div>
+											<div id="reply"><c:out value="${replys.reply }"></c:out> </div>
 										</td>
 										<td>
 											<div><fmt:formatDate value="${replys.date }" pattern="yyyy/M/d"/> </div>

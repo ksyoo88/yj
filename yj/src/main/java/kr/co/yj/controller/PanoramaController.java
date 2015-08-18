@@ -176,6 +176,8 @@ public class PanoramaController {
 		int day=locaArr.length;
 		int memocnt=memoArr.length;
 		
+
+		System.out.println("-----------------------------"+day);
 		
 		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		int no =memberold.getNo();
@@ -216,7 +218,6 @@ public class PanoramaController {
 		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
 		int no =memberold.getNo();
 		String email=memberold.getEmail();
-		
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("d/M/yyyy");
 		Date to = transFormat.parse(date);
