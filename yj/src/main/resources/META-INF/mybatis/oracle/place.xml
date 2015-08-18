@@ -59,6 +59,25 @@
 		FROM YJ_PLACE
 		WHERE CONTENTID = #{value}
 	 </select>
+	 
+	 <select id="getTopPlace" parameterType="string" resultMap="place">
+	 	SELECT *
+		FROM 
+		(SELECT TITLE,MAPX,MAPY,READCOUNT, ROW_NUMBER() OVER (ORDER BY READCOUNT desc) AS RANK
+		FROM YJ_PLACE
+		WHERE READCOUNT IS NOT NULL
+		<if test="_parameter != 'ALL'"> 
+		AND CAT1 =#{value}
+		</if>
+		)  
+	 	<![CDATA[
+		WHERE RANK<100
+		]]>
+	 </select>
+	 
+	 <select id="getLocationbyTitle" parameterType="string" resultMap="place">    
+      	SELECT * FROM YJ_PLACE WHERE TITLE LIKE '%'||#{keyword}||'%'    
+     </select>
 
 	
 </mapper>

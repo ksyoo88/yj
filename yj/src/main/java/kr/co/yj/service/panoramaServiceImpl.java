@@ -138,7 +138,14 @@ public class panoramaServiceImpl implements PanoramaService {
 		map.put("day", day);
 		map.put("panodayseq", panodayseq);
 		
-		dao.savePanoPhotobyDay(map);
+		ArrayList<String> photonames =dao.gettempphotoname(map);
+		for(String photo: photonames){
+			map.put("photo", photo);
+			dao.insertphotonameTotemphoto(map);
+			
+		}
+		
+		//dao.savePanoPhotobyDay(map);
 		
 		
 	}

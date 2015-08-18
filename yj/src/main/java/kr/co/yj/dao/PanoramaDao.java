@@ -22,6 +22,9 @@ public interface PanoramaDao {
 	void savePanoDay(HashMap<String, Object> map);
 	void savePanoPhotobyDay(HashMap<String, Object> map);
 	
+	ArrayList<String> gettempphotoname(HashMap<String, Object> map);
+	void insertphotonameTotemphoto(HashMap<String, Object> map);
+	
 	String getLocationIDbytitle(String title);
 	
 	int selectPano_seq();

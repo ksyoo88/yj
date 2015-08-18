@@ -65,12 +65,7 @@ $(function (){
 // 		console.log( "mapY : ", $(".mapY").eq(index).text() );
 // 		console.log( "cate : ", $(".cate").eq(index).text() );
 		var photo=$(".photo-cont a").eq(index).attr("data-photo");
-		var panodays='${panorama.panodays}';
-		 //console.log(panodays);
 		
-		//console.log(panodays[index].photo);
-		//console.log(photo);
- 		
 		console.log( $(".cate").eq(index).text() );
 		
 		var mapX = $(".mapX").eq(index).text(); 
