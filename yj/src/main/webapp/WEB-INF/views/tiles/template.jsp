@@ -18,8 +18,7 @@
 <tiles:insertAttribute name="style" ignore="true" />
 <script type="text/javascript" src="resources/js/jquery/jquery-1.11.3.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
- 
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <tiles:insertAttribute name="javascript" ignore="true" />
 <script type="text/javascript">
 //no image
