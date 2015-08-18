@@ -36,6 +36,12 @@
 	</repositories>
 	
 	<dependencies>
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.36</version>
+		</dependency>
 		<!-- security 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>

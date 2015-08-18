@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.MainDao">
+	<resultMap type="hashmap" id="planlist">
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="mem_no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_LIKE_CNT" property="like"/>
+		<result column="CONTENTID" property="contentid"/>
+		<result column="FIRSTIMAGE" property="firstimage"/>
+		<result column="PLACE_TITLE" property="place_title"/>
+	</resultMap>
+	<select id="getPlaceListByRead" resultType="Place">
+		<!-- TEST 이미지 있는 서울지역만 검색되도록 -->
+		SELECT * FROM(
+			SELECT
+				CONTENTID, ADDR1, ADDR2, ZIPCODE, AREACODE, BOOKTOUR, CAT1, CAT2, CAT3, CONTENTTYPEID, CREATEDTIME, FIRSTIMAGE,
+				FIRSTIMAGE2, MAPX, MAPY, MLEVEL, MODIFIEDTIME, READCOUNT, SIGUNGUCODE, TEL, TELNAME, TITLE, HOMEPAGE, EVENTSTARTDATE,
+				EVENTENDDATE, OVERVIEW
+			FROM
+			  	YJ_PLACE
+			WHERE
+			  	AREACODE = '1'
+			  	AND FIRSTIMAGE IS NOT NULL
+			ORDER BY READCOUNT DESC
+		) A
+		LIMIT 5
+	</select>
+	
+	<select id="getPlanList" resultMap="planlist">
+		SELECT
+			PLAN_NO, MEM_NO, PLAN_TITLE, PLAN_LIKE_CNT, CONTENTID, FIRSTIMAGE, PLACE_TITLE
+		FROM
+			(SELECT
+	  			A.PLAN_NO,
+				A.MEM_NO,
+				A.PLAN_TITLE,
+				A.PLAN_LIKE_CNT,
+				B.CONTENTID,
+				B.FIRSTIMAGE,
+				B.PLACE_TITLE
+			FROM
+				YJ_PLAN A,
+				(SELECT
+					A.CONTENTID, A.PLAN_NO, C.FIRSTIMAGE, C.TITLE PLACE_TITLE
+				FROM
+					YJ_PLAN_DAY A,
+	      			(SELECT MIN(PLAN_DAY_NO) PLAN_DAY_NO
+	      			FROM YJ_PLAN_DAY
+	      			GROUP BY PLAN_NO) B,
+	      			YJ_PLACE C
+	  			WHERE 
+	  				A.PLAN_DAY_NO = B.PLAN_DAY_NO
+	   				AND A.CONTENTID = C.CONTENTID) B
+			WHERE
+				A.PLAN_NO = B.PLAN_NO
+			ORDER BY A.PLAN_NO DESC
+	  		) A
+	  	LIMIT 1, 4
+	</select>
+	
+</mapper>

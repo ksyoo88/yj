@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.MypageDao">
+	<resultMap type="hashmap" id="panolist">
+		<result column="PANO_NO" property="no"/>
+		<result column="MEM_NO" property="mem_no"/>
+		<result column="PANO_TITLE" property="title"/>
+		<result column="PANO_LIKE" property="like"/>
+		<result column="PANO_REGDATE" property="regdate"/>
+		<result column="PANO_DAY_NO" property="day_no"/>
+		<result column="PANO_DAY_DATE" property="day_date"/>
+		<result column="PANO_DAY_LOCA" property="day_loca"/>
+		<result column="PANO_DAY_MEMO" property="day_memo"/>
+		<association select="getPhotoByDayNo" column="PANO_DAY_NO" property="day_photo"/>
+	</resultMap>
+	<resultMap type="hashmap" id="planlist">
+		<result column="PLAN_NO" property="no"/>
+		<result column="MEM_NO" property="mem_no"/>
+		<result column="PLAN_TITLE" property="title"/>
+		<result column="PLAN_LIKE_CNT" property="like"/>
+		<result column="CONTENTID" property="contentid"/>
+		<result column="FIRSTIMAGE" property="firstimage"/>
+		<result column="PLACE_TITLE" property="place_title"/>
+	</resultMap>
+	<select id="getPanoTotalGroups" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			YJ_PANORAMA
+		WHERE
+			MEM_NO = #{value}
+	</select>
+	<select id="getPlanTotalGroups" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			YJ_PLAN
+		WHERE
+			MEM_NO = #{value}
+	</select>
+	
+	<select id="getPanoListByPage" parameterType="hashmap" resultMap="panolist">
+		SELECT
+			PANO_NO, MEM_NO, PANO_TITLE, PANO_LIKE, PANO_REGDATE,
+		  	PANO_DAY_NO, PANO_DAY_DATE, PANO_DAY_LOCA, PANO_DAY_MEMO
+		FROM
+		(
+			SELECT
+				CEIL((ROW_NUMBER() OVER (ORDER BY A.PANO_NO DESC))/8) RN,
+				A.PANO_NO, A.MEM_NO, A.PANO_TITLE, A.PANO_LIKE, TO_CHAR(A.PANO_REGDATE, 'yyyy.mm.dd') PANO_REGDATE,
+		  		B.PANO_DAY_NO, B.PANO_DAY_DATE, B.PANO_DAY_LOCA, B.PANO_DAY_MEMO
+			FROM
+				YJ_PANORAMA A, YJ_PANO_DAY B
+			WHERE
+				A.MEM_NO = #{userNo}
+				AND A.PANO_NO = B.PANO_NO
+				AND B.PANO_DAY_DATE = 1
+		)
+		WHERE
+			RN = #{currPage}
+	</select>
+	<select id="getPhotoByDayNo" parameterType="int" resultType="string">
+		SELECT PANO_DAY_PHOTO FROM
+		(
+			SELECT PANO_DAY_PHOTO FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO = #{value}
+			ORDER BY PANO_DAY_PHOTO ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
+	<select id="getPlanListByPage" parameterType="hashmap" resultMap="planlist">
+		SELECT
+			RN, PLAN_NO, MEM_NO, PLAN_TITLE, PLAN_LIKE_CNT, CONTENTID, FIRSTIMAGE, PLACE_TITLE
+		FROM
+			(SELECT 
+				CEIL((ROW_NUMBER() OVER (ORDER BY A.PLAN_NO DESC))/8) RN,
+	  			A.PLAN_NO,
+				A.MEM_NO,
+				A.PLAN_TITLE,
+				A.PLAN_LIKE_CNT,
+				B.CONTENTID,
+				B.FIRSTIMAGE,
+				B.PLACE_TITLE
+			FROM
+				YJ_PLAN A,
+				(SELECT
+					A.CONTENTID, A.PLAN_NO, C.FIRSTIMAGE, C.TITLE PLACE_TITLE
+				FROM
+					YJ_PLAN_DAY A,
+	      			(SELECT MIN(PLAN_DAY_NO) PLAN_DAY_NO
+	      			FROM YJ_PLAN_DAY
+	      			GROUP BY PLAN_NO) B,
+	      			YJ_PLACE C
+	  			WHERE 
+	  				A.PLAN_DAY_NO = B.PLAN_DAY_NO
+	   				AND A.CONTENTID = C.CONTENTID) B
+			WHERE
+				A.MEM_NO = #{userNo}
+	  			AND A.PLAN_NO = B.PLAN_NO
+	  		)
+	  	WHERE
+			RN = #{currPage}
+	</select>
+</mapper>

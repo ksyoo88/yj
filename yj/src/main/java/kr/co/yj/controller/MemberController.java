@@ -42,7 +42,7 @@ public class MemberController {
 		
 		memberservice.addMember(mem);
 		
-		mav.setViewName("redirect:/main.do");
+		mav.setViewName("redirect:/main.do?join");
 		return mav;
 	}
 	
@@ -57,7 +57,8 @@ public class MemberController {
 		String html_str = "";
 		BufferedReader in = null;
 		try {
-			in = new BufferedReader(new InputStreamReader(new FileInputStream("C:/spring_study/git/yj/src/main/webapp/resources/mail/findpw.jsp"),"UTF8"));
+			//in = new BufferedReader(new InputStreamReader(new FileInputStream("C:/spring_study/git/yj/src/main/webapp/resources/mail/findpw.jsp"),"UTF8"));
+			in = new BufferedReader(new InputStreamReader(new FileInputStream("/resources/mail/findpw.jsp"),"UTF8"));
 			while((html_str =in.readLine() ) != null){
 				html.append(html_str);
 			}

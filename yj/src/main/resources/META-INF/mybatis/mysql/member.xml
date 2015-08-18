@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.MemberDao">
+<!-- 
+		resultMap 은 컬럼명과 클래스의 변수명을 매핑한다
+		type에는 결과값을 담을 객체의 클래스명
+		id에는 <select/>resultMap에서 사용할이름
+	 -->
+	<resultMap type="Member" id="mem">
+		<result column="MEM_NO" property="no"/>
+		<result column="MEM_EMAIL" property="email"/>
+		<result column="MEM_NAME" property="name"/>
+		<result column="MEM_PASSWORD" property="password"/>
+		<result column="MEM_BIRTH" property="birth"/>
+		<result column="MEM_GENDER" property="gender"/>
+		<result column="MEM_PHOTO" property="photo"/>
+	</resultMap>
+	<resultMap type="MemberDetail" id="memberDetail">
+		<result column="MEM_NO" property="no"/>
+		<result column="MEM_EMAIL" property="email"/>
+		<result column="MEM_NAME" property="name"/>
+		<result column="MEM_PASSWORD" property="password"/>
+		<result column="MEM_BIRTH" property="birth"/>
+		<result column="MEM_GENDER" property="gender"/>
+		<result column="MEM_PHOTO" property="photo"/>
+	</resultMap>
+	
+
+	<insert id="addMember" parameterType="MemberDetail" >
+	INSERT INTO YJ_MEMBER(MEM_EMAIL,MEM_NAME,MEM_PASSWORD,MEM_BIRTH,MEM_GENDER,MEM_PHOTO)
+	 VALUES (#{email},#{name},#{password},#{birth},#{gender},#{photo})
+	</insert>
+	
+	<select id="getMemberbyemail" parameterType="string" resultMap="memberDetail">
+		SELECT * FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}
+		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
+	</select>
+	<select id="getMemberbyNo" parameterType="int" resultMap="memberDetail">
+		SELECT * FROM YJ_MEMBER WHERE MEM_NO=#{no}
+		<!-- SELECT MEM_NO,MEM_NAME,MEM_BIRTH,MEM_GENDER,MEM_PHOTO FROM YJ_MEMBER WHERE MEM_EMAIL=#{password}; -->
+	</select>
+	
+	<select id="getMemberPwd" parameterType="MemberDetail" resultType="string" >
+	select substr(pwd,1,8)
+		from (SELECT MEM_PASSWORD pwd FROM YJ_MEMBER WHERE MEM_EMAIL=#{email})
+	</select>
+	<update id="updatePwd" parameterType="MemberDetail">
+	 	 UPDATE YJ_MEMBER SET MEM_PASSWORD =#{password}  WHERE MEM_EMAIL=#{email} 
+	</update>
+	<update id="modifyinfo" parameterType="MemberDetail">
+		UPDATE
+			YJ_MEMBER
+		SET
+			MEM_NAME= #{name}
+			<if test="password != null">
+				,MEM_PASSWORD=#{password}
+			</if>
+		WHERE
+			MEM_EMAIL=#{email} 
+	</update>
+	<update id="updateprofile" parameterType="MemberDetail">
+		UPDATE YJ_MEMBER SET MEM_PHOTO = #{photo} WHERE MEM_EMAIL=#{email} 
+	</update>
+	<insert id="addtempphoto" parameterType="hashmap">
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name,PANO_DAY) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR},#{day,jdbcType=NUMERIC})
+	</insert>
+	<select id="getTemPhoto" parameterType="string" resultType="string">
+		SELECT
+			PHOTO_NAME
+		FROM
+			(SELECT
+				PHOTO_NAME,ROWNUM
+			FROM
+				YJ_TEMP_PHOTO
+			WHERE MEM_EMAIL=#{email}
+			LIMIT 8)
+	</select>
+	<delete id="delTemPhoto" parameterType="string">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email}
+	</delete>
+</mapper>

@@ -102,7 +102,7 @@
 		<c:forEach var="place" items="${placeList }">
 		<div class="colored effect3 from_top_and_bottom">
 			<a href="#">
-				<div class="img">
+				<div class="img"  style="height: 250px;">
 					<img alt="" src="${place.firstimage }" />
 				</div>
 				<div class="info">

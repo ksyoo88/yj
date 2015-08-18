@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yj.dao.PanoramaDao">
+<!-- 
+		resultMap 은 컬럼명과 클래스의 변수명을 매핑한다
+		type에는 결과값을 담을 객체의 클래스명
+		id에는 <select/>resultMap에서 사용할이름
+	 -->
+	<resultMap type="Panorama" id="panorama">		
+		<result column="PANO_NO" property="panoNo"/>
+		<result column="MEM_NO" property="member.no"/>
+		<result column="PANO_TITLE" property="panoTitle"/>
+		<result column="PANO_LIKE" property="panoLike"/>
+		<result column="PANO_REGDATE" property="panoRegdate"/>
+	 </resultMap>	 
+	<resultMap type="PanoDay" id="panoday">		
+		<result column="PANO_NO" property="panorama.panoNo"/>
+		<result column="PANO_DAY_NO" property="no"/>
+		<result column="PANO_DAY_DATE" property="dayCnt"/>
+		<result column="PANO_DAY_LOCA" property="place.contentid"/>
+		<result column="PANO_DAY_MEMO" property="dayMemo"/>		
+	 </resultMap>	 
+	<resultMap type="PanoDayPhoto" id="panodayphoto">		
+		<result column="PANO_DAY_PHOTO_NO" property="panoDayPhoto"/>
+		<result column="PANO_DAY_NO" property="panoDay.no"/>
+		<result column="PANO_DAY_PHOTO" property="photo"/>
+	 </resultMap>	
+	<resultMap type="kr.co.yj.vo.PanoReplyVO" id="panoreply">		
+		<result column="PANO_REPLY_NO" property="panoReplyNo"/>
+		<result column="PANO_NO" property="panoNo"/>
+		<result column="PANO_REPLY_WRITER" property="member.no"/>
+		<result column="PANO_REPLY" property="reply"/>
+		<result column="PANO_REPLY_REGDATE" property="date"/>
+	 </resultMap>	
+	
+	
+	<insert id="addtempphoto" parameterType="hashmap">
+		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+	</insert>
+	<insert id="savePanoTitle" parameterType="hashmap">
+		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoseq},#{title},0,#{date})
+	</insert>
+	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
+		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int},#{panodayseq,jdbcType=NUMERIC,javaType=int})}
+		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
+	</insert>
+	<insert id="savePanoDay" parameterType="hashmap">
+		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
+		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
+	</insert>
+	
+	<select id="selectPano_seq" resultType="int">
+		SELECT pano_seq.nextval FROM dual
+	</select>
+	<select id="selectPano_day_seq" resultType="int">
+		SELECT pano_day_seq.nextval FROM dual
+	</select>
+	
+	<select id="getLocationIDbytitle" parameterType="string" resultType="string">
+		SELECT CONTENTID FROM YJ_PLACE WHERE TITLE=#{title}
+	</select>
+	
+	<select id="getLocationTitle" parameterType="string" resultType="string">
+		SELECT TITLE FROM YJ_PLACE WHERE TITLE LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="getTemPhoto" parameterType="string" resultType="string">
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
+	</select>
+	
+	<select id="getTemPhotoByday" parameterType="hashmap" resultType="string">
+		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and PANO_DAY=#{day})
+	</select>
+	
+	<delete id="delTemPhoto" parameterType="string">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email}
+	</delete>
+	
+	<delete id="delTemPhotoByname" parameterType="hashmap">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND PHOTO_NAME=#{filename}
+	</delete>
+	
+	<delete id="delTemPhotoByday" parameterType="hashmap">
+		DELETE FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL= #{email} AND PANO_DAY=#{day}
+	</delete>
+	
+	<select id="likecheck" parameterType="hashmap" resultType="string">
+		SELECT NVL2((SELECT PANO_LIKE FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}),'T','F') AS LIKECHECK FROM DUAL
+	</select>
+	<insert id="likelisert" parameterType="hashmap">
+		INSERT INTO YJ_PANO_LIKE(MEM_NO,PANO_NO,PANO_LIKE) VALUES (#{memno},#{panono},'-')
+	</insert>
+	<delete id="likedelete" parameterType="hashmap">
+		DELETE FROM YJ_PANO_LIKE  WHERE MEM_NO=#{memno} and PANO_NO=#{panono}
+	</delete>
+	<select id="panolikecnt" resultType="int">
+		SELECT PANO_LIKE FROM YJ_PANORAMA WHERE PANO_NO=#{panono}
+	</select>
+	<update id="updatelikecnt" parameterType="hashmap">
+		UPDATE YJ_PANORAMA 
+	
+		SET PANO_LIKE = #{newpanolike}
+
+		WHERE PANO_NO=#{panono}
+	</update>
+	
+	<select id="getPanorama" parameterType="int" resultMap="panorama">
+		SELECT * FROM YJ_PANORAMA WHERE PANO_NO=#{value}
+	</select>
+	<select id="getPanoday" parameterType="int" resultMap="panoday">
+		SELECT * FROM YJ_PANO_DAY WHERE PANO_NO=#{value}
+	</select>
+	<select id="getPanodayPhoto" parameterType="int" resultMap="panodayphoto">
+		SELECT * FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO=#{value}
+	</select>
+	
+	<insert id="savePanoReply" parameterType="kr.co.yj.vo.PanoReplyVO">
+		INSERT INTO YJ_PANO_REPLY (PANO_REPLY_NO,PANO_NO,PANO_REPLY_WRITER,PANO_REPLY,PANO_REPLY_REGDATE) VALUES (PANO_REPLY_SEQ.nextval,#{panoNo},#{member.no},#{reply},sysdate)
+	</insert>
+	<select id="getPanoReply" parameterType="int" resultMap="panoreply">
+		SELECT * FROM YJ_PANO_REPLY WHERE PANO_NO=#{value} ORDER BY PANO_REPLY_REGDATE ASC
+	</select>
+	<delete id="deletereply" parameterType="int">
+		DELETE FROM YJ_PANO_REPLY WHERE PANO_REPLY_NO = #{value}
+	</delete>
+	<delete id="deletePanoDayPhoto" parameterType="int">
+		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_PHOTO_NO= #{value}
+	</delete>
+	<delete id="deletePanoDay" parameterType="int">
+		DELETE FROM YJ_PANO_DAY WHERE PANO_DAY_NO= #{value}
+	</delete>
+	<delete id="deletePanorama" parameterType="int">
+		DELETE FROM YJ_PANORAMA WHERE PANO_NO= #{value}
+	</delete>
+	
+	
+</mapper>

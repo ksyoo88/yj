@@ -30,7 +30,8 @@ public class MainController {
 	public String main(Model model, HttpSession session, Principal principal,
 			@RequestParam(value="login", required=false)String login,
 			@RequestParam(value="logout", required=false)String logout,
-			@RequestParam(value="error", required=false)String error) {
+			@RequestParam(value="error", required=false)String error,
+			@RequestParam(value="join", required=false)String join) {
 		model.addAttribute("title", "여기저기 - 여행, 끝이 아닌 시작을 향해.");
 		
 		ArrayList<Place> placeList = mainService.getPlaceListByRead();
@@ -57,6 +58,9 @@ public class MainController {
 		}
 		if(error != null) {
 			model.addAttribute("error", "이메일 또는 비밀번호가 유효하지 않습니다.");
+		}
+		if(join != null) {
+			model.addAttribute("msg", "회원가입되었습니다.");
 		}
 		
 		return "/main/main.tiles";
