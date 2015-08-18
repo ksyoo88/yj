@@ -112,10 +112,8 @@ public class MemberServiceImpl implements MemberService {
 		MemberDetail member=dao.getMemberbyemail(email);
 		
 		if(member==null){
-			
 			return false;
 		}else{
-			
 			return true;
 		}
 		
