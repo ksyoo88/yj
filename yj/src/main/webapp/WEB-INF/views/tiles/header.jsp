@@ -48,17 +48,94 @@
 				
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control"
-							placeholder="어디를 여행하고 싶으세요?">
+						<input type="text" onkeyup="search();" id="searchkeyword" maxlength="40" class="form-control" placeholder="어디를 여행하고 싶으세요?">
+						<input type="text" id="hidekey" hidden >
 					</div>
-					<button type="submit" class="btn btn-default">검색</button>
+					<button type="button" onclick="searchkey()" class="btn btn-default">검색</button>
 				</form>
+				
 			</ul>
 		</div>
 	</nav>
 
+<script type="text/javascript">
+function searchkey() {
+	var hidekey = $("#hidekey").val();
+	$.ajax({
+		  url:"movelocation.do",
+			data:{title:hidekey},
+			type:"post",
+			dataType:"json",
+			success: function(result) {
+				place=result.place;
+				var conID = place.contentid; 
+				var uri=window.location.pathname;
+				console.log(uri);
+				var result = uri.indexOf('plan.do')
+				console.log(result);
+				
+				if(result != -1 ){
+					
+					var mapX = place.mapx; 
+					var mapY = place.mapy; 
+					var moveLatLon = new daum.maps.LatLng(mapY, mapX);
+	     		 	map.panTo(moveLatLon);   
+				}else{
+				location.replace("plan.do?contentid="+conID);  
+					
+				}
+				
+			}
+	 })
+}
+
+function search() {
+	var inputkeyword = $("#searchkeyword").val();
+	if(inputkeyword.length>=2){
+		
+		$.ajax({
+			Type:"post",
+			url:"searchlocation.do",
+			data:{inputkeyword:inputkeyword},
+			dataType:"json",
+			success:function(result){
+				
+				var data='';
+				var titlevalue = new Array();
+				
+				
+				places=result.places
+				    	  
+				 for(var i =0; i<places.length;i++){
+					var place = places[i];
+				   	console.log(place.title);
+					 title=place.title;
+					titlevalue.push(title);
+					
+				}
+				
+				$("#searchkeyword").autocomplete({
+				      source: titlevalue,
+				    
+				      select:function(e, i){
+				    	 
+				      	$("#hidekey").val(i.item.value);
+				      	var hidekey=i.item.value
+				      	
+				      	console.log("숨겨진-"+hidekey);
+				      	
+				      }
+				 });
+			}
+		})
+	}
+};
+
+
+</script>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
 	<c:if test="${not empty error}">
 		$("#loginfail").modal();
