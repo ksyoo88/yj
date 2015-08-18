@@ -97,7 +97,8 @@
 	      			YJ_PLACE C
 	  			WHERE 
 	  				A.PLAN_DAY_NO = B.PLAN_DAY_NO
-	   				AND A.CONTENTID = C.CONTENTID) B
+	   				AND A.CONTENTID = C.CONTENTID) B,
+	   			( SELECT @RNUM := 0 ) R
 			WHERE
 				A.MEM_NO = #{userNo}
 	  			AND A.PLAN_NO = B.PLAN_NO

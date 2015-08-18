@@ -44,20 +44,22 @@
 		FROM
 		(
 			SELECT
-				<if test="order == 'desc'">
-				CEIL((ROW_NUMBER() OVER (ORDER BY A.PANO_NO DESC))/8) RN,
-				</if>
-				<if test="order == 'asc'">
-				CEIL((ROW_NUMBER() OVER (ORDER BY A.PANO_NO ASC))/8) RN,
-				</if>
-				A.PANO_NO, A.MEM_NO, A.PANO_TITLE, A.PANO_LIKE, TO_CHAR(A.PANO_REGDATE, 'yyyy.mm.dd') PANO_REGDATE,
+				CEILING((@RNUM := @RNUM + 1)/8) AS RN,
+				A.PANO_NO, A.MEM_NO, A.PANO_TITLE, A.PANO_LIKE, DATE_FORMAT(A.PANO_REGDATE, '%y.%c.%d') PANO_REGDATE,
 		  		B.PANO_DAY_NO, B.PANO_DAY_DATE, B.PANO_DAY_LOCA, B.PANO_DAY_MEMO
 			FROM
-				YJ_PANORAMA A, YJ_PANO_DAY B
+				YJ_PANORAMA A, YJ_PANO_DAY B,
+				( SELECT @RNUM := 0 ) R
 			WHERE
 				A.PANO_NO = B.PANO_NO
 				AND B.PANO_DAY_DATE = 1
-		)
+			<if test="order == 'desc'">
+			ORDER BY A.PANO_NO DESC
+			</if>
+			<if test="order == 'asc'">
+			ORDER BY A.PANO_NO ASC
+			</if>
+		) A
 		WHERE
 			RN = #{currPage}
 	</select>
@@ -67,19 +69,14 @@
 			SELECT PANO_DAY_PHOTO FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO = #{value}
 			ORDER BY PANO_DAY_PHOTO ASC
 		)
-		WHERE ROWNUM = 1
+		LIMIT 1
 	</select>
 	<select id="getPlanList" parameterType="hashmap" resultMap="planlist">
 		SELECT
 			RN, PLAN_NO, MEM_NO, PLAN_TITLE, PLAN_LIKE_CNT, CONTENTID, FIRSTIMAGE, PLACE_TITLE
 		FROM
-			(SELECT 
-				<if test="order == 'desc'">
-				CEIL((ROW_NUMBER() OVER (ORDER BY A.PLAN_NO DESC))/8) RN,
-				</if>
-				<if test="order == 'asc'">
-				CEIL((ROW_NUMBER() OVER (ORDER BY A.PLAN_NO ASC))/8) RN,
-				</if>
+			(SELECT
+				CEILING((@RNUM := @RNUM + 1)/8) AS RN,
 	  			A.PLAN_NO,
 				A.MEM_NO,
 				A.PLAN_TITLE,
@@ -99,10 +96,17 @@
 	      			YJ_PLACE C
 	  			WHERE 
 	  				A.PLAN_DAY_NO = B.PLAN_DAY_NO
-	   				AND A.CONTENTID = C.CONTENTID) B
+	   				AND A.CONTENTID = C.CONTENTID) B,
+	   			( SELECT @RNUM := 0 ) R
 			WHERE
 				A.PLAN_NO = B.PLAN_NO
-	  		)
+			<if test="order == 'desc'">
+			ORDER BY A.PLAN_NO DESC
+			</if>
+			<if test="order == 'asc'">
+			ORDER BY A.PLAN_NO ASC
+			</if>
+	  		) A
 	  	WHERE
 			RN = #{currPage}
 	</select>
