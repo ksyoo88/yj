@@ -127,6 +127,17 @@
 	<delete id="deleteComment" parameterType="int">
 		DELETE FROM YJ_PLAN_COMMENT WHERE PLAN_COMMENT_NO= #{value}
 	</delete>
-
+	
+	<delete id="deletePlanCommentByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN_COMMENT WHERE PLAN_NO= #{value}
+	</delete>
+	
+	<delete id="deletePlanDayByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN_DAY WHERE PLAN_NO =#{value}
+	</delete>
+	
+	<delete id="deletePlanByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN WHERE PLAN_NO = #{value}
+	</delete>
 	
 </mapper>

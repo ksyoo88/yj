@@ -168,4 +168,15 @@ public class PlanServiceImpl implements PlanService {
 		
 	}
 	
+	@Override
+	public void deletePlanByPlanNo(int planNo) {
+
+		planDao.deletePlanCommentByPlanNo(planNo);
+		
+		planDao.deletePlanDayByPlanNo(planNo);
+		
+		planDao.deletePlanByPlanNo(planNo);
+		
+	}
+	
 }

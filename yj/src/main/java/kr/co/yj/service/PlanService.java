@@ -33,4 +33,6 @@ public interface PlanService {
 	ArrayList<BookmarkVO> getBookmarkByMemberNo(int no);
 	
 	ArrayList<Place> getTopPlace(String category);
+	
+	void deletePlanByPlanNo(int planNo);
 }

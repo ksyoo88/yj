@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import kr.co.yj.security.MemberDetail;
+import kr.co.yj.service.PlanService;
 import kr.co.yj.service.PlanServiceImpl;
 import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.MemberVO;
@@ -107,6 +108,15 @@ public class PlanController {
 		
 	}
 	
+	@RequestMapping("/planDelete.do")
+	public String planDelete(@RequestParam("planNo")int planNo){
+		System.out.println(planNo);
+		planService.deletePlanByPlanNo(planNo);
+		
+		return "redirect:/together.do";
+	}
+	
+
 	@RequestMapping("/plandetail.do")
 	public ModelAndView planDetail(@RequestParam("no")int no){
 		

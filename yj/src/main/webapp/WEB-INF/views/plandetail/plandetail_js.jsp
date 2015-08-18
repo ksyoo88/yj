@@ -184,6 +184,10 @@ $(function() {
 		
 	});
 	
+	$("#deletePlanBtn").click(function(){
+		location.href = '/planDelete.do?planNo='+'${plan.no}';
+	});
+	
 	$("#commentInsert").click(function(){
 		var comment = $("#commentText").val();
 		var planNo = $("#commentInsert").data("plan-no");

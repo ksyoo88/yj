@@ -16,11 +16,10 @@
 			<div class="col-md-12" id="topContent">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :
-							${plan.member.name }</p>
+						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :${plan.member.name }</p>
 						<button type="button" class="btn btn-default">URL 복사</button>
 						<c:if test="${plan.member.no == member.no }">
-							<button type="button" class="btn btn-default">수정하기</button>
+							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
 						</c:if>
 						<button type="button" class="btn btn-default">좋아요</button>
 						<button type="button" class="btn btn-default">공유하기</button>
