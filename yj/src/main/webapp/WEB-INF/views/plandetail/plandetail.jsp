@@ -21,7 +21,14 @@
 						<c:if test="${plan.member.no == member.no }">
 							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
 						</c:if>
-						<button type="button" class="btn btn-default">좋아요</button>
+						<c:choose>
+						<c:when test='${likeChecked.equals("F")} '>
+							<button type="button" class="btn btn-default" id="likeBtn">좋아요</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-default" id="likeCencelBtn">좋아요 취소</button>
+						</c:otherwise>
+						</c:choose>
 						<button type="button" class="btn btn-default">공유하기</button>
 					</div>
 				</div>

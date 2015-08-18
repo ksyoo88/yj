@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import kr.co.yj.dao.MemberDao;
 import kr.co.yj.dao.PlaceDao;
@@ -177,6 +178,23 @@ public class PlanServiceImpl implements PlanService {
 		
 		planDao.deletePlanByPlanNo(planNo);
 		
+	}
+	
+	@Override
+	public void insertLike(HashMap<String, Integer> likeMap) {
+
+		planDao.insertLikePlan(likeMap);
+		
+		System.out.println( likeMap.get("planNo") );
+		
+	}
+	
+	@Override
+	public String checkedLike(HashMap<String, Integer> likeMap) {
+
+		String check = planDao.likeCheckByMemNoPlanNo(likeMap);
+		
+		return check;
 	}
 	
 }

@@ -2,6 +2,7 @@ package kr.co.yj.service;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.Place;
@@ -35,4 +36,9 @@ public interface PlanService {
 	ArrayList<Place> getTopPlace(String category);
 	
 	void deletePlanByPlanNo(int planNo);
+	
+	void insertLike(HashMap<String, Integer> likeMap);
+	
+	String checkedLike(HashMap<String,Integer> likeMap);
+	
 }
