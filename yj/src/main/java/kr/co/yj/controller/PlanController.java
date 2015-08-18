@@ -228,7 +228,6 @@ public class PlanController {
 	
 	@RequestMapping("/planLike.do")
 	public ModelAndView planLike(@RequestParam("memNo")int memNo, @RequestParam("planNo")int planNo){
-		System.out.println(memNo +" : "+ planNo);
 		
 		HashMap<String,Integer> likeMap = new HashMap<String, Integer>();		
 		likeMap.put("memNo", memNo);
@@ -236,7 +235,27 @@ public class PlanController {
 		
 		planService.insertLike(likeMap);
 		
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(likeMap);
+		mav.setView(jsonView);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/planLikeCencel.do")
+	public ModelAndView planLikeCencel(@RequestParam("memNo")int memNo, @RequestParam("planNo")int planNo){
+		
+		HashMap<String,Integer> likeMap = new HashMap<String, Integer>();		
+		likeMap.put("memNo", memNo);
+		likeMap.put("planNo", planNo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(likeMap);
+		mav.setView(jsonView);
+		
+		planService.deleteLike(likeMap);	
+		
+		return mav;
 	}
 	
 	

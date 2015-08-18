@@ -38,7 +38,7 @@ public interface PlanDao {
 	
 	// 일정 좋아요
 	String likeCheckByMemNoPlanNo(HashMap<String, Integer> planLike);
-	void insertLikePlan(HashMap<String, Integer> planLike);
-	void deleteLikePlan(int planNo);
-	
+	void insertLike(HashMap<String, Integer> planLike);
+	void deleteLike(HashMap<String, Integer> planLike);
+	int getLikeCnt(int planNo);
 }

@@ -17,6 +17,18 @@ $(function() {
 		$("#place-tab").css("height",height);
 		
 	});
+	
+	var likeChecked = '${likeChecked }';
+	
+	$("#likeBtn").hide();
+	$("#likeCencelBtn").hide();
+	
+	if(likeChecked == 'F') {
+		$("#likeBtn").show();
+	} else {
+		$("#likeCencelBtn").show();
+	}
+	
 
 	var container = document.getElementById('map-box'),
 		options = {
@@ -190,23 +202,33 @@ $(function() {
 	
 	$("#likeBtn").click(function(){
 		
-		
 		$.ajax({
 			url : "planLike.do",
 			type:"post",
 			data:{ "memNo" : '${member.no}' , "planNo" : '${plan.no}'},
 			dataType:"json",
 			success : function(result) {
-				
-				alert("like");
-				
+				$("#likeBtn").hide();
+				$("#likeCencelBtn").show();
 			}
 		});
 		
 	})
 	
 	$("#likeCencelBtn").click(function(){
-		alert("unlike");
+	
+		$.ajax({
+			url : "planLikeCencel.do",
+			type : "post",
+			data : {"memNo" : '${member.no}', "planNo" : '${plan.no}'},
+			dataType :"json",
+			success : function(result) {
+				$("#likeBtn").show();
+				$("#likeCencelBtn").hide();
+				
+			}
+		})
+	
 	})
 	
 	

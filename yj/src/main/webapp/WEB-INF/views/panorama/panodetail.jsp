@@ -129,7 +129,7 @@
 									
 									<c:forEach items="${panodays.photos }" var="photos" varStatus="i">
 									
-										<a href="resources/images/temphoto/${photos.photo }" data-lightbox="${day.index }">
+										<a href="resources/images/temphoto/${photos.photo }" data-lightbox="${day.index }" data-photo="${photos.photo }">
 											<div title="23:38" class="photo images hand box size${photos.size}"
 												style="background-image: url(resources/images/temphoto/${photos.photo }); background-repeat: round;">
 											<div class="inline"></div>

@@ -183,7 +183,7 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public void insertLike(HashMap<String, Integer> likeMap) {
 
-		planDao.insertLikePlan(likeMap);
+		planDao.insertLike(likeMap);
 		
 		System.out.println( likeMap.get("planNo") );
 		
@@ -196,5 +196,13 @@ public class PlanServiceImpl implements PlanService {
 		
 		return check;
 	}
+	
+	@Override
+	public void deleteLike(HashMap<String, Integer> likeMap) {
+		
+		planDao.deleteLike(likeMap);
+		
+	}
+	
 	
 }

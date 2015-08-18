@@ -48,7 +48,7 @@
 				
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" onkeyup="search();" id="searchkeyword" maxlength="40" class="form-control" placeholder="어디를 여행하고 싶으세요?">
+						<input type="text" onkeyup="searchheader();" id="searchkeyword" maxlength="40" class="form-control" placeholder="어디를 여행하고 싶으세요?">
 						<input type="text" id="hidekey" hidden >
 					</div>
 					<button type="button" onclick="searchkey()" class="btn btn-default">검색</button>
@@ -89,7 +89,7 @@ function searchkey() {
 	 })
 }
 
-function search() {
+function searchheader() {
 	var inputkeyword = $("#searchkeyword").val();
 	if(inputkeyword.length>=2){
 		

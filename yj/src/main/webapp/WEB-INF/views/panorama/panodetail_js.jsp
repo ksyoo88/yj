@@ -64,7 +64,14 @@ $(function (){
 // 		console.log( "mapX : ", $(".mapX").eq(index).text() );
 // 		console.log( "mapY : ", $(".mapY").eq(index).text() );
 // 		console.log( "cate : ", $(".cate").eq(index).text() );
- 		console.log( $(".cate").eq(index).text() );
+		var photo=$(".photo-cont a").eq(index).attr("data-photo");
+		var panodays='${panorama.panodays}';
+		 //console.log(panodays);
+		
+		//console.log(panodays[index].photo);
+		//console.log(photo);
+ 		
+		console.log( $(".cate").eq(index).text() );
 		
 		var mapX = $(".mapX").eq(index).text(); 
 		var mapY = $(".mapY").eq(index).text(); 
@@ -124,13 +131,14 @@ $(function (){
 		}
 		
 	
+		var photoSrc ='resources/images/temphoto/'+photo    // 마커이미지의 주소입니다    
 		var imageSrc = 'resources/images/icon_'+cate+'.png', // 마커이미지의 주소입니다    
-			imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+			imageSize = new daum.maps.Size(38, 38), // 마커이미지의 크기입니다
 			imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 		// DB에서 가져와 막 찍으면된다.
-		var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		var markerImage = new daum.maps.MarkerImage(photoSrc, imageSize, imageOption),
 		    markerPosition = new daum.maps.LatLng(mapY, mapX); // 마커가 표시될 위치입니다		
 		
 		// 마커를 생성합니다
