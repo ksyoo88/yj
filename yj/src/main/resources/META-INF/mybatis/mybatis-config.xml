@@ -16,16 +16,28 @@
 		<typeAlias type="kr.co.yj.vo.PanoDayVO" alias="PanoDay"/>
 		<typeAlias type="kr.co.yj.vo.PanoDayPhotoVO" alias="PanoDayPhoto"/>
 		<typeAlias type="kr.co.yj.vo.PlanCommentVO" alias="PlanComment"/>
+		<typeAlias type="kr.co.yj.vo.BookmarkVO" alias ="Bookmark"/>
 	</typeAliases>
-
+	<!-- 
 	<mappers>
-		<mapper resource="META-INF/mybatis/main.xml"/>
-		<mapper resource="META-INF/mybatis/member.xml"/>
-		<mapper resource="META-INF/mybatis/place.xml"/>
-		<mapper resource="META-INF/mybatis/attraction.xml"/>
-		<mapper resource="META-INF/mybatis/panorama.xml"/>
-		<mapper resource="META-INF/mybatis/plan.xml"/>
-		<mapper resource="META-INF/mybatis/mypage.xml"/>
-		<mapper resource="META-INF/mybatis/together.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/main.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/member.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/place.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/attraction.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/panorama.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/plan.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/mypage.xml"/>
+		<mapper resource="META-INF/mybatis/oracle/together.xml"/>
+	</mappers>
+	 -->
+	<mappers>
+		<mapper resource="META-INF/mybatis/mysql/main.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/member.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/place.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/attraction.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/panorama.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/plan.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/mypage.xml"/>
+		<mapper resource="META-INF/mybatis/mysql/together.xml"/>
 	</mappers>
 </configuration>
