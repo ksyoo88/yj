@@ -188,6 +188,28 @@ $(function() {
 		location.href = '/planDelete.do?planNo='+'${plan.no}';
 	});
 	
+	$("#likeBtn").click(function(){
+		
+		
+		$.ajax({
+			url : "planLike.do",
+			type:"post",
+			data:{ "memNo" : '${member.no}' , "planNo" : '${plan.no}'},
+			dataType:"json",
+			success : function(result) {
+				
+				alert("like");
+				
+			}
+		});
+		
+	})
+	
+	$("#likeCencelBtn").click(function(){
+		alert("unlike");
+	})
+	
+	
 	$("#commentInsert").click(function(){
 		var comment = $("#commentText").val();
 		var planNo = $("#commentInsert").data("plan-no");

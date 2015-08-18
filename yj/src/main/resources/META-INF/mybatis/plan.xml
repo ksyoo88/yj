@@ -136,8 +136,16 @@
 		DELETE FROM YJ_PLAN_DAY WHERE PLAN_NO =#{value}
 	</delete>
 	
+	<select id="likeCheckByMemNoPlanNo" parameterType="hashmap" resultType="string">
+		SELECT NVL2( (SELECT PLAN_NO FROM YJ_PLAN_LIKE WHERE PLAN_NO= #{planNo} AND MEM_NO= #{memNo} ), 'T' , 'F' )  AS LIKECHECK FROM DUAL
+	</select>
+	
 	<delete id="deletePlanByPlanNo" parameterType="int">
 		DELETE FROM YJ_PLAN WHERE PLAN_NO = #{value}
 	</delete>
+	
+	<insert id="insertLikePlan" parameterType="hashmap">
+		INSERT INTO YJ_PLAN_LIKE  ( MEM_NO, PLAN_NO ) VALUES ( #{memNo} , #{planNo} )
+	</insert>
 	
 </mapper>

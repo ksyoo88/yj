@@ -4,6 +4,7 @@ import java.lang.reflect.Member;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -118,17 +119,26 @@ public class PlanController {
 	
 
 	@RequestMapping("/plandetail.do")
-	public ModelAndView planDetail(@RequestParam("no")int no){
+	public ModelAndView planDetail(@RequestParam("no")int no, HttpSession session){
 		
 		System.out.println("번호가 오면 된다. : "+no );
 		
+		HashMap<String, Integer> likeMap = new HashMap<String, Integer>();
 		ModelAndView mav = new ModelAndView();
+		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
+		
+		likeMap.put("planNo", no);
+		likeMap.put("memNo", memberVo.getNo() );
+		
+		String likeChecked = planService.checkedLike(likeMap);
+		System.out.println("[---------------------------------------------------]"+likeChecked);
 		
 		PlanVO plan = planService.getPlanByNo(no);
 		
 		ArrayList<PlanDayVO> planDay = planService.getPlanDayByNo(no);
 		ArrayList<PlanCommentVO> planComment = planService.getPlanCommentByPlanNo(no);
 		
+		mav.addObject("likeChecked",likeChecked);
 		mav.addObject("count", 0);
 		mav.addObject("plan", plan );
 		mav.addObject("planDay", planDay);
@@ -214,6 +224,19 @@ public class PlanController {
 		
 		return mav;
 		
+	}
+	
+	@RequestMapping("/planLike.do")
+	public ModelAndView planLike(@RequestParam("memNo")int memNo, @RequestParam("planNo")int planNo){
+		System.out.println(memNo +" : "+ planNo);
+		
+		HashMap<String,Integer> likeMap = new HashMap<String, Integer>();		
+		likeMap.put("memNo", memNo);
+		likeMap.put("planNo", planNo);
+		
+		planService.insertLike(likeMap);
+		
+		return null;
 	}
 	
 	
