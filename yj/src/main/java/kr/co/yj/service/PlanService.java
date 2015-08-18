@@ -39,6 +39,8 @@ public interface PlanService {
 	
 	void insertLike(HashMap<String, Integer> likeMap);
 	
+	void deleteLike(HashMap<String, Integer> likeMap);
+	
 	String checkedLike(HashMap<String,Integer> likeMap);
 	
 }
