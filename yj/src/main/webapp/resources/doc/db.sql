@@ -15,6 +15,10 @@ DROP TABLE YJ_CATEGORYCODE CASCADE CONSTRAINTS; -- 서비스분류코드
 DROP TABLE YJ_PANO_LIKE CASCADE CONSTRAINTS; -- 서비스분류코드
 DROP TABLE YJ_TEMP_PHOTO CASCADE CONSTRAINTS; -- 서비스분류코드
 
+--------------------------------------------------------------------------새로생김 
+DROP TABLE YJ_PLAN_LIKE CASCADE CONSTRAINTS; -- 일정 좋아요 테이블
+----------------------------------------------------------------------------
+
 DROP SEQUENCE MEM_SEQ; -- 회원번호 시퀀스
 DROP SEQUENCE PANO_SEQ; -- 파노라마 시퀀스
 DROP SEQUENCE PANO_DAY_PHOTO_SEQ; -- 플랜 댓글 시퀀스
@@ -381,3 +385,14 @@ COMMENT ON COLUMN YJ_PANO_LIKE.MEM_NO IS '멤버번호';
 COMMENT ON COLUMN YJ_PANO_LIKE.PANO_NO IS '파노라마 번호';
 COMMENT ON COLUMN YJ_PANO_LIKE.PANO_LIKE IS '좋아요 (-)';
 
+---------------------------------------------------------------------------새로생김 아래
+
+CREATE TABLE YJ_PLAN_LIKE (
+  MEM_NO NUMBER,
+  PLAN_NO NUMBER
+);
+COMMENT ON TABLE YJ_PLAN_LIKE IS '일정 좋아요 테이블';
+COMMENT ON COLUMN YJ_PLAN_LIKE.MEM_NO IS '멤버번호';
+COMMENT ON COLUMN YJ_PLAN_LIKE.PLAN_NO IS '일정 번호';
+
+----------------------------------------------------------------------------

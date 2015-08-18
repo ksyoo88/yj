@@ -163,6 +163,7 @@
 								</div>
 	
 								<div class="location" id="location"></div>
+							<input id="changelocation" type="text" value="" hidden>
 							</div>
 							<div class="photo-box">
 								<div class="place">
@@ -253,7 +254,7 @@
 	</div>
 	
 	
-	<div id="map-box" style="position:absolute; top:100px; left:680px; width:100%; height:880px; float:left;"></div>
+	<div id="map-box" style="position:absolute; top:75px; left:660px; width:1200px; height:880px; float:left;"></div>
 </div>
 	
 	

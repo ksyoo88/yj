@@ -8,6 +8,50 @@
   
   <script>
 
+  function panTo(title) {
+	  
+	  $.ajax({
+		  url:"movelocation.do",
+			data:{title:title},
+			type:"post",
+			dataType:"json",
+			success: function(result) {
+				place=result.place;
+				var mapX = place.mapx; 
+				var mapY = place.mapy; 
+				var cate = place.cat1;
+				console.log(mapX+","+mapY)
+				console.log("cat1-"+cate)
+    			var moveLatLon = new daum.maps.LatLng(mapY, mapX);
+     		 	map.panTo(moveLatLon);   
+     		 	
+
+     			var imageSrc = 'resources/images/icon_'+cate+'.png', 		// 마커이미지의 주소입니다    
+     				imageSize = new daum.maps.Size(35, 35), 				// 마커이미지의 크기입니다
+     				imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+     			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+     			// DB에서 가져와 막 찍으면된다.
+     			var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+     			    markerPosition = new daum.maps.LatLng(mapY, mapX); // 마커가 표시될 위치입니다		
+     			
+     			// 마커를 생성합니다
+     			var marker = new daum.maps.Marker({
+     				position : markerPosition,
+     				image : markerImage,		
+     				zIndex: 1,
+     				clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+     			});
+     			    
+     			marker.setMap(map);  
+				
+			}
+	  })
+	  
+   
+  }
+  
+
   function photoupload(dd) {
   		
   	$("#photoupload"+dd).click();
@@ -184,19 +228,21 @@
 					var data='';
 					var titlevalue = new Array();
 					
-					titles=result.titles
-					 for(var i =0; i<titles.length;i++){
-						var title = titles[i];
+					
+					places=result.places
+					    	  
+					 for(var i =0; i<places.length;i++){
+						var place = places[i];
+					   	console.log(place.title);
+						 title=place.title;
 						titlevalue.push(title);
+						
 					}
 					
 					$("#tag").autocomplete({
 					      source: titlevalue,
+					    
 					      select:function(e, i){
-					    	  console.log(this);
-					    	  console.log(i);
-					    	  console.log(i.item.value);
-					    	 // var dataItem = this.dataItem(e.item.index());
 					    	 
 					      	$("#tagtext").val(i.item.value);
 					      }
@@ -229,7 +275,10 @@
 	        	  $("#newtemp"+daycount+" #location").html(title);
 	        	  $("#newtemp"+daycount+" #spotname").html(" <span class='glyphicon glyphicon-map-marker'></span>"+title);
 	        	  $("#tag").val("");
+	        	  $("#changelocation").val(title);
+	        	  panTo(title);
 	        	  $("#tagtext").val("");
+	        	  
 	        	  $( this ).dialog( "close" );
 	        	   }
 	           },
@@ -246,15 +295,16 @@
 	
 $(function() {
 	
-
+	//지도
 	var container = document.getElementById('map-box'),
 		options = {
 			center : new daum.maps.LatLng(37.567357, 126.994657),
 			level : 3
 		};
 	
-	var map = new daum.maps.Map(container, options);
 	
+	var map = new daum.maps.Map(container, options);
+	window.map = map;
 	
 	
 	//취소버튼 누를시 임시 저장소 삭제하고 member.do로 이동

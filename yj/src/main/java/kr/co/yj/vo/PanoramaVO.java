@@ -15,12 +15,18 @@ public class PanoramaVO {
 	private ArrayList<PanoDayVO> panodays;
 	private ArrayList<PanoReplyVO> replys;
 	private String likecheck;
+	private int panodayCnt;
 	
 	
 	
 	
 	
-	
+	public int getPanodayCnt() {
+		return panodayCnt;
+	}
+	public void setPanodayCnt(int panodayCnt) {
+		this.panodayCnt = panodayCnt;
+	}
 	public String getLikecheck() {
 		return likecheck;
 	}

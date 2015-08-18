@@ -1,5 +1,6 @@
 package kr.co.yj.controller;
 
+import java.lang.reflect.Member;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,7 +8,9 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import kr.co.yj.security.MemberDetail;
+import kr.co.yj.service.PlanService;
 import kr.co.yj.service.PlanServiceImpl;
+import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.MemberVO;
 import kr.co.yj.vo.Place;
 import kr.co.yj.vo.PlaceAreaPointVO;
@@ -36,6 +39,9 @@ public class PlanController {
 	public ModelAndView planIndex(@RequestParam(value="contentid",required=false)String contentid){	
 		
 		ModelAndView mav = new ModelAndView();
+		ArrayList<Place> topPlaces = planService.getTopPlace("ALL");
+		
+		mav.addObject("topPlaces", topPlaces);
 				
 		if ( contentid != null) {
 			Place place = planService.getPlaceByContentId(contentid);		
@@ -46,6 +52,42 @@ public class PlanController {
 		
 		return mav;
 		
+	}
+	@RequestMapping("/rightPlace.do")
+	public ModelAndView rightPlace(@RequestParam("top")String top) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(!top.equals("Bookmark")){
+			ArrayList<Place> topPlace = planService.getTopPlace(top);
+			mav.addObject("topPlace",topPlace);
+		}
+		
+		mav.setView(jsonView);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/insertBookmark.do")
+	public ModelAndView bookmarkInsert(HttpSession session,
+								 @RequestParam("contentid")String contentid) {
+		
+		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
+
+		Place tempPlace = new Place();
+		tempPlace.setContentid(contentid);
+		
+		BookmarkVO bookmarkVo = new BookmarkVO();
+		bookmarkVo.setMember(memberVo);
+		bookmarkVo.setPlace(tempPlace);
+		
+		planService.insertBookmark(bookmarkVo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setView(jsonView);
+		
+		return mav;
 	}
 	
 	@RequestMapping("/planinsert.do") 
@@ -66,6 +108,15 @@ public class PlanController {
 		
 	}
 	
+	@RequestMapping("/planDelete.do")
+	public String planDelete(@RequestParam("planNo")int planNo){
+		System.out.println(planNo);
+		planService.deletePlanByPlanNo(planNo);
+		
+		return "redirect:/together.do";
+	}
+	
+
 	@RequestMapping("/plandetail.do")
 	public ModelAndView planDetail(@RequestParam("no")int no){
 		
@@ -88,6 +139,23 @@ public class PlanController {
 		
 	}
 	
+	@RequestMapping("/bookmarkSelect")
+	public ModelAndView bookmarkSelect(HttpSession session){
+		
+		ModelAndView mav = new ModelAndView();
+		
+		MemberDetail memberVo = (MemberDetail) session.getAttribute("member");
+		
+		ArrayList<BookmarkVO> bookmarks = planService.getBookmarkByMemberNo(memberVo.getNo());
+		
+		mav.addObject("bookmarks", bookmarks);		
+		
+		mav.setView(jsonView);
+		
+		return mav;
+		
+	}
+	
 	@RequestMapping("/mapSetting.do")
 	public ModelAndView mapSetting(@RequestParam("minX")double minX,
 								   @RequestParam("maxX")double maxX,
@@ -103,11 +171,10 @@ public class PlanController {
 		placeArea.setMapYMin(minY);
 		placeArea.setCategory(cate);
 		
-		ArrayList<Place> areaPlaces = planService.getMapOnThePlaces(placeArea);
-		System.out.println(areaPlaces);	
 		
 		ModelAndView mav = new ModelAndView();
 		
+		ArrayList<Place> areaPlaces = planService.getMapOnThePlaces(placeArea);
 		mav.addObject("areaPlaces", areaPlaces);
 		
 		mav.setView(jsonView);

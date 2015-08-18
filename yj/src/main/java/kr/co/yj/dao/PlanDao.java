@@ -2,6 +2,7 @@ package kr.co.yj.dao;
 
 import java.util.ArrayList;
 
+import kr.co.yj.vo.BookmarkVO;
 import kr.co.yj.vo.PlanCommentVO;
 import kr.co.yj.vo.PlanDayVO;
 import kr.co.yj.vo.PlanVO;
@@ -19,10 +20,14 @@ public interface PlanDao {
 	
 	int getPlanComment();
 	void insertComment(PlanCommentVO planCommentVo);
-	void deleteComment(int no);
-	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int no);
+	void deleteComment(int planNo);
+	ArrayList<PlanCommentVO> getPlanCommentByPlanNo(int planNo);
 	
+	void insertBookmark(BookmarkVO bookmarkVo);
+	ArrayList<BookmarkVO> getBookmarkByMemberNo(int memNo);
 	
-	
+	void deletePlanCommentByPlanNo(int planNo);
+	void deletePlanDayByPlanNo(int planNo);
+	void deletePlanByPlanNo(int planNo);
 	
 }

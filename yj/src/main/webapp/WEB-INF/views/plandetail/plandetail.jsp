@@ -16,11 +16,10 @@
 			<div class="col-md-12" id="topContent">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :
-							${plan.member.name }</p>
+						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :${plan.member.name }</p>
 						<button type="button" class="btn btn-default">URL 복사</button>
 						<c:if test="${plan.member.no == member.no }">
-							<button type="button" class="btn btn-default">수정하기</button>
+							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
 						</c:if>
 						<button type="button" class="btn btn-default">좋아요</button>
 						<button type="button" class="btn btn-default">공유하기</button>
@@ -125,12 +124,28 @@
 			</div>
 			<div id="place-tab-content">					
 				<h3 id="place-tab-title"><strong>title</strong></h3>
-				<kbd>상세정보</kbd>
-				<p id="place-tab-overview">overview</p>
-				<kbd>주소</kbd>
-				<p id="place-tab-addr"><strong>addr</strong></p>
-				<kbd>전화번호</kbd>
-				<p id="place-tab-tel"><strong>tel</strong></p>
+				<table>
+					<tr>
+						<th><kbd>상세정보</kbd></th></hr>
+					</tr>
+					<tr>
+						<td><p id="place-tab-overview">overview</p></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<th width=30%><kbd>주소</kbd></th>
+						<td><p id="place-tab-addr"><strong>addr</strong></p></td>
+					</tr>
+					<tr>
+						<th><kbd>전화번호</kbd></th>
+						<td><p id="place-tab-tel"><strong>tel</strong></p></td>
+					</tr>
+				</table>
+				</hr>
+				<div class="btn-group btn-group-justified" role="group">
+					<a href="#" class="btn btn-danger" id="place-tab-close">닫기</a>
+				</div>	
 			</div>
 		</div>
 		<div class="col-md-8" id="contents-tab">

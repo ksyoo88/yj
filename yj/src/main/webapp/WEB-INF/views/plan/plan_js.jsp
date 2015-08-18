@@ -2,34 +2,14 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.min.js" ></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.ko.js" charset="UTF-8"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	
 /**
  *  	plan 일정 만들기 JavaScript
  */
 
-function drag(ev) {
-	ev.dataTransfer.setData("text", ev.target.id);
-	console.log(ev.target.id);
-}
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    console.log(data);
-    console.log(ev.target.id);
-    $("#"+ev.target.id).append(document.getElementById(data));
-    //lineDraw();
-    //ev.target.appendChild( document.getElementById(data) );
-}
-
-	
-
-$(function() {
+ $(function() {
 	
 	var height = $(window).height()-84;
 	$("#map-box").css("height", height );
@@ -49,9 +29,55 @@ $(function() {
 		
 	});
 	
+	
 	var placeObj = {};
 	
 	
+	$("#right-tab-header .nav-tabs img").click(function(){
+		
+		var top = $(this).data("top");
+
+		$.ajax({
+			url:"rightPlace.do",
+			type:"post",
+			data:{top:top},
+			dataType:"json",
+			success : function(result) {
+
+				var place = result.topPlace;
+				var tempHtml ="";
+				
+				for(var i=0; i<place.length; i++){
+					console.log("top plAce : ",place[i].title );
+					tempHtml += "<button type='button' class='list-group-item' data-mapx='"+place[i].mapx +"' data-mapy='"+place[i].mapy+"' >"+(i+1)+". "+place[i].title+"</button>";
+				}
+				
+				$("#topPlace").html(tempHtml);
+				
+				$("#topPlace button").click(function(){
+					var mapX = $(this).data("mapx");
+					var mapY = $(this).data("mapy");
+					
+					map.panTo(new daum.maps.LatLng(mapY, mapX));
+					map.setLevel(3);
+					mapSetting();
+					
+				})
+				
+			}
+		})
+	});
+	
+	
+	$("#topPlace button").click(function(){
+		var mapX = $(this).data("mapx");
+		var mapY = $(this).data("mapy");
+		
+		map.panTo(new daum.maps.LatLng(mapY, mapX));
+		map.setLevel(3);
+		mapSetting();
+		
+	})
 	
 	
 	$("#saveBtn").click(function(){
@@ -91,56 +117,7 @@ $(function() {
 		}			
 	});
 	
-//	$("#planSaveBtn").click(function(){
-//		
-//		var tempPlan = {};
-//		
-//		var title = $("#plan-title").val();
-//		var startDay = $("#startDay").val();
-//		var endDay = $("#endDay").val();
-//		
-//		console.log("멤버 no: 아직 없다" );
-//		console.log("제목    : " + title);
-//		console.log("출발 일 : " + startDay);
-//		console.log("도착 일 : " + endDay);
-//		console.log("총 날짜 : " + day);
-//		
-//		tempPlan.title = title;
-//		tempPlan.startDay = startDay;
-//		tempPlan.endDay = endDay;
-//		tempPlan.day = day;	
-//		
-//		var planDay = {};
-//		var planInfoArray = new Array();
-//		var planDayArray;
-//		
-//		
-//		
-//		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
-//			
-//			console.log("날짜 : " , planArray[index]);
-//			planDayArray = planArray[index];
-//			//contentidArray.length = 0;
-//			var contentidArray = [];
-//			
-//			$(item).find(".media").each( function(i,pos) {
-//			
-//				var contentid = $(pos).find("span").eq(0).text();
-//				contentidArray.push(contentid);
-//				console.log(contentid);
-//				
-//			});
-//			
-//			planDay = {planDayArray : planDayArray, contentid : contentidArray};
-//			planInfoArray.push(planDay);
-//			
-//		});
-//		
-//		tempPlan.planInfo = planInfoArray;
-//		
-//		console.log(JSON.stringify(tempPlan));
-//
-//	});
+
 	
 	$(".form_datetime").datetimepicker({
 		format: "yyyy-mm-dd",
@@ -173,16 +150,17 @@ $(function() {
 				   ,placeObj.firstimage, ", ", placeObj.tel,", " , placeObj.overview);
 		
 		
-		$("#contents-tab").attr("class","col-md-5");
+		$("#contents-tab").attr("class","col-md-6");
 		
 		$("#place-tab").show(500,function() {
+			
 			
 			map.relayout();
 			$("#place-tab strong").html( placeObj.title );
 			$("#place-tab img").attr("src", placeObj.firstimage );
 			$("#place-tab #overview").html( placeObj.overview );
 			$("#place-tab #addr").html( placeObj.addr );
-			$("#place-tab small").html( " Tel ( " + placeObj.tel + " ) ");
+			$("#place-tab small").html( " ( "+placeObj.tel + " ) ");
 			$("#place-tab #mapx").html(placeObj.mapX);
 			$("#place-tab #mapy").html(placeObj.mapY);
 			$("#place-tab #contentid").html(placeObj.contentid);
@@ -224,28 +202,32 @@ $(function() {
 	
 	
 	// 현재 지도 영역을 얻어옵니다.
-	var bounds = map.getBounds();
-	var southWestLatLng = bounds.getSouthWest();
-	var northEastLatLng = bounds.getNorthEast();
+	function mapSetting() {
+		var bounds = map.getBounds();
+		var southWestLatLng = bounds.getSouthWest();
+		var northEastLatLng = bounds.getNorthEast();
+		
+		var minY = southWestLatLng.getLat();
+		var maxY = northEastLatLng.getLat();	
+		var minX = southWestLatLng.getLng();
+		var maxX = northEastLatLng.getLng();
+		console.log("min X : " + minX + " max X : " + maxX );
+		console.log("min Y : " + minY + " max Y : " + maxY );
+		
+		$.ajax({
+			url:"mapSetting.do",
+			type:"post",
+			data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY,cate:$cat},
+			dataType:"json",
+			success : function(result) {
 	
-	var minY = southWestLatLng.getLat();
-	var maxY = northEastLatLng.getLat();	
-	var minX = southWestLatLng.getLng();
-	var maxX = northEastLatLng.getLng();
-	console.log("min X : " + minX + " max X : " + maxX );
-	console.log("min Y : " + minY + " max Y : " + maxY );
+				createMarker(result);
+				
+			}
+		});
+	}
 	
-	$.ajax({
-		url:"mapSetting.do",
-		type:"post",
-		data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY,cate:$cat},
-		dataType:"json",
-		success : function(result) {
-
-			createMarker(result);
-			
-		}
-	});
+	mapSetting();
 	
 	daum.maps.event.addListener(map, 'dragend', function() {
 		
@@ -307,8 +289,8 @@ $(function() {
 				imageName = "icon_food";
 			} else if (places[i].cat1 == "B02") {
 				// 숙박
-				imageName = "icon_hotel";
-			} else {
+				imageName = "icon_hotel";				
+			} else{
 				imageName = "icon_mapAll";
 			}
 			
@@ -359,9 +341,6 @@ $(function() {
 				yAnchor : 1				
 			});
 			customArrays.push(customOverlay);
-//			console.log(" custom Overlay Arrays : " + customArrays);
-			
-			
 			
 		}
 		
@@ -376,14 +355,27 @@ $(function() {
 			var mapy = $(this).find("#place-mapy").text();
 			var contentid = $(this).find("#place-contentid").text();
 			
-			$("#contents-tab").attr("class","col-md-5");
+			var subStrOverView = overview.substring(0,300);
+			
+			if( overview.length > 300 ){
+			  	$("#place-tab #overview").text(subStrOverView + "...");				
+				$("#place-tab #overview").append("<a href='#'>더보기</a>");
+			} else {
+			  	$("#place-tab #overview").text(overview);				
+			}
+			
+			$("#place-tab #overview a").click(function(){
+				$("#place-tab-overview").text(overview).hide().slideDown(500);
+			});
+			
+			$("#contents-tab").attr("class","col-md-6");
 			$("#place-tab").show(500,function() {
 				map.relayout();
 				$("#place-tab strong").html( title );
 				$("#place-tab img").attr("src",image);
-				$("#place-tab #overview").html( overview);
+				//$("#place-tab #overview").html( overview);
 				$("#place-tab #addr").html( addr );
-				$("#place-tab small").html( " Tel ( " + tel + " ) ");
+				$("#place-tab small").html( " ( " + tel + " ) ");
 				$("#place-tab #mapx").html(mapx);
 				$("#place-tab #mapy").html(mapy);
 				$("#place-tab #contentid").html(contentid);
@@ -396,6 +388,25 @@ $(function() {
 		
 		
 	}
+	
+	
+	$("#addBookmark").click(function(){
+		var contentid = $("#place-tab #contentid").text();
+		var memberNo = ${member.no};
+		console.log(memberNo,", ",contentid);
+		
+		$.ajax({
+			url:"insertBookmark.do",
+			type:"post",
+			data:{contentid:contentid },
+			dataType:"json",
+			success : function(result) {
+				
+				alert("북마크가 추가되었습니다.");
+				// 북마크가 추가되었습니다				
+			}
+		});
+	});
 	
 	// 여기아니면
 	$("#placeToPlanAddBtn").click(function(){
@@ -423,24 +434,30 @@ $(function() {
 		
 		console.log("index + 1 : " + index);
 		$("#"+index+"dateStr").append(
-				"<div class='panel-body'>" +
-				"<div class='media' draggable='true' ondragstart='drag(event)' id='placeId"+placeIdNum+"' >"+
-					"<div class='media-left'>"+
-						"<a href='#'><img class='media-object img-rounded'src='"+currentImage+"' alt='no photo' width='50' height='50'></a>"+
-					"</div>"+
-					"<div class='media-body'>"+
-						"<h5 class='media-heading'>"+currentTitle+"</h5>"+
-						"<div class='btn-group btn-group-justified' role='group'>"+
-							"<a href='#' class='btn btn-default btn-sm'>위치</a>"+
-				 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>" +
-				 			"<p hidden class='position'>"+ mapx +"</p>"+
-				 			"<p hidden class='position'>"+ mapy +"</p>"+
-				 			"<span hidden>"+ contentid +"</span>"+
+				"<div class='panel-body ui-state-default'>" +
+					"<div class='media' id='placeId"+placeIdNum+"' >"+
+						"<div class='media-left'>"+
+							"<a href='#'><img class='media-object img-rounded'src='"+currentImage+"' alt='no photo' width='50' height='50'></a>"+
 						"</div>"+
-					"</div>"+
-				"</div>" +					
+						"<div class='media-body'>"+
+							"<h5 class='media-heading'>"+currentTitle+"</h5>"+
+							"<div class='btn-group btn-group-justified' role='group'>"+
+								"<a href='#' class='btn btn-default btn-sm'>위치</a>"+
+					 			"<a href='#' class='btn btn-danger btn-sm'>제거</a>" +
+					 			"<p hidden class='position'>"+ mapx +"</p>"+
+					 			"<p hidden class='position'>"+ mapy +"</p>"+
+					 			"<span hidden>"+ contentid +"</span>"+
+							"</div>"+
+						"</div>"+
+					"</div>" +					
 				"</div>" 					
 		);
+		
+		$("#"+index+"dateStr").sortable({
+			placeholder : "ui-sortable-placeholder",			
+			connectWith: "#left-tab-plan-contents .panel-body"
+		});
+		
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
 			console.log("setCenter");
@@ -454,6 +471,8 @@ $(function() {
 		lineDraw();
 		
 	});
+	
+	
 	
 	function circleDraw(mapY, mapX) {
 		
@@ -564,7 +583,7 @@ $(function() {
 			console.log(planArray);
 			$("#left-tab-plan-contents").append(
 				"<div class='col-md-12'>" +
-				"<div class='panel-group' id='"+day+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
+				"<div class='panel-group ui-state-default ui-state-disabled' id='"+day+"dateStr'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
@@ -574,7 +593,7 @@ $(function() {
 	
 	$("#retryplan").click(function() {
 		$("#left-tab-plan-contents")
-		.html("<div class='col-md-12'><div class='panel-group' id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>출발일을 입력해주세요</strong></div></div></div>")
+		.html("<div class='col-md-12'><div class='panel-group ui-state-default ui-state-disabled' id='1dateStr''><div class='panel-heading'><strong>출발일을 입력해주세요</strong></div></div></div>")
 		 $("#startDate").val("");
 		clearCircle();
 		clearLine();
@@ -585,11 +604,6 @@ $(function() {
 		$("#saveBtn").attr("data-target","");
 	});
 	
-	$("#planSaveBtn").click(function(){
-		
-		//***alert("hi");
-		
-	});
 	
 	
 	// 캘린더 변경시 날짜 설정 
@@ -598,12 +612,12 @@ $(function() {
 		var startDate = $("#startDate").val();				
 		if( day > 1 ) {
 			$("#left-tab-plan-contents").html("");
-			$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='1dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>" +
+			$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group ui-state-default' id='1dateStr'><div class='panel-heading'><strong>" +
 												 parseDate(startDate)+" DAY 1</strong></div></div></div>");
 			planArray.length = 0;
 			planArray.push(parseDate(startDate))
 			for(var i=2; i<=day; i++) {
-				$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group' id='"+i+"dateStr' ondrop='drop(event)' ondragover='allowDrop(event)'><div class='panel-heading'><strong>" +
+				$("#left-tab-plan-contents").append("<div class='col-md-12'><div class='panel-group ui-state-default' id='"+i+"dateStr'><div class='panel-heading'><strong>" +
 													 parseAddDate(startDate,i)+" DAY "+ i+"</strong></div></div></div>");
 				planArray.push(parseAddDate(startDate,i));
 			}
@@ -663,6 +677,254 @@ $(function() {
 		//setMarkers(map);
 	});
 	
+	if($cat =='bookmark'){
+		daum.maps.event.addListener(map, 'dragend', function() { 
+			$.ajax({
+				url:"bookmarkSelect.do",
+				type:"post",
+				dataType:"json",
+				success : function(result) {
+					
+					var bookmarks = result.bookmarks;
+					
+					for(var i=0; i<bookmarks.length; i++){		
+						
+						var imageSrc = 'resources/images/icon_bookmark.png', // 마커이미지의 주소입니다    
+										imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+										imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	
+						// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+						// DB에서 가져와 막 찍으면된다.
+						var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+										  markerPosition = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx); // 마커가 표시될 위치입니다		
+	
+						// 마커를 생성합니다
+						var marker = new daum.maps.Marker({
+							position : markerPosition,
+							image : markerImage,		
+							zIndex: 1,
+							clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+						});
+						
+						markers.push(marker);
+					
+						//console.log(markers);
+						setMarkers(map);
+						
+						// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+						var content = '<div class="customoverlay">' +
+									  '  <div class="panel panel-info">' +
+									  '    <a class="btn btn-default btn-xs" href="#" role="button">'+bookmarks[i].place.title+'</a>' +
+									  '    <p hidden id="place-addr">'+bookmarks[i].place.addr1+'</p>' +
+									  '    <p hidden id="place-image">'+bookmarks[i].place.firstimage+'</p>' +
+									  '    <p hidden id="place-overview">'+bookmarks[i].place.overview+'</p>' +
+									  '    <p hidden id="place-tel">'+bookmarks[i].place.tel+'</p>' +
+									  '    <p hidden id="place-mapx">'+bookmarks[i].place.mapx+'</p>' +
+									  '    <p hidden id="place-mapy">'+bookmarks[i].place.mapy+'</p>' +
+									  '    <p hidden id="place-contentid">'+bookmarks[i].place.contentid+'</p>' +
+									  '  </div>' +
+									  '</div>';
+						
+						var position = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx);
+						
+						var customOverlay = new daum.maps.CustomOverlay({
+							map : map,
+							position : position,
+							content : content,
+							yAnchor : 1				
+						});
+						customArrays.push(customOverlay);
+						
+						$(".customoverlay .panel").click(function() {
+							
+							var title = $(this).find(".btn").text();
+							var addr = $(this).find("#place-addr").text();
+							var image = $(this).find("#place-image").text();
+							var overview = $(this).find("#place-overview").text();
+							var tel = $(this).find("#place-tel").text();
+							var mapx = $(this).find("#place-mapx").text();
+							var mapy = $(this).find("#place-mapy").text();
+							var contentid = $(this).find("#place-contentid").text();
+							
+							var subStrOverView = overview.substring(0,300);
+							
+							if( overview.length > 300 ){
+							  	$("#place-tab #overview").text(subStrOverView + "...");				
+								$("#place-tab #overview").append("<a href='#'>더보기</a>");
+							} else {
+							  	$("#place-tab #overview").text(overview);				
+							}
+							
+							$("#place-tab #overview a").click(function(){
+								$("#place-tab-overview").text(overview).hide().slideDown(500);
+							});
+							
+							$("#contents-tab").attr("class","col-md-6");
+							$("#place-tab").show(500,function() {
+								map.relayout();
+								$("#place-tab strong").html( title );
+								$("#place-tab img").attr("src",image);
+								//$("#place-tab #overview").html( overview);
+								$("#place-tab #addr").html( addr );
+								$("#place-tab small").html( " ( " + tel + " ) ");
+								$("#place-tab #mapx").html(mapx);
+								$("#place-tab #mapy").html(mapy);
+								$("#place-tab #contentid").html(contentid);
+								
+							});
+							
+							dateInit();			
+						});	
+						
+					}
+				}
+			});
+		});
+	}
+	
+	$("#bookmark-tab").click(function(){
+		
+		$.ajax({
+			url :"bookmarkSelect.do",
+			type : "post",
+			dataType:"json",
+			success : function (result){
+				var bookmarks = result.bookmarks;
+				
+				var tempHtml ="";
+				
+				for(var i=0; i<bookmarks.length; i++){
+					console.log("top plAce : ",bookmarks[i].place.title );
+					if(bookmarks[i].place.title.length > 10){
+						var subTitle =  bookmarks[i].place.title.substring(0,9) + "...";
+						tempHtml += "<button type='button' class='list-group-item' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' >"+(i+1)+". "+subTitle+"</button>";
+					}else {
+						tempHtml += "<button type='button' class='list-group-item' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' >"+(i+1)+". "+bookmarks[i].place.title+"</button>";						
+					}
+				}
+				
+				$("#topPlace").html(tempHtml);
+				
+				$("#topPlace button").click(function(){
+					var mapX = $(this).data("mapx");
+					var mapY = $(this).data("mapy");
+					
+					map.panTo(new daum.maps.LatLng(mapY, mapX));
+					map.setLevel(3);
+					mapSetting();
+					
+				})
+				
+			}
+		})
+		
+	});
+	
+	$("#bookmark").click(function(){
+		
+		$.ajax({
+			url:"bookmarkSelect.do",
+			type:"post",
+			dataType:"json",
+			success : function(result) {
+				
+				var bookmarks = result.bookmarks;
+				
+				for(var i=0; i<bookmarks.length; i++){		
+					
+					var imageSrc = 'resources/images/icon_bookmark.png', // 마커이미지의 주소입니다    
+									imageSize = new daum.maps.Size(24, 24), // 마커이미지의 크기입니다
+									imageOption = {	offset : new daum.maps.Point(10, 35) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					// DB에서 가져와 막 찍으면된다.
+					var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+									  markerPosition = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx); // 마커가 표시될 위치입니다		
+
+					// 마커를 생성합니다
+					var marker = new daum.maps.Marker({
+						position : markerPosition,
+						image : markerImage,		
+						zIndex: 1,
+						clickable : true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+					});
+					
+					markers.push(marker);
+				
+					//console.log(markers);
+					setMarkers(map);
+					
+					// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					var content = '<div class="customoverlay">' +
+								  '  <div class="panel panel-info">' +
+								  '    <a class="btn btn-default btn-xs" href="#" role="button">'+bookmarks[i].place.title+'</a>' +
+								  '    <p hidden id="place-addr">'+bookmarks[i].place.addr1+'</p>' +
+								  '    <p hidden id="place-image">'+bookmarks[i].place.firstimage+'</p>' +
+								  '    <p hidden id="place-overview">'+bookmarks[i].place.overview+'</p>' +
+								  '    <p hidden id="place-tel">'+bookmarks[i].place.tel+'</p>' +
+								  '    <p hidden id="place-mapx">'+bookmarks[i].place.mapx+'</p>' +
+								  '    <p hidden id="place-mapy">'+bookmarks[i].place.mapy+'</p>' +
+								  '    <p hidden id="place-contentid">'+bookmarks[i].place.contentid+'</p>' +
+								  '  </div>' +
+								  '</div>';
+					
+					var position = new daum.maps.LatLng(bookmarks[i].place.mapy, bookmarks[i].place.mapx);
+					
+					var customOverlay = new daum.maps.CustomOverlay({
+						map : map,
+						position : position,
+						content : content,
+						yAnchor : 1				
+					});
+					customArrays.push(customOverlay);
+					
+					$(".customoverlay .panel").click(function() {
+						
+						var title = $(this).find(".btn").text();
+						var addr = $(this).find("#place-addr").text();
+						var image = $(this).find("#place-image").text();
+						var overview = $(this).find("#place-overview").text();
+						var tel = $(this).find("#place-tel").text();
+						var mapx = $(this).find("#place-mapx").text();
+						var mapy = $(this).find("#place-mapy").text();
+						var contentid = $(this).find("#place-contentid").text();
+						
+						var subStrOverView = overview.substring(0,300);
+						
+						if( overview.length > 300 ){
+						  	$("#place-tab #overview").text(subStrOverView + "...");				
+							$("#place-tab #overview").append("<a href='#'>더보기</a>");
+						} else {
+						  	$("#place-tab #overview").text(overview);				
+						}
+						
+						$("#place-tab #overview a").click(function(){
+							$("#place-tab-overview").text(overview).hide().slideDown(500);
+						});
+						
+						$("#contents-tab").attr("class","col-md-6");
+						$("#place-tab").show(500,function() {
+							map.relayout();
+							$("#place-tab strong").html( title );
+							$("#place-tab img").attr("src",image);
+							//$("#place-tab #overview").html( overview);
+							$("#place-tab #addr").html( addr );
+							$("#place-tab small").html( " ( " + tel + " ) ");
+							$("#place-tab #mapx").html(mapx);
+							$("#place-tab #mapy").html(mapy);
+							$("#place-tab #contentid").html(contentid);
+							
+						});
+						
+						dateInit();			
+					});	
+					
+				}
+			}
+		});
+		
+	});
+	
 
 	// 왼쪽 아이콘 눌렀을때 지도에 표시된다.
 	$("#mapcategory li").click( function() {
@@ -676,7 +938,7 @@ $(function() {
 		// 캘린더 아이콘 
 		if( $cat == "icon_calender"){
 			console.log("calender");
-			$("#left-tab-right").toggle(1000);
+			//$("#left-tab-right").toggle(1000);
 		
 		}
 		else {
@@ -706,6 +968,8 @@ $(function() {
 							
 		}			
 	});
+	
+	
 	
 	
 	//배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다.

@@ -184,6 +184,10 @@ $(function() {
 		
 	});
 	
+	$("#deletePlanBtn").click(function(){
+		location.href = '/planDelete.do?planNo='+'${plan.no}';
+	});
+	
 	$("#commentInsert").click(function(){
 		var comment = $("#commentText").val();
 		var planNo = $("#commentInsert").data("plan-no");
@@ -219,6 +223,12 @@ $(function() {
 		
 		$("#commentText").val("");
 		
+	});
+	
+	$("#place-tab-close").click(function(){
+		$("#place-tab").hide(500);
+		$("#contents-tab").attr("class","col-md-8").show(500);
+		map.relayout();
 	});
 	
 	$(".commentDelete").click(function(){

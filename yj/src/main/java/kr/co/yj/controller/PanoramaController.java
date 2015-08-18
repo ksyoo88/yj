@@ -24,6 +24,7 @@ import kr.co.yj.vo.PanoDayPhotoVO;
 import kr.co.yj.vo.PanoDayVO;
 import kr.co.yj.vo.PanoReplyVO;
 import kr.co.yj.vo.PanoramaVO;
+import kr.co.yj.vo.Place;
 
 @Controller
 public class PanoramaController {
@@ -113,10 +114,10 @@ public class PanoramaController {
 	@RequestMapping("/searchlocation.do")
 	public ModelAndView getLocationTitle(@RequestParam("inputkeyword")String keyword){
 		ModelAndView mav = new ModelAndView();
-		ArrayList<String> titles=service.getLocationTitle(keyword);
+		ArrayList<Place> places=service.getLocationTitle(keyword);
 		
+		mav.addObject("places", places);
 		mav.setView(jsonview);
-		mav.addObject("titles", titles);
 		return mav;
 	}
 	
@@ -199,6 +200,44 @@ public class PanoramaController {
 		mav.setViewName("redirect:panodetail.do?panoNo="+panoseq);
 		return mav;
 	}
+	@RequestMapping("/modifysavePanorama.do")
+	public ModelAndView modifysavePanorama(@RequestParam("title")String title,
+			@RequestParam("locaform")String[] locaArr,
+			@RequestParam("memoform")String[] memoArr,
+			@RequestParam("panoNo")int panoNo,
+			@RequestParam("date")String date,
+			HttpSession session) throws ParseException{
+		ModelAndView mav = new ModelAndView();
+		
+		int day=locaArr.length;
+		int memocnt=memoArr.length;
+		
+		
+		MemberDetail memberold = (MemberDetail)session.getAttribute("member");
+		int no =memberold.getNo();
+		String email=memberold.getEmail();
+		
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("d/M/yyyy");
+		Date to = transFormat.parse(date);
+		
+		service.modifysavePanoTitle(panoNo, title,to);
+		
+		service.modifydeletePanoDay(panoNo);
+		
+		for(int i=0;i<day;i++ ){
+			String memo=memoArr[i];
+			String locaTitle=locaArr[i];
+			int panodayseq=service.savePanoDay(memo, i+1, panoNo, locaTitle);
+			
+			service.savePanoPhotobyDay(email, i+1, panodayseq);
+		}
+		
+		service.delTemPhoto(email);
+		
+		mav.setViewName("redirect:panodetail.do?panoNo="+panoNo);
+		return mav;
+	}
 	
 	@RequestMapping("panodetail.do")
 	public ModelAndView panodetail(@RequestParam("panoNo")int panoNo,HttpSession session){
@@ -208,7 +247,9 @@ public class PanoramaController {
 		PanoramaVO panorama=service.getPanorama(panoNo);
 			
 		ArrayList<PanoDayVO> panodaylist= service.getPanoday(panoNo);
+		panorama.setPanodayCnt(panodaylist.size());
 		panorama.setPanodays(panodaylist);
+		mav.addObject("panodaylist", panodaylist);
 		for(int i=0;i<panodaylist.size();i++){
 			ArrayList<PanoDayPhotoVO> photos=service.getPanodayPhoto(panodaylist.get(i).getNo());
 			panodaylist.get(i).setPhotos(photos);
@@ -315,19 +356,25 @@ public class PanoramaController {
 		return mav;
 	}
 	@RequestMapping("modifyPano.do")
-	public ModelAndView modifyPanorama(@RequestParam()int panoNo){
+	public ModelAndView modifyPanorama(@RequestParam()int panoNo,HttpSession session){
 		
 		ModelAndView mav = new ModelAndView();
 		
 		PanoramaVO panorama=service.getPanorama(panoNo);
-			
+		MemberDetail member=(MemberDetail)session.getAttribute("member");
+		String email=member.getEmail();
+		service.movetempphoto(panoNo,email);
 		ArrayList<PanoDayVO> panodaylist= service.getPanoday(panoNo);
+		
 		for(int i=0;i<panodaylist.size();i++){
 			ArrayList<PanoDayPhotoVO> photos=service.getPanodayPhoto(panodaylist.get(i).getNo());
 			panodaylist.get(i).setPhotos(photos);
+			panodaylist.get(i).setDate(panorama.getPanoRegdate());
+			panodaylist.get(i).setPhotocnt(photos.size());
 		}	
 		
 		panorama.setPanodays(panodaylist);
+		panorama.setPanodayCnt(panodaylist.size());
 		mav.addObject("panorama", panorama);
 		
 		
@@ -335,6 +382,15 @@ public class PanoramaController {
 		return mav;
 	}
 	
+	@RequestMapping("/movelocation.do")
+	public ModelAndView movelocation(@RequestParam("title")String title){
+		ModelAndView mav = new ModelAndView();
+		Place place=service.movelocation(title);
+		
+		mav.addObject("place", place);
+		mav.setView(jsonview);
+		return mav ;
+	}
 	
 	
 }
