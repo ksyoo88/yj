@@ -37,7 +37,7 @@
 	
 	
 	<insert id="addtempphoto" parameterType="hashmap">
-		INSERT INTO yj_temp_photo (MEM_EMAIL,photo_name) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
 	</insert>
 	<insert id="savePanoTitle" parameterType="hashmap">
 		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoseq},#{title},0,#{date})
@@ -67,11 +67,11 @@
 	</select>
 	
 	<select id="getTemPhoto" parameterType="string" resultType="string">
-		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9)
+		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9) A
 	</select>
 	
 	<select id="getTemPhotoByday" parameterType="hashmap" resultType="string">
-		select photo_name from (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and PANO_DAY=#{day})
+		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and PANO_DAY=#{day}) A
 	</select>
 	
 	<delete id="delTemPhoto" parameterType="string">
