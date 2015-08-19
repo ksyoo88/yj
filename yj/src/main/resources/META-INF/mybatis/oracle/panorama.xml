@@ -46,6 +46,14 @@
 		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int},#{panodayseq,jdbcType=NUMERIC,javaType=int})}
 		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
 	</insert>
+	<select id="gettempphotoname" parameterType="hashmap" resultType="string">
+		SELECT PHOTO_NAME  FROM YJ_TEMP_PHOTO WHERE  MEM_EMAIL = #{email} AND PANO_DAY = #{day}
+	</select>
+	<insert id="insertphotonameTotemphoto" parameterType="hashmap">
+	INSERT INTO YJ_PANO_DAY_PHOTO (PANO_DAY_NO,PANO_DAY_PHOTO,PANO_DAY_PHOTO_NO) VALUES (#{panodayseq},#{photo},PANO_DAY_PHOTO_SEQ.nextval)
+	</insert>
+	
+	
 	<insert id="savePanoDay" parameterType="hashmap">
 		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
 		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
@@ -128,12 +136,22 @@
 	<delete id="deletePanoDayPhoto" parameterType="int">
 		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_PHOTO_NO= #{value}
 	</delete>
+	<delete id="deletePanoDayPhotobyPanodayNo" parameterType="int">
+		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO= #{value}
+	</delete>
 	<delete id="deletePanoDay" parameterType="int">
 		DELETE FROM YJ_PANO_DAY WHERE PANO_DAY_NO= #{value}
 	</delete>
 	<delete id="deletePanorama" parameterType="int">
 		DELETE FROM YJ_PANORAMA WHERE PANO_NO= #{value}
 	</delete>
+	<insert id="movephotoTotemp" parameterType="hashmap">
+		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME,PANO_DAY) VALUES (#{MEM_EMAIL},#{PHOTO_NAME},#{PANO_DAY})
+	</insert>
+	<update id="updatePanno" parameterType="kr.co.yj.vo.PanoramaVO">
+		UPDATE YJ_PANORAMA SET PANO_TITLE = #{panoTitle} ,PANO_REGDATE = #{panoRegdate} WHERE PANO_NO=#{panoNo}
+	</update>
+	
 	
 	
 </mapper>

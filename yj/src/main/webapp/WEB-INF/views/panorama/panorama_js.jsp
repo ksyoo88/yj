@@ -489,30 +489,37 @@ $(function() {
 		$("#submitForm #title").val(title);
 		$("#submitForm #datepick").val(date);
 		
+		console.log(title)
 		var memo=$("#Memo1 textarea").val();
+		
 		$("#submitForm #memoform1").val(memo);
 		var loca=$("#newtemp1 #location").html();
-		$("#submitForm #locaform1").val(loca);
-		
-		if(daycnt>=2){
-			for(var i=2;i<=daycnt;i++){
-				var tempContent='';
-				tempContent+='<input type="text" id="locaform'+i+'" name="locaform">'
-				tempContent+='<textarea type="text" id="memoform'+i+'" name="memoform"> </textarea>'
-				
-				$(tempContent).insertBefore('#submitBtn');
-				
-				var memo=$("#Memo"+i+" textarea").val();
-				$("#submitForm #memoform"+i).val(memo);
-				var loca=$("#newtemp"+i+" #location").html();
-				$("#submitForm #locaform"+i).val(loca);
-				
-			}
+		if($.trim(loca)===""){
+			alert("첫날 장소는 입력해주세요")
+		}else{
 			
-		}	
-			$('#submitBtn').click();
 		
-
+			$("#submitForm #locaform1").val(loca);
+			console.log(loca)
+			if(daycnt>=2){
+				for(var i=2;i<=daycnt;i++){
+					var tempContent='';
+					tempContent+='<input type="text" id="locaform'+i+'" name="locaform">'
+					tempContent+='<textarea type="text" id="memoform'+i+'" name="memoform"> </textarea>'
+					
+					$(tempContent).insertBefore('#submitBtn');
+					
+					var memo=$("#Memo"+i+" textarea").val();
+					$("#submitForm #memoform"+i).val(memo);
+					var loca=$("#newtemp"+i+" #location").html();
+					$("#submitForm #locaform"+i).val(loca);
+					
+				}
+				
+			}	
+				$('#submitBtn').click();
+		
+		}
 		
 	})
 	

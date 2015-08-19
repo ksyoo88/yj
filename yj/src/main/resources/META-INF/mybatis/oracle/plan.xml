@@ -118,10 +118,13 @@
 		WHERE MEM_NO = #{value}
 	</select>
 	
+<<<<<<< HEAD
 	<delete id="deleteBookmark" parameterType="int">
 		DELETE FROM YJ_BOOKMARK WHERE BOOKMARK_NO = #{value}
 	</delete> 
 	
+=======
+>>>>>>> branch 'master' of https://github.com/ksyoo88/yj.git
 	<select id="getPlanCommentByPlanNo" parameterType="int" resultMap="plancomment">
 		SELECT PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE
 	    FROM YJ_PLAN_COMMENT
@@ -156,12 +159,17 @@
 		DELETE FROM YJ_PLAN_LIKE WHERE PLAN_NO=#{planNo} AND MEM_NO=#{memNo}
 	</delete>
 	
+<<<<<<< HEAD
 	<update id="planLikeCntUpdate" parameterType="hashmap">
 		UPDATE YJ_PLAN SET PLAN_LIKE_CNT =#{likeCnt}  WHERE PLAN_NO=#{planNo}
 	</update>
 	
 	<select id="getLikeCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM  YJ_PLAN_LIKE WHERE PLAN_NO=#{value}
+=======
+	<select id="getLikeCnt" parameterType="int">
+	
+>>>>>>> branch 'master' of https://github.com/ksyoo88/yj.git
 	</select>
 	
 </mapper>

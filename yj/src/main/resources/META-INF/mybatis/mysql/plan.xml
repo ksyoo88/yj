@@ -98,8 +98,14 @@
 	
 	<insert id="insertComment" parameterType="PlanComment">
 		INSERT INTO YJ_PLAN_COMMENT (PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE )
-    	VALUES ( #{no}, #{member.no}, #{content}, #{plan.no}, sysdate)
+    	VALUES ( #{no}, #{member.no}, #{content}, #{plan.no}, now())
 	</insert>
+	
+	<select id="getBookmarkByMemberNo" parameterType="int" resultMap="bookmark">
+		SELECT BOOKMARK_NO, MEM_NO, LOCATION_ID 
+		FROM YJ_BOOKMARK
+		WHERE MEM_NO = #{value}
+	</select>
 	
 	<select id="getPlanCommentByPlanNo" parameterType="int" resultMap="plancomment">
 		SELECT PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE
@@ -107,9 +113,35 @@
 	    WHERE PLAN_NO = #{value}
 	</select>
 	
+	
 	<delete id="deleteComment" parameterType="int">
 		DELETE FROM YJ_PLAN_COMMENT WHERE PLAN_COMMENT_NO= #{value}
 	</delete>
-
+	
+	<delete id="deletePlanCommentByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN_COMMENT WHERE PLAN_NO= #{value}
+	</delete>
+	
+	<delete id="deletePlanDayByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN_DAY WHERE PLAN_NO =#{value}
+	</delete>
+	
+	<delete id="deletePlanByPlanNo" parameterType="int">
+		DELETE FROM YJ_PLAN WHERE PLAN_NO = #{value}
+	</delete>
+	
+	<select id="likeCheckByMemNoPlanNo" parameterType="hashmap" resultType="string">
+		SELECT if( (SELECT PLAN_NO FROM YJ_PLAN_LIKE WHERE PLAN_NO= #{planNo} AND MEM_NO= #{memNo} ), 'T' , 'F' )  AS LIKECHECK FROM DUAL
+	</select>
+	
+	<insert id="insertLike" parameterType="hashmap">
+		INSERT INTO YJ_PLAN_LIKE  ( MEM_NO, PLAN_NO ) VALUES ( #{memNo} , #{planNo} )
+	</insert>
+	
+	<delete id="deleteLike" parameterType="hashmap">
+		DELETE FROM YJ_PLAN_LIKE WHERE PLAN_NO=#{planNo} AND MEM_NO=#{memNo}
+	</delete>
+	
+	
 	
 </mapper>

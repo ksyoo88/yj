@@ -18,9 +18,12 @@ public interface PanoramaDao {
 	void delTemPhotoByday(HashMap<String, Object> map);
 	void delTemPhoto(String email);
 	
-	void savePanoTitle(HashMap<String, Object> map);
-	void savePanoDay(HashMap<String, Object> map);
+	int savePanoTitle(PanoramaVO panorama);
+	int savePanoDay(PanoDayVO panoDay);
 	void savePanoPhotobyDay(HashMap<String, Object> map);
+	
+	ArrayList<String> gettempphotoname(HashMap<String, Object> map);
+	void insertphotonameTotemphoto(HashMap<String, Object> map);
 	
 	String getLocationIDbytitle(String title);
 	

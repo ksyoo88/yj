@@ -49,7 +49,7 @@ nav#navigationBar {
   top: 90%;
 }
 
-div.imageList {
+div.imageList:hover {
 	border: 1px solid red;
 }
 

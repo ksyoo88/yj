@@ -137,6 +137,8 @@ $(function() {
 		marker.setMap(map);  
 		
 		daum.maps.event.addListener(marker, 'mouseover', function() {
+			console.log($(this))
+			$(this).css("border: 1px solid red")
 		     $("#"+contentid).show();
 		});
 		

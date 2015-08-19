@@ -162,7 +162,7 @@
 									<div class="city"></div>
 								</div>
 	
-								<div class="location" id="location"></div>
+								<div class="location" id="location"> </div>
 							<input id="changelocation" type="text" value="" hidden>
 							</div>
 							<div class="photo-box">

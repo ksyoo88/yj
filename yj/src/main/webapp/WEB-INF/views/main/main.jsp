@@ -101,7 +101,7 @@
 		<h3>엄선된 도시와 장소정보를 공유합니다.</h3>
 		<c:forEach var="place" items="${placeList }">
 		<div class="colored effect3 from_top_and_bottom">
-			<a href="#">
+			<a href="/plan.do?$contentid=${place.contentid }">
 				<div class="img"  style="height: 250px;">
 					<img alt="" src="${place.firstimage }" />
 				</div>

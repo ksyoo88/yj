@@ -15,7 +15,7 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("New connection");
+		/*System.out.println("New connection");*/
 		chatService.registerOpenConnection(session);
 	}
 
@@ -33,7 +33,7 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println("New message: " + message.getPayload());
+		/*System.out.println("New message: " + message.getPayload());*/
 		chatService.processMessage(session, message.getPayload());
 	}
 }
