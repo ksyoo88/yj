@@ -129,8 +129,9 @@ public class MemberServiceImpl implements MemberService {
 			filename=System.currentTimeMillis()+filename;
 			
 			byte[] filedata = mf.getBytes();
-			File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/temphoto/"+filename);
-			//File file = new File("/resources/images/temphoto/"+filename);
+			//File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/temphoto/"+filename);
+			File catalinaBase = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile();
+			File file = new File(catalinaBase,"webapps/ROOT/resources/images/temphoto/"+filename);
 			
 			FileCopyUtils.copy(filedata, file);
 		}
@@ -154,8 +155,9 @@ public class MemberServiceImpl implements MemberService {
 			long filesize = mf.getSize();
 			
 			byte[] filedata = mf.getBytes();
-			File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/profilephoto/",filename);
-			//File file = new File("/resources/images/profilephoto/",filename);
+			//File file = new File("C:/spring_study/git/yj/src/main/webapp/resources/images/profilephoto/",filename);
+			File catalinaBase = new File( System.getProperty( "catalina.base" ) ).getAbsoluteFile();
+			File file = new File(catalinaBase,"webapps/ROOT/resources/images/profilephoto/"+filename);
 			 
 			FileCopyUtils.copy(filedata, file);
 		}

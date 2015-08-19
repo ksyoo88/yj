@@ -58,7 +58,7 @@ public class MemberController {
 		BufferedReader in = null;
 		try {
 			//in = new BufferedReader(new InputStreamReader(new FileInputStream("C:/spring_study/git/yj/src/main/webapp/resources/mail/findpw.jsp"),"UTF8"));
-			in = new BufferedReader(new InputStreamReader(new FileInputStream("/resources/mail/findpw.jsp"),"UTF8"));
+			in = new BufferedReader(new InputStreamReader(new FileInputStream(System.getProperty( "catalina.base" ) + "webapps/ROOT/resources/mail/findpw.jsp"),"UTF8"));
 			while((html_str =in.readLine() ) != null){
 				html.append(html_str);
 			}
