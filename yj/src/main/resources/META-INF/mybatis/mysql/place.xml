@@ -80,16 +80,15 @@
 	 	SELECT *
 		FROM 
 		(SELECT TITLE,MAPX,MAPY,READCOUNT, (@RNUM := @RNUM + 1) AS RANK
-		FROM YJ_PLACE
-		( SELECT @RNUM := 0 ) R
+		FROM YJ_PLACE ,( SELECT @RNUM := 0 ) R
 		WHERE READCOUNT IS NOT NULL
 		<if test="_parameter != 'ALL'"> 
 		AND CAT1 =#{value}
 		</if>
 		ORDER BY READCOUNT desc
-		)  
+		) a
 	 	<![CDATA[
-		WHERE RANK<100
+		WHERE a.RANK<100
 		]]>
 	 </select>
 	 
