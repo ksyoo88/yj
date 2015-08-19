@@ -80,11 +80,11 @@
 	</select>
 	
 	<select id="getTemPhoto" parameterType="string" resultType="string">
-		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9) A
+		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME<!-- ,ROWNUM --> FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} <!-- and ROWNUM &lt; 9 -->) A
 	</select>
 	
 	<select id="getTemPhotoByday" parameterType="hashmap" resultType="string">
-		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME,ROWNUM FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} and ROWNUM &lt; 9 and PANO_DAY=#{day}) A
+		SELECT PHOTO_NAME FROM (SELECT PHOTO_NAME<!-- ,ROWNUM --> FROM YJ_TEMP_PHOTO WHERE MEM_EMAIL=#{email} <!-- and ROWNUM &lt; 9 --> and PANO_DAY=#{day}) A
 	</select>
 	
 	<delete id="delTemPhoto" parameterType="string">

@@ -40,6 +40,12 @@
 	 	<result column="PLAN_COMMENT_DATE" property="commentDate"/>
 	 </resultMap>
 	 
+	 <resultMap type="Bookmark" id="bookmark">
+	 	<result column="BOOKMARK_NO" property="no"/>
+	 	<result column="MEM_NO" property="member.no"/>
+	 	<result column="LOCATION_ID" property="place.contentid"/> 	
+	 </resultMap>
+	 
 	<!-- PlaceAreaPoint 사용해라 -->
 	 
 	<insert id="insertPlan" parameterType="Plan">
