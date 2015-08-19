@@ -14,6 +14,21 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <style type="text/css">
 #membername {padding: 10px;}
+
+	.ui-autocomplete {
+		max-height: 300px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+	}
+	/* IE 6 doesn't support max-height
+	 * we use height instead, but this forces the menu to always be this tall
+	 */
+	* html .ui-autocomplete {
+		height: 300px;
+	}
+	
+
 </style>
 <tiles:insertAttribute name="style" ignore="true" />
 <script type="text/javascript" src="resources/js/jquery/jquery-1.11.3.js"></script>

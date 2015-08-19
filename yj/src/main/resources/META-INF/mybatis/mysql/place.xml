@@ -59,17 +59,34 @@
 		FROM YJ_PLACE
 		WHERE CONTENTID = #{value}
 	 </select>
+	 <!-- 
+	 SELECT empno, ename, job, sal, 
+	    ROW_NUMBER() OVER(PARTITION BY job ORDER BY sal) AS rnum 
+	FROM scott.emp;
+	
+	
+	SELECT empno, ename, job, sal, rnum
+	FROM (
+	   SELECT a.*, 
+	           (CASE @vjob WHEN a.job THEN @rownum:=@rownum+1 ELSE @rownum:=1 END) rnum,
+	           (@vjob:=a.job) vjob
+	   FROM emp a, (SELECT @vjob:='', @rownum:=0 FROM DUAL) b
+	   ORDER BY a.job, a.sal                  
+	) c;
 
-
+ -->
+	
 	 <select id="getTopPlace" parameterType="string" resultMap="place">
 	 	SELECT *
 		FROM 
-		(SELECT TITLE,MAPX,MAPY,READCOUNT, ROW_NUMBER() OVER (ORDER BY READCOUNT desc) AS RANK
+		(SELECT TITLE,MAPX,MAPY,READCOUNT, (@RNUM := @RNUM + 1) AS RANK
 		FROM YJ_PLACE
+		( SELECT @RNUM := 0 ) R
 		WHERE READCOUNT IS NOT NULL
 		<if test="_parameter != 'ALL'"> 
 		AND CAT1 =#{value}
 		</if>
+		ORDER BY READCOUNT desc
 		)  
 	 	<![CDATA[
 		WHERE RANK<100
@@ -77,7 +94,7 @@
 	 </select>
 	 
 	 <select id="getLocationbyTitle" parameterType="string" resultMap="place">    
-      	SELECT * FROM YJ_PLACE WHERE TITLE LIKE '%'||#{keyword}||'%'    
+      	SELECT * FROM YJ_PLACE WHERE TITLE LIKE CONCAT('%',#{keyword},'%')    
      </select>
 	
 </mapper>

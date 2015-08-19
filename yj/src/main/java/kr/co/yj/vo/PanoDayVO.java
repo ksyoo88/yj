@@ -7,6 +7,7 @@ import java.util.Date;
 public class PanoDayVO {
 	
 	private PanoramaVO panorama;
+	private int panoNo;
 	private int no ;
 	private int dayCnt;
 	private Place place;
@@ -18,6 +19,14 @@ public class PanoDayVO {
 	
 	
 	
+	public int getPanoNo() {
+		return panoNo;
+	}
+
+	public void setPanoNo(int panoNo) {
+		this.panoNo = panoNo;
+	}
+
 	public String getContantid() {
 		return contantid;
 	}

@@ -86,14 +86,15 @@ public class panoramaServiceImpl implements PanoramaService {
 		PanoDayVO panoDay = new PanoDayVO();
 		panoDay.setDayMemo(memo);
 		panoDay.setDayCnt(day);
-		panoDay.setNo(panoseq);
+		panoDay.setPanoNo(panoseq);
 		panoDay.setContantid(ID);
 		
 		map.put("locaID", ID);
 		
 		//int panodayseq=dao.selectPano_day_seq();
 		//map.put("panodayseq", panodayseq);
-		int panodayseq = dao.savePanoDay(panoDay);
+		dao.savePanoDay(panoDay);
+		int panodayseq =panoDay.getNo();
 		
 		return panodayseq;
 	}
@@ -118,17 +119,19 @@ public class panoramaServiceImpl implements PanoramaService {
 		map.put("date", to);
 	
 		PanoramaVO panorama = new PanoramaVO();
-		panorama.setPanoNo(no);
+		
+		
+		panorama.setMemNo(no);
 		panorama.setPanoTitle(title);
 		panorama.setPanoRegdate(to);
 
-		int panoseq=dao.selectPano_seq();
-		map.put("panoseq", panoseq);
+		//int panoseq=dao.selectPano_seq();
+		//map.put("panoseq", panoseq);
+		//dao.savePanoTitle(panorama);
+		
+		
 		dao.savePanoTitle(panorama);
-		
-		//int panoseq= dao.savePanoTitle(panorama);
-		
-		return panoseq;
+		return panorama.getPanoNo();
 	}
 	
 	@Override

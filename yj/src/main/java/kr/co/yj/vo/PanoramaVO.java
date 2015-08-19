@@ -9,6 +9,7 @@ public class PanoramaVO {
 	
 	private int panoNo;
 	private MemberDetail member;
+	private int memNo;
 	private String panoTitle;
 	private int panoLike;
 	private Date panoRegdate;
@@ -21,6 +22,12 @@ public class PanoramaVO {
 	
 	
 	
+	public int getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
 	public int getPanodayCnt() {
 		return panodayCnt;
 	}

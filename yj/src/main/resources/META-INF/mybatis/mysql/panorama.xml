@@ -40,11 +40,12 @@
 		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
 	</insert>
 	<insert id="savePanoTitle" parameterType="Panorama">
-		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoNo},#{title},0,#{date})
+		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{memNo},#{panoNo},#{panoTitle},0,#{panoRegdate})
 		<selectKey resultType="int" keyProperty="panoNo" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
 	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
 		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int},#{panodayseq,jdbcType=NUMERIC,javaType=int})}
 		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
@@ -57,8 +58,8 @@
 	</insert>
 	
 	<insert id="savePanoDay" parameterType="PanoDay">
-		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
-		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
+		INSERT INTO YJ_PANO_DAY(PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
+		VALUES (#{panoNo},#{dayCnt},#{contantid,jdbcType=VARCHAR,javaType=string},#{dayMemo,jdbcType=VARCHAR,javaType=string})
 		<selectKey resultType="int" keyProperty="no" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -72,11 +73,11 @@
 	</select>
 	 -->
 	<select id="getLocationIDbytitle" parameterType="string" resultType="string">
-		SELECT CONTENTID FROM YJ_PLACE WHERE TITLE=#{title}
+		SELECT DISTINCT CONTENTID FROM YJ_PLACE WHERE TITLE=#{title}
 	</select>
 	
 	<select id="getLocationTitle" parameterType="string" resultType="string">
-		SELECT TITLE FROM YJ_PLACE WHERE TITLE LIKE CONCAT('%',#{keyword},'%') <!-- '%'||#{keyword}||'%' -->
+		SELECT DISTINCT TITLE FROM YJ_PLACE WHERE TITLE LIKE CONCAT('%',#{keyword},'%') <!-- '%'||#{keyword}||'%' -->
 	</select>
 	
 	<select id="getTemPhoto" parameterType="string" resultType="string">
@@ -100,7 +101,7 @@
 	</delete>
 	
 	<select id="likecheck" parameterType="hashmap" resultType="string">
-		SELECT if((SELECT PANO_LIKE FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}),'T','F') AS LIKECHECK FROM DUAL
+		SELECT if((SELECT count(*) FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}) ,'T','F')  FROM DUAL
 	</select>
 	<insert id="likelisert" parameterType="hashmap">
 		INSERT INTO YJ_PANO_LIKE(MEM_NO,PANO_NO,PANO_LIKE) VALUES (#{memno},#{panono},'-')
@@ -140,6 +141,9 @@
 	</delete>
 	<delete id="deletePanoDayPhoto" parameterType="int">
 		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_PHOTO_NO= #{value}
+	</delete>
+	<delete id="deletePanoDayPhotobyPanodayNo" parameterType="int">
+		DELETE FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO= #{value}
 	</delete>
 	<delete id="deletePanoDay" parameterType="int">
 		DELETE FROM YJ_PANO_DAY WHERE PANO_DAY_NO= #{value}
