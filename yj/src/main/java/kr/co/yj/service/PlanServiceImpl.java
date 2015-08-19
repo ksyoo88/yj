@@ -46,22 +46,20 @@ public class PlanServiceImpl implements PlanService {
 		planVo.setFinishDayDate( strToDate( planVo.getFinishDay() ) );
 
 		// mysql 시 삭제
-		int planSeq = planDao.getPlanSeq();
-		planVo.setNo(planSeq);		
+//		int planSeq = planDao.getPlanSeq();
+//		planVo.setNo(planSeq);		
 		
-		planDao.insertPlan(planVo);
-		//int planSeq=planDao.insertPlan2(planVo);
-		
-		
-		Date tempDate = new Date();
+//		planDao.insertPlan(planVo);
+		planDao.insertPlan2(planVo);
+		int planSeq = planVo.getNo();
 		
 		for(int i=0; i<dayDate.length; i++){
 			
 			
 			PlanDayVO planDayVo = new PlanDayVO();
 			// mysql 시 삭제
-			int planDayseq = planDao.getPlanDaySeq();
-			planDayVo.setNo(planDayseq);
+//			int planDayseq = planDao.getPlanDaySeq();
+			
 			///
 			planDayVo.setDayDate(strToDate(dayDate[i]));
 			planDayVo.setPlan(planVo);
@@ -69,8 +67,9 @@ public class PlanServiceImpl implements PlanService {
 			place.setContentid(contentid[i]);
 			planDayVo.setPlace(place);
 			
-			planDao.insertPlanDay(planDayVo);	
-			//int planDayseq =planDao.insertPlanDay2(planDayVo);	
+//			planDao.insertPlanDay(planDayVo);	
+			planDao.insertPlanDay2(planDayVo);
+			//planDayVo.setNo(planDayseq);
 		}		
 		
 		return planSeq;
@@ -111,8 +110,6 @@ public class PlanServiceImpl implements PlanService {
 	
 	@Override
 	public void insertComment(PlanCommentVO planCommentVo) {
-		int seq = planDao.getPlanComment();
-		planCommentVo.setNo(seq);
 		planDao.insertComment(planCommentVo);
 	}
 	

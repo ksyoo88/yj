@@ -58,11 +58,9 @@ public class PlanController {
 	public ModelAndView rightPlace(@RequestParam("top")String top) {
 		
 		ModelAndView mav = new ModelAndView();
-		System.out.println("[[[[[[[[[[[[[[[[[["+top);
 		if(!top.equals("Bookmark")){
 			ArrayList<Place> topPlace = planService.getTopPlace(top);
 			mav.addObject("topPlace",topPlace);
-			System.out.println("]]]]]]]]]]]]]]]"+topPlace);
 		}
 		
 		mav.setView(jsonView);
@@ -101,8 +99,7 @@ public class PlanController {
 		MemberDetail memberVo = (MemberDetail)session.getAttribute("member");
 		
 		
-		planVo.setMember(memberVo);
-		
+		planVo.setMember(memberVo);		
 		
 		int planNo = planService.insertPlan(planVo, contentid, dayDate);		
 

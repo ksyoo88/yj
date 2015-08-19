@@ -37,7 +37,7 @@ public class PlanDayVO {
 	}
 
 	public String getStrDayDate(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy /MM /dd (E)");
 		return sdf.format(dayDate);
 	}
 	

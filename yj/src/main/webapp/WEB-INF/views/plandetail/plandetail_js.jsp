@@ -138,7 +138,8 @@ $(function() {
 		
 		daum.maps.event.addListener(marker, 'mouseover', function() {
 			console.log($(this))
-			$(this).css("border: 1px solid red")
+			 $("#"+contentid).css("padding","5px");
+			 $("#"+contentid).css("border","5px outset #6699FF");
 		     $("#"+contentid).show();
 		});
 		

@@ -16,14 +16,12 @@
 			<div class="col-md-12" id="topContent">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p><strong>총 여행일 수 : ${plan.trevelCnt }일</p><p>작성자 :${plan.member.name }</strong></p>
-						<button type="button" class="btn btn-default">URL 복사</button>
+						<p><strong>총 여행일 수 : ${plan.trevelCnt }일</p><p><img src="resources/images/profilephoto/${member.photo }" width="30" height="30"> ${plan.member.name }</strong></p>
+						<button type="button" class="btn btn-default" id="likeBtn">좋아요</button>
+						<button type="button" class="btn btn-default" id="likeCencelBtn">좋아요 취소</button>
 						<c:if test="${plan.member.no == member.no }">
 							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
 						</c:if>
-						<button type="button" class="btn btn-default" id="likeBtn">좋아요</button>
-						<button type="button" class="btn btn-default" id="likeCencelBtn">좋아요 취소</button>
-						<button type="button" class="btn btn-default">공유하기</button>
 					</div>
 				</div>
 			</div>
@@ -105,7 +103,7 @@
 								<input id="commentText" type="text" class="form-control" name="comment" placeholder="뎃글을 입력해주세요." aria-describedby="basic-addon2"/> 
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button" id="commentInsert" data-plan-no="${plan.no }">
-										<strong>${member.name }</strong> <img src="#" width="30" height="30">
+										<strong>${member.name }</strong> <img src="resources/images/profilephoto/${member.photo }" width="30" height="30">
 									</button>
 								</span>
 								

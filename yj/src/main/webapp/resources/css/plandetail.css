@@ -27,6 +27,7 @@ div#title p {
 }
 div#centerLeftContent .palceName{
 	text-align : left;
+	text-shadow: 2px 2px #A5A5A5;
 /* 	background-color : #FFAD33; */
 }
 
@@ -63,6 +64,8 @@ div#footerContent .panel-body {
 
 div#centerRightContent .placeNameRight{
 /* 	background-color : #3399FF; */
+	border-bottom : solid 1px gray;
+	color : #2A2A2A;
 }
 
 div#topContent {

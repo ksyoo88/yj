@@ -12,13 +12,13 @@ public interface PlanDao {
 
 	// 일정 저장
 	void insertPlan(PlanVO planVo);
-	int insertPlan2(PlanVO planVo);
+	void insertPlan2(PlanVO planVo);
 	int getPlanSeq();
 	
 	// 일정 하루 단위로 정보 
 	int getPlanDaySeq();
 	void insertPlanDay(PlanDayVO planDayVo);
-	int insertPlanDay2(PlanDayVO planDayVo);
+	void insertPlanDay2(PlanDayVO planDayVo);
 	
 	PlanVO getPlanByNo(int no);
 	ArrayList<PlanDayVO> getPlanDayByNo(int no);

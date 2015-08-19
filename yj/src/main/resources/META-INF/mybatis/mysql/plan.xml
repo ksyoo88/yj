@@ -48,7 +48,7 @@
 	 
 	<!-- PlaceAreaPoint 사용해라 -->
 	 
-	<insert id="insertPlan" parameterType="Plan">
+	<insert id="insertPlan2" parameterType="Plan">
 		INSERT INTO YJ_PLAN( PLAN_NO,
 							 MEM_NO, 
 							 PLAN_TITLE, 
@@ -57,12 +57,11 @@
 							 PLAN_FINISH_DAY, 
 							 PLAN_LIKE_CNT)
 		VALUES (#{no}, #{member.no}, #{title} , #{trevelCnt} , #{startDayDate},  #{finishDayDate}, 0)
+		<selectKey resultType="int" keyProperty="no" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
-	<select id="getPlanSeq" resultType="int">
-		SELECT PLAN_SEQ.NEXTVAL
-		FROM DUAL
-	</select>
 
 	<select id="getPlanByNo" parameterType="int" resultMap="plan2">
 		SELECT  PLAN_NO, 
@@ -74,22 +73,15 @@
 				A.PLAN_LIKE_CNT,
         		(SELECT MEM_NAME FROM YJ_MEMBER B WHERE B.MEM_NO = A.MEM_NO)  MEM_NAME
 		FROM YJ_PLAN A
-		WHERE PLAN_NO = #{value}
+		WHERE PLAN_NO = #{value}		
 	</select>
 	
-	<select id="getPlanDaySeq" resultType="int">
-		SELECT PLAN_DAY_SEQ.NEXTVAL
-		FROM DUAL	
-	</select>
-	
-	<select id="getPlanComment" resultType="int">
-		SELECT PLAN_COMMENT_SEQ.NEXTVAL
-		FROM DUAL
-	</select>
-	
-	<insert id="insertPlanDay" parameterType="PlanDay">
-		INSERT INTO YJ_PLAN_DAY (PLAN_NO, PLAN_DAY_NO, PLAN_DAY_DATE, CONTENTID)
-		VALUES( #{plan.no}, #{no}, #{dayDate}, #{place.contentid} ) 
+	<insert id="insertPlanDay2" parameterType="PlanDay">
+		INSERT INTO YJ_PLAN_DAY (PLAN_NO, PLAN_DAY_DATE, CONTENTID)
+		VALUES( #{plan.no},  #{dayDate}, #{place.contentid} )
+		<selectKey resultType="int" keyProperty="no" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey> 
 	</insert>
 	
 	<select id="getPlanDayByNo" parameterType="int" resultMap="planday">
@@ -103,8 +95,16 @@
 	</select>
 	
 	<insert id="insertComment" parameterType="PlanComment">
-		INSERT INTO YJ_PLAN_COMMENT (PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE )
-    	VALUES ( #{no}, #{member.no}, #{content}, #{plan.no}, now())
+		INSERT INTO YJ_PLAN_COMMENT ( MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE )
+    	VALUES ( #{member.no}, #{content}, #{plan.no}, now())
+    	<selectKey resultType="int" keyProperty="no" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey> 
+	</insert>
+	
+	<insert id="insertBookmark" parameterType="Bookmark">
+		INSERT INTO YJ_BOOKMARK ( MEM_NO, LOCATION_ID)
+		VALUES ( #{member.no}, #{place.contentid})
 	</insert>
 	
 	<select id="getBookmarkByMemberNo" parameterType="int" resultMap="bookmark">
@@ -112,6 +112,10 @@
 		FROM YJ_BOOKMARK
 		WHERE MEM_NO = #{value}
 	</select>
+	
+	<delete id="deleteBookmark" parameterType="int">
+		DELETE FROM YJ_BOOKMARK WHERE BOOKMARK_NO = #{value}
+	</delete> 
 	
 	<select id="getPlanCommentByPlanNo" parameterType="int" resultMap="plancomment">
 		SELECT PLAN_COMMENT_NO, MEM_NO, PLAN_CONTENT, PLAN_NO, PLAN_COMMENT_DATE
@@ -148,6 +152,13 @@
 		DELETE FROM YJ_PLAN_LIKE WHERE PLAN_NO=#{planNo} AND MEM_NO=#{memNo}
 	</delete>
 	
+	<update id="planLikeCntUpdate" parameterType="hashmap">
+		UPDATE YJ_PLAN SET PLAN_LIKE_CNT =#{likeCnt}  WHERE PLAN_NO=#{planNo}
+	</update>
+	
+	<select id="getLikeCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM  YJ_PLAN_LIKE WHERE PLAN_NO=#{value}
+	</select>
 	
 	
 </mapper>
