@@ -39,31 +39,44 @@
 	<insert id="addtempphoto" parameterType="hashmap">
 		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME) VALUES (#{email,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
 	</insert>
-	<insert id="savePanoTitle" parameterType="hashmap">
-		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoseq},#{title},0,#{date})
+	<insert id="savePanoTitle" parameterType="Panorama">
+		INSERT INTO YJ_PANORAMA(MEM_NO,PANO_NO,PANO_TITLE,PANO_LIKE,PANO_REGDATE) VALUES (#{no},#{panoNo},#{title},0,#{date})
+		<selectKey resultType="int" keyProperty="panoNo" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	<insert id="savePanoPhotobyDay" statementType="CALLABLE" parameterType="hashmap">
 		{call  PANO_SAVE(#{email,jdbcType=VARCHAR,javaType=string},#{day,jdbcType=NUMERIC,javaType=int},#{panodayseq,jdbcType=NUMERIC,javaType=int})}
 		<!-- EXECUTE PANO_SAVE(#{email},#{day}) -->
 	</insert>
-	<insert id="savePanoDay" parameterType="hashmap">
-		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
-		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
+	<select id="gettempphotoname" parameterType="hashmap" resultType="string">
+		SELECT PHOTO_NAME  FROM YJ_TEMP_PHOTO WHERE  MEM_EMAIL = #{email} AND PANO_DAY = #{day}
+	</select>
+	<insert id="insertphotonameTotemphoto" parameterType="hashmap">
+		INSERT INTO YJ_PANO_DAY_PHOTO (PANO_DAY_NO,PANO_DAY_PHOTO) VALUES (#{panodayseq},#{photo})
 	</insert>
 	
+	<insert id="savePanoDay" parameterType="PanoDay">
+		INSERT INTO YJ_PANO_DAY(PANO_DAY_NO,PANO_NO,PANO_DAY_DATE,PANO_DAY_LOCA,PANO_DAY_MEMO) 
+		VALUES (#{panodayseq},#{panoseq},#{day},#{locaID,jdbcType=VARCHAR,javaType=string},#{memo,jdbcType=VARCHAR,javaType=string})
+		<selectKey resultType="int" keyProperty="no" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<!-- 
 	<select id="selectPano_seq" resultType="int">
 		SELECT pano_seq.nextval FROM dual
 	</select>
 	<select id="selectPano_day_seq" resultType="int">
 		SELECT pano_day_seq.nextval FROM dual
 	</select>
-	
+	 -->
 	<select id="getLocationIDbytitle" parameterType="string" resultType="string">
 		SELECT CONTENTID FROM YJ_PLACE WHERE TITLE=#{title}
 	</select>
 	
 	<select id="getLocationTitle" parameterType="string" resultType="string">
-		SELECT TITLE FROM YJ_PLACE WHERE TITLE LIKE '%'||#{keyword}||'%'
+		SELECT TITLE FROM YJ_PLACE WHERE TITLE LIKE CONCAT('%',#{keyword},'%') <!-- '%'||#{keyword}||'%' -->
 	</select>
 	
 	<select id="getTemPhoto" parameterType="string" resultType="string">
@@ -87,7 +100,7 @@
 	</delete>
 	
 	<select id="likecheck" parameterType="hashmap" resultType="string">
-		SELECT NVL2((SELECT PANO_LIKE FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}),'T','F') AS LIKECHECK FROM DUAL
+		SELECT if((SELECT PANO_LIKE FROM YJ_PANO_LIKE WHERE MEM_NO=#{memno} and PANO_NO=#{panono}),'T','F') AS LIKECHECK FROM DUAL
 	</select>
 	<insert id="likelisert" parameterType="hashmap">
 		INSERT INTO YJ_PANO_LIKE(MEM_NO,PANO_NO,PANO_LIKE) VALUES (#{memno},#{panono},'-')
@@ -117,7 +130,7 @@
 	</select>
 	
 	<insert id="savePanoReply" parameterType="kr.co.yj.vo.PanoReplyVO">
-		INSERT INTO YJ_PANO_REPLY (PANO_REPLY_NO,PANO_NO,PANO_REPLY_WRITER,PANO_REPLY,PANO_REPLY_REGDATE) VALUES (PANO_REPLY_SEQ.nextval,#{panoNo},#{member.no},#{reply},sysdate)
+		INSERT INTO YJ_PANO_REPLY (PANO_NO,PANO_REPLY_WRITER,PANO_REPLY,PANO_REPLY_REGDATE) VALUES (#{panoNo},#{member.no},#{reply},now())
 	</insert>
 	<select id="getPanoReply" parameterType="int" resultMap="panoreply">
 		SELECT * FROM YJ_PANO_REPLY WHERE PANO_NO=#{value} ORDER BY PANO_REPLY_REGDATE ASC
@@ -134,6 +147,12 @@
 	<delete id="deletePanorama" parameterType="int">
 		DELETE FROM YJ_PANORAMA WHERE PANO_NO= #{value}
 	</delete>
+	<insert id="movephotoTotemp" parameterType="hashmap">
+		INSERT INTO YJ_TEMP_PHOTO (MEM_EMAIL,PHOTO_NAME,PANO_DAY) VALUES (#{MEM_EMAIL},#{PHOTO_NAME},#{PANO_DAY})
+	</insert>
+	<update id="updatePanno" parameterType="kr.co.yj.vo.PanoramaVO">
+		UPDATE YJ_PANORAMA SET PANO_TITLE = #{panoTitle} ,PANO_REGDATE = #{panoRegdate} WHERE PANO_NO=#{panoNo}
+	</update>
 	
 	
 </mapper>

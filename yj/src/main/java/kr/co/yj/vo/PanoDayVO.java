@@ -10,11 +10,22 @@ public class PanoDayVO {
 	private int no ;
 	private int dayCnt;
 	private Place place;
+	private String contantid;
 	private String dayMemo;
 	private int photocnt;
 	private Date date;
 	private ArrayList<PanoDayPhotoVO> photos;
 	
+	
+	
+	public String getContantid() {
+		return contantid;
+	}
+
+	public void setContantid(String contantid) {
+		this.contantid = contantid;
+	}
+
 	public Date getDate() {
 		
 		Calendar c = Calendar.getInstance(); 

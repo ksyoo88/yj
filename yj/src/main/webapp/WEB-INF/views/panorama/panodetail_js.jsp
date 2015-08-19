@@ -64,7 +64,9 @@ $(function (){
 // 		console.log( "mapX : ", $(".mapX").eq(index).text() );
 // 		console.log( "mapY : ", $(".mapY").eq(index).text() );
 // 		console.log( "cate : ", $(".cate").eq(index).text() );
-		var photo=$(".photo-cont a").eq(index).attr("data-photo");
+		var photo=$(".photo-cont").eq(index).find("a").attr("data-photo");
+		var href1=$(".title-box ").eq(index).attr("id");
+		console.log( href1 );
 		
 		console.log( $(".cate").eq(index).text() );
 		
@@ -95,14 +97,11 @@ $(function (){
 		    fillColor: '#FFFFFF',
 		    fillOpacity: 1
 		});
-		    var content = '<div hidden class="media" id="'+contentid+'" style="background-color:white;">' +
+		    var content = '<div hidden class="media" id="'+contentid+'" >' +
 		    '                  <div class="media-left media-middle"> ' +
-		    '                      <a href="#">' +
-		    '                      <img class="media-object" src="'+image+'" alt="..." width=64 height=64 >' +
+		    '                      <a href="#'+href1+'">' +
+		    '                      <img class="media-object" src="resources/images/temphoto/'+photo+'" alt="..." style=" border: 3px solid orange;" width=64 height=64 >' +
 		    '                      </a>' +
-		    '                  </div>' +
-		    '                  <div class="media-body">' + 
-		    '                      <br/><h4 class="media-heading">'+ title + '</h4>' +
 		    '                  </div>' +
 		    '              </div>' ;
 		  
@@ -149,7 +148,10 @@ $(function (){
 			
 		     $("#"+contentid).show();
 		});
-		
+		daum.maps.event.addListener(marker, 'click', function() {
+		   	$("#"+contentid+" .media-object").click();
+		   	
+		});
 		daum.maps.event.addListener(marker, 'mouseout', function() {
 			 $("#"+contentid).hide();
 		});
@@ -235,7 +237,7 @@ $(function (){
 					var day = d.getDate();
 					replyadd+='<tr id="replyNO'+replys[i].panoReplyNo+'"><td>	<div class="user"><div class="profile user-photo"><div class="memberProfileImage profileImageMedium" style="position: relative; "><img src="resources/images/profilephoto/'+replys[i].member.photo+'" class="img-circle" width="45px" height="45px"style="margin-top: 3px;"></div></div></div></td>'
 					replyadd+='<td><div class="userName t-name" >'+replys[i].member.name+'</div></td>';
-					replyadd+='<td>	<div><c:out value="'+replys[i].reply+'"></c:out></div></td>';
+					replyadd+='<td>	'+$("<div/>").text(replys[i].reply).html()+'</td>';
 					replyadd+='<td><div>'+year+'/'+month+'/'+day+'</div></td>';
 					if(replys[i].member.no=='${member.no}'){
 					replyadd+='<td><c:if test="${replys.member.no == member.no }"><button type="button" onclick="deletereply('+replys[i].panoReplyNo+')" data-reply-no="'+replys[i].panoReplyNo+'" class="btn btn-danger">삭제</button>  </c:if></td></tr>';
