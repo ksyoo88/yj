@@ -68,7 +68,7 @@
 		(
 			SELECT PANO_DAY_PHOTO FROM YJ_PANO_DAY_PHOTO WHERE PANO_DAY_NO = #{value}
 			ORDER BY PANO_DAY_PHOTO ASC
-		)
+		) A
 		LIMIT 1
 	</select>
 	<select id="getPlanList" parameterType="hashmap" resultMap="planlist">

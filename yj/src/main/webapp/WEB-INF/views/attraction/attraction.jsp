@@ -66,29 +66,37 @@
 					A02	문화
 					 -->
 					<div class="row">
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor1" name="B02" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">숙박</span>
-						</div>
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor2" name="A04" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">쇼핑</span>
-						</div>
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor3" name="A05" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">음식</span>
-						</div>
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor4" name="A01" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">자연</span>
-						</div>
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor5" name="A03" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">레져</span>
-						</div>
-						<div class="favorbar col-md-2" style="margin-top: 20px;">
-							<input id="favor6" name="A02" type="text" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="vertical"/>
-							<span style="display: block; margin-top: 10px;">문화</span>
+						<div id="eq">
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>숙박</span>
+								<input id="favor1" name="B02" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;숙박</span>
+							</div>
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>쇼핑</span>
+								<input id="favor2" name="A04" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;쇼핑</span>
+							</div>
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>음식</span>
+								<input id="favor3" name="A05" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;음식</span>
+							</div>
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>자연</span>
+								<input id="favor4" name="A01" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;자연</span>
+							</div>
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>레져</span>
+								<input id="favor5" name="A03" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;레져</span>
+							</div>
+							<div class="favorbar col-md-2" style="margin-top: 20px;">
+								<span>문화</span>
+								<input id="favor6" name="A02" type="hidden" value="2" />
+								<span style="clear:both; display: block; margin-top: 10px;">&nbsp;문화</span>
+							</div>
 						</div>
 					</div>
 					<div class="btn-area">

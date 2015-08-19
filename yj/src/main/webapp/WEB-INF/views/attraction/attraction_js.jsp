@@ -11,6 +11,23 @@ var areacode = undefined;
 
 $(function() {
 	
+	// step1 슬라이더
+	$("#eq > div > span:first-child").each(function() {
+		// read initial values from markup and remove that
+		$(this).empty().slider({
+			value : 2,
+			max : 3,
+			min : 1,
+			animate : true,
+			orientation : "vertical",
+			slide: function(event, ui) {
+		    },
+		    change: function(event, ui) {
+		    	$(this).siblings("input").val(ui.value);
+		    }
+		});
+	});
+	
 	jqScrollbar($(".step0 .theme-city-list"));
 	
 	$(".favorbar input").slider({

@@ -16,9 +16,9 @@
 	<http pattern="/chat/**" security="none" />
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="false">
-		<!-- <headers>
+		<headers>
 			<cache-control />
-		</headers> -->
+		</headers>
 		
 		<intercept-url pattern="/main.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		
