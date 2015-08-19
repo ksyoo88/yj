@@ -121,7 +121,6 @@ public class PlanController {
 	@RequestMapping("/plandetail.do")
 	public ModelAndView planDetail(@RequestParam("no")int no, HttpSession session){
 		
-		System.out.println("번호가 오면 된다. : "+no );
 		
 		HashMap<String, Integer> likeMap = new HashMap<String, Integer>();
 		ModelAndView mav = new ModelAndView();
@@ -131,7 +130,6 @@ public class PlanController {
 		likeMap.put("memNo", memberVo.getNo() );
 		
 		String likeChecked = planService.checkedLike(likeMap);
-		System.out.println("[---------------------------------------------------]"+likeChecked);
 		
 		PlanVO plan = planService.getPlanByNo(no);
 		
@@ -236,7 +234,6 @@ public class PlanController {
 		planService.insertLike(likeMap);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject(likeMap);
 		mav.setView(jsonView);
 		
 		return mav;
@@ -250,10 +247,20 @@ public class PlanController {
 		likeMap.put("planNo", planNo);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject(likeMap);
 		mav.setView(jsonView);
 		
 		planService.deleteLike(likeMap);	
+		
+		return mav;
+	}
+	
+	@RequestMapping("/deleteBookmark.do")
+	public ModelAndView deleteBookmark(@RequestParam("bookmarkid")int bookmarkid){
+		System.out.println(bookmarkid+ "삭제");
+		planService.deleteBookmark(bookmarkid);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setView(jsonView);
 		
 		return mav;
 	}

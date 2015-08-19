@@ -12,11 +12,13 @@ public interface PlanDao {
 
 	// 일정 저장
 	void insertPlan(PlanVO planVo);
+	int insertPlan2(PlanVO planVo);
 	int getPlanSeq();
 	
 	// 일정 하루 단위로 정보 
 	int getPlanDaySeq();
 	void insertPlanDay(PlanDayVO planDayVo);
+	int insertPlanDay2(PlanDayVO planDayVo);
 	
 	PlanVO getPlanByNo(int no);
 	ArrayList<PlanDayVO> getPlanDayByNo(int no);
@@ -30,6 +32,7 @@ public interface PlanDao {
 	// 북마크 
 	void insertBookmark(BookmarkVO bookmarkVo);
 	ArrayList<BookmarkVO> getBookmarkByMemberNo(int memNo);
+	void deleteBookmark(int bookmark);
 	
 	// 일정삭제
 	void deletePlanCommentByPlanNo(int planNo);
@@ -41,4 +44,6 @@ public interface PlanDao {
 	void insertLike(HashMap<String, Integer> planLike);
 	void deleteLike(HashMap<String, Integer> planLike);
 	int getLikeCnt(int planNo);
+	void planLikeCntUpdate(HashMap<String, Integer> likeUpdate);
+	
 }

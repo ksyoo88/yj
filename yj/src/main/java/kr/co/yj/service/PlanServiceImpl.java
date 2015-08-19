@@ -44,10 +44,13 @@ public class PlanServiceImpl implements PlanService {
 
 		planVo.setStartDayDate( strToDate( planVo.getStartDay() ) );
 		planVo.setFinishDayDate( strToDate( planVo.getFinishDay() ) );
-		
+
+		// mysql 시 삭제
 		int planSeq = planDao.getPlanSeq();
 		planVo.setNo(planSeq);		
+		
 		planDao.insertPlan(planVo);
+		//int planSeq=planDao.insertPlan2(planVo);
 		
 		
 		Date tempDate = new Date();
@@ -56,9 +59,10 @@ public class PlanServiceImpl implements PlanService {
 			
 			
 			PlanDayVO planDayVo = new PlanDayVO();
-		
+			// mysql 시 삭제
 			int planDayseq = planDao.getPlanDaySeq();
 			planDayVo.setNo(planDayseq);
+			///
 			planDayVo.setDayDate(strToDate(dayDate[i]));
 			planDayVo.setPlan(planVo);
 			Place place = new Place();
@@ -66,6 +70,7 @@ public class PlanServiceImpl implements PlanService {
 			planDayVo.setPlace(place);
 			
 			planDao.insertPlanDay(planDayVo);	
+			//int planDayseq =planDao.insertPlanDay2(planDayVo);	
 		}		
 		
 		return planSeq;
@@ -185,7 +190,29 @@ public class PlanServiceImpl implements PlanService {
 
 		planDao.insertLike(likeMap);
 		
-		System.out.println( likeMap.get("planNo") );
+		int planNo = likeMap.get("planNo") ;
+		int likeCnt = planDao.getLikeCnt(planNo);
+		
+		HashMap<String, Integer> updateLike = new HashMap<String, Integer>();
+		updateLike.put("planNo", planNo);
+		updateLike.put("likeCnt", likeCnt);
+		
+		planDao.planLikeCntUpdate(updateLike);
+		
+	}
+	@Override
+	public void deleteLike(HashMap<String, Integer> likeMap) {
+		
+		planDao.deleteLike(likeMap);
+		
+		int planNo = likeMap.get("planNo") ;
+		int likeCnt = planDao.getLikeCnt(planNo);
+		
+		HashMap<String, Integer> updateLike = new HashMap<String, Integer>();
+		updateLike.put("planNo", planNo);
+		updateLike.put("likeCnt", likeCnt);
+		
+		planDao.planLikeCntUpdate(updateLike);
 		
 	}
 	
@@ -198,11 +225,12 @@ public class PlanServiceImpl implements PlanService {
 	}
 	
 	@Override
-	public void deleteLike(HashMap<String, Integer> likeMap) {
+	public void deleteBookmark(int bookmarkNo) {
 		
-		planDao.deleteLike(likeMap);
+		planDao.deleteBookmark(bookmarkNo);
 		
 	}
+	
 	
 	
 }

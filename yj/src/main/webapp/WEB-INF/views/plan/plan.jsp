@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp" %>
 	<!-- 왼쪽 탭 -->
 	<div class="col-md-2" id="left-tab">
-		<div class="col-md-2" id="left-tab-left">
+		<div class="col-md-2" id="left-tab-left" >
 			<ul class="nav nav-pills nav-stacked left-image-icon"
 				id="mapcategory">
 				<li class="active" data-cat="icon_calender"><h3>
@@ -104,7 +104,7 @@
 			<div class="row" id="left-tab-plan-contents">
 				<div class="col-md-12">
 					<div class="panel-group" id="1dateStr">
-						 <div class="panel-heading"><strong>출발일을 입력해주세요</strong></div>
+						 <div class="panel-heading ui-state-default"><strong>출발일을 입력해주세요</strong></div>
 					</div>			
 				</div>
 			</div>
@@ -171,15 +171,17 @@
 	
 	<div class="col-md-2" id="right-tab">
 		<div class="row" id="right-tab-header">
-			<h4>HOT PLACE TOP 100</h4>
+			<h4><strong>HOT PLACE TOP 100</strong></h4>
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><h3>
 							<a href="#"><img class="media-object img-rounded" data-top="ALL"
 								src="resources/images/icon_mapAll.png" /></a>
-						</h3>
-						<p>명소</p></li>
+								</h3>
+								<p><strong>명소</strong></p></li>
+						
 				</ul>
+				
 			</div>
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
@@ -187,7 +189,7 @@
 							<a href="#"><img class="media-object img-rounded" data-top="A04"
 								src="resources/images/icon_shopping.png" /></a>
 						</h3>
-						<p>쇼핑</p></li>
+						<p><strong>쇼핑</strong></p></li>
 				</ul>
 			</div>
 			<div class="col-md-3">
@@ -196,7 +198,7 @@
 							<a href="#"><img class="media-object img-rounded" data-top="A05"
 								src="resources/images/icon_food.png" /></a>
 						</h3>
-						<p>음식점</p></li>
+						<p><strong>음식점</strong></p></li>
 				</ul>
 			</div>
 			<div class="col-md-3">
@@ -205,7 +207,7 @@
 							<a href="#"><img class="media-object img-rounded" id="bookmark-tab" data-top="Bookmark"
 								src="resources/images/icon_bookmark.png" /></a>
 						</h3>
-						<p>북마크</p></li>
+						<p><strong>북마크</strong></p></li>
 				</ul>
 			</div>
 		</div>

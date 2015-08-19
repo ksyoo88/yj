@@ -8,7 +8,7 @@
 				style="background-image : url(${planDay[0].place.firstimage })">
 				<hr />
 				<h3>
-					<strong>${plan.title }</strong>
+					<strong><c:out value="${plan.title }"></c:out></strong>
 				</h3>
 				<p>${plan.strStartDay }~ ${plan.strFinishDay }</p>
 				<hr />
@@ -16,7 +16,7 @@
 			<div class="col-md-12" id="topContent">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>총 여행일 수 : ${plan.trevelCnt } 좋아요 ${plan.likeCnt } 작성자 :${plan.member.name }</p>
+						<p><strong>총 여행일 수 : ${plan.trevelCnt }일</p><p>작성자 :${plan.member.name }</strong></p>
 						<button type="button" class="btn btn-default">URL 복사</button>
 						<c:if test="${plan.member.no == member.no }">
 							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
@@ -90,7 +90,7 @@
 								<c:if test="${comment.member.no == member.no }">
 									<button class="btn btn-danger btn-xs pull-left commentDelete" data-commentno="${comment.no }" type="button">삭제</button>
 								</c:if>
-									${comment.content} <img src="resources/images/profilephoto/${comment.member.photo }" width="30" height="30"> <strong>${comment.member.name}</strong>
+									<c:out value="${comment.content}"></c:out>  <img src="resources/images/profilephoto/${comment.member.photo }" width="30" height="30"> <strong>${comment.member.name}</strong>
 									${comment.strCommentDate}
 								</p>
 							</c:forEach>

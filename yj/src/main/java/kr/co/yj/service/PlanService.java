@@ -43,4 +43,6 @@ public interface PlanService {
 	
 	String checkedLike(HashMap<String,Integer> likeMap);
 	
+	void deleteBookmark(int bookmarkNo);
+	
 }

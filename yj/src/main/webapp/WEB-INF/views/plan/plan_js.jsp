@@ -36,6 +36,7 @@
 	$("#right-tab-header .nav-tabs img").click(function(){
 		
 		var top = $(this).data("top");
+		$(this).css("text-shadow","2px 2px black")
 
 		$.ajax({
 			url:"rightPlace.do",
@@ -51,7 +52,7 @@
 					console.log("top plAce : ",place[i].title );
 					tempHtml += "<button type='button' class='list-group-item' data-mapx='"+place[i].mapx +"' data-mapy='"+place[i].mapy+"' >"+(i+1)+". "+place[i].title+"</button>";
 				}
-				
+				$("#topPlace").hide().show(500);
 				$("#topPlace").html(tempHtml);
 				
 				$("#topPlace button").click(function(){
@@ -79,6 +80,7 @@
 		
 	})
 	
+
 	
 	$("#saveBtn").click(function(){
 		
@@ -117,6 +119,7 @@
 		}			
 	});
 	
+	
 
 	
 	$(".form_datetime").datetimepicker({
@@ -129,13 +132,18 @@
 	
 	
 	$("#place-tab").hide();
+	
+	
 	var container = document.getElementById('map-box');
 	var options = {
 		center : new daum.maps.LatLng(37.567357, 126.994657),
-		level : 3
+		level : 3 
 	};
 
 	map = new daum.maps.Map(container, options);
+	
+
+	
 	
 	if( '${place}' != "" )  {
 		placeObj.title = '${place.title}';
@@ -221,7 +229,9 @@
 			dataType:"json",
 			success : function(result) {
 	
-				createMarker(result);
+				if( map.getLevel() < 6 ){
+					createMarker(result);					
+				}
 				
 			}
 		});
@@ -253,7 +263,9 @@
 			success : function(result) {
 	
 				cleanOverlayCustom();
-				createMarker(result);
+				if( map.getLevel() < 6 ){
+					createMarker(result);					
+				}
 				
 			}
 		});
@@ -365,7 +377,7 @@
 			}
 			
 			$("#place-tab #overview a").click(function(){
-				$("#place-tab-overview").text(overview).hide().slideDown(500);
+				$("#place-tab #overview").text(overview).hide().slideDown(500);
 			});
 			
 			$("#contents-tab").attr("class","col-md-6");
@@ -453,10 +465,10 @@
 				"</div>" 					
 		);
 		
-		$("#"+index+"dateStr").sortable({
-			placeholder : "ui-sortable-placeholder",			
-			connectWith: "#left-tab-plan-contents .panel-body"
-		});
+// 		$("#left-tab-plan-contents").sortable({
+// 			placeholder : "ui-sortable-placeholder",			
+// 			connectWith: ".panel-body"
+// 		});
 		
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
@@ -466,6 +478,11 @@
 			
 			console.log(positionX + ",  "+ positionY);
 			map.panTo(new daum.maps.LatLng(positionY, positionX));		
+		});
+		
+		$("#left-tab-plan-contents .btn-danger").click(function() {
+			$(this).parent().parent().parent().parent().remove();
+			lineDraw();
 		});
 		
 		lineDraw();
@@ -481,11 +498,11 @@
 		    center : new daum.maps.LatLng(mapY, mapX),
 		    radius: 10,
 		    strokeWeight: 2,
-		    strokeColor: '#FF00FF',
-		    strokeOpacity: 0.8,
+		    strokeColor: '#CC0000',
+		    strokeOpacity: 1,
 		    strokeStyle: 'solid',
-		    fillColor: '#000066',
-		    fillOpacity: 0.5 
+		    fillColor: '#FFFFFF',
+		    fillOpacity: 1 
 		});
 		
 		circleArray.push(circle);
@@ -528,9 +545,9 @@
 		polyline = new daum.maps.Polyline({
 			map : map,
 			strokeWeight :2,
-			strokeColor : '#FF00FF',
+			strokeColor : '#CC0000',
 			strokeOpacity: 1,
-		    strokeStyle: 'longdash'
+		    strokeStyle: 'solid'
 		});
 		
 		$("div#left-tab-plan-contents .panel-group").each(function(index, item){
@@ -583,7 +600,7 @@
 			console.log(planArray);
 			$("#left-tab-plan-contents").append(
 				"<div class='col-md-12'>" +
-				"<div class='panel-group ui-state-default ui-state-disabled' id='"+day+"dateStr'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
+				"<div class='panel-group ui-state-default' id='"+day+"dateStr'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
@@ -593,7 +610,7 @@
 	
 	$("#retryplan").click(function() {
 		$("#left-tab-plan-contents")
-		.html("<div class='col-md-12'><div class='panel-group ui-state-default ui-state-disabled' id='1dateStr''><div class='panel-heading'><strong>출발일을 입력해주세요</strong></div></div></div>")
+		.html("<div class='col-md-12'><div class='panel-group ui-state-default' id='1dateStr''><div class='panel-heading'><strong>출발일을 입력해주세요</strong></div></div></div>")
 		 $("#startDate").val("");
 		clearCircle();
 		clearLine();
@@ -750,14 +767,12 @@
 							
 							if( overview.length > 300 ){
 							  	$("#place-tab #overview").text(subStrOverView + "...");				
-								$("#place-tab #overview").append("<a href='#'>더보기</a>");
+								$("#place-tab #overview").append("<a href='#'>더보기</a>");								
 							} else {
 							  	$("#place-tab #overview").text(overview);				
-							}
+							}			
 							
-							$("#place-tab #overview a").click(function(){
-								$("#place-tab-overview").text(overview).hide().slideDown(500);
-							});
+						
 							
 							$("#contents-tab").attr("class","col-md-6");
 							$("#place-tab").show(500,function() {
@@ -772,6 +787,15 @@
 								$("#place-tab #contentid").html(contentid);
 								
 							});
+							
+///////////////////////////////////////////////////////////////////////////////////////////////
+							
+							$("#overview a").click(function(){
+								alert("aa");
+								$("#place-tab #overview").text(overview).hide().slideDown(500);
+							});
+							
+///////////////////////////////////////////////////////////////////////////////////////////////	
 							
 							dateInit();			
 						});	
@@ -797,23 +821,65 @@
 					console.log("top plAce : ",bookmarks[i].place.title );
 					if(bookmarks[i].place.title.length > 10){
 						var subTitle =  bookmarks[i].place.title.substring(0,9) + "...";
-						tempHtml += "<button type='button' class='list-group-item' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' >"+(i+1)+". "+subTitle+"</button>";
+						tempHtml +="<div class='panel-body ui-state-default'>" +
+										"<div class='media'>"+
+										"<div class='media-left'>"+
+										"<a href='#'><img class='media-object img-rounded'src='"+bookmarks[i].place.firstimage+"' alt='no photo' width='50' height='50'></a>"+
+									"</div>"+
+									"<div class='media-body'>"+
+										"<h5 class='media-heading'>"+subTitle+"</h5>"+
+										"<div class='btn-group btn-group-justified' role='group'>"+
+											"<a href='#' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' class='btn btn-default btn-sm'>위치</a>"+
+								 			"<a href='#' data-bookmarkid='"+bookmarks[i].no+"' class='btn btn-danger btn-sm'>제거</a>" +
+										"</div>"+
+									"</div>"+
+								"</div></div>";
 					}else {
-						tempHtml += "<button type='button' class='list-group-item' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' >"+(i+1)+". "+bookmarks[i].place.title+"</button>";						
+						tempHtml += "<div class='panel-body ui-state-default'>" +
+										"<div class='media'>"+
+											"<div class='media-left'>"+
+											"<a href='#'><img class='media-object img-rounded'src='"+bookmarks[i].place.firstimage+"' alt='no photo' width='50' height='50'></a>"+
+										"</div>"+
+										"<div class='media-body'>"+
+											"<h5 class='media-heading'>"+bookmarks[i].place.title+"</h5>"+
+											"<div class='btn-group btn-group-justified' role='group'>"+
+												"<a href='#' data-mapx='"+bookmarks[i].place.mapx +"' data-mapy='"+bookmarks[i].place.mapy+"' class='btn btn-default btn-sm'>위치</a>"+
+									 			"<a href='#' data-bookmarkid='"+bookmarks[i].no+"' class='btn btn-danger btn-sm'>제거</a>" +
+											"</div>"+
+										"</div>"+
+									"</div></div>";
+												
 					}
 				}
+				$("#topPlace").html("");
+				$("#topPlace").append(tempHtml);
 				
-				$("#topPlace").html(tempHtml);
-				
-				$("#topPlace button").click(function(){
+				$("#topPlace .media-body .btn-default").click(function(){
 					var mapX = $(this).data("mapx");
 					var mapY = $(this).data("mapy");
 					
 					map.panTo(new daum.maps.LatLng(mapY, mapX));
-					map.setLevel(3);
+					map.setLevel(2);
 					mapSetting();
 					
-				})
+				});
+				
+				$("#topPlace .media-body .btn-danger").click(function(){
+					
+					var bookmarkid = $(this).data("bookmarkid");
+					$(this).parent().parent().parent().parent().remove();
+					
+					$.ajax({
+						url : "deleteBookmark.do",
+						type:"post",
+						data:{"bookmarkid":bookmarkid},
+						dataType:"json",
+						success : function(result) {
+							
+						}
+					});
+					
+				});
 				
 			}
 		})
@@ -962,7 +1028,9 @@
 				dataType:"json",
 				success : function(result) {
 					
-					createMarker(result);					
+					if( map.getLevel() < 6 ){
+						createMarker(result);					
+					}					
 				}
 			});
 							
