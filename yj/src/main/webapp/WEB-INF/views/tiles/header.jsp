@@ -306,7 +306,7 @@ $(document).ready(function(){
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
-							data-dismiss="modal">
+							data-dismiss="modal">A
 							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button>
 						<p>
@@ -334,13 +334,9 @@ $(document).ready(function(){
 					</div>
 					<div class="modal-body" style="padding: 40px 50px; text-align: center; ">
 						<h3>
-<<<<<<< HEAD
 							<c:out value="${msg }" />
 						</h3><br><br><br>
-=======
-							${msg }
 						</h3>
->>>>>>> branch 'master' of https://github.com/ksyoo88/yj.git
 					</div>
 				</div>
 			</div>

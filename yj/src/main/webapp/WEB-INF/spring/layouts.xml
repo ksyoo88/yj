@@ -32,7 +32,7 @@
 		<put-attribute name="style" value="/WEB-INF/views/main/{1}_style.jsp" />
 		<put-attribute name="javascript" value="/WEB-INF/views/main/{1}_js.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp"/>
-		<put-attribute name="footer" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 		<put-attribute name="current" value="main" cascade="true" />
 	</definition>
 	
