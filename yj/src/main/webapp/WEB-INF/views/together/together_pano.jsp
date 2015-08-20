@@ -106,8 +106,8 @@
 							</div>
 							<img src="resources/images/temphoto/${item.day_photo[0] }" alt="${day_photo[0] }">
 						</div>
-						<h3>${item.title }</h3>
-						<span>${item.regdate } 좋아요 ${item.like }</span>
+						<h3 style="white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${item.title }</h3>
+						<p>${item.mem_name }</p> <span>${item.regdate } 좋아요 ${item.like }</span>
 					</a>
 				</div>
 				</c:forEach>

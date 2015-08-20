@@ -101,8 +101,8 @@
 						<div class="thumbnail">
 							<img src="${item.firstimage }" alt="${item.place_title }">
 						</div>
-						<h3>${item.title }</h3>
-						<p>작성자</p> <span> 좋아요 ${item.like }</span>
+						<h3 style="white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${item.title }</h3>
+						<p>${item.mem_name }</p> <span> 좋아요 ${item.like }</span>
 					</a>
 				</div>
 				</c:forEach>
