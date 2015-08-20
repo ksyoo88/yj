@@ -220,4 +220,122 @@ $(function() {
 
 });
 </script>
+<script id="panoTpl" type="text/template">
+<div class="col-md-3">
+	<a href="panodetail.do?panoNo={{no}}" class="thumbnail">
+		<div class="thumbnail">
+			<div class="caption">
+				<h4>{{day_memo}}</h4>
+				<p></p>
+			</div>
+			<img src="resources/images/temphoto/{{#day_photo}}{{.}}{{/day_photo}}" alt="{{#day_photo}}{{.}}{{/day_photo}}">
+		</div>
+		<h3>{{title}}</h3>
+		<span>{{regdate}} 좋아요 {{like}}</span>
+	</a>
+</div>
+</script>
+<script id="planTpl" type="text/template">
+<div class="col-md-3">
+	<a href="plandetail.do?no={{no}}" class="thumbnail">
+		<div class="thumbnail">
+			<img src="{{firstimage}}" alt="{{place_title}}">
+		</div>
+		<h3>{{title}}</h3>
+		<span> 좋아요 {{like}}</span>
+	</a>
+</div>
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var pano_load = 1; //total loaded record group(s) 난 이게 두개 필요하네
+    var plan_load = 1;
+    var tab = 'pano';
+    var loading  = false; //to prevents multipal ajax loads
+    var pano_total_groups = 0; //total record group(s)
+    var plan_total_groups = 0; //total record group(s)
     
+    $.getJSON("loadtotalgroups.json").done(function(json) {
+    	pano_total_groups = json.panoTotalGroups;
+    	plan_total_groups = json.planTotalGroups;
+    });
+    
+    $('#loading-indicator').show();
+    $.getJSON("loadpano.json", {
+    	currPage : pano_load
+    }).done(function(json) {
+    	$('#loading-indicator').hide();
+    	pano_load++;
+    	var template = $('#panoTpl').html();
+    	$(json).each(function() {
+	        var html = Mustache.to_html(template, this);
+	        var $html = $(html).hide().fadeIn(2000);
+	        $('#pano .row').append($html);
+    	});
+    	thumbnailHover();
+    });
+    
+    $('#loading-indicator').show();
+    $.getJSON("loadplan.json", {
+    	currPage : plan_load
+    }).done(function(json) {
+    	console.log(json);
+    	$('#loading-indicator').hide();
+    	plan_load++;
+    	var template = $('#planTpl').html();
+    	$(json).each(function() {
+    		console.log(this);
+	        var html = Mustache.to_html(template, this);
+	        var $html = $(html).hide().fadeIn(2000);
+	        $('#plan .row').append($html);
+    	});
+    });
+    
+    $(window).scroll(function() {
+    	tab = $(".content-tabs li.active").data("tab");
+    	if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
+    		if(tab == "pano") {
+	            if(pano_load <= pano_total_groups && loading==false){
+	                loading = true;
+	                $('#loading-indicator').show();
+	                
+	                $.getJSON("loadpano.json", {
+	                	currPage : pano_load
+	                }).done(function(json) {
+	                	$('#loading-indicator').hide();
+	                	pano_load++;
+	                	var template = $('#panoTpl').html();
+	                	$(json).each(function() {
+	            	        var html = Mustache.to_html(template, this);
+	            	        var $html = $(html).hide().fadeIn(2000);
+	            	        $('#pano .row').append($html);
+	                	});
+	                	thumbnailHover();
+	                    loading = false;
+	                });
+	            }
+    		} else if(tab == "plan") {
+    			if(plan_load <= plan_total_groups && loading==false){
+	                loading = true;
+	                $('#loading-indicator').show();
+	                
+	                $.getJSON("loadplan.json", {
+	                	currPage : plan_load
+	                }).done(function(json) {
+	                	$('#loading-indicator').hide();
+	                	plan_load++;
+	                	var template = $('#planTpl').html();
+	                	$(json).each(function() {
+	            	        var html = Mustache.to_html(template, this);
+	            	        var $html = $(html).hide().fadeIn(2000);
+	            	        $('#plan .row').append($html);
+	                	});
+	                    loading = false;
+	                });
+	            }
+    		}
+        }
+    });
+});
+</script>
