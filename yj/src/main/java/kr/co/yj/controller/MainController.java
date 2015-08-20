@@ -31,6 +31,7 @@ public class MainController {
 			@RequestParam(value="login", required=false)String login,
 			@RequestParam(value="logout", required=false)String logout,
 			@RequestParam(value="error", required=false)String error,
+			@RequestParam(value="sendmail", required=false)String sendmail,
 			@RequestParam(value="join", required=false)String join) {
 		model.addAttribute("title", "여기저기 - 여행, 끝이 아닌 시작을 향해.");
 		
@@ -61,6 +62,9 @@ public class MainController {
 		}
 		if(join != null) {
 			model.addAttribute("msg", "회원가입되었습니다.");
+		}
+		if(sendmail != null) {
+			model.addAttribute("msg", "비밀번호가 이메일로 전송되었습니다.<br />확인 후 로그인 하시길 바랍니다.");
 		}
 		
 		return "/main/main.tiles";
