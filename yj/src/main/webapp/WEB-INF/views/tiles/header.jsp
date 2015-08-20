@@ -334,9 +334,8 @@ $(document).ready(function(){
 					</div>
 					<div class="modal-body" style="padding: 40px 50px; text-align: center; ">
 						<h3>
-							<c:out value="${msg }" />
+							${msg }
 						</h3><br><br><br>
-						</h3>
 					</div>
 				</div>
 			</div>
