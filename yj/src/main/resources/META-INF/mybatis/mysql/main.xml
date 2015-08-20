@@ -58,7 +58,7 @@
 				A.PLAN_NO = B.PLAN_NO
 			ORDER BY A.PLAN_NO DESC
 	  		) A
-	  	LIMIT 1, 4
+	  	LIMIT 0, 4
 	</select>
 	
 </mapper>
