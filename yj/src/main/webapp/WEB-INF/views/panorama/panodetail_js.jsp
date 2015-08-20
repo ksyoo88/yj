@@ -100,7 +100,7 @@ $(function (){
 		    var content = '<div hidden class="media" id="'+contentid+'" >' +
 		    '                  <div class="media-left media-middle"> ' +
 		    '                      <a href="#'+href1+'">' +
-		    '                      <img class="media-object" src="resources/images/temphoto/'+photo+'" alt="..." style=" border: 3px solid orange;" width=64 height=64 >' +
+		    '                      <img class="media-object" src="'+image+'" alt="..." style=" border: 3px solid orange;" width=64 height=64 >' +
 		    '                      </a>' +
 		    '                  </div>' +
 		    '              </div>' ;

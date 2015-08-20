@@ -73,8 +73,8 @@
 				<h1>
 					${member.name } <small>님의 마이페이지</small>
 				</h1>
-				<button class="btn btn-default" data-toggle="modal" data-target="#myPage">프로필수정</button>
-				<button class="btn btn-danger" data-toggle="modal" data-target="#makePano">
+				<button class="btn btn-info" data-toggle="modal" data-target="#myPage">프로필수정</button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#makePano">
 					<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
 				</button>
 			</div>
