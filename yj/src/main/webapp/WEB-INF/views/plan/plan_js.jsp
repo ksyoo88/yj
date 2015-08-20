@@ -443,6 +443,11 @@
 					"</div>" +					
 				"</div>" 					
 		);
+<<<<<<< HEAD
+=======
+		
+		$( ".panel-body.ui-state-default" ).disableSelection();
+>>>>>>> branch 'master' of https://github.com/ksyoo88/yj.git
 		
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
@@ -577,7 +582,11 @@
 				"<div class='panel-group ui-state-default' id='"+day+"dateStr'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
+<<<<<<< HEAD
 			$("#msgPlanModal").modal();
+=======
+			alert("출발일을 설정해 주세요 ");
+>>>>>>> branch 'master' of https://github.com/ksyoo88/yj.git
 			return;
 		}
 		$("#left-tab-plan-contents .col-md-12 .panel-group").sortable({
