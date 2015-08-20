@@ -18,7 +18,7 @@
 				<div class="panel panel-default">					
 					<div class="panel-body">
 					<p>
-						<img src="resources/images/profilephoto/${member.photo }" width="30" height="30"> ${plan.member.name } 
+						<img src="resources/images/profilephoto/${plan.member.photo }" width="30" height="30"> ${plan.member.name } 
 						<c:if test="${plan.member.no == member.no }">
 							<button style="margin:2px;" type="button" class="btn btn-danger pull-right" id="deletePlanBtn">삭제</button>
 						</c:if>

@@ -248,7 +248,7 @@ $(function() {
 			dataType:"json",
 			success : function(result) {
 				
-				$("#commentContent .panel .panel-body").append( "<p><button class='btn btn-danger btn-xs pull-left commentDelete' data-commentno='"+ result.comment.no +"' type='button'>삭제</button>" + result.comment.content + "<img src='resources/images/profilephoto/"+result.comment.member.photo+"' width='30' height='30'>"+ 
+				$("#commentContent .panel .panel-body").append( "<p><button class='btn btn-danger btn-xs pull-left commentDelete' data-commentno='"+ result.comment.no +"' type='button'>삭제</button>" + $("<div/>").text(result.comment.content).html() + "<img src='resources/images/profilephoto/"+result.comment.member.photo+"' width='30' height='30'>"+ 
 													"<strong>"+result.comment.member.name+"</strong>"+result.comment.strCommentDate+"</p>");
 				$(".commentDelete").click(function(){
 
