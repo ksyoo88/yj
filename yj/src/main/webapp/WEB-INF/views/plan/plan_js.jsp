@@ -2,7 +2,6 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.min.js" ></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.ko.js" charset="UTF-8"></script>
-<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	
 /**
@@ -90,7 +89,7 @@
 			$(this).attr("data-target","#saveModal");
 			
 			var html="";
-			
+			$("#save-title").val("");
 			$("#insertPlan").html("");
 			
 			html += '<input hidden type="text" name="trevelCnt" value="'+day+'"/>';
@@ -154,6 +153,8 @@
 		placeObj.addr = '${place.addr1}';
 		placeObj.tel = '${place.tel}';
 		placeObj.overview ='${place.overview}';
+		
+		
 		console.log(placeObj.title, ", ",placeObj.mapX, ", ", placeObj.mapY,", "
 				   ,placeObj.firstimage, ", ", placeObj.tel,", " , placeObj.overview);
 		
@@ -210,6 +211,7 @@
 	
 	
 	// 현재 지도 영역을 얻어옵니다.
+	
 	function mapSetting() {
 		var bounds = map.getBounds();
 		var southWestLatLng = bounds.getSouthWest();
@@ -238,49 +240,19 @@
 	}
 	
 	mapSetting();
+// 	window.mapSetting = mepSetting()
 	
-	daum.maps.event.addListener(map, 'dragend', function() {
-		
+	daum.maps.event.addListener(map, 'dragend', function() {		
 		cleanMarker();
-		
-		// 현재 지도 영역을 얻어옵니다.
-		var bounds = map.getBounds();
-		var southWestLatLng = bounds.getSouthWest();
-		var northEastLatLng = bounds.getNorthEast();
-		
-		var minY = southWestLatLng.getLat();
-		var maxY = northEastLatLng.getLat();	
-		var minX = southWestLatLng.getLng();
-		var maxX = northEastLatLng.getLng();
-		console.log("min X : " + minX + " max X : " + maxX );
-		console.log("min Y : " + minY + " max Y : " + maxY );
-		
-		$.ajax({
-			url:"mapSetting.do",
-			type:"post",
-			data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY,cate:$cat},
-			dataType:"json",
-			success : function(result) {
-	
-				cleanOverlayCustom();
-				if( map.getLevel() < 6 ){
-					createMarker(result);					
-				}
-				
-			}
-		});
-		
+		mapSetting();		
 	});
 	
 
 	function createMarker(result) {
 	
-		//console.log(result.areaPlaces);
 		var places = result.areaPlaces;
 		
 		for(var i=0; i<places.length; i++){
-			
-			//console.log(places[i].title);
 			
 			var imageName;
 			
@@ -369,6 +341,13 @@
 			
 			var subStrOverView = overview.substring(0,300);
 			
+			if("null" == tel) {
+				tel = "";	
+			}
+			if("null" == overview.toLowerCase()){
+				overview = "";
+			}
+			
 			if( overview.length > 300 ){
 			  	$("#place-tab #overview").text(subStrOverView + "...");				
 				$("#place-tab #overview").append("<a href='#'>더보기</a>");
@@ -387,7 +366,7 @@
 				$("#place-tab img").attr("src",image);
 				//$("#place-tab #overview").html( overview);
 				$("#place-tab #addr").html( addr );
-				$("#place-tab small").html( " ( " + tel + " ) ");
+				$("#place-tab small").html( tel );
 				$("#place-tab #mapx").html(mapx);
 				$("#place-tab #mapy").html(mapy);
 				$("#place-tab #contentid").html(contentid);
@@ -464,11 +443,6 @@
 					"</div>" +					
 				"</div>" 					
 		);
-		
-// 		$("#left-tab-plan-contents").sortable({
-// 			placeholder : "ui-sortable-placeholder",			
-// 			connectWith: ".panel-body"
-// 		});
 		
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
@@ -603,8 +577,18 @@
 				"<div class='panel-group ui-state-default' id='"+day+"dateStr'><div class='panel-heading'><strong>"+ nextDayDateFormat +" DAY "+ day+"</strong></div></div></div>");	
 			
 		}else {
-			alert("출발일을 설정해 주세요 ");
-		}				
+			$("#msgPlanModal").modal();
+			return;
+		}
+		$("#left-tab-plan-contents .col-md-12 .panel-group").sortable({
+			items: ".panel-body.ui-state-default",
+			connectWith: "#left-tab-plan-contents .col-md-12 .panel-group",
+		    dropOnEmpty: true,
+		    change: function( event, ui ) {
+		    	lineDraw();
+		    }
+		});
+		$( "#left-tab-plan-contents .col-md-12 .panel-group" ).disableSelection();
 	});
 	
 	
@@ -1008,32 +992,7 @@
 		
 		}
 		else {
-			
-			// 현재 지도 영역을 얻어옵니다.
-			var bounds = map.getBounds();
-			var southWestLatLng = bounds.getSouthWest();
-			var northEastLatLng = bounds.getNorthEast();
-			
-			var minY = southWestLatLng.getLat();
-			var maxY = northEastLatLng.getLat();	
-			var minX = southWestLatLng.getLng();
-			var maxX = northEastLatLng.getLng();
-			console.log("min X : " + minX + " max X : " + maxX );
-			console.log("min Y : " + minY + " max Y : " + maxY );
-			
-			$.ajax({
-				url:"mapSetting.do",
-				type:"post",
-				data:{minX:minX,maxX:maxX,minY:minY,maxY:maxY,cate:$cat},
-				dataType:"json",
-				success : function(result) {
-					
-					if( map.getLevel() < 6 ){
-						createMarker(result);					
-					}					
-				}
-			});
-							
+			mapSetting();							
 		}			
 	});
 	

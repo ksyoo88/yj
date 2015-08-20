@@ -79,7 +79,7 @@ function searchkey() {
 					var mapX = place.mapx; 
 					var mapY = place.mapy; 
 					var moveLatLon = new daum.maps.LatLng(mapY, mapX);
-	     		 	map.panTo(moveLatLon);   
+	     		 	map.panTo(moveLatLon);
 				}else{
 				location.replace("plan.do?contentid="+conID);  
 					
@@ -164,8 +164,8 @@ $(document).ready(function(){
     				$frm.submit();
     			}else{
     				var content="";
-    				content +="<h4>없는 이메일입니다.</h4>";
-    				content +="<h4>다시 확인해주세요.</h4>";
+    				content +="<br><h4>없는 이메일입니다.</h4><br>";
+    				content +="<h4>다시 확인해주세요.</h4><br>";
     				
     			}
     			
@@ -197,36 +197,35 @@ $(document).ready(function(){
 					<div class="modal-header" style="padding: 35px 50px;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4>
-							<span class="glyphicon glyphicon-lock"></span> Login
+							<span class="glyphicon glyphicon-lock"></span> 로그인
 						</h4>
 					</div>
 					<div class="modal-body" style="padding: 40px 50px;">
 						<form role="form" action="<c:url value='/j_spring_security_check' />" method="post">
 							<div class="form-group">
 								<label for="usrname"><span
-									class="glyphicon glyphicon-user"></span> Username</label> <input
+									class="glyphicon glyphicon-envelope"></span> 이메일</label> <input
 									type="text" class="form-control" name="j_username" id="loginEmail"
 									placeholder="Enter email">
 							</div>
 							<div class="form-group">
 								<label for="psw"><span
-									class="glyphicon glyphicon-eye-open"></span> Password</label> <input
+									class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> <input
 									type="password" class="form-control" name="j_password" id="pwd"
 									placeholder="Enter password">
 							</div>
 							<div class="checkbox">
-								<label><input type="checkbox" name="remember-me" checked>Remember
-									me</label>
+								<label><input type="checkbox" name="remember-me" checked>아이디를 기억하시겠습니까?</label>
 							</div>
 							<button type="submit" class="btn btn-success btn-block">
-								<span class="glyphicon glyphicon-off"></span> Login
+								<span class="glyphicon glyphicon-off"></span> 로그인
 							</button>
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
 							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
+							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button>
 						<p>
 							회원이 아니세요? <a data-toggle="modal" data-target="#formModal">회원가입</a>
@@ -257,7 +256,7 @@ $(document).ready(function(){
 						<form role="form" action="email.do" method="post" name="checkmail">
 							<div class="form-group">
 								<label for="useremail"><span
-									class="glyphicon glyphicon-user"></span> email</label> <input
+									class="glyphicon glyphicon-envelope"></span> 이메일</label> <input
 									type="text" class="form-control" name="to" id="useremail"
 									placeholder="Enter email">
 							</div>
@@ -266,7 +265,7 @@ $(document).ready(function(){
 								<button type="button" id="checkEmail" class="btn btn-success btn-default "> 보내기</button>
 								
 							</div>
-							<div id="checkEmaildiv">
+							<div id="checkEmaildiv" style=" text-align: center; ">
 							
 							</div>
 						<p>Email- 주소로 임시 비밀번호가 발송됩니다.</p>
@@ -277,7 +276,7 @@ $(document).ready(function(){
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
 							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
+							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button>
 				</div>
 
@@ -300,15 +299,15 @@ $(document).ready(function(){
 							<span class="glyphicon glyphicon-search"></span> 로그인실패
 						</h4>
 					</div>
-					<div class="modal-body" style="padding: 40px 50px;">
+					<div class="modal-body" style="padding: 40px 50px; text-align: center;">
 						<h3>
 							<c:out value="${error }" />
-						</h3><h4> 다시 확인해주세요</h4>
+						</h3><br/><h4> 다시 확인해주세요</h4>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
 							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
+							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button>
 						<p>
 							회원이 아니세요? <a data-toggle="modal" data-target="#formModal">회원가입</a>
@@ -330,13 +329,13 @@ $(document).ready(function(){
 					<div class="modal-header" style="padding: 35px 50px;">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4>
-							<span class="glyphicon glyphicon-search"></span> INFO
+							<span class="glyphicon glyphicon-search"></span> 알림
 						</h4>
 					</div>
-					<div class="modal-body" style="padding: 40px 50px;">
+					<div class="modal-body" style="padding: 40px 50px; text-align: center; ">
 						<h3>
 							<c:out value="${msg }" />
-						</h3>
+						</h3><br><br><br>
 					</div>
 				</div>
 			</div>
@@ -379,7 +378,7 @@ $(document).ready(function(){
 							</div>
 							<div class="form-group">
 								<label for="birth"><span class="glyphicon glyphicon-gift"></span> 생년월일</label> 
-								<input type="text" class="form-control" id="birth" name="birth" placeholder="생년월일 yymmdd 6자리">
+								<input type="text" class="form-control" maxlength="6" id="birth" name="birth" placeholder="생년월일 yymmdd 6자리">
 							</div>
 							<div class="radio">
 								<label><input type="radio" name="gender" value="m" checked="checked">남자</label>
@@ -395,7 +394,7 @@ $(document).ready(function(){
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-default pull-left"
 							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
+							<span class="glyphicon glyphicon-remove"></span> 취소
 						</button>
 						
 					</div>
