@@ -6,6 +6,7 @@
 	<resultMap type="hashmap" id="panolist">
 		<result column="PANO_NO" property="no"/>
 		<result column="MEM_NO" property="mem_no"/>
+		<result column="MEM_NAME" property="mem_name"/>
 		<result column="PANO_TITLE" property="title"/>
 		<result column="PANO_LIKE" property="like"/>
 		<result column="PANO_REGDATE" property="regdate"/>
@@ -18,6 +19,7 @@
 	<resultMap type="hashmap" id="planlist">
 		<result column="PLAN_NO" property="no"/>
 		<result column="MEM_NO" property="mem_no"/>
+		<result column="MEM_NAME" property="mem_name"/>
 		<result column="PLAN_TITLE" property="title"/>
 		<result column="PLAN_LIKE_CNT" property="like"/>
 		<result column="CONTENTID" property="contentid"/>
@@ -39,8 +41,9 @@
 	
 	<select id="getPanoList" parameterType="hashmap" resultMap="panolist">
 		SELECT
-			PANO_NO, MEM_NO, PANO_TITLE, PANO_LIKE, PANO_REGDATE,
-		  	PANO_DAY_NO, PANO_DAY_DATE, PANO_DAY_LOCA, PANO_DAY_MEMO
+			A.PANO_NO, A.MEM_NO, A.PANO_TITLE, A.PANO_LIKE, A.PANO_REGDATE,
+		  	A.PANO_DAY_NO, A.PANO_DAY_DATE, A.PANO_DAY_LOCA, A.PANO_DAY_MEMO,
+		  	B.MEM_NAME
 		FROM
 		(
 			SELECT
@@ -57,9 +60,11 @@
 			WHERE
 				A.PANO_NO = B.PANO_NO
 				AND B.PANO_DAY_DATE = 1
-		)
+		) A,
+		YJ_MEMBER B
 		WHERE
 			RN = #{currPage}
+			AND A.MEM_NO = B.MEM_NO
 	</select>
 	<select id="getPhotoByDayNo" parameterType="int" resultType="string">
 		SELECT PANO_DAY_PHOTO FROM
@@ -71,7 +76,8 @@
 	</select>
 	<select id="getPlanList" parameterType="hashmap" resultMap="planlist">
 		SELECT
-			RN, PLAN_NO, MEM_NO, PLAN_TITLE, PLAN_LIKE_CNT, CONTENTID, FIRSTIMAGE, PLACE_TITLE
+			A.RN, A.PLAN_NO, A.MEM_NO, A.PLAN_TITLE, A.PLAN_LIKE_CNT, A.CONTENTID, A.FIRSTIMAGE, A.PLACE_TITLE,
+			B.MEM_NAME
 		FROM
 			(SELECT 
 				<if test="order == 'desc'">
@@ -102,8 +108,10 @@
 	   				AND A.CONTENTID = C.CONTENTID) B
 			WHERE
 				A.PLAN_NO = B.PLAN_NO
-	  		)
-	  	WHERE
+	  		) A,
+		YJ_MEMBER B
+		WHERE
 			RN = #{currPage}
+			AND A.MEM_NO = B.MEM_NO
 	</select>
 </mapper>

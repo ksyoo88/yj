@@ -67,22 +67,22 @@
 	
 	<!-- db Loggers -->
 	<logger name="jdbc.resultsettable">
-		<level value="error" /><!-- error -->
+		<level value="info" /><!-- error -->
 	</logger>
 	<logger name="jdbc.audit"><!-- debug -->
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	<logger name="jdbc.resultset">
-		<level value="error" /><!-- error -->
+		<level value="info" /><!-- error -->
 	</logger>
 	<logger name="jdbc.connection">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	<logger name="java.sql.ResultSet">
-		<level value="error" />
+		<level value="info" />
 	</logger>
 	<logger name="java.sql.PreparedStatement">
-		<level value="error" /><!-- debug -->
+		<level value="info" /><!-- debug -->
 	</logger>
 	
 	<root>

@@ -60,21 +60,44 @@
 					<a href="#" class="btn btn-default" data-toggle="modal" data-target="" id="saveBtn">저장하기</a>
 				</div>
 				
+				<!-- msg Modal -->
+				<div class="modal fade" id="msgPlanModal" role="dialog">
+					<div class="modal-dialog">
+					
+						<!-- 로그인실패 -->
+						<div class="modal-content">
+							<div class="modal-header" style="padding: 35px 50px;">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4>
+									<span class="glyphicon glyphicon-search"></span> 알림
+								</h4>
+							</div>
+							<div class="modal-body" style="padding: 40px 50px; text-align: center; ">
+								<h3>
+									출발 날짜를 입력해주세요! 
+								</h3><br><br><br><br>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<!-- 저장 모달 -->
 				<div id="saveModal" class="modal fade" role="dialog">
 					<div class="modal-dialog">	
 						<!-- Modal content-->
 						<div class="modal-content">
-							<div class="modal-header modal-primary">
+							<div class="modal-header modal-primary"  style="padding: 35px 50px;" >
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">일정을 저장하시겠습니까?</h4>
+								<h4>
+									<span class="glyphicon glyphicon-search"></span>일정을 저장하시겠습니까?
+								</h4>
 							</div>
 							<div class="modal-body">
 								<form role="form" action="planinsert.do" class="form-horizontal" method="post">
 									<div class="form-group">
 										<label class="control-label col-md-2" for="title">제목 :</label>
 										<div class="col-md-10">
-											<input type="text" class="form-control" name="title" maxlength="20" placeholder="제목을 입력하세요.">
+											<input type="text" class="form-control" id="save-title" name="title" maxlength="20" placeholder="제목을 입력하세요.">
 										</div>										
 									</div>
 									<div class="form-group">
@@ -171,7 +194,7 @@
 	
 	<div class="col-md-2" id="right-tab">
 		<div class="row" id="right-tab-header">
-			<h4><strong>HOT PLACE TOP 100</strong></h4>
+			<h4>국내 대표 관광지 TOP 100</h4>
 			<div class="col-md-3">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><h3>

@@ -11,17 +11,20 @@
 					<strong><c:out value="${plan.title }"></c:out></strong>
 				</h3>
 				<p>${plan.strStartDay }~ ${plan.strFinishDay }</p>
+				<p><strong>총 여행일 수 : ${plan.trevelCnt }일</p>
 				<hr />
 			</div>
 			<div class="col-md-12" id="topContent">
-				<div class="panel panel-default">
+				<div class="panel panel-default">					
 					<div class="panel-body">
-						<p><strong>총 여행일 수 : ${plan.trevelCnt }일</p><p><img src="resources/images/profilephoto/${member.photo }" width="30" height="30"> ${plan.member.name }</strong></p>
-						<button type="button" class="btn btn-default" id="likeBtn">좋아요</button>
-						<button type="button" class="btn btn-default" id="likeCencelBtn">좋아요 취소</button>
+					<p>
+						<img src="resources/images/profilephoto/${member.photo }" width="30" height="30"> ${plan.member.name } 
 						<c:if test="${plan.member.no == member.no }">
-							<button type="button" class="btn btn-default" id="deletePlanBtn">삭제하기</button>
+							<button style="margin:2px;" type="button" class="btn btn-danger pull-right" id="deletePlanBtn">삭제</button>
 						</c:if>
+						<button style="margin:2px;" type="button" class="btn btn-primary pull-right" id="likeBtn">좋아요</button>
+						<button style="margin:2px;" type="button" class="btn btn-warning pull-right" id="likeCencelBtn">좋아요 취소</button>
+					</p>
 					</div>
 				</div>
 			</div>

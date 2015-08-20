@@ -12,6 +12,11 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"></put-attribute>
 		<put-attribute name="current" value="" cascade="true" />
 	</definition>
+	
+	<definition name="footer" template="/WEB-INF/views/footerdetail/footerdetail.jsp">
+		<put-attribute name="title" value="무제" />
+		<put-attribute name="current" value="" cascade="true" />
+	</definition>
 	<!-- 
 	<definition name="/*/*.tiles" extends="default">
 		<put-attribute name="title" expression="${title}" />
@@ -81,6 +86,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"/>
 		<put-attribute name="footer" value="" />
 		<put-attribute name="current" value="mypage" cascade="true" />
+	</definition>
+	<definition name="/footer/*.tiles" extends="footer">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="current" value="footer" cascade="true" />
 	</definition>
 
 </tiles-definitions>

@@ -77,15 +77,15 @@
 							<h3>${item.place_title }</h3>
 						</div>
 						<div class="detail">
+							<h4 style="text-align:center; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;"> ${item.title } </h4>							
 							<div class="desc">
-								${item.title } <br>
-								<!-- <span class="colorBlueTeal">Hong Kong</span> -->
+								<h3><span class="colorBlueTeal">${item.place_title }</span></h3>
 							</div>
 						</div>
 					</a>
 				</div>
 				<div class="cnts">
-					<span class="hand like">좋아요 ${item.like }</span>
+<%-- 					<span class="hand like">좋아요 ${item.like }</span> --%>
 				</div>
 				<!-- end normal -->
 			</div>

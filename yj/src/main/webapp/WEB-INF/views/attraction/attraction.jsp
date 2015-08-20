@@ -57,6 +57,10 @@
 				</div>
 				<div class="step step1" style="display: block;">
 					<div class="title">여행 성향</div>
+					<div class="theme-title">
+						<img title="citis" alt="citis" src="resources/images/attraction/icon_pin_city.png">
+						자신이 원하는 방식의 여행을 <span style="color:red;">상/중/하</span>로 입력하여 알맞는 추천장소로 이동하세요.
+					</div>
 					<!-- 
 					B02	숙박
 					A04	쇼핑
@@ -119,7 +123,7 @@
 						</div>
 					</div>
 					<div class="btn-area">
-						<span class="btn-prev">&lt; 여행성향</span>
+						<span class="btn-prev">&lt; 여행성향</span>						
 					</div>
 				</div>
 			</div>

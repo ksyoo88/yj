@@ -54,6 +54,12 @@ public class PlanController {
 		return mav;
 		
 	}
+	
+	@RequestMapping("/footerDetail.do")
+	public String footerDetail(){
+		return "/footer/footer.tiles";
+	}
+	
 	@RequestMapping("/rightPlace.do")
 	public ModelAndView rightPlace(@RequestParam("top")String top) {
 		

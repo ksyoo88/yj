@@ -14,11 +14,11 @@
 	</div>
 </div>
 <div class="container">
-	<div class="page-header">
-		<button class="btn btn-danger" data-toggle="modal" data-target="#makePano">
+	<div class="page-header pull-right">
+		<button class="btn btn-primary" data-toggle="modal" data-target="#makePano">
 			<span class="glyphicon glyphicon-camera"></span> 파노라마 만들기
 		</button>
-		<a href="/plan.do" class="btn btn-default"> <span class="glyphicon glyphicon-camera"></span> 일정만들기
+		<a href="/plan.do" class="btn btn-success"> <span class="glyphicon glyphicon-camera"></span> 일정만들기
 		</a>
 	</div>
 	<div class="modal fade" id="cityModal" role="dialog">
@@ -82,14 +82,18 @@
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade active in" id="pano">
+		
+			<div class="row">
+			</br>
+			 </div>
 			<div class="row">
 				<div>
 					
 					<c:if test="${param.order ne 'asc' }">
-					<a href="?type=${param.type }&amp;order=asc"> 최신순 <span class="glyphicon glyphicon-chevron-down"></span> </a>
+					<a href="?type=${param.type }&amp;order=asc" class="btn btn-warning"> 최신순 <span class="glyphicon glyphicon-chevron-down"></span> </a>
 					</c:if>
 					<c:if test="${param.order eq 'asc' }">
-					<a href="?type=${param.type }&amp;order=desc"> 최신순 <span class="glyphicon glyphicon-chevron-up"></span> </a>
+					<a href="?type=${param.type }&amp;order=desc" class="btn btn-warning"> 최신순 <span class="glyphicon glyphicon-chevron-up"></span> </a>
 					</c:if>
 					<!-- <a data-toggle="modal" data-target="#cityModal"> 여행도시 <span class="glyphicon glyphicon-plane"></span> </a> -->
 				</div>
@@ -106,8 +110,8 @@
 							</div>
 							<img src="resources/images/temphoto/${item.day_photo[0] }" alt="${day_photo[0] }">
 						</div>
-						<h3>${item.title }</h3>
-						<span>${item.regdate } 좋아요 ${item.like }</span>
+						<h3 style="white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${item.title }</h3>
+						<p>${item.mem_name }</p> <span>${item.regdate } 좋아요 ${item.like }</span>
 					</a>
 				</div>
 				</c:forEach>

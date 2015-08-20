@@ -53,7 +53,7 @@
 				<div class="clearBoth">
 				</div>				
 				<div id="Memo1" class="memo memo-modify">
-					<textarea name="memo[]" class="no-line-input" data-code="c3604ec6241c02961917854c2ff5c34d"></textarea> 	
+					<textarea name="memo[]" class="no-line-input" ></textarea> 	
 					<img class="clearMemo" onclick="clearmemo(1)" src="resources/images/panorama/cross-mark1.png" alt="delete">
 										
 				</div>			
