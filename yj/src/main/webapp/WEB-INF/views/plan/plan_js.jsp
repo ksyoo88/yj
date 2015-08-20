@@ -2,7 +2,6 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=64e5f8f5bfe12ab4deeb7911216e3f57"></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.min.js" ></script>
 <script type="text/javascript" src="resources/js/bsDatePicker/bootstrap-datetimepicker.ko.js" charset="UTF-8"></script>
-<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	
 /**
@@ -465,10 +464,7 @@
 				"</div>" 					
 		);
 		
-// 		$("#left-tab-plan-contents").sortable({
-// 			placeholder : "ui-sortable-placeholder",			
-// 			connectWith: ".panel-body"
-// 		});
+		$( ".panel-body.ui-state-default" ).disableSelection();
 		
 		
 		$("#left-tab-plan-contents .btn-default").click(function() {
@@ -604,7 +600,17 @@
 			
 		}else {
 			alert("출발일을 설정해 주세요 ");
-		}				
+			return;
+		}
+		$("#left-tab-plan-contents .col-md-12 .panel-group").sortable({
+			items: ".panel-body.ui-state-default",
+			connectWith: "#left-tab-plan-contents .col-md-12 .panel-group",
+		    dropOnEmpty: true,
+		    change: function( event, ui ) {
+		    	lineDraw();
+		    }
+		});
+		$( "#left-tab-plan-contents .col-md-12 .panel-group" ).disableSelection();
 	});
 	
 	
