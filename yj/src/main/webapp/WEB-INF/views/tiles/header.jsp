@@ -406,11 +406,6 @@ $(document).ready(function(){
 		
 		<script type="text/javascript">
 			$(function() {
-				var querystring = location.search.substring(1);
-				if(querystring.indexOf("join") != -1) {
-					$("#formModal").modal();
-				}
-				
 				$("input[name=email]").on("blur", function() {
 					var $email = $(this);
 					$.ajax({
